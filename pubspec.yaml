@@ -37,6 +37,7 @@ dependencies:
   hive_ce_flutter: 2.3.1
   intl: 0.20.2
   logger: 2.6.1
+  package_info_plus: 8.3.1
   watch_it: 1.6.5
 
 dev_dependencies:
