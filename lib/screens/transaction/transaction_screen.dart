@@ -61,25 +61,26 @@ class _TransactionScreenState extends State<TransactionScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
-            vertical: 8,
+            vertical: 12,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ///
-              /// TITLE
+              /// AMOUNT TITLE
               ///
               Text(
-                'New transaction 💸',
-                style: context.textStyles.appBarTitle,
+                'How much did you spend?',
+                style: context.textStyles.transactionAmountTitle,
               ),
+              const SizedBox(height: 12),
 
               ///
               /// AMOUNT KEYPAD
               ///
               TransactionAmountWidget(
-                onValueChanged: (value) {},
-                initialCents: 412313,
+                onValueChanged: (cents) {},
+                initialCents: widget.passedTransaction?.amountCents ?? 0,
               ),
             ],
           ),

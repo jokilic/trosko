@@ -5,9 +5,9 @@ import '../../routing.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
-import '../../util/currency.dart';
 import '../../util/dependencies.dart';
 import 'home_controller.dart';
+import 'widgets/home_transaction_widget.dart';
 
 class HomeScreen extends WatchingStatefulWidget {
   const HomeScreen({
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
-            vertical: 8,
+            vertical: 12,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ///
               Text(
                 'Hello 👋🏼',
-                style: context.textStyles.appBarTitle,
+                style: context.textStyles.homeTopTitle,
               ),
               const SizedBox(height: 12),
 
@@ -76,39 +76,14 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: ListView.separated(
                   itemCount: transactions.length,
-                  itemBuilder: (_, index) {
-                    final transaction = transactions[index];
-
-                    return ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(
-                        transaction.name,
-                        style: context.textStyles.homeTransactionTitle,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      subtitle: Text(
-                        transaction.note ?? '--',
-                        style: context.textStyles.homeTransactionSubtitle,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      trailing: Text(
-                        formatCurrency(transaction.amountCents),
-                        style: context.textStyles.appBarTitle,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    );
-                  },
+                  itemBuilder: (_, index) => HomeTransactionWidget(
+                    transaction: transactions[index],
+                  ),
                   separatorBuilder: (_, __) => Divider(
                     color: context.colors.text,
                   ),
                 ),
               ),
-
-              Text('Transactions -> ${transactions.length}'),
-              Text('Categories -> ${categories.length}'),
             ],
           ),
         ),

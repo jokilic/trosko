@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class TroskoTextStyles {
-  static const appBarTitle = TextStyle(
+  static const homeTopTitle = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 40,
     fontWeight: FontWeight.w700,
@@ -24,32 +24,72 @@ abstract class TroskoTextStyles {
     fontSize: 18,
     fontWeight: FontWeight.w500,
   );
+
+  static const homeTransactionValue = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 22,
+    fontWeight: FontWeight.w700,
+  );
+
+  static const transactionAmountTitle = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 28,
+    fontWeight: FontWeight.w700,
+  );
+
+  static const transactionAmountCurrentValue = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 40,
+    fontWeight: FontWeight.w700,
+  );
+
+  static const transactionAmountNumber = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 28,
+    fontWeight: FontWeight.w700,
+  );
 }
 
 class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension> {
-  final TextStyle appBarTitle;
+  final TextStyle homeTopTitle;
   final TextStyle button;
   final TextStyle homeTransactionTitle;
   final TextStyle homeTransactionSubtitle;
+  final TextStyle homeTransactionValue;
+  final TextStyle transactionAmountTitle;
+  final TextStyle transactionAmountCurrentValue;
+  final TextStyle transactionAmountNumber;
 
   const TroskoTextThemesExtension({
-    required this.appBarTitle,
+    required this.homeTopTitle,
     required this.button,
     required this.homeTransactionTitle,
     required this.homeTransactionSubtitle,
+    required this.homeTransactionValue,
+    required this.transactionAmountTitle,
+    required this.transactionAmountCurrentValue,
+    required this.transactionAmountNumber,
   });
 
   @override
   ThemeExtension<TroskoTextThemesExtension> copyWith({
-    TextStyle? appBarTitle,
+    TextStyle? homeTopTitle,
     TextStyle? button,
     TextStyle? homeTransactionTitle,
     TextStyle? homeTransactionSubtitle,
+    TextStyle? homeTransactionValue,
+    TextStyle? transactionAmountTitle,
+    TextStyle? transactionAmountCurrentValue,
+    TextStyle? transactionAmountNumber,
   }) => TroskoTextThemesExtension(
-    appBarTitle: appBarTitle ?? this.appBarTitle,
+    homeTopTitle: homeTopTitle ?? this.homeTopTitle,
     button: button ?? this.button,
     homeTransactionTitle: homeTransactionTitle ?? this.homeTransactionTitle,
     homeTransactionSubtitle: homeTransactionSubtitle ?? this.homeTransactionSubtitle,
+    homeTransactionValue: homeTransactionValue ?? this.homeTransactionValue,
+    transactionAmountTitle: transactionAmountTitle ?? this.transactionAmountTitle,
+    transactionAmountCurrentValue: transactionAmountCurrentValue ?? this.transactionAmountCurrentValue,
+    transactionAmountNumber: transactionAmountNumber ?? this.transactionAmountNumber,
   );
 
   @override
@@ -62,10 +102,14 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     }
 
     return TroskoTextThemesExtension(
-      appBarTitle: TextStyle.lerp(appBarTitle, other.appBarTitle, t)!,
+      homeTopTitle: TextStyle.lerp(homeTopTitle, other.homeTopTitle, t)!,
       button: TextStyle.lerp(button, other.button, t)!,
       homeTransactionTitle: TextStyle.lerp(homeTransactionTitle, other.homeTransactionTitle, t)!,
       homeTransactionSubtitle: TextStyle.lerp(homeTransactionSubtitle, other.homeTransactionSubtitle, t)!,
+      homeTransactionValue: TextStyle.lerp(homeTransactionValue, other.homeTransactionValue, t)!,
+      transactionAmountTitle: TextStyle.lerp(transactionAmountTitle, other.transactionAmountTitle, t)!,
+      transactionAmountCurrentValue: TextStyle.lerp(transactionAmountCurrentValue, other.transactionAmountCurrentValue, t)!,
+      transactionAmountNumber: TextStyle.lerp(transactionAmountNumber, other.transactionAmountNumber, t)!,
     );
   }
 }

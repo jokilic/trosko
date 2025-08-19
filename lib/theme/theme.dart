@@ -95,7 +95,7 @@ extension ThemeGetter on BuildContext {
 TroskoTextThemesExtension getTextThemesExtension({
   required TroskoColorsExtension colorsExtension,
 }) => TroskoTextThemesExtension(
-  appBarTitle: TroskoTextStyles.appBarTitle.copyWith(
+  homeTopTitle: TroskoTextStyles.homeTopTitle.copyWith(
     color: colorsExtension.text,
   ),
   button: TroskoTextStyles.button.copyWith(
@@ -105,6 +105,18 @@ TroskoTextThemesExtension getTextThemesExtension({
     color: colorsExtension.text,
   ),
   homeTransactionSubtitle: TroskoTextStyles.homeTransactionSubtitle.copyWith(
+    color: colorsExtension.text,
+  ),
+  homeTransactionValue: TroskoTextStyles.homeTransactionValue.copyWith(
+    color: colorsExtension.text,
+  ),
+  transactionAmountTitle: TroskoTextStyles.transactionAmountTitle.copyWith(
+    color: colorsExtension.text,
+  ),
+  transactionAmountCurrentValue: TroskoTextStyles.transactionAmountCurrentValue.copyWith(
+    color: colorsExtension.text,
+  ),
+  transactionAmountNumber: TroskoTextStyles.transactionAmountNumber.copyWith(
     color: colorsExtension.text,
   ),
 );
