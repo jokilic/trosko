@@ -1,15 +1,17 @@
-/// Opens [DayWeatherScreen]
-// void openDayWeather(
-//   BuildContext context, {
-//   required Location location,
-//   required Day day,
-//   required List<Hour> hours,
-// }) => pushScreen(
-//   DayWeatherScreen(
-//     location: location,
-//     day: day,
-//     hours: hours,
-//     key: ValueKey(day),
-//   ),
-//   context: context,
-// );
+import 'package:flutter/material.dart';
+
+import 'models/transaction/transaction.dart';
+import 'screens/transaction/transaction_screen.dart';
+import 'util/navigation.dart';
+
+/// Opens [TransactionScreen]
+void openTransaction(
+  BuildContext context, {
+  required Transaction? passedTransaction,
+}) => pushScreen(
+  TransactionScreen(
+    passedTransaction: passedTransaction,
+    key: ValueKey(passedTransaction?.id),
+  ),
+  context: context,
+);

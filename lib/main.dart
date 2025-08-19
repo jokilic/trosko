@@ -20,6 +20,7 @@ Future<void> main() async {
   /// Wait for initialization to finish
   await getIt.allReady();
 
+  /// Run `Troško`
   runApp(TroskoApp());
 }
 
@@ -27,7 +28,9 @@ class TroskoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: HomeScreen(),
+    home: const HomeScreen(
+      key: ValueKey('home'),
+    ),
     theme: TroskoTheme.light,
     builder: (_, child) {
       final appWidget =
