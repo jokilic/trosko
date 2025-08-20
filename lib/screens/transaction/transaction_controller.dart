@@ -15,11 +15,13 @@ class TransactionController extends ValueNotifier<({Category? category, int? amo
   final LoggerService logger;
   final HiveService hive;
   final Transaction? passedTransaction;
+  final List<Category> categories;
 
   TransactionController({
     required this.logger,
     required this.hive,
     required this.passedTransaction,
+    required this.categories,
   }) : super((
          category: null,
          amountCents: null,
@@ -44,8 +46,7 @@ class TransactionController extends ValueNotifier<({Category? category, int? amo
   ///
 
   void init() {
-    final category = hive
-        .getCategories()
+    final category = categories
         .where(
           (category) => category.id == passedTransaction?.categoryId,
         )

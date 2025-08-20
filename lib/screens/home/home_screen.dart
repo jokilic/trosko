@@ -4,8 +4,8 @@ import 'package:watch_it/watch_it.dart';
 import '../../routing.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
-import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
+import '../../widgets/trosko_app_bar.dart';
 import 'home_controller.dart';
 import 'widgets/home_transaction_widget.dart';
 
@@ -45,55 +45,46 @@ class _HomeScreenState extends State<HomeScreen> {
     final categories = state.categories;
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton.large(
-        onPressed: () => openTransaction(
-          context,
-          passedTransaction: null,
-          categories: categories,
-        ),
-        child: const Icon(Icons.add),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 12,
+      body: CustomScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          ///
+          /// APP BAR
+          ///
+          TroskoAppBar(
+            onPressedIcon: () {
+              openTransaction(
+                context,
+                passedTransaction: null,
+                categories: categories,
+              );
+            },
+            icon: Icons.monetization_on_rounded,
+            smallTitle: 'Welcome to Troško',
+            bigTitle: 'Welcome to Troško',
+            bigSubtitle: "How you doin'?",
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ///
-              /// TOP TITLE
-              ///
-              Text(
-                'Hello 👋🏼',
-                style: context.textStyles.homeTopTitle,
-              ),
-              const SizedBox(height: 12),
 
-              ///
-              /// TRANSACTIONS
-              ///
-              Expanded(
-                child: ListView.separated(
-                  itemCount: transactions.length,
-                  itemBuilder: (_, index) {
-                    final transaction = transactions[index];
-                    final category = categories.where((category) => category.id == transaction.categoryId).toList().firstOrNull;
+          ///
+          /// CONTENT
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverList.builder(
+              itemCount: transactions.length,
+              itemBuilder: (_, index) {
+                final transaction = transactions[index];
+                final category = categories.where((category) => category.id == transaction.categoryId).toList().firstOrNull;
 
-                    return HomeTransactionWidget(
-                      transaction: transaction,
-                      category: category,
-                    );
-                  },
-                  separatorBuilder: (_, __) => Divider(
-                    color: context.colors.text,
-                  ),
-                ),
-              ),
-            ],
+                return HomeTransactionWidget(
+                  transaction: transaction,
+                  category: category,
+                );
+              },
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

@@ -37,6 +37,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
         passedTransaction: widget.passedTransaction,
+        categories: widget.categories,
       ),
       instanceName: widget.passedTransaction?.id,
       afterRegister: (controller) => controller.init(),
