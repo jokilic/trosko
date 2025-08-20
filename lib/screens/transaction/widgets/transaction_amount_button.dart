@@ -23,10 +23,13 @@ class TransactionAmountButton extends StatelessWidget {
     onTapUp: onLongPressEnd != null ? () => onLongPressEnd!() : null,
     onTapCancel: onLongPressEnd,
     child: Container(
-      height: 56,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        color: context.colors.background.withValues(alpha: 0.5),
+        color: context.colors.tertiary.withValues(alpha: 0.25),
+        border: Border.all(
+          color: context.colors.text,
+          width: 2.5,
+        ),
+        borderRadius: BorderRadius.circular(8),
       ),
       alignment: Alignment.center,
       child: child,

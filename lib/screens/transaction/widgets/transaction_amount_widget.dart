@@ -137,8 +137,12 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
-      color: context.colors.primary,
-      borderRadius: BorderRadius.circular(24),
+      color: context.colors.primary.withValues(alpha: 0.25),
+      border: Border.all(
+        color: context.colors.text,
+        width: 2.5,
+      ),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: Column(
       mainAxisSize: MainAxisSize.min,
@@ -148,15 +152,36 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
         ///
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: context.colors.background.withValues(alpha: 0.5),
-            borderRadius: BorderRadius.circular(16),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
           ),
-          child: Text(
-            currentValue,
-            style: context.textStyles.transactionAmountCurrentValue,
-            textAlign: TextAlign.center,
+          decoration: BoxDecoration(
+            color: context.colors.secondary.withValues(alpha: 0.25),
+            border: Border.all(
+              color: context.colors.text,
+              width: 2.5,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                Icons.euro_rounded,
+                color: context.colors.text,
+                size: 28,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  currentValue,
+                  style: context.textStyles.transactionAmountCurrentValue,
+                  textAlign: TextAlign.right,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 24),
@@ -223,19 +248,12 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
                 onLongPressEnd: stopHoldTimer,
                 child: Icon(
                   Icons.backspace_outlined,
-                  color: isHolding ? Theme.of(context).colorScheme.error : (Theme.of(context).colorScheme.primary),
-                  size: 24,
+                  color: isHolding ? context.colors.primary : context.colors.text,
+                  size: 28,
                 ),
               );
             }
           },
-        ),
-
-        ///
-        /// BOTTOM PADDING
-        ///
-        SizedBox(
-          height: MediaQuery.of(context).padding.bottom + 16,
         ),
       ],
     ),

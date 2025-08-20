@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'colors.dart';
 import 'text_styles.dart';
@@ -14,31 +13,28 @@ class TroskoTheme {
       useMaterial3: true,
     );
 
-    final scheme = ColorScheme.fromSeed(
-      seedColor: lightAppColors.primary,
-    );
-
     return defaultTheme.copyWith(
-      colorScheme: scheme,
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: scheme.primaryContainer,
-        foregroundColor: scheme.onPrimaryContainer,
-        elevation: 6,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: lightAppColors.primary,
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(scheme.secondaryContainer),
-          foregroundColor: WidgetStateProperty.all(scheme.onSecondaryContainer),
+          backgroundColor: WidgetStateProperty.all(
+            lightAppColors.primary,
+          ),
+          foregroundColor: WidgetStateProperty.all(
+            lightAppColors.background,
+          ),
           shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(8),
             ),
           ),
           padding: WidgetStateProperty.all(
-            const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            const EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 16,
+            ),
           ),
           textStyle: WidgetStateProperty.all(
             lightTextTheme.button,
@@ -50,17 +46,6 @@ class TroskoTheme {
         selectionColor: lightAppColors.primary,
         cursorColor: lightAppColors.primary,
         selectionHandleColor: lightAppColors.primary,
-      ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
-          systemNavigationBarColor: Colors.transparent,
-          systemNavigationBarIconBrightness: Brightness.dark,
-        ),
       ),
       extensions: [
         lightAppColors,
@@ -74,6 +59,7 @@ class TroskoTheme {
     background: TroskoColors.white,
     text: TroskoColors.black,
     secondary: TroskoColors.green,
+    tertiary: TroskoColors.pink,
   );
 
   static final lightTextTheme = getTextThemesExtension(
@@ -95,10 +81,10 @@ extension ThemeGetter on BuildContext {
 TroskoTextThemesExtension getTextThemesExtension({
   required TroskoColorsExtension colorsExtension,
 }) => TroskoTextThemesExtension(
-  homeTopTitle: TroskoTextStyles.homeTopTitle.copyWith(
+  button: TroskoTextStyles.button.copyWith(
     color: colorsExtension.text,
   ),
-  button: TroskoTextStyles.button.copyWith(
+  homeTopTitle: TroskoTextStyles.homeTopTitle.copyWith(
     color: colorsExtension.text,
   ),
   homeTransactionTitle: TroskoTextStyles.homeTransactionTitle.copyWith(
@@ -110,6 +96,9 @@ TroskoTextThemesExtension getTextThemesExtension({
   homeTransactionValue: TroskoTextStyles.homeTransactionValue.copyWith(
     color: colorsExtension.text,
   ),
+  transactionTopTitle: TroskoTextStyles.transactionTopTitle.copyWith(
+    color: colorsExtension.text,
+  ),
   transactionAmountTitle: TroskoTextStyles.transactionAmountTitle.copyWith(
     color: colorsExtension.text,
   ),
@@ -117,6 +106,12 @@ TroskoTextThemesExtension getTextThemesExtension({
     color: colorsExtension.text,
   ),
   transactionAmountNumber: TroskoTextStyles.transactionAmountNumber.copyWith(
+    color: colorsExtension.text,
+  ),
+  transactionNameTextField: TroskoTextStyles.transactionNameTextField.copyWith(
+    color: colorsExtension.text,
+  ),
+  transactionCategoryName: TroskoTextStyles.transactionCategoryName.copyWith(
     color: colorsExtension.text,
   ),
 );

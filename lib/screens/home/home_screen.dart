@@ -49,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () => openTransaction(
           context,
           passedTransaction: null,
+          categories: categories,
         ),
         child: const Icon(Icons.add),
       ),
@@ -62,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ///
-              /// TITLE
+              /// TOP TITLE
               ///
               Text(
                 'Hello 👋🏼',
