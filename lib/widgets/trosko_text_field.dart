@@ -5,7 +5,6 @@ import '../theme/theme.dart';
 class TroskoTextField extends StatelessWidget {
   final bool autofocus;
   final TextEditingController controller;
-  final Color fillColor;
   final String labelText;
   final TextInputType keyboardType;
   final int? minLines;
@@ -17,7 +16,6 @@ class TroskoTextField extends StatelessWidget {
   const TroskoTextField({
     required this.autofocus,
     required this.controller,
-    required this.fillColor,
     required this.labelText,
     required this.keyboardType,
     required this.textAlign,
@@ -32,7 +30,7 @@ class TroskoTextField extends StatelessWidget {
     autofocus: autofocus,
     controller: controller,
     cursorHeight: 24,
-    cursorRadius: const Radius.circular(24),
+    cursorRadius: const Radius.circular(8),
     cursorWidth: 2.5,
     decoration: InputDecoration(
       alignLabelWithHint: true,
@@ -54,8 +52,6 @@ class TroskoTextField extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(8),
       ),
-      fillColor: fillColor.withValues(alpha: 0.25),
-      filled: true,
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: context.colors.text,

@@ -51,7 +51,7 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
         case 'backspace':
           backspacePressed();
           break;
-        case ',00':
+        case '00':
           doubleZeroPressed();
           break;
         default:
@@ -137,7 +137,6 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
-      color: context.colors.primary.withValues(alpha: 0.25),
       border: Border.all(
         color: context.colors.text,
         width: 2.5,
@@ -157,7 +156,6 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
             vertical: 8,
           ),
           decoration: BoxDecoration(
-            color: context.colors.secondary.withValues(alpha: 0.25),
             border: Border.all(
               color: context.colors.text,
               width: 2.5,
@@ -190,6 +188,7 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
         /// NUMPAD
         ///
         GridView.builder(
+          padding: EdgeInsets.zero,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -215,13 +214,13 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
               );
             }
             ///
-            /// `,00` BUTTON
+            /// `00` BUTTON
             ///
             else if (index == 9) {
               return TransactionAmountButton(
-                onPressed: () => onButtonPressed(',00'),
+                onPressed: () => onButtonPressed('00'),
                 child: Text(
-                  ',00',
+                  '00',
                   style: context.textStyles.transactionAmountNumber,
                 ),
               );

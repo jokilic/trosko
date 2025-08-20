@@ -7,21 +7,21 @@ abstract class TroskoTextStyles {
     fontWeight: FontWeight.w700,
   );
 
-  static const appBarTitle = TextStyle(
+  static const appBarTitleSmall = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: FontWeight.w500,
   );
 
   static const appBarTitleBig = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 26,
+    fontSize: 22,
     fontWeight: FontWeight.w700,
   );
 
   static const appBarSubtitleBig = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: FontWeight.w500,
   );
 
@@ -33,31 +33,25 @@ abstract class TroskoTextStyles {
 
   static const homeTransactionTitle = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: FontWeight.w700,
   );
 
   static const homeTransactionSubtitle = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: FontWeight.w500,
   );
 
   static const homeTransactionValue = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: FontWeight.w700,
   );
 
-  static const transactionTopTitle = TextStyle(
+  static const homeTransactionEuro = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 40,
-    fontWeight: FontWeight.w700,
-  );
-
-  static const transactionAmountTitle = TextStyle(
-    fontFamily: 'ProductSans',
-    fontSize: 28,
+    fontSize: 16,
     fontWeight: FontWeight.w700,
   );
 
@@ -82,22 +76,21 @@ abstract class TroskoTextStyles {
   static const transactionCategoryName = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 14,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w500,
     height: 1.2,
   );
 }
 
 class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension> {
   final TextStyle button;
-  final TextStyle appBarTitle;
+  final TextStyle appBarTitleSmall;
   final TextStyle appBarTitleBig;
   final TextStyle appBarSubtitleBig;
   final TextStyle homeTopTitle;
   final TextStyle homeTransactionTitle;
   final TextStyle homeTransactionSubtitle;
   final TextStyle homeTransactionValue;
-  final TextStyle transactionTopTitle;
-  final TextStyle transactionAmountTitle;
+  final TextStyle homeTransactionEuro;
   final TextStyle transactionAmountCurrentValue;
   final TextStyle transactionAmountNumber;
   final TextStyle transactionNameTextField;
@@ -105,15 +98,14 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
 
   const TroskoTextThemesExtension({
     required this.button,
-    required this.appBarTitle,
+    required this.appBarTitleSmall,
     required this.appBarTitleBig,
     required this.appBarSubtitleBig,
     required this.homeTopTitle,
     required this.homeTransactionTitle,
     required this.homeTransactionSubtitle,
     required this.homeTransactionValue,
-    required this.transactionTopTitle,
-    required this.transactionAmountTitle,
+    required this.homeTransactionEuro,
     required this.transactionAmountCurrentValue,
     required this.transactionAmountNumber,
     required this.transactionNameTextField,
@@ -123,30 +115,28 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
   @override
   ThemeExtension<TroskoTextThemesExtension> copyWith({
     TextStyle? button,
-    TextStyle? appBarTitle,
+    TextStyle? appBarTitleSmall,
     TextStyle? appBarTitleBig,
     TextStyle? appBarSubtitleBig,
     TextStyle? homeTopTitle,
     TextStyle? homeTransactionTitle,
     TextStyle? homeTransactionSubtitle,
     TextStyle? homeTransactionValue,
-    TextStyle? transactionTopTitle,
-    TextStyle? transactionAmountTitle,
+    TextStyle? homeTransactionEuro,
     TextStyle? transactionAmountCurrentValue,
     TextStyle? transactionAmountNumber,
     TextStyle? transactionNameTextField,
     TextStyle? transactionCategoryName,
   }) => TroskoTextThemesExtension(
     button: button ?? this.button,
-    appBarTitle: appBarTitle ?? this.appBarTitle,
+    appBarTitleSmall: appBarTitleSmall ?? this.appBarTitleSmall,
     appBarTitleBig: appBarTitleBig ?? this.appBarTitleBig,
     appBarSubtitleBig: appBarSubtitleBig ?? this.appBarSubtitleBig,
     homeTopTitle: homeTopTitle ?? this.homeTopTitle,
     homeTransactionTitle: homeTransactionTitle ?? this.homeTransactionTitle,
     homeTransactionSubtitle: homeTransactionSubtitle ?? this.homeTransactionSubtitle,
     homeTransactionValue: homeTransactionValue ?? this.homeTransactionValue,
-    transactionTopTitle: transactionTopTitle ?? this.transactionTopTitle,
-    transactionAmountTitle: transactionAmountTitle ?? this.transactionAmountTitle,
+    homeTransactionEuro: homeTransactionEuro ?? this.homeTransactionEuro,
     transactionAmountCurrentValue: transactionAmountCurrentValue ?? this.transactionAmountCurrentValue,
     transactionAmountNumber: transactionAmountNumber ?? this.transactionAmountNumber,
     transactionNameTextField: transactionNameTextField ?? this.transactionNameTextField,
@@ -164,15 +154,14 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
 
     return TroskoTextThemesExtension(
       button: TextStyle.lerp(button, other.button, t)!,
-      appBarTitle: TextStyle.lerp(appBarTitle, other.appBarTitle, t)!,
+      appBarTitleSmall: TextStyle.lerp(appBarTitleSmall, other.appBarTitleSmall, t)!,
       appBarTitleBig: TextStyle.lerp(appBarTitleBig, other.appBarTitleBig, t)!,
       appBarSubtitleBig: TextStyle.lerp(appBarSubtitleBig, other.appBarSubtitleBig, t)!,
       homeTopTitle: TextStyle.lerp(homeTopTitle, other.homeTopTitle, t)!,
       homeTransactionTitle: TextStyle.lerp(homeTransactionTitle, other.homeTransactionTitle, t)!,
       homeTransactionSubtitle: TextStyle.lerp(homeTransactionSubtitle, other.homeTransactionSubtitle, t)!,
       homeTransactionValue: TextStyle.lerp(homeTransactionValue, other.homeTransactionValue, t)!,
-      transactionTopTitle: TextStyle.lerp(transactionTopTitle, other.transactionTopTitle, t)!,
-      transactionAmountTitle: TextStyle.lerp(transactionAmountTitle, other.transactionAmountTitle, t)!,
+      homeTransactionEuro: TextStyle.lerp(homeTransactionEuro, other.homeTransactionEuro, t)!,
       transactionAmountCurrentValue: TextStyle.lerp(transactionAmountCurrentValue, other.transactionAmountCurrentValue, t)!,
       transactionAmountNumber: TextStyle.lerp(transactionAmountNumber, other.transactionAmountNumber, t)!,
       transactionNameTextField: TextStyle.lerp(transactionNameTextField, other.transactionNameTextField, t)!,

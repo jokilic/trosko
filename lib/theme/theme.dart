@@ -84,7 +84,7 @@ TroskoTextThemesExtension getTextThemesExtension({
   button: TroskoTextStyles.button.copyWith(
     color: colorsExtension.text,
   ),
-  appBarTitle: TroskoTextStyles.appBarTitle.copyWith(
+  appBarTitleSmall: TroskoTextStyles.appBarTitleSmall.copyWith(
     color: colorsExtension.text,
   ),
   appBarTitleBig: TroskoTextStyles.appBarTitleBig.copyWith(
@@ -105,10 +105,7 @@ TroskoTextThemesExtension getTextThemesExtension({
   homeTransactionValue: TroskoTextStyles.homeTransactionValue.copyWith(
     color: colorsExtension.text,
   ),
-  transactionTopTitle: TroskoTextStyles.transactionTopTitle.copyWith(
-    color: colorsExtension.text,
-  ),
-  transactionAmountTitle: TroskoTextStyles.transactionAmountTitle.copyWith(
+  homeTransactionEuro: TroskoTextStyles.homeTransactionEuro.copyWith(
     color: colorsExtension.text,
   ),
   transactionAmountCurrentValue: TroskoTextStyles.transactionAmountCurrentValue.copyWith(

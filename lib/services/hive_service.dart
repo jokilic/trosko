@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 
 import '../hive_registrar.g.dart';
 import '../models/category/category.dart';
@@ -31,7 +31,10 @@ class HiveService extends ValueNotifier<({List<Transaction> transactions, List<C
 
     Hive
       ..init(directory?.path)
-      ..registerAdapters();
+      ..registerAdapters()
+      ..registerAdapter(
+        ColorAdapter(),
+      );
 
     transactions = await Hive.openBox<Transaction>('transactionsBox');
     categories = await Hive.openBox<Category>('categoriesBox');

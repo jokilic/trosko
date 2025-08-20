@@ -77,9 +77,15 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: ListView.separated(
                   itemCount: transactions.length,
-                  itemBuilder: (_, index) => HomeTransactionWidget(
-                    transaction: transactions[index],
-                  ),
+                  itemBuilder: (_, index) {
+                    final transaction = transactions[index];
+                    final category = categories.where((category) => category.id == transaction.categoryId).toList().firstOrNull;
+
+                    return HomeTransactionWidget(
+                      transaction: transaction,
+                      category: category,
+                    );
+                  },
                   separatorBuilder: (_, __) => Divider(
                     color: context.colors.text,
                   ),

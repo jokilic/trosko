@@ -39,6 +39,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         passedTransaction: widget.passedTransaction,
       ),
       instanceName: widget.passedTransaction?.id,
+      afterRegister: (controller) => controller.init(),
     );
   }
 
@@ -56,6 +57,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
       instanceName: widget.passedTransaction?.id,
     );
 
+    final state = watchIt<TransactionController>(
+      instanceName: widget.passedTransaction?.id,
+    ).value;
+
+    final chosenCategory = state.category;
+
+    final validated = state.nameValid && state.amountValid && state.categoryValid;
+
     return Scaffold(
       body: CustomScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -65,6 +74,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
           /// APP BAR
           ///
           TroskoAppBar(
+            onPressedIcon: Navigator.of(context).pop,
+            icon: Icons.arrow_back_rounded,
             smallTitle: widget.passedTransaction != null ? 'Update transaction' : 'New transaction',
             bigTitle: widget.passedTransaction != null ? 'Update transaction' : 'New transaction',
             bigSubtitle: "How you doin'?",
@@ -76,94 +87,90 @@ class _TransactionScreenState extends State<TransactionScreen> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
+                const SizedBox(height: 24),
+
                 ///
                 /// NAME TEXT FIELD
                 ///
-                TroskoTextField(
-                  autofocus: false,
-                  controller: controller.nameTextEditingController,
-                  fillColor: context.colors.secondary,
-                  labelText: 'What did you buy?',
-                  keyboardType: TextInputType.text,
-                  textAlign: TextAlign.left,
-                  textCapitalization: TextCapitalization.sentences,
-                  textInputAction: TextInputAction.done,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TroskoTextField(
+                    autofocus: false,
+                    controller: controller.nameTextEditingController,
+                    labelText: 'What did you buy?',
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.left,
+                    textCapitalization: TextCapitalization.sentences,
+                    textInputAction: TextInputAction.done,
+                  ),
                 ),
                 const SizedBox(height: 28),
-
-                ///
-                /// AMOUNT TITLE
-                ///
-                Text(
-                  'How much did you spend?',
-                  style: context.textStyles.transactionAmountTitle,
-                ),
-                const SizedBox(height: 20),
 
                 ///
                 /// AMOUNT KEYPAD
                 ///
-                TransactionAmountWidget(
-                  onValueChanged: controller.transactionAmountChanged,
-                  initialCents: widget.passedTransaction?.amountCents ?? 0,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TransactionAmountWidget(
+                    onValueChanged: controller.transactionAmountChanged,
+                    initialCents: widget.passedTransaction?.amountCents ?? 0,
+                  ),
                 ),
                 const SizedBox(height: 28),
 
                 ///
-                /// CATEGORY TITLE
-                ///
-                Text(
-                  'What is the category?',
-                  style: context.textStyles.transactionAmountTitle,
-                ),
-                const SizedBox(height: 12),
-
-                ///
                 /// CATEGORIES
                 ///
-                SizedBox(
-                  height: 112,
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    // itemCount: widget.categories.length,
-                    itemCount: 8,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (_, index) => TransactionCategory(
-                      onPressed: (category) {},
-                      // category: widget.categories[index],
-                      category: Category(
-                        id: 'id',
-                        name: 'name',
-                        color: Colors.blue,
-                        icon: '',
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: context.colors.text,
+                      width: 2.5,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: IntrinsicHeight(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      scrollDirection: Axis.horizontal,
+                      physics: const BouncingScrollPhysics(),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: List.generate(
+                          widget.categories.length,
+                          (index) {
+                            final category = widget.categories[index];
+
+                            return TransactionCategory(
+                              isActive: chosenCategory == category,
+                              onPressed: controller.categoryChanged,
+                              category: category,
+                            );
+                          },
+                        ),
                       ),
                     ),
-                    separatorBuilder: (_, __) => const SizedBox(width: 8),
                   ),
                 ),
-
-                ///
-                /// NOTE TITLE
-                ///
-                Text(
-                  'Additional notes about it?',
-                  style: context.textStyles.transactionAmountTitle,
-                ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 28),
 
                 ///
                 /// NOTE TEXT FIELD
                 ///
-                TroskoTextField(
-                  autofocus: false,
-                  controller: controller.nameTextEditingController,
-                  fillColor: context.colors.tertiary,
-                  labelText: 'Additional notes about it?',
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 3,
-                  textAlign: TextAlign.left,
-                  textCapitalization: TextCapitalization.sentences,
-                  textInputAction: TextInputAction.newline,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TroskoTextField(
+                    autofocus: false,
+                    controller: controller.noteTextEditingController,
+                    labelText: 'Additional details?',
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 3,
+                    textAlign: TextAlign.left,
+                    textCapitalization: TextCapitalization.sentences,
+                    textInputAction: TextInputAction.newline,
+                  ),
                 ),
                 const SizedBox(height: 28),
 
@@ -171,10 +178,23 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 /// ADD TRANSACTION BUTTON
                 ///
                 FilledButton(
-                  onPressed: controller.addTransaction,
+                  onPressed: validated
+                      ? () async {
+                          await controller.addTransaction();
+                          Navigator.of(context).pop();
+                        }
+                      : null,
                   style: FilledButton.styleFrom(
+                    padding: EdgeInsets.fromLTRB(
+                      24,
+                      28,
+                      24,
+                      MediaQuery.paddingOf(context).bottom + 12,
+                    ),
                     backgroundColor: context.colors.primary,
                     foregroundColor: context.colors.background,
+                    disabledBackgroundColor: context.colors.text.withValues(alpha: 0.4),
+                    disabledForegroundColor: context.colors.background,
                   ),
                   child: Text(
                     'Add transaction'.toUpperCase(),

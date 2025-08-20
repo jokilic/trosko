@@ -24,7 +24,6 @@ class TransactionAmountButton extends StatelessWidget {
     onTapCancel: onLongPressEnd,
     child: Container(
       decoration: BoxDecoration(
-        color: context.colors.tertiary.withValues(alpha: 0.25),
         border: Border.all(
           color: context.colors.text,
           width: 2.5,

@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import '../theme/theme.dart';
 
 class TroskoAppBar extends StatelessWidget {
+  final IconData icon;
+  final Function() onPressedIcon;
   final String smallTitle;
   final String bigTitle;
   final String bigSubtitle;
 
   const TroskoAppBar({
+    required this.icon,
+    required this.onPressedIcon,
     required this.smallTitle,
     required this.bigTitle,
     required this.bigSubtitle,
@@ -15,31 +19,27 @@ class TroskoAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SliverAppBar.large(
+    centerTitle: false,
     title: Text(
       smallTitle,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-      style: context.textStyles.appBarTitle,
+      style: context.textStyles.appBarTitleSmall,
     ),
     backgroundColor: context.colors.background,
     foregroundColor: context.colors.text,
     titleSpacing: 4,
     elevation: 0,
-    expandedHeight: 184,
+    scrolledUnderElevation: 0,
+    expandedHeight: 160,
     leading: IconButton(
-      icon: const Icon(Icons.menu),
-      onPressed: () {},
+      onPressed: onPressedIcon,
+      icon: Icon(
+        icon,
+        color: context.colors.text,
+        size: 28,
+      ),
     ),
-    actions: [
-      IconButton(
-        icon: const Icon(Icons.search),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: const Icon(Icons.more_vert),
-        onPressed: () {},
-      ),
-    ],
     flexibleSpace: FlexibleSpaceBar(
       centerTitle: false,
       titlePadding: const EdgeInsets.all(16),

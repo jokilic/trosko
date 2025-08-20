@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../models/category/category.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-class TransactionController implements Disposable {
+class TransactionController extends ValueNotifier<({Category? category, int? amountCents, bool nameValid, bool amountValid, bool categoryValid})> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -19,7 +20,13 @@ class TransactionController implements Disposable {
     required this.logger,
     required this.hive,
     required this.passedTransaction,
-  });
+  }) : super((
+         category: null,
+         amountCents: null,
+         nameValid: false,
+         amountValid: false,
+         categoryValid: false,
+       ));
 
   ///
   /// VARIABLES
@@ -32,9 +39,33 @@ class TransactionController implements Disposable {
     text: passedTransaction?.note,
   );
 
-  late String? categoryId = passedTransaction?.categoryId;
+  ///
+  /// INIT
+  ///
 
-  late int? amountCents = passedTransaction?.amountCents;
+  void init() {
+    final category = hive
+        .getCategories()
+        .where(
+          (category) => category.id == passedTransaction?.categoryId,
+        )
+        .toList()
+        .firstOrNull;
+
+    updateState(
+      category: category,
+      nameValid: passedTransaction?.name.isNotEmpty ?? false,
+      amountValid: (passedTransaction?.amountCents ?? 0) > 0,
+      categoryValid: category != null,
+    );
+
+    /// Validation
+    nameTextEditingController.addListener(
+      () => updateState(
+        nameValid: nameTextEditingController.text.trim().isNotEmpty,
+      ),
+    );
+  }
 
   ///
   /// DISPOSE
@@ -51,7 +82,16 @@ class TransactionController implements Disposable {
   ///
 
   /// Triggered when the user writes in the [TransactionAmountWidget]
-  void transactionAmountChanged(int newCents) => amountCents = newCents;
+  void transactionAmountChanged(int newCents) => updateState(
+    amountCents: newCents,
+    amountValid: newCents > 0,
+  );
+
+  /// Triggered when the user presses a [Category]
+  void categoryChanged(Category newCategory) => updateState(
+    category: newCategory,
+    categoryValid: true,
+  );
 
   /// Triggered when the user adds a transaction
   Future<bool> addTransaction() async {
@@ -59,30 +99,12 @@ class TransactionController implements Disposable {
     final name = nameTextEditingController.text.trim();
     final note = noteTextEditingController.text.trim();
 
-    /// `name` is not proper
-    if (name.isEmpty) {
-      logger.e('Name is not proper');
-      return false;
-    }
-
-    /// `amountCents` is not proper
-    if ((amountCents ?? 0) <= 0) {
-      logger.e('AmountCents is not proper');
-      return false;
-    }
-
-    /// `categoryId` is not proper
-    if (categoryId?.isEmpty ?? true) {
-      logger.e('CategoryId is not proper');
-      return false;
-    }
-
     /// Create [Transaction]
     final newTransaction = Transaction(
       id: passedTransaction?.id ?? const Uuid().v1(),
       name: name,
-      amountCents: amountCents!,
-      categoryId: categoryId!,
+      amountCents: value.amountCents!,
+      categoryId: value.category!.id,
       note: note.isNotEmpty ? note : null,
       createdAt: DateTime.now(),
     );
@@ -102,4 +124,19 @@ class TransactionController implements Disposable {
       return true;
     }
   }
+
+  /// Updates `state`
+  void updateState({
+    Category? category,
+    int? amountCents,
+    bool? nameValid,
+    bool? amountValid,
+    bool? categoryValid,
+  }) => value = (
+    category: category ?? value.category,
+    amountCents: amountCents ?? value.amountCents,
+    nameValid: nameValid ?? value.nameValid,
+    amountValid: amountValid ?? value.amountValid,
+    categoryValid: categoryValid ?? value.categoryValid,
+  );
 }
