@@ -84,6 +84,15 @@ TroskoTextThemesExtension getTextThemesExtension({
   button: TroskoTextStyles.button.copyWith(
     color: colorsExtension.text,
   ),
+  appBarTitle: TroskoTextStyles.appBarTitle.copyWith(
+    color: colorsExtension.text,
+  ),
+  appBarTitleBig: TroskoTextStyles.appBarTitleBig.copyWith(
+    color: colorsExtension.text,
+  ),
+  appBarSubtitleBig: TroskoTextStyles.appBarSubtitleBig.copyWith(
+    color: colorsExtension.text,
+  ),
   homeTopTitle: TroskoTextStyles.homeTopTitle.copyWith(
     color: colorsExtension.text,
   ),

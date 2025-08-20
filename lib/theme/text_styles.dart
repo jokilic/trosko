@@ -7,6 +7,24 @@ abstract class TroskoTextStyles {
     fontWeight: FontWeight.w700,
   );
 
+  static const appBarTitle = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 22,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const appBarTitleBig = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 26,
+    fontWeight: FontWeight.w700,
+  );
+
+  static const appBarSubtitleBig = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+
   static const homeTopTitle = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 40,
@@ -71,6 +89,9 @@ abstract class TroskoTextStyles {
 
 class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension> {
   final TextStyle button;
+  final TextStyle appBarTitle;
+  final TextStyle appBarTitleBig;
+  final TextStyle appBarSubtitleBig;
   final TextStyle homeTopTitle;
   final TextStyle homeTransactionTitle;
   final TextStyle homeTransactionSubtitle;
@@ -84,6 +105,9 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
 
   const TroskoTextThemesExtension({
     required this.button,
+    required this.appBarTitle,
+    required this.appBarTitleBig,
+    required this.appBarSubtitleBig,
     required this.homeTopTitle,
     required this.homeTransactionTitle,
     required this.homeTransactionSubtitle,
@@ -99,6 +123,9 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
   @override
   ThemeExtension<TroskoTextThemesExtension> copyWith({
     TextStyle? button,
+    TextStyle? appBarTitle,
+    TextStyle? appBarTitleBig,
+    TextStyle? appBarSubtitleBig,
     TextStyle? homeTopTitle,
     TextStyle? homeTransactionTitle,
     TextStyle? homeTransactionSubtitle,
@@ -111,6 +138,9 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     TextStyle? transactionCategoryName,
   }) => TroskoTextThemesExtension(
     button: button ?? this.button,
+    appBarTitle: appBarTitle ?? this.appBarTitle,
+    appBarTitleBig: appBarTitleBig ?? this.appBarTitleBig,
+    appBarSubtitleBig: appBarSubtitleBig ?? this.appBarSubtitleBig,
     homeTopTitle: homeTopTitle ?? this.homeTopTitle,
     homeTransactionTitle: homeTransactionTitle ?? this.homeTransactionTitle,
     homeTransactionSubtitle: homeTransactionSubtitle ?? this.homeTransactionSubtitle,
@@ -134,6 +164,9 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
 
     return TroskoTextThemesExtension(
       button: TextStyle.lerp(button, other.button, t)!,
+      appBarTitle: TextStyle.lerp(appBarTitle, other.appBarTitle, t)!,
+      appBarTitleBig: TextStyle.lerp(appBarTitleBig, other.appBarTitleBig, t)!,
+      appBarSubtitleBig: TextStyle.lerp(appBarSubtitleBig, other.appBarSubtitleBig, t)!,
       homeTopTitle: TextStyle.lerp(homeTopTitle, other.homeTopTitle, t)!,
       homeTransactionTitle: TextStyle.lerp(homeTransactionTitle, other.homeTransactionTitle, t)!,
       homeTransactionSubtitle: TextStyle.lerp(homeTransactionSubtitle, other.homeTransactionSubtitle, t)!,
