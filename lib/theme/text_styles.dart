@@ -35,6 +35,7 @@ abstract class TroskoTextStyles {
     fontFamily: 'ProductSans',
     fontSize: 16,
     fontWeight: FontWeight.w500,
+    height: 0,
   );
 
   static const homeTransactionTitle = TextStyle(

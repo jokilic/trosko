@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'screens/home/home_screen.dart';
 import 'theme/theme.dart';
@@ -13,6 +14,9 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
+
+  /// Initialize dates
+  await initializeDateFormatting('hr');
 
   /// Initialize services
   initializeServices();

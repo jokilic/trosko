@@ -6,8 +6,10 @@ import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
+import '../../util/months.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'home_controller.dart';
+import 'widgets/home_month_chips.dart';
 import 'widgets/home_transaction_widget.dart';
 
 class HomeScreen extends WatchingStatefulWidget {
@@ -40,15 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final filters = ['All', 'Tech', 'Design', 'Business', 'Sports', 'Science', 'Music', 'Travel'];
-
     final state = watchIt<HiveService>().value;
 
     final transactions = state.transactions;
     final categories = state.categories;
-
-    final scheme = Theme.of(context).colorScheme;
-    final text = Theme.of(context).textTheme;
 
     return Scaffold(
       body: CustomScrollView(
@@ -79,50 +76,32 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           ///
-          /// MONTH CAROUSEL
+          /// MONTH CHIPS
           ///
-          const SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'Transactions',
-                style: TextStyle(
-                  fontFamily: 'ProductSans',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+          HomeMonthChips(
+            months: getMonthsFromJan2024(
+              locale: 'hr',
             ),
+            activeMonth: getCurrentMonth(
+              locale: 'hr',
+            ),
+            onChipPressed: (newMonth) {
+              print('Hello -> $newMonth');
+            },
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 8),
           ),
 
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 56,
-              child: ListView.separated(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: filters.length,
-                itemBuilder: (context, i) {
-                  final label = filters[i];
-                  final isSelected = i == 1;
-
-                  return FilterChip(
-                    label: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        minWidth: 40,
-                      ),
-                      child: Text(
-                        label,
-                        style: context.textStyles.homeMonthChip.copyWith(height: 0),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    selected: isSelected,
-                    onSelected: (val) {},
-                  );
-                },
-                separatorBuilder: (_, __) => const SizedBox(width: 12),
+          ///
+          /// CATEGORIES TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Categories',
+                style: context.textStyles.homeNoTransaction,
               ),
             ),
           ),
