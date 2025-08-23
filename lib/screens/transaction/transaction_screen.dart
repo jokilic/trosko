@@ -75,8 +75,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
           /// APP BAR
           ///
           TroskoAppBar(
-            onPressedIcon: Navigator.of(context).pop,
-            icon: Icons.arrow_back_rounded,
+            leadingWidget: IconButton(
+              onPressed: Navigator.of(context).pop,
+              icon: Icon(
+                Icons.arrow_back_rounded,
+                color: context.colors.text,
+                size: 28,
+              ),
+            ),
             smallTitle: widget.passedTransaction != null ? 'Update transaction' : 'New transaction',
             bigTitle: widget.passedTransaction != null ? 'Update transaction' : 'New transaction',
             bigSubtitle: "How you doin'?",

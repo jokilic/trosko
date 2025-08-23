@@ -41,6 +41,19 @@ class TroskoTheme {
           ),
         ),
       ),
+      chipTheme: ChipThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        side: BorderSide.none,
+        backgroundColor: lightAppColors.text.withValues(alpha: 0.025),
+        selectedColor: lightAppColors.primary.withValues(alpha: 0.15),
+        showCheckmark: false,
+        elevation: 0,
+        labelPadding: const EdgeInsets.symmetric(horizontal: 8),
+      ),
+      splashColor: Colors.transparent,
+      highlightColor: lightAppColors.tertiary,
       scaffoldBackgroundColor: lightAppColors.background,
       textSelectionTheme: TextSelectionThemeData(
         selectionColor: lightAppColors.primary,
@@ -96,6 +109,9 @@ TroskoTextThemesExtension getTextThemesExtension({
   homeTopTitle: TroskoTextStyles.homeTopTitle.copyWith(
     color: colorsExtension.text,
   ),
+  homeMonthChip: TroskoTextStyles.homeMonthChip.copyWith(
+    color: colorsExtension.text,
+  ),
   homeTransactionTitle: TroskoTextStyles.homeTransactionTitle.copyWith(
     color: colorsExtension.text,
   ),
@@ -106,6 +122,9 @@ TroskoTextThemesExtension getTextThemesExtension({
     color: colorsExtension.text,
   ),
   homeTransactionEuro: TroskoTextStyles.homeTransactionEuro.copyWith(
+    color: colorsExtension.text,
+  ),
+  homeNoTransaction: TroskoTextStyles.homeNoTransaction.copyWith(
     color: colorsExtension.text,
   ),
   transactionAmountCurrentValue: TroskoTextStyles.transactionAmountCurrentValue.copyWith(
