@@ -9,6 +9,7 @@ import '../../util/dependencies.dart';
 import '../../util/months.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'home_controller.dart';
+import 'widgets/home_categories.dart';
 import 'widgets/home_month_chips.dart';
 import 'widgets/home_transaction_widget.dart';
 
@@ -48,6 +49,16 @@ class _HomeScreenState extends State<HomeScreen> {
     final categories = state.categories;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton.large(
+        onPressed: () => openTransaction(
+          context,
+          passedTransaction: null,
+          categories: categories,
+        ),
+        child: const Icon(
+          Icons.monetization_on_rounded,
+        ),
+      ),
       body: CustomScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),
@@ -70,9 +81,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
-            smallTitle: 'Welcome to Troško',
-            bigTitle: 'Welcome to Troško',
-            bigSubtitle: "How you doin'?",
+            smallTitle: 'Hello, Josip 👋🏼',
+            bigTitle: 'Hello, Josip 👋🏼',
+            bigSubtitle: 'Welcome to Troško',
           ),
 
           ///
@@ -101,9 +112,46 @@ class _HomeScreenState extends State<HomeScreen> {
             sliver: SliverToBoxAdapter(
               child: Text(
                 'Categories',
-                style: context.textStyles.homeNoTransaction,
+                style: context.textStyles.homeTitle,
               ),
             ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
+
+          ///
+          /// CATEGORIES
+          ///
+          HomeCategories(
+            categories: categories,
+            onPressedCategory: (category) => openCategory(
+              context,
+              passedCategory: category,
+            ),
+            onPressedAdd: () => openCategory(
+              context,
+              passedCategory: null,
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 8),
+          ),
+
+          ///
+          /// TRANSACTIONS TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Transactions',
+                style: context.textStyles.homeTitle,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
           ),
 
           ///
@@ -138,12 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(
                             'No transactions',
                             textAlign: TextAlign.center,
-                            style: context.textStyles.homeNoTransaction,
-                          ),
-                          Text(
-                            'Add some',
-                            textAlign: TextAlign.center,
-                            style: context.textStyles.homeNoTransaction,
+                            style: context.textStyles.homeTitle,
                           ),
                         ],
                       ),

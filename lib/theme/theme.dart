@@ -20,7 +20,7 @@ class TroskoTheme {
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(
-            lightAppColors.primary,
+            lightAppColors.secondary,
           ),
           foregroundColor: WidgetStateProperty.all(
             lightAppColors.background,
@@ -51,6 +51,17 @@ class TroskoTheme {
         showCheckmark: false,
         elevation: 0,
         labelPadding: const EdgeInsets.symmetric(horizontal: 8),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(
+          backgroundColor: lightAppColors.text.withValues(alpha: 0.035),
+          foregroundColor: lightAppColors.text,
+          highlightColor: lightAppColors.text.withValues(alpha: 0.1),
+          iconSize: 28,
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(16),
+          elevation: 0,
+        ),
       ),
       splashColor: Colors.transparent,
       highlightColor: lightAppColors.text.withValues(alpha: 0.1),
@@ -113,6 +124,9 @@ TroskoTextThemesExtension getTextThemesExtension({
   homeMonthChip: TroskoTextStyles.homeMonthChip.copyWith(
     color: colorsExtension.text,
   ),
+  homeCategoryTitle: TroskoTextStyles.homeCategoryTitle.copyWith(
+    color: colorsExtension.text,
+  ),
   homeTransactionTitle: TroskoTextStyles.homeTransactionTitle.copyWith(
     color: colorsExtension.text,
   ),
@@ -125,7 +139,7 @@ TroskoTextThemesExtension getTextThemesExtension({
   homeTransactionEuro: TroskoTextStyles.homeTransactionEuro.copyWith(
     color: colorsExtension.text,
   ),
-  homeNoTransaction: TroskoTextStyles.homeNoTransaction.copyWith(
+  homeTitle: TroskoTextStyles.homeTitle.copyWith(
     color: colorsExtension.text,
   ),
   transactionAmountCurrentValue: TroskoTextStyles.transactionAmountCurrentValue.copyWith(
