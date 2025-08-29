@@ -4,9 +4,10 @@ import '../../models/month/month.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../util/group_transactions.dart';
 import '../../util/months.dart';
 
-class HomeController extends ValueNotifier<({List<Transaction> transactions, Month activeMonth})> {
+class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions, Month activeMonth})> {
   ///
   /// CONSTRUCTOR
   ///
@@ -18,7 +19,9 @@ class HomeController extends ValueNotifier<({List<Transaction> transactions, Mon
     required this.logger,
     required this.hive,
   }) : super((
-         transactions: hive.getTransactions(),
+         datesAndTransactions: getGroupedTransactions(
+           hive.getTransactions(),
+         ),
          activeMonth: getCurrentMonth(
            locale: 'hr',
          ),
@@ -35,8 +38,12 @@ class HomeController extends ValueNotifier<({List<Transaction> transactions, Mon
     /// Filter `allTransactions`
     final filteredTransactions = allTransactions.where((t) => t.createdAt.year == newMonth.date.year && t.createdAt.month == newMonth.date.month).toList();
 
+    /// Create a new `List<Transaction>`
+    final newTransactions = List<Transaction>.from(filteredTransactions);
+
+    /// Update `state`
     value = (
-      transactions: List<Transaction>.from(filteredTransactions),
+      datesAndTransactions: getGroupedTransactions(newTransactions),
       activeMonth: newMonth,
     );
   }

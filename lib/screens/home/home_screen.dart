@@ -3,11 +3,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../constants/durations.dart';
+import '../../constants/enums.dart';
+import '../../models/transaction/transaction.dart';
 import '../../routing.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
+import '../../util/group_transactions.dart';
 import '../../util/months.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'home_controller.dart';
@@ -50,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final categories = watchIt<HiveService>().value.categories;
 
     final state = watchIt<HomeController>().value;
-    final transactions = state.transactions;
+    final items = state.datesAndTransactions;
     final activeMonth = state.activeMonth;
 
     return Scaffold(
@@ -139,55 +142,56 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           ///
-          /// TRANSACTIONS TITLE
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'Transactions',
-                style: context.textStyles.homeTitle,
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 12),
-          ),
-
-          ///
           /// TRANSACTIONS
           ///
-          if (transactions.isNotEmpty)
-            SliverList.separated(
-              itemCount: transactions.length,
+          if (items.isNotEmpty)
+            SliverList.builder(
+              itemCount: items.length,
               itemBuilder: (_, index) {
-                final transaction = transactions[index];
-                final category = categories.where((category) => category.id == transaction.categoryId).toList().firstOrNull;
+                final item = items[index];
 
-                return Animate(
-                  key: ValueKey(activeMonth),
-                  effects: [
-                    FadeEffect(
-                      duration: TroskoDurations.animationDuration,
-                      delay: (75 * index).ms,
-                      curve: Curves.easeIn,
+                ///
+                /// DATE TITLE
+                ///
+                if (item is DateGroup) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 28),
+                    child: Text(
+                      getGroupLabel(item),
+                      style: context.textStyles.homeTitle,
                     ),
-                  ],
-                  child: HomeTransactionWidget(
-                    onPressed: () => openTransaction(
-                      context,
-                      passedTransaction: transaction,
-                      categories: categories,
+                  );
+                }
+
+                ///
+                /// TRANSACTION
+                ///
+                if (item is Transaction) {
+                  final category = categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
+
+                  return Animate(
+                    key: ValueKey(activeMonth),
+                    effects: [
+                      FadeEffect(
+                        duration: TroskoDurations.animationDuration,
+                        delay: (75 * index).ms,
+                        curve: Curves.easeIn,
+                      ),
+                    ],
+                    child: HomeTransactionWidget(
+                      onPressed: () => openTransaction(
+                        context,
+                        passedTransaction: item,
+                        categories: categories,
+                      ),
+                      transaction: item,
+                      category: category,
                     ),
-                    transaction: transaction,
-                    category: category,
-                  ),
-                );
+                  );
+                }
+
+                return const SizedBox.shrink();
               },
-              separatorBuilder: (_, __) => Divider(
-                height: 0,
-                color: context.colors.text.withValues(alpha: 0.1),
-              ),
             )
           else
             SliverPadding(

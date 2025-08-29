@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../../constants/durations.dart';
 import '../../../models/month/month.dart';
 import '../../../theme/theme.dart';
 import '../../../util/string.dart';
@@ -27,19 +29,28 @@ class HomeMonthChips extends StatelessWidget {
         itemBuilder: (_, index) {
           final month = months[index];
 
-          return FilterChip(
-            label: ConstrainedBox(
-              constraints: const BoxConstraints(
-                minWidth: 40,
+          return Animate(
+            effects: [
+              FadeEffect(
+                duration: TroskoDurations.animationDuration,
+                delay: (75 * index).ms,
+                curve: Curves.easeIn,
               ),
-              child: Text(
-                capitalize(month.label),
-                style: context.textStyles.homeMonthChip,
-                textAlign: TextAlign.center,
+            ],
+            child: FilterChip(
+              label: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  minWidth: 40,
+                ),
+                child: Text(
+                  capitalize(month.label),
+                  style: context.textStyles.homeMonthChip,
+                  textAlign: TextAlign.center,
+                ),
               ),
+              selected: activeMonth == month,
+              onSelected: (_) => onChipPressed(month),
             ),
-            selected: activeMonth == month,
-            onSelected: (_) => onChipPressed(month),
           );
         },
         separatorBuilder: (_, __) => const SizedBox(width: 12),
