@@ -4,19 +4,26 @@ import '../../../models/category/category.dart';
 import '../../../models/transaction/transaction.dart';
 import '../../../theme/theme.dart';
 import '../../../util/currency.dart';
+import '../../../util/date_time.dart';
 
 class HomeTransactionWidget extends StatelessWidget {
+  final Function() onPressed;
   final Transaction transaction;
   final Category? category;
 
   const HomeTransactionWidget({
+    required this.onPressed,
     required this.transaction,
     required this.category,
   });
 
   @override
   Widget build(BuildContext context) => ListTile(
-    contentPadding: EdgeInsets.zero,
+    onTap: onPressed,
+    contentPadding: const EdgeInsets.symmetric(
+      horizontal: 16,
+      vertical: 8,
+    ),
     leading: Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
@@ -26,8 +33,8 @@ class HomeTransactionWidget extends StatelessWidget {
           width: 2.5,
         ),
       ),
-      height: 24,
-      width: 24,
+      height: 32,
+      width: 32,
     ),
     title: Text(
       transaction.name,
@@ -35,11 +42,30 @@ class HomeTransactionWidget extends StatelessWidget {
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
     ),
-    subtitle: Text(
-      transaction.note ?? '--',
-      style: context.textStyles.homeTransactionSubtitle,
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
+    subtitle: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ///
+        /// NOTE
+        ///
+        if (transaction.note?.isNotEmpty ?? false)
+          Text(
+            transaction.note!,
+            style: context.textStyles.homeTransactionSubtitle,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+
+        ///
+        /// TIME
+        ///
+        Text(
+          getTimeAgo(transaction.createdAt),
+          style: context.textStyles.homeTransactionTimeAgo,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
     ),
     trailing: Text.rich(
       TextSpan(

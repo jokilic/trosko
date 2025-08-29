@@ -133,6 +133,9 @@ TroskoTextThemesExtension getTextThemesExtension({
   homeTransactionSubtitle: TroskoTextStyles.homeTransactionSubtitle.copyWith(
     color: colorsExtension.text,
   ),
+  homeTransactionTimeAgo: TroskoTextStyles.homeTransactionTimeAgo.copyWith(
+    color: colorsExtension.text,
+  ),
   homeTransactionValue: TroskoTextStyles.homeTransactionValue.copyWith(
     color: colorsExtension.text,
   ),

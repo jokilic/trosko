@@ -55,6 +55,7 @@ class TransactionController extends ValueNotifier<({Category? category, int? amo
 
     updateState(
       category: category,
+      amountCents: passedTransaction?.amountCents,
       nameValid: passedTransaction?.name.isNotEmpty ?? false,
       amountValid: (passedTransaction?.amountCents ?? 0) > 0,
       categoryValid: category != null,

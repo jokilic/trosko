@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../../constants/durations.dart';
 import '../../../models/category/category.dart';
 import '../../../theme/theme.dart';
 
@@ -30,22 +32,39 @@ class HomeCategories extends StatelessWidget {
           /// CATEGORY
           ///
           if (category != null) {
-            return HomeCategory(
-              onPressed: () => onPressedCategory(category),
-              color: category.color.withValues(alpha: 0.35),
-              icon: Icons.catching_pokemon_rounded,
-              text: category.name,
+            return Animate(
+              effects: [
+                FadeEffect(
+                  duration: TroskoDurations.animationDuration,
+                  delay: (75 * index).ms,
+                  curve: Curves.easeIn,
+                ),
+              ],
+              child: HomeCategory(
+                onPressed: () => onPressedCategory(category),
+                color: category.color.withValues(alpha: 0.35),
+                icon: Icons.catching_pokemon_rounded,
+                text: category.name,
+              ),
             );
           }
 
           ///
           /// ADD NEW CATEGORY
           ///
-          return HomeCategory(
-            onPressed: onPressedAdd,
-            color: context.colors.text.withValues(alpha: 0.035),
-            icon: Icons.add_rounded,
-            text: 'Add',
+          return Animate(
+            effects: [
+              FadeEffect(
+                duration: 150.ms,
+                delay: (75 * index).ms,
+              ),
+            ],
+            child: HomeCategory(
+              onPressed: onPressedAdd,
+              color: context.colors.text.withValues(alpha: 0.035),
+              icon: Icons.add_rounded,
+              text: 'Add',
+            ),
           );
         },
         separatorBuilder: (_, __) => const SizedBox(width: 24),

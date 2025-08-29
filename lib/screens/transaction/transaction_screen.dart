@@ -204,7 +204,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     disabledForegroundColor: context.colors.background,
                   ),
                   child: Text(
-                    'Add transaction'.toUpperCase(),
+                    widget.passedTransaction != null ? 'Update transaction'.toUpperCase() : 'Add transaction'.toUpperCase(),
                   ),
                 ),
               ],

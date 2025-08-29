@@ -109,7 +109,7 @@ class HiveService extends ValueNotifier<({List<Transaction> transactions, List<C
 
   /// Updates a `transaction` in [Hive]
   Future<void> updateTransaction({required Transaction newTransaction}) async {
-    final i = getCategories().indexWhere((t) => t.id == newTransaction.id);
+    final i = getTransactions().indexWhere((t) => t.id == newTransaction.id);
 
     if (i == -1) {
       return;
