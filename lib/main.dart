@@ -46,7 +46,7 @@ class TroskoApp extends StatelessWidget {
       return kDebugMode
           ? Banner(
               message: '',
-              color: context.colors.tertiary,
+              color: context.colors.primary,
               location: BannerLocation.topEnd,
               layoutDirection: TextDirection.ltr,
               child: appWidget,

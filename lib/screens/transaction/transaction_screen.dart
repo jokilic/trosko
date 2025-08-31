@@ -200,7 +200,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     ),
                     backgroundColor: context.colors.primary,
                     foregroundColor: context.colors.background,
-                    disabledBackgroundColor: context.colors.text.withValues(alpha: 0.4),
+                    disabledBackgroundColor: context.colors.text,
                     disabledForegroundColor: context.colors.background,
                   ),
                   child: Text(

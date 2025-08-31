@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
 
 abstract class TroskoColors {
-  static const white = Color(0xFFF2FDFF);
-  static const black = Color(0xFF101935);
-  static const purple = Color(0xFF564787);
-  static const pink = Color(0xFFFF579F);
-  static const green = Color(0xFF417B5A);
-  static const blue = Color(0xFF4A5899);
-  static const lightGreen = Color(0xFF9AD4D6);
+  static const white = Color(0xFFF9F9FF);
+  static const black = Color(0xFF121c2b);
+  static const lightBlue = Color(0xFFCFD7E5);
+  static const lightGrey = Color(0xFFEDEDF4);
+  static const grey = Color(0xFFE4E6ED);
 }
 
 class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
   final Color primary;
   final Color background;
   final Color text;
-  final Color secondary;
-  final Color tertiary;
+  final Color scaffoldBackground;
 
   TroskoColorsExtension({
     required this.primary,
     required this.background,
     required this.text,
-    required this.secondary,
-    required this.tertiary,
+    required this.scaffoldBackground,
   });
 
   @override
@@ -30,14 +26,12 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
     Color? primary,
     Color? background,
     Color? text,
-    Color? secondary,
-    Color? tertiary,
+    Color? scaffoldBackground,
   }) => TroskoColorsExtension(
     primary: primary ?? this.primary,
     background: background ?? this.background,
     text: text ?? this.text,
-    secondary: secondary ?? this.secondary,
-    tertiary: tertiary ?? this.tertiary,
+    scaffoldBackground: scaffoldBackground ?? this.scaffoldBackground,
   );
 
   @override
@@ -53,8 +47,7 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
       primary: Color.lerp(primary, other.primary, t)!,
       background: Color.lerp(background, other.background, t)!,
       text: Color.lerp(text, other.text, t)!,
-      secondary: Color.lerp(secondary, other.secondary, t)!,
-      tertiary: Color.lerp(tertiary, other.tertiary, t)!,
+      scaffoldBackground: Color.lerp(scaffoldBackground, other.scaffoldBackground, t)!,
     );
   }
 }

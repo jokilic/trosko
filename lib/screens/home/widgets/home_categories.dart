@@ -42,7 +42,7 @@ class HomeCategories extends StatelessWidget {
               ],
               child: HomeCategory(
                 onPressed: () => onPressedCategory(category),
-                color: category.color.withValues(alpha: 0.35),
+                color: category.color,
                 icon: Icons.catching_pokemon_rounded,
                 text: category.name,
               ),
@@ -61,7 +61,7 @@ class HomeCategories extends StatelessWidget {
             ],
             child: HomeCategory(
               onPressed: onPressedAdd,
-              color: context.colors.text.withValues(alpha: 0.035),
+              color: context.colors.primary,
               icon: Icons.add_rounded,
               text: 'Add',
             ),

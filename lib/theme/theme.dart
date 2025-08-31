@@ -20,7 +20,7 @@ class TroskoTheme {
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(
-            lightAppColors.secondary,
+            lightAppColors.primary,
           ),
           foregroundColor: WidgetStateProperty.all(
             lightAppColors.background,
@@ -46,17 +46,17 @@ class TroskoTheme {
           borderRadius: BorderRadius.circular(8),
         ),
         side: BorderSide.none,
-        backgroundColor: lightAppColors.text.withValues(alpha: 0.035),
-        selectedColor: lightAppColors.primary.withValues(alpha: 0.2),
+        backgroundColor: lightAppColors.text,
+        selectedColor: lightAppColors.primary,
         showCheckmark: false,
         elevation: 0,
         labelPadding: const EdgeInsets.symmetric(horizontal: 8),
       ),
       iconButtonTheme: IconButtonThemeData(
         style: IconButton.styleFrom(
-          backgroundColor: lightAppColors.text.withValues(alpha: 0.035),
+          backgroundColor: lightAppColors.text,
           foregroundColor: lightAppColors.text,
-          highlightColor: lightAppColors.text.withValues(alpha: 0.1),
+          highlightColor: lightAppColors.text,
           iconSize: 28,
           shape: const CircleBorder(),
           padding: const EdgeInsets.all(16),
@@ -64,8 +64,8 @@ class TroskoTheme {
         ),
       ),
       splashColor: Colors.transparent,
-      highlightColor: lightAppColors.text.withValues(alpha: 0.1),
-      scaffoldBackgroundColor: lightAppColors.background,
+      highlightColor: lightAppColors.text,
+      scaffoldBackgroundColor: lightAppColors.scaffoldBackground,
       canvasColor: Colors.transparent,
       textSelectionTheme: TextSelectionThemeData(
         selectionColor: lightAppColors.primary,
@@ -80,11 +80,10 @@ class TroskoTheme {
   }
 
   static final lightAppColors = TroskoColorsExtension(
-    primary: TroskoColors.blue,
+    primary: TroskoColors.lightBlue,
     background: TroskoColors.white,
     text: TroskoColors.black,
-    secondary: TroskoColors.green,
-    tertiary: TroskoColors.pink,
+    scaffoldBackground: TroskoColors.lightGrey,
   );
 
   static final lightTextTheme = getTextThemesExtension(
