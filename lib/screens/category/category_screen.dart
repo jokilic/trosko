@@ -71,6 +71,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
           TroskoAppBar(
             leadingWidget: IconButton(
               onPressed: Navigator.of(context).pop,
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                foregroundColor: context.colors.buttonBackground,
+                highlightColor: context.colors.buttonBackground,
+              ),
               icon: Icon(
                 Icons.arrow_back_rounded,
                 color: context.colors.text,
@@ -162,8 +167,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     ),
                     backgroundColor: context.colors.primary,
                     foregroundColor: context.colors.background,
-                    disabledBackgroundColor: context.colors.text,
-                    disabledForegroundColor: context.colors.background,
+                    disabledBackgroundColor: context.colors.buttonBackground,
+                    disabledForegroundColor: context.colors.buttonBackground,
                   ),
                   child: Text(
                     'Add category'.toUpperCase(),

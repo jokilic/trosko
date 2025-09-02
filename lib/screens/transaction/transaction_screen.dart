@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants/enums.dart';
 import '../../models/category/category.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
+import '../../util/date_time.dart';
 import '../../util/dependencies.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'transaction_controller.dart';
 import 'widgets/transaction_amount_widget.dart';
 import 'widgets/transaction_category.dart';
+import 'widgets/transaction_date_checkbox.dart';
 
 class TransactionScreen extends WatchingStatefulWidget {
   final Transaction? passedTransaction;
@@ -64,7 +68,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
     final chosenCategory = state.category;
 
-    final validated = state.nameValid && state.amountValid && state.categoryValid;
+    final validated = state.nameValid && state.amountValid && state.dateValid && state.categoryValid;
+    final activeDateEnum = state.activeDateEnum;
+    final date = state.transactionDate;
 
     return Scaffold(
       body: CustomScrollView(
@@ -77,6 +83,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
           TroskoAppBar(
             leadingWidget: IconButton(
               onPressed: Navigator.of(context).pop,
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                foregroundColor: context.colors.buttonBackground,
+                highlightColor: context.colors.buttonBackground,
+              ),
               icon: Icon(
                 Icons.arrow_back_rounded,
                 color: context.colors.text,
@@ -164,6 +175,48 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 const SizedBox(height: 28),
 
                 ///
+                /// DATE
+                ///
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: context.colors.text,
+                      width: 2.5,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ///
+                      /// TODAY
+                      ///
+                      TransactionDateCheckbox(
+                        title: 'Today',
+                        isActive: activeDateEnum == ActiveDate.today,
+                        onPressed: () => controller.dateCheckboxPressed(
+                          ActiveDate.today,
+                        ),
+                      ),
+
+                      ///
+                      /// OTHER DAY
+                      ///
+                      TransactionDateCheckbox(
+                        title: activeDateEnum == ActiveDate.otherDay && date != null ? getFormattedDate(date) : 'Other day',
+                        isActive: activeDateEnum == ActiveDate.otherDay,
+                        onPressed: () => controller.dateCheckboxPressed(
+                          ActiveDate.otherDay,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 28),
+
+                ///
                 /// NOTE TEXT FIELD
                 ///
                 Padding(
@@ -199,9 +252,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       MediaQuery.paddingOf(context).bottom + 12,
                     ),
                     backgroundColor: context.colors.primary,
-                    foregroundColor: context.colors.background,
-                    disabledBackgroundColor: context.colors.text,
-                    disabledForegroundColor: context.colors.background,
+                    foregroundColor: context.colors.primary,
+                    disabledBackgroundColor: context.colors.buttonBackground,
+                    disabledForegroundColor: context.colors.buttonBackground,
                   ),
                   child: Text(
                     widget.passedTransaction != null ? 'Update transaction'.toUpperCase() : 'Add transaction'.toUpperCase(),

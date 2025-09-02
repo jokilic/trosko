@@ -11,12 +11,14 @@ abstract class TroskoColors {
 class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
   final Color primary;
   final Color background;
+  final Color buttonBackground;
   final Color text;
   final Color scaffoldBackground;
 
   TroskoColorsExtension({
     required this.primary,
     required this.background,
+    required this.buttonBackground,
     required this.text,
     required this.scaffoldBackground,
   });
@@ -25,11 +27,13 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
   ThemeExtension<TroskoColorsExtension> copyWith({
     Color? primary,
     Color? background,
+    Color? buttonBackground,
     Color? text,
     Color? scaffoldBackground,
   }) => TroskoColorsExtension(
     primary: primary ?? this.primary,
     background: background ?? this.background,
+    buttonBackground: buttonBackground ?? this.buttonBackground,
     text: text ?? this.text,
     scaffoldBackground: scaffoldBackground ?? this.scaffoldBackground,
   );
@@ -46,6 +50,7 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
     return TroskoColorsExtension(
       primary: Color.lerp(primary, other.primary, t)!,
       background: Color.lerp(background, other.background, t)!,
+      buttonBackground: Color.lerp(buttonBackground, other.buttonBackground, t)!,
       text: Color.lerp(text, other.text, t)!,
       scaffoldBackground: Color.lerp(scaffoldBackground, other.scaffoldBackground, t)!,
     );

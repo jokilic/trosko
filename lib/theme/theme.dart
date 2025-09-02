@@ -17,13 +17,18 @@ class TroskoTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: lightAppColors.primary,
       ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: lightAppColors.primary,
+        foregroundColor: lightAppColors.text,
+        elevation: 2,
+      ),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(
             lightAppColors.primary,
           ),
           foregroundColor: WidgetStateProperty.all(
-            lightAppColors.background,
+            lightAppColors.buttonBackground,
           ),
           shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
@@ -46,7 +51,7 @@ class TroskoTheme {
           borderRadius: BorderRadius.circular(8),
         ),
         side: BorderSide.none,
-        backgroundColor: lightAppColors.text,
+        backgroundColor: lightAppColors.buttonBackground,
         selectedColor: lightAppColors.primary,
         showCheckmark: false,
         elevation: 0,
@@ -54,17 +59,17 @@ class TroskoTheme {
       ),
       iconButtonTheme: IconButtonThemeData(
         style: IconButton.styleFrom(
-          backgroundColor: lightAppColors.text,
+          backgroundColor: lightAppColors.buttonBackground,
           foregroundColor: lightAppColors.text,
-          highlightColor: lightAppColors.text,
+          highlightColor: lightAppColors.buttonBackground,
           iconSize: 28,
           shape: const CircleBorder(),
           padding: const EdgeInsets.all(16),
-          elevation: 0,
+          elevation: 2,
         ),
       ),
       splashColor: Colors.transparent,
-      highlightColor: lightAppColors.text,
+      highlightColor: lightAppColors.buttonBackground,
       scaffoldBackgroundColor: lightAppColors.scaffoldBackground,
       canvasColor: Colors.transparent,
       textSelectionTheme: TextSelectionThemeData(
@@ -82,6 +87,7 @@ class TroskoTheme {
   static final lightAppColors = TroskoColorsExtension(
     primary: TroskoColors.lightBlue,
     background: TroskoColors.white,
+    buttonBackground: TroskoColors.grey,
     text: TroskoColors.black,
     scaffoldBackground: TroskoColors.lightGrey,
   );
@@ -148,6 +154,9 @@ TroskoTextThemesExtension getTextThemesExtension({
     color: colorsExtension.text,
   ),
   transactionAmountNumber: TroskoTextStyles.transactionAmountNumber.copyWith(
+    color: colorsExtension.text,
+  ),
+  transactionDateText: TroskoTextStyles.transactionDateText.copyWith(
     color: colorsExtension.text,
   ),
   transactionNameTextField: TroskoTextStyles.transactionNameTextField.copyWith(

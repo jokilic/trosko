@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../constants/enums.dart';
 import '../../models/category/category.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-class TransactionController extends ValueNotifier<({Category? category, int? amountCents, bool nameValid, bool amountValid, bool categoryValid})> implements Disposable {
+class TransactionController
+    extends
+        ValueNotifier<
+          ({Category? category, int? amountCents, DateTime? transactionDate, bool nameValid, bool amountValid, bool categoryValid, bool dateValid, ActiveDate activeDateEnum})
+        >
+    implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -25,9 +31,12 @@ class TransactionController extends ValueNotifier<({Category? category, int? amo
   }) : super((
          category: null,
          amountCents: null,
+         transactionDate: null,
          nameValid: false,
          amountValid: false,
          categoryValid: false,
+         dateValid: false,
+         activeDateEnum: ActiveDate.today,
        ));
 
   ///
@@ -56,9 +65,12 @@ class TransactionController extends ValueNotifier<({Category? category, int? amo
     updateState(
       category: category,
       amountCents: passedTransaction?.amountCents,
+      transactionDate: passedTransaction?.createdAt ?? DateTime.now(),
       nameValid: passedTransaction?.name.isNotEmpty ?? false,
       amountValid: (passedTransaction?.amountCents ?? 0) > 0,
       categoryValid: category != null,
+      dateValid: true,
+      activeDateEnum: passedTransaction?.createdAt != null ? ActiveDate.otherDay : ActiveDate.today,
     );
 
     /// Validation
@@ -94,6 +106,28 @@ class TransactionController extends ValueNotifier<({Category? category, int? amo
     category: newCategory,
     categoryValid: true,
   );
+
+  /// Triggered when the user changes date
+  void dateChanged(DateTime newDate) => updateState(
+    transactionDate: newDate,
+    dateValid: true,
+  );
+
+  /// Triggered when the user presses date checkbox
+  void dateCheckboxPressed(ActiveDate newActiveDateEnum) {
+    if (newActiveDateEnum == ActiveDate.today) {
+      dateChanged(DateTime.now());
+    }
+
+    if (newActiveDateEnum == ActiveDate.otherDay) {
+      /// Open calendar
+      // TODO
+    }
+
+    updateState(
+      activeDateEnum: newActiveDateEnum,
+    );
+  }
 
   /// Triggered when the user adds a transaction
   Future<bool> addTransaction() async {
@@ -131,14 +165,20 @@ class TransactionController extends ValueNotifier<({Category? category, int? amo
   void updateState({
     Category? category,
     int? amountCents,
+    DateTime? transactionDate,
     bool? nameValid,
     bool? amountValid,
     bool? categoryValid,
+    bool? dateValid,
+    ActiveDate? activeDateEnum,
   }) => value = (
     category: category ?? value.category,
     amountCents: amountCents ?? value.amountCents,
+    transactionDate: transactionDate ?? value.transactionDate,
     nameValid: nameValid ?? value.nameValid,
     amountValid: amountValid ?? value.amountValid,
     categoryValid: categoryValid ?? value.categoryValid,
+    dateValid: dateValid ?? value.dateValid,
+    activeDateEnum: activeDateEnum ?? value.activeDateEnum,
   );
 }

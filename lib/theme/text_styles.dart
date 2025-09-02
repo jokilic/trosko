@@ -92,6 +92,12 @@ abstract class TroskoTextStyles {
     fontWeight: FontWeight.w700,
   );
 
+  static const transactionDateText = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+  );
+
   static const transactionNameTextField = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 20,
@@ -122,6 +128,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
   final TextStyle homeTitle;
   final TextStyle transactionAmountCurrentValue;
   final TextStyle transactionAmountNumber;
+  final TextStyle transactionDateText;
   final TextStyle transactionNameTextField;
   final TextStyle transactionCategoryName;
 
@@ -141,6 +148,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     required this.homeTitle,
     required this.transactionAmountCurrentValue,
     required this.transactionAmountNumber,
+    required this.transactionDateText,
     required this.transactionNameTextField,
     required this.transactionCategoryName,
   });
@@ -162,6 +170,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     TextStyle? homeTitle,
     TextStyle? transactionAmountCurrentValue,
     TextStyle? transactionAmountNumber,
+    TextStyle? transactionDateText,
     TextStyle? transactionNameTextField,
     TextStyle? transactionCategoryName,
   }) => TroskoTextThemesExtension(
@@ -180,6 +189,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     homeTitle: homeTitle ?? this.homeTitle,
     transactionAmountCurrentValue: transactionAmountCurrentValue ?? this.transactionAmountCurrentValue,
     transactionAmountNumber: transactionAmountNumber ?? this.transactionAmountNumber,
+    transactionDateText: transactionDateText ?? this.transactionDateText,
     transactionNameTextField: transactionNameTextField ?? this.transactionNameTextField,
     transactionCategoryName: transactionCategoryName ?? this.transactionCategoryName,
   );
@@ -209,6 +219,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
       homeTitle: TextStyle.lerp(homeTitle, other.homeTitle, t)!,
       transactionAmountCurrentValue: TextStyle.lerp(transactionAmountCurrentValue, other.transactionAmountCurrentValue, t)!,
       transactionAmountNumber: TextStyle.lerp(transactionAmountNumber, other.transactionAmountNumber, t)!,
+      transactionDateText: TextStyle.lerp(transactionDateText, other.transactionDateText, t)!,
       transactionNameTextField: TextStyle.lerp(transactionNameTextField, other.transactionNameTextField, t)!,
       transactionCategoryName: TextStyle.lerp(transactionCategoryName, other.transactionCategoryName, t)!,
     );
