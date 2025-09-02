@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../constants/enums.dart';
@@ -198,6 +197,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         isActive: activeDateEnum == ActiveDate.today,
                         onPressed: () => controller.dateCheckboxPressed(
                           ActiveDate.today,
+                          context: context,
                         ),
                       ),
 
@@ -209,6 +209,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         isActive: activeDateEnum == ActiveDate.otherDay,
                         onPressed: () => controller.dateCheckboxPressed(
                           ActiveDate.otherDay,
+                          context: context,
                         ),
                       ),
                     ],

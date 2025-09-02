@@ -33,7 +33,7 @@ class HomeMonthChips extends StatelessWidget {
             effects: [
               FadeEffect(
                 duration: TroskoDurations.animationDuration,
-                delay: (75 * index).ms,
+                delay: index <= 5 ? (75 * index).ms : 0.ms,
                 curve: Curves.easeIn,
               ),
             ],

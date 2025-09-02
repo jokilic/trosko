@@ -19,7 +19,7 @@ class HomeCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SliverToBoxAdapter(
     child: SizedBox(
-      height: 96,
+      height: 88,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         physics: const BouncingScrollPhysics(),
@@ -36,7 +36,7 @@ class HomeCategories extends StatelessWidget {
               effects: [
                 FadeEffect(
                   duration: TroskoDurations.animationDuration,
-                  delay: (75 * index).ms,
+                  delay: index <= 5 ? (75 * index).ms : 0.ms,
                   curve: Curves.easeIn,
                 ),
               ],
@@ -56,7 +56,7 @@ class HomeCategories extends StatelessWidget {
             effects: [
               FadeEffect(
                 duration: 150.ms,
-                delay: (75 * index).ms,
+                delay: index <= 5 ? (75 * index).ms : 0.ms,
               ),
             ],
             child: HomeCategory(

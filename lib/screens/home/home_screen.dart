@@ -137,9 +137,6 @@ class _HomeScreenState extends State<HomeScreen> {
               passedCategory: null,
             ),
           ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
-          ),
 
           ///
           /// TRANSACTIONS
@@ -155,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ///
                 if (item is DateGroup) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 28),
+                    padding: const EdgeInsets.fromLTRB(28, 28, 28, 12),
                     child: Text(
                       getGroupLabel(item),
                       style: context.textStyles.homeTitle,
@@ -174,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     effects: [
                       FadeEffect(
                         duration: TroskoDurations.animationDuration,
-                        delay: (75 * index).ms,
+                        delay: index <= 5 ? (75 * index).ms : 0.ms,
                         curve: Curves.easeIn,
                       ),
                     ],
@@ -224,6 +221,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+
+          ///
+          /// BOTTOM SPACING
+          ///
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 120),
+          ),
         ],
       ),
     );

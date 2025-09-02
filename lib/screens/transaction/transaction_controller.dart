@@ -1,3 +1,4 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
@@ -114,20 +115,86 @@ class TransactionController
   );
 
   /// Triggered when the user presses date checkbox
-  void dateCheckboxPressed(ActiveDate newActiveDateEnum) {
+  void dateCheckboxPressed(
+    ActiveDate newActiveDateEnum, {
+    required BuildContext context,
+  }) {
     if (newActiveDateEnum == ActiveDate.today) {
       dateChanged(DateTime.now());
     }
 
     if (newActiveDateEnum == ActiveDate.otherDay) {
-      /// Open calendar
-      // TODO
+      openCalendar(context);
     }
 
     updateState(
       activeDateEnum: newActiveDateEnum,
     );
   }
+
+  /// Opens calendar
+  void openCalendar(BuildContext context) => showCalendarDatePicker2Dialog(
+    context: context,
+    onValueChanged: (newValue) async {
+      final chosenDate = newValue.first;
+
+      if (chosenDate != null) {
+        Navigator.of(context).pop();
+
+        dateChanged(chosenDate);
+        updateState(
+          activeDateEnum: ActiveDate.otherDay,
+        );
+      }
+    },
+    config: CalendarDatePicker2WithActionButtonsConfig(
+      // weekdayLabelTextStyle: context.textStyles.teamTransferTeam,
+      // controlsTextStyle: context.textStyles.teamTransferTeam,
+      // dayTextStyle: context.textStyles.calendarDayInactive,
+      // todayTextStyle: context.textStyles.calendarDayActive,
+      // selectedDayTextStyle: context.textStyles.calendarDayActive.copyWith(
+      //   color: context.colors.primaryBackground,
+      // ),
+      // selectedMonthTextStyle: context.textStyles.calendarDayActive.copyWith(
+      //   color: context.colors.primaryBackground,
+      // ),
+      // selectedYearTextStyle: context.textStyles.calendarDayActive.copyWith(
+      //   color: context.colors.primaryBackground,
+      // ),
+      // selectedDayHighlightColor: context.colors.accentStrong,
+      // daySplashColor: context.colors.accentStrong,
+      firstDayOfWeek: 1,
+      useAbbrLabelForMonthModePicker: true,
+      // cancelButton: BalunButton(
+      //   child: Text(
+      //     'fixturesCalendarCancel'.tr().toUpperCase(),
+      //     style: context.textStyles.calendarDayInactive,
+      //   ),
+      // ),
+      // okButton: BalunButton(
+      //   child: Text(
+      //     'fixturesCalendarGo'.tr().toUpperCase(),
+      //     style: context.textStyles.teamTransferTeam,
+      //   ),
+      // ),
+      // lastMonthIcon: const BalunImage(
+      //   imageUrl: BalunIcons.back,
+      //   height: 20,
+      //   width: 20,
+      // ),
+      // nextMonthIcon: Transform.rotate(
+      //   angle: pi,
+      //   child: const BalunImage(
+      //     imageUrl: BalunIcons.back,
+      //     height: 20,
+      //     width: 20,
+      //   ),
+      // ),
+    ),
+    borderRadius: BorderRadius.circular(8),
+    // dialogBackgroundColor: context.colors.accentLight,
+    dialogSize: const Size(325, 400),
+  );
 
   /// Triggered when the user adds a transaction
   Future<bool> addTransaction() async {
@@ -142,7 +209,7 @@ class TransactionController
       amountCents: value.amountCents!,
       categoryId: value.category!.id,
       note: note.isNotEmpty ? note : null,
-      createdAt: DateTime.now(),
+      createdAt: value.transactionDate ?? DateTime.now(),
     );
 
     /// User modified transaction

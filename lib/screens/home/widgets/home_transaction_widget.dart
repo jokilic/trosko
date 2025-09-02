@@ -17,53 +17,63 @@ class HomeTransactionWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => ListTile(
-    onTap: onPressed,
-    contentPadding: const EdgeInsets.symmetric(
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.symmetric(
       horizontal: 16,
-      vertical: 8,
+      vertical: 1,
     ),
-    leading: Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: category?.color,
-        border: Border.all(
-          color: context.colors.text,
-          width: 2.5,
-        ),
+    child: ListTile(
+      tileColor: context.colors.background,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
       ),
-      height: 32,
-      width: 32,
-    ),
-    title: Text(
-      transaction.name,
-      style: context.textStyles.homeTransactionTitle,
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-    ),
-    subtitle: transaction.note?.isNotEmpty ?? false
-        ? Text(
-            transaction.note!,
-            style: context.textStyles.homeTransactionSubtitle,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          )
-        : null,
-    trailing: Text.rich(
-      TextSpan(
-        text: formatCentsToCurrency(
-          transaction.amountCents,
-        ),
-        children: [
-          TextSpan(
-            text: '€',
-            style: context.textStyles.homeTransactionEuro,
+      onTap: onPressed,
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
+      ),
+      leading: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: category?.color,
+          border: Border.all(
+            color: context.colors.text,
+            width: 2.5,
           ),
-        ],
+        ),
+        height: 32,
+        width: 32,
       ),
-      style: context.textStyles.homeTransactionValue,
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
+      title: Text(
+        transaction.name,
+        style: context.textStyles.homeTransactionTitle,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
+      subtitle: transaction.note?.isNotEmpty ?? false
+          ? Text(
+              transaction.note!,
+              style: context.textStyles.homeTransactionSubtitle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )
+          : null,
+      trailing: Text.rich(
+        TextSpan(
+          text: formatCentsToCurrency(
+            transaction.amountCents,
+          ),
+          children: [
+            TextSpan(
+              text: '€',
+              style: context.textStyles.homeTransactionEuro,
+            ),
+          ],
+        ),
+        style: context.textStyles.homeTransactionValue,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
     ),
   );
 }
