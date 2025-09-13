@@ -196,8 +196,8 @@ class TransactionController
     dialogSize: const Size(325, 400),
   );
 
-  /// Triggered when the user adds a transaction
-  Future<bool> addTransaction() async {
+  /// Triggered when the user adds transaction
+  Future<void> addTransaction() async {
     /// Get [TextField] values
     final name = nameTextEditingController.text.trim();
     final note = noteTextEditingController.text.trim();
@@ -217,14 +217,21 @@ class TransactionController
       await hive.updateTransaction(
         newTransaction: newTransaction,
       );
-      return true;
     }
     /// User created new transaction
     else {
       await hive.writeTransaction(
         newTransaction: newTransaction,
       );
-      return true;
+    }
+  }
+
+  /// Triggered when the user deletes transaction
+  Future<void> deleteTransaction() async {
+    if (passedTransaction != null) {
+      await hive.deleteTransaction(
+        transaction: passedTransaction!,
+      );
     }
   }
 

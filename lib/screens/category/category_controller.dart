@@ -6,7 +6,7 @@ import '../../models/category/category.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-class CategoryController extends ValueNotifier<({Color? categoryColor, String? categoryIcon, bool nameValid})> implements Disposable {
+class CategoryController extends ValueNotifier<({Color? categoryColor, bool nameValid})> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -21,7 +21,6 @@ class CategoryController extends ValueNotifier<({Color? categoryColor, String? c
     required this.passedCategory,
   }) : super((
          categoryColor: null,
-         categoryIcon: null,
          nameValid: false,
        ));
 
@@ -40,7 +39,6 @@ class CategoryController extends ValueNotifier<({Color? categoryColor, String? c
   void init() {
     updateState(
       categoryColor: passedCategory?.color,
-      categoryIcon: passedCategory?.icon,
       nameValid: passedCategory?.name.isNotEmpty ?? false,
     );
 
@@ -70,13 +68,8 @@ class CategoryController extends ValueNotifier<({Color? categoryColor, String? c
     categoryColor: newColor,
   );
 
-  /// Triggered when the user presses an [Icon]
-  void iconChanged(String newIcon) => updateState(
-    categoryIcon: newIcon,
-  );
-
-  /// Triggered when the user adds a transaction
-  Future<bool> addCategory() async {
+  /// Triggered when the user adds category
+  Future<void> addCategory() async {
     /// Get [TextField] values
     final name = nameTextEditingController.text.trim();
 
@@ -85,7 +78,6 @@ class CategoryController extends ValueNotifier<({Color? categoryColor, String? c
       id: passedCategory?.id ?? const Uuid().v1(),
       name: name,
       color: value.categoryColor!,
-      icon: value.categoryIcon!,
     );
 
     /// User modified category
@@ -93,25 +85,30 @@ class CategoryController extends ValueNotifier<({Color? categoryColor, String? c
       await hive.updateCategory(
         newCategory: newCategory,
       );
-      return true;
     }
     /// User created new category
     else {
       await hive.writeCategory(
         newCategory: newCategory,
       );
-      return true;
+    }
+  }
+
+  /// Triggered when the user deletes category
+  Future<void> deleteCategory() async {
+    if (passedCategory != null) {
+      await hive.deleteCategory(
+        category: passedCategory!,
+      );
     }
   }
 
   /// Updates `state`
   void updateState({
     Color? categoryColor,
-    String? categoryIcon,
     bool? nameValid,
   }) => value = (
     categoryColor: categoryColor ?? value.categoryColor,
-    categoryIcon: categoryIcon ?? value.categoryIcon,
     nameValid: nameValid ?? value.nameValid,
   );
 }

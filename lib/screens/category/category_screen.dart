@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../models/category/category.dart';
@@ -58,7 +59,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
     final chosenColor = state.categoryColor;
 
-    final validated = state.nameValid && state.categoryColor != null && state.categoryIcon != null;
+    final validated = state.nameValid && state.categoryColor != null;
 
     return Scaffold(
       body: CustomScrollView(
@@ -82,9 +83,23 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 size: 28,
               ),
             ),
+            actionWidgets: [
+              if (widget.passedCategory != null)
+                IconButton(
+                  onPressed: () async {
+                    await controller.deleteCategory();
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(
+                    Icons.delete_outline_rounded,
+                    color: context.colors.text,
+                    size: 28,
+                  ),
+                ),
+            ],
             smallTitle: widget.passedCategory != null ? 'Update category' : 'New category',
             bigTitle: widget.passedCategory != null ? 'Update category' : 'New category',
-            bigSubtitle: "How you doin'?",
+            bigSubtitle: widget.passedCategory != null ? 'Edit details of an existing category' : 'Create a category to track your expenses',
           ),
 
           ///
@@ -93,7 +108,26 @@ class _CategoryScreenState extends State<CategoryScreen> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                const SizedBox(height: 24),
+                const SizedBox(height: 12),
+
+                ///
+                /// CATEGORY
+                ///
+                Container(
+                  height: 80,
+                  width: 80,
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: chosenColor,
+                    border: Border.all(
+                      color: context.colors.text,
+                      width: 2.5,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 32),
 
                 ///
                 /// NAME TEXT FIELD
@@ -117,61 +151,59 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ///
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: FilledButton(
-                    onPressed: () => controller.colorChanged(Colors.green),
-                    style: FilledButton.styleFrom(
-                      backgroundColor: chosenColor ?? context.colors.primary,
-                      foregroundColor: context.colors.background,
-                    ),
-                    child: Text(
-                      'Category color'.toUpperCase(),
-                    ),
+                  child: MaterialColorPicker(
+                    allowShades: false,
+                    onMainColorChange: (newColorSwatch) {
+                      if (newColorSwatch != null) {
+                        controller.colorChanged(newColorSwatch);
+                      }
+                    },
+                    selectedColor: chosenColor,
+                    alignment: WrapAlignment.center,
+                    circleSize: 56,
+                    elevation: 0,
+                    iconSelected: Icons.check_rounded,
+                    physics: const BouncingScrollPhysics(),
+                    spacing: 12,
                   ),
                 ),
-                const SizedBox(height: 28),
+              ],
+            ),
+          ),
 
-                ///
-                /// CATEGORY ICON
-                ///
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: FilledButton(
-                    onPressed: () => controller.iconChanged('Some icon'),
-                    style: FilledButton.styleFrom(
-                      backgroundColor: state.categoryIcon != null ? Colors.green : context.colors.primary,
-                      foregroundColor: context.colors.background,
-                    ),
-                    child: Text(
-                      'Category icon'.toUpperCase(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 28),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Column(
+              children: [
+                const Spacer(),
 
                 ///
                 /// ADD CATEGORY BUTTON
                 ///
-                FilledButton(
-                  onPressed: validated
-                      ? () async {
-                          await controller.addCategory();
-                          Navigator.of(context).pop();
-                        }
-                      : null,
-                  style: FilledButton.styleFrom(
-                    padding: EdgeInsets.fromLTRB(
-                      24,
-                      28,
-                      24,
-                      MediaQuery.paddingOf(context).bottom + 12,
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: validated
+                        ? () async {
+                            await controller.addCategory();
+                            Navigator.of(context).pop();
+                          }
+                        : null,
+                    style: FilledButton.styleFrom(
+                      padding: EdgeInsets.fromLTRB(
+                        24,
+                        28,
+                        24,
+                        MediaQuery.paddingOf(context).bottom + 12,
+                      ),
+                      backgroundColor: context.colors.text,
+                      foregroundColor: context.colors.background,
+                      disabledBackgroundColor: context.colors.primary,
+                      disabledForegroundColor: context.colors.background,
                     ),
-                    backgroundColor: context.colors.primary,
-                    foregroundColor: context.colors.background,
-                    disabledBackgroundColor: context.colors.buttonBackground,
-                    disabledForegroundColor: context.colors.buttonBackground,
-                  ),
-                  child: Text(
-                    'Add category'.toUpperCase(),
+                    child: Text(
+                      widget.passedCategory != null ? 'Update category'.toUpperCase() : 'Add category'.toUpperCase(),
+                    ),
                   ),
                 ),
               ],

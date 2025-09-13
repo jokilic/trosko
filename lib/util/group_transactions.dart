@@ -47,6 +47,7 @@ List<dynamic> getGroupedTransactions(List<Transaction> transactions) {
   final items = <dynamic>[];
   for (final group in DateGroup.values) {
     final txs = grouped[group];
+
     if (txs != null && txs.isNotEmpty) {
       items
         ..add(group)

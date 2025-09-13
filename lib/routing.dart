@@ -11,10 +11,12 @@ void openTransaction(
   BuildContext context, {
   required Transaction? passedTransaction,
   required List<Category> categories,
+  required Function() onTransactionUpdated,
 }) => pushScreen(
   TransactionScreen(
     passedTransaction: passedTransaction,
     categories: categories,
+    onTransactionUpdated: onTransactionUpdated,
     key: ValueKey(passedTransaction?.id),
   ),
   context: context,

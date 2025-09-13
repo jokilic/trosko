@@ -30,6 +30,7 @@ dependencies:
 
   dough: 2.0.0
   flutter_animate: 4.5.2
+  flutter_material_color_picker: 1.2.0
   flutter_swipe_action_cell: 3.1.5
   get_it: 8.2.0
   hive_ce: 2.11.3

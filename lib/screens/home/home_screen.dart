@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
 
-import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../models/transaction/transaction.dart';
 import '../../routing.dart';
@@ -37,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
       ),
+      afterRegister: (controller) => controller.init(),
     );
   }
 
@@ -49,11 +48,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final controller = getIt.get<HomeController>();
+    final hive = watchIt<HiveService>();
 
-    final categories = watchIt<HiveService>().value.categories;
+    final allTransactions = hive.value.transactions;
+    final categories = hive.value.categories;
 
     final state = watchIt<HomeController>().value;
+
     final items = state.datesAndTransactions;
+
     final activeMonth = state.activeMonth;
     final activeCategory = state.activeCategory;
 
@@ -63,12 +66,16 @@ class _HomeScreenState extends State<HomeScreen> {
           context,
           passedTransaction: null,
           categories: categories,
+          onTransactionUpdated: controller.updateState,
         ),
         label: Text(
-          'New pokémon'.toUpperCase(),
+          'Add new'.toUpperCase(),
+          style: context.textStyles.homeFloatingActionButton,
         ),
-        icon: const Icon(
-          Icons.catching_pokemon_rounded,
+        icon: Icon(
+          Icons.payments_outlined,
+          color: context.colors.text,
+          size: 32,
         ),
       ),
       body: CustomScrollView(
@@ -83,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
               IconButton(
                 onPressed: () {},
                 icon: Icon(
-                  Icons.catching_pokemon_rounded,
+                  Icons.settings_rounded,
                   color: context.colors.text,
                   size: 28,
                 ),
@@ -98,7 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
           /// MONTH CHIPS
           ///
           HomeMonthChips(
-            months: getMonthsFromJan2024(
+            months: getMonthsFromTransactionsWithEmptyMonths(
+              transactions: allTransactions,
               locale: 'hr',
             ),
             activeMonth: activeMonth,
@@ -173,24 +181,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (item is Transaction) {
                   final category = categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
 
-                  return Animate(
-                    key: ValueKey(activeMonth),
-                    effects: [
-                      FadeEffect(
-                        duration: TroskoDurations.animationDuration,
-                        delay: index <= 5 ? (75 * index).ms : 0.ms,
-                        curve: Curves.easeIn,
-                      ),
-                    ],
-                    child: HomeTransactionWidget(
-                      onPressed: () => openTransaction(
-                        context,
-                        passedTransaction: item,
-                        categories: categories,
-                      ),
-                      transaction: item,
-                      category: category,
+                  return HomeTransactionWidget(
+                    onPressed: () => openTransaction(
+                      context,
+                      passedTransaction: item,
+                      categories: categories,
+                      onTransactionUpdated: controller.updateState,
                     ),
+                    transaction: item,
+                    category: category,
                   );
                 }
 
@@ -201,30 +200,20 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverPadding(
               padding: const EdgeInsets.all(24),
               sliver: SliverToBoxAdapter(
-                child: Animate(
-                  key: ValueKey(activeMonth),
-                  effects: const [
-                    FadeEffect(
-                      duration: TroskoDurations.animationDuration,
-                      delay: TroskoDurations.animationDelay,
-                      curve: Curves.easeIn,
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.money_off_rounded,
+                      color: context.colors.text,
+                      size: 48,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'No transactions',
+                      textAlign: TextAlign.center,
+                      style: context.textStyles.homeTitle,
                     ),
                   ],
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.money_off_rounded,
-                        color: context.colors.text,
-                        size: 48,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'No transactions',
-                        textAlign: TextAlign.center,
-                        style: context.textStyles.homeTitle,
-                      ),
-                    ],
-                  ),
                 ),
               ),
             ),

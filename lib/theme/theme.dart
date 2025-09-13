@@ -20,7 +20,8 @@ class TroskoTheme {
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: lightAppColors.primary,
         foregroundColor: lightAppColors.text,
-        elevation: 2,
+        elevation: 1,
+        highlightElevation: 2,
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
@@ -54,8 +55,9 @@ class TroskoTheme {
         backgroundColor: lightAppColors.buttonBackground,
         selectedColor: lightAppColors.primary,
         showCheckmark: false,
-        elevation: 0,
         labelPadding: const EdgeInsets.symmetric(horizontal: 8),
+        elevation: 1,
+        pressElevation: 2,
       ),
       iconButtonTheme: IconButtonThemeData(
         style: IconButton.styleFrom(
@@ -65,7 +67,7 @@ class TroskoTheme {
           iconSize: 28,
           shape: const CircleBorder(),
           padding: const EdgeInsets.all(16),
-          elevation: 2,
+          elevation: 1,
         ),
       ),
       splashColor: Colors.transparent,
@@ -121,6 +123,9 @@ TroskoTextThemesExtension getTextThemesExtension({
     color: colorsExtension.text,
   ),
   appBarSubtitleBig: TroskoTextStyles.appBarSubtitleBig.copyWith(
+    color: colorsExtension.text,
+  ),
+  homeFloatingActionButton: TroskoTextStyles.homeFloatingActionButton.copyWith(
     color: colorsExtension.text,
   ),
   homeTopTitle: TroskoTextStyles.homeTopTitle.copyWith(

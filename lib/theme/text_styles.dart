@@ -25,6 +25,12 @@ abstract class TroskoTextStyles {
     fontWeight: FontWeight.w500,
   );
 
+  static const homeFloatingActionButton = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+  );
+
   static const homeTopTitle = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 40,
@@ -117,6 +123,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
   final TextStyle appBarTitleSmall;
   final TextStyle appBarTitleBig;
   final TextStyle appBarSubtitleBig;
+  final TextStyle homeFloatingActionButton;
   final TextStyle homeTopTitle;
   final TextStyle homeMonthChip;
   final TextStyle homeCategoryTitle;
@@ -137,6 +144,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     required this.appBarTitleSmall,
     required this.appBarTitleBig,
     required this.appBarSubtitleBig,
+    required this.homeFloatingActionButton,
     required this.homeTopTitle,
     required this.homeMonthChip,
     required this.homeCategoryTitle,
@@ -159,6 +167,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     TextStyle? appBarTitleSmall,
     TextStyle? appBarTitleBig,
     TextStyle? appBarSubtitleBig,
+    TextStyle? homeFloatingActionButton,
     TextStyle? homeTopTitle,
     TextStyle? homeMonthChip,
     TextStyle? homeCategoryTitle,
@@ -178,6 +187,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     appBarTitleSmall: appBarTitleSmall ?? this.appBarTitleSmall,
     appBarTitleBig: appBarTitleBig ?? this.appBarTitleBig,
     appBarSubtitleBig: appBarSubtitleBig ?? this.appBarSubtitleBig,
+    homeFloatingActionButton: homeFloatingActionButton ?? this.homeFloatingActionButton,
     homeTopTitle: homeTopTitle ?? this.homeTopTitle,
     homeMonthChip: homeMonthChip ?? this.homeMonthChip,
     homeCategoryTitle: homeCategoryTitle ?? this.homeCategoryTitle,
@@ -208,6 +218,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
       appBarTitleSmall: TextStyle.lerp(appBarTitleSmall, other.appBarTitleSmall, t)!,
       appBarTitleBig: TextStyle.lerp(appBarTitleBig, other.appBarTitleBig, t)!,
       appBarSubtitleBig: TextStyle.lerp(appBarSubtitleBig, other.appBarSubtitleBig, t)!,
+      homeFloatingActionButton: TextStyle.lerp(homeFloatingActionButton, other.homeFloatingActionButton, t)!,
       homeTopTitle: TextStyle.lerp(homeTopTitle, other.homeTopTitle, t)!,
       homeMonthChip: TextStyle.lerp(homeMonthChip, other.homeMonthChip, t)!,
       homeCategoryTitle: TextStyle.lerp(homeCategoryTitle, other.homeCategoryTitle, t)!,

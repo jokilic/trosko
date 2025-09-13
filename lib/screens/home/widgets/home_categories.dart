@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../../constants/durations.dart';
 import '../../../models/category/category.dart';
 import '../../../theme/theme.dart';
 
@@ -23,7 +21,7 @@ class HomeCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SliverToBoxAdapter(
     child: SizedBox(
-      height: 88,
+      height: 96,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         physics: const BouncingScrollPhysics(),
@@ -36,40 +34,23 @@ class HomeCategories extends StatelessWidget {
           /// CATEGORY
           ///
           if (category != null) {
-            return Animate(
-              effects: [
-                FadeEffect(
-                  duration: TroskoDurations.animationDuration,
-                  delay: index <= 5 ? (75 * index).ms : 0.ms,
-                  curve: Curves.easeIn,
-                ),
-              ],
-              child: HomeCategory(
-                onPressed: () => onPressedCategory(category),
-                onLongPressed: () => onLongPressedCategory(category),
-                color: category.color.withValues(alpha: activeCategory == category ? 1 : 0.2),
-                icon: Icons.catching_pokemon_rounded,
-                text: category.name,
-              ),
+            return HomeCategory(
+              onPressed: () => onPressedCategory(category),
+              onLongPressed: () => onLongPressedCategory(category),
+              color: category.color.withValues(alpha: activeCategory == category || activeCategory == null ? 1 : 0.2),
+              text: category.name,
             );
           }
 
           ///
           /// ADD NEW CATEGORY
           ///
-          return Animate(
-            effects: [
-              FadeEffect(
-                duration: 150.ms,
-                delay: index <= 5 ? (75 * index).ms : 0.ms,
-              ),
-            ],
-            child: HomeCategory(
-              onPressed: onPressedAdd,
-              color: context.colors.buttonBackground,
-              icon: Icons.add_rounded,
-              text: 'Add',
-            ),
+          return HomeCategory(
+            onPressed: onPressedAdd,
+            color: context.colors.buttonBackground,
+            icon: Icons.add_rounded,
+            text: 'Add',
+            hasBorder: false,
           );
         },
         separatorBuilder: (_, __) => const SizedBox(width: 24),
@@ -82,15 +63,17 @@ class HomeCategory extends StatelessWidget {
   final Function() onPressed;
   final Function()? onLongPressed;
   final Color color;
-  final IconData icon;
+  final IconData? icon;
   final String text;
+  final bool hasBorder;
 
   const HomeCategory({
     required this.onPressed,
     required this.color,
-    required this.icon,
     required this.text,
+    this.icon,
     this.onLongPressed,
+    this.hasBorder = true,
   });
 
   @override
@@ -100,16 +83,26 @@ class HomeCategory extends StatelessWidget {
     ),
     child: Column(
       children: [
-        IconButton(
-          onPressed: onPressed,
-          onLongPress: onLongPressed,
-          style: IconButton.styleFrom(
-            backgroundColor: color,
-            highlightColor: color.withValues(alpha: 0.1),
+        Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: hasBorder ? context.colors.text : color,
+              width: 2.5,
+            ),
           ),
-          icon: Icon(icon),
+          child: IconButton(
+            onPressed: onPressed,
+            onLongPress: onLongPressed,
+            style: IconButton.styleFrom(
+              fixedSize: const Size(58, 58),
+              backgroundColor: color,
+              highlightColor: color.withValues(alpha: 0.25),
+            ),
+            icon: Icon(icon),
+          ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 6),
         Text(
           text,
           style: context.textStyles.homeCategoryTitle,

@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../models/category/category.dart';
 import '../../models/month/month.dart';
-import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../util/date_time.dart';
 import '../../util/group_transactions.dart';
-import '../../util/months.dart';
 
-class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions, Month activeMonth, Category? activeCategory})> {
+class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions, Month? activeMonth, Category? activeCategory})> {
   ///
   /// CONSTRUCTOR
   ///
@@ -20,14 +19,18 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
     required this.logger,
     required this.hive,
   }) : super((
-         datesAndTransactions: getGroupedTransactions(
-           hive.getTransactions(),
-         ),
-         activeMonth: getCurrentMonth(
-           locale: 'hr',
-         ),
+         datesAndTransactions: [],
+         activeMonth: null,
          activeCategory: null,
        ));
+
+  ///
+  /// INIT
+  ///
+
+  void init() {
+    updateState();
+  }
 
   ///
   /// METHODS
@@ -35,25 +38,25 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
 
   /// Updates `state`, depending on passed [Month] or [Category]
   void updateState({Month? newMonth, Category? newCategory}) {
-    final allTransactions = hive.getTransactions();
+    final all = hive.getTransactions();
 
-    /// Filter `allTransactions`
-    final filteredTransactions = allTransactions.where((t) {
-      final monthOk = newMonth == null || newMonth == value.activeMonth || t.createdAt.year == newMonth.date.year && t.createdAt.month == newMonth.date.month;
+    /// Determine target filters
+    final targetMonth = (newMonth == value.activeMonth) ? null : (newMonth ?? value.activeMonth);
+    final targetCategory = (newCategory == value.activeCategory) ? null : (newCategory ?? value.activeCategory);
 
-      final categoryOk = newCategory == null || newCategory == value.activeCategory || t.categoryId == newCategory.id;
+    /// Apply filters and sort
+    final filtered = all.where((t) {
+      final monthOk = targetMonth == null || isSameMonth(t.createdAt, targetMonth.date);
+      final categoryOk = targetCategory == null || t.categoryId == targetCategory.id;
 
       return monthOk && categoryOk;
-    }).toList();
-
-    /// Create a new `List<Transaction>`
-    final newTransactions = List<Transaction>.from(filteredTransactions);
+    }).toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     /// Update `state`
     value = (
-      datesAndTransactions: getGroupedTransactions(newTransactions),
-      activeMonth: newMonth ?? value.activeMonth,
-      activeCategory: newCategory == value.activeCategory ? null : newCategory ?? value.activeCategory,
+      datesAndTransactions: getGroupedTransactions(filtered),
+      activeMonth: targetMonth,
+      activeCategory: targetCategory,
     );
   }
 }

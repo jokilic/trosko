@@ -19,10 +19,12 @@ import 'widgets/transaction_date_checkbox.dart';
 class TransactionScreen extends WatchingStatefulWidget {
   final Transaction? passedTransaction;
   final List<Category> categories;
+  final Function() onTransactionUpdated;
 
   const TransactionScreen({
     required this.passedTransaction,
     required this.categories,
+    required this.onTransactionUpdated,
     required super.key,
   });
 
@@ -93,9 +95,24 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 size: 28,
               ),
             ),
+            actionWidgets: [
+              if (widget.passedTransaction != null)
+                IconButton(
+                  onPressed: () async {
+                    await controller.deleteTransaction();
+                    widget.onTransactionUpdated();
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(
+                    Icons.delete_outline_rounded,
+                    color: context.colors.text,
+                    size: 28,
+                  ),
+                ),
+            ],
             smallTitle: widget.passedTransaction != null ? 'Update transaction' : 'New transaction',
             bigTitle: widget.passedTransaction != null ? 'Update transaction' : 'New transaction',
-            bigSubtitle: "How you doin'?",
+            bigSubtitle: widget.passedTransaction != null ? 'Edit details of an existing expense' : 'Create a new expense',
           ),
 
           ///
@@ -242,6 +259,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   onPressed: validated
                       ? () async {
                           await controller.addTransaction();
+                          widget.onTransactionUpdated();
                           Navigator.of(context).pop();
                         }
                       : null,
@@ -252,10 +270,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       24,
                       MediaQuery.paddingOf(context).bottom + 12,
                     ),
-                    backgroundColor: context.colors.primary,
-                    foregroundColor: context.colors.primary,
-                    disabledBackgroundColor: context.colors.buttonBackground,
-                    disabledForegroundColor: context.colors.buttonBackground,
+                    backgroundColor: context.colors.text,
+                    foregroundColor: context.colors.background,
+                    disabledBackgroundColor: context.colors.primary,
+                    disabledForegroundColor: context.colors.background,
                   ),
                   child: Text(
                     widget.passedTransaction != null ? 'Update transaction'.toUpperCase() : 'Add transaction'.toUpperCase(),

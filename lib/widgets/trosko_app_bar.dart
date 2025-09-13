@@ -28,7 +28,7 @@ class TroskoAppBar extends StatelessWidget {
     ),
     backgroundColor: context.colors.scaffoldBackground,
     foregroundColor: context.colors.primary,
-    titleSpacing: 4,
+    titleSpacing: leadingWidget != null ? 4 : 16,
     elevation: 0,
     scrolledUnderElevation: 0,
     expandedHeight: 160,
