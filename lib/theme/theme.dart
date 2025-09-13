@@ -59,9 +59,9 @@ class TroskoTheme {
       ),
       iconButtonTheme: IconButtonThemeData(
         style: IconButton.styleFrom(
-          backgroundColor: lightAppColors.buttonBackground,
+          backgroundColor: Colors.transparent,
           foregroundColor: lightAppColors.text,
-          highlightColor: lightAppColors.buttonBackground,
+          highlightColor: Colors.transparent,
           iconSize: 28,
           shape: const CircleBorder(),
           padding: const EdgeInsets.all(16),

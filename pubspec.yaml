@@ -22,14 +22,13 @@ version: 1.0.0+100
 #
 
 environment:
-  sdk: 3.9.0
+  sdk: 3.9.2
 
 dependencies:
   flutter:
     sdk: flutter
 
   dough: 2.0.0
-  fl_chart: 1.0.0
   flutter_animate: 4.5.2
   flutter_swipe_action_cell: 3.1.5
   get_it: 8.2.0

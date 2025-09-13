@@ -7,12 +7,16 @@ import '../../../theme/theme.dart';
 
 class HomeCategories extends StatelessWidget {
   final List<Category> categories;
+  final Category? activeCategory;
   final Function(Category category) onPressedCategory;
+  final Function(Category category) onLongPressedCategory;
   final Function() onPressedAdd;
 
   const HomeCategories({
     required this.categories,
+    required this.activeCategory,
     required this.onPressedCategory,
+    required this.onLongPressedCategory,
     required this.onPressedAdd,
   });
 
@@ -42,7 +46,8 @@ class HomeCategories extends StatelessWidget {
               ],
               child: HomeCategory(
                 onPressed: () => onPressedCategory(category),
-                color: category.color,
+                onLongPressed: () => onLongPressedCategory(category),
+                color: category.color.withValues(alpha: activeCategory == category ? 1 : 0.2),
                 icon: Icons.catching_pokemon_rounded,
                 text: category.name,
               ),
@@ -75,6 +80,7 @@ class HomeCategories extends StatelessWidget {
 
 class HomeCategory extends StatelessWidget {
   final Function() onPressed;
+  final Function()? onLongPressed;
   final Color color;
   final IconData icon;
   final String text;
@@ -84,6 +90,7 @@ class HomeCategory extends StatelessWidget {
     required this.color,
     required this.icon,
     required this.text,
+    this.onLongPressed,
   });
 
   @override
@@ -95,8 +102,10 @@ class HomeCategory extends StatelessWidget {
       children: [
         IconButton(
           onPressed: onPressed,
+          onLongPress: onLongPressed,
           style: IconButton.styleFrom(
             backgroundColor: color,
+            highlightColor: color.withValues(alpha: 0.1),
           ),
           icon: Icon(icon),
         ),

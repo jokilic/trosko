@@ -118,7 +118,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: FilledButton(
-                    onPressed: () => controller.colorChanged(Colors.indigo),
+                    onPressed: () => controller.colorChanged(Colors.green),
                     style: FilledButton.styleFrom(
                       backgroundColor: chosenColor ?? context.colors.primary,
                       foregroundColor: context.colors.background,

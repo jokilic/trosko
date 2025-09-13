@@ -55,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final state = watchIt<HomeController>().value;
     final items = state.datesAndTransactions;
     final activeMonth = state.activeMonth;
+    final activeCategory = state.activeCategory;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
@@ -101,7 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
               locale: 'hr',
             ),
             activeMonth: activeMonth,
-            onChipPressed: controller.updateStateByMonth,
+            onChipPressed: (month) => controller.updateState(
+              newMonth: month,
+            ),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 8),
@@ -128,7 +131,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ///
           HomeCategories(
             categories: categories,
-            onPressedCategory: (category) => openCategory(
+            activeCategory: activeCategory,
+            onPressedCategory: (category) => controller.updateState(
+              newCategory: category,
+            ),
+            onLongPressedCategory: (category) => openCategory(
               context,
               passedCategory: category,
             ),
