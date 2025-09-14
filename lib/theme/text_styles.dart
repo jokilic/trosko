@@ -27,7 +27,7 @@ abstract class TroskoTextStyles {
 
   static const homeFloatingActionButton = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: FontWeight.w700,
   );
 
@@ -46,19 +46,19 @@ abstract class TroskoTextStyles {
 
   static const homeCategoryTitle = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: FontWeight.w500,
   );
 
   static const homeTransactionTitle = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: FontWeight.w700,
   );
 
   static const homeTransactionSubtitle = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w500,
   );
 

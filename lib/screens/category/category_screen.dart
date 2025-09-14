@@ -92,7 +92,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   },
                   icon: Icon(
                     Icons.delete_outline_rounded,
-                    color: context.colors.text,
+                    color: context.colors.delete,
                     size: 28,
                   ),
                 ),
@@ -196,10 +196,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         24,
                         MediaQuery.paddingOf(context).bottom + 12,
                       ),
-                      backgroundColor: context.colors.text,
-                      foregroundColor: context.colors.background,
-                      disabledBackgroundColor: context.colors.primary,
-                      disabledForegroundColor: context.colors.background,
+                      backgroundColor: context.colors.primary,
+                      foregroundColor: context.colors.text,
+                      disabledBackgroundColor: context.colors.buttonBackground,
+                      disabledForegroundColor: context.colors.listTileBackground,
                     ),
                     child: Text(
                       widget.passedCategory != null ? 'Update category'.toUpperCase() : 'Add category'.toUpperCase(),

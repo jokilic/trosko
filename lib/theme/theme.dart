@@ -87,10 +87,11 @@ class TroskoTheme {
   }
 
   static final lightAppColors = TroskoColorsExtension(
-    primary: TroskoColors.lightBlue,
-    background: TroskoColors.white,
-    buttonBackground: TroskoColors.grey,
+    primary: TroskoColors.yellow,
     text: TroskoColors.black,
+    delete: TroskoColors.red,
+    listTileBackground: TroskoColors.white,
+    buttonBackground: TroskoColors.grey,
     scaffoldBackground: TroskoColors.lightGrey,
   );
 

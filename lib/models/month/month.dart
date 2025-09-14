@@ -15,6 +15,13 @@ class Month {
     label: label ?? this.label,
   );
 
+  factory Month.all() => Month(
+    date: DateTime.fromMillisecondsSinceEpoch(0),
+    label: 'All',
+  );
+
+  bool get isAll => date.millisecondsSinceEpoch == 0;
+
   @override
   String toString() => 'Month(date: $date, label: $label)';
 

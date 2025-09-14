@@ -61,23 +61,25 @@ class _HomeScreenState extends State<HomeScreen> {
     final activeCategory = state.activeCategory;
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => openTransaction(
-          context,
-          passedTransaction: null,
-          categories: categories,
-          onTransactionUpdated: controller.updateState,
-        ),
-        label: Text(
-          'Add new'.toUpperCase(),
-          style: context.textStyles.homeFloatingActionButton,
-        ),
-        icon: Icon(
-          Icons.payments_outlined,
-          color: context.colors.text,
-          size: 32,
-        ),
-      ),
+      floatingActionButton: categories.isNotEmpty
+          ? FloatingActionButton.extended(
+              onPressed: () => openTransaction(
+                context,
+                passedTransaction: null,
+                categories: categories,
+                onTransactionUpdated: controller.updateState,
+              ),
+              label: Text(
+                'Add new'.toUpperCase(),
+                style: context.textStyles.homeFloatingActionButton,
+              ),
+              icon: Icon(
+                Icons.payments_outlined,
+                color: context.colors.text,
+                size: 32,
+              ),
+            )
+          : null,
       body: CustomScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),
@@ -105,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
           /// MONTH CHIPS
           ///
           HomeMonthChips(
-            months: getMonthsFromTransactionsWithEmptyMonths(
+            months: getMonthsForChips(
               transactions: allTransactions,
               locale: 'hr',
             ),

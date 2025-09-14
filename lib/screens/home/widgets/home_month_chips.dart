@@ -7,7 +7,7 @@ import '../../../util/string.dart';
 class HomeMonthChips extends StatelessWidget {
   final List<Month> months;
   final Month? activeMonth;
-  final Function(Month newMonth) onChipPressed;
+  final Function(Month? newMonth) onChipPressed;
 
   const HomeMonthChips({
     required this.months,
@@ -23,24 +23,56 @@ class HomeMonthChips extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        itemCount: months.length,
+        itemCount: months.length + 1,
         itemBuilder: (_, index) {
-          final month = months[index];
+          if (index == 0) {
+            ///
+            /// ALL
+            ///
+            return FilterChip(
+              label: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  minWidth: 40,
+                ),
+                child: Text(
+                  'All',
+                  style: context.textStyles.homeMonthChip,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              selected: activeMonth == null,
+              onSelected: (_) => onChipPressed(
+                Month(
+                  date: DateTime.fromMillisecondsSinceEpoch(0),
+                  label: 'All',
+                ),
+              ),
+            );
+          }
 
-          return FilterChip(
-            label: ConstrainedBox(
-              constraints: const BoxConstraints(
-                minWidth: 40,
+          ///
+          /// MONTH
+          ///
+          final month = months.elementAtOrNull(index - 1);
+
+          if (month != null) {
+            return FilterChip(
+              label: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  minWidth: 40,
+                ),
+                child: Text(
+                  capitalize(month.label),
+                  style: context.textStyles.homeMonthChip,
+                  textAlign: TextAlign.center,
+                ),
               ),
-              child: Text(
-                capitalize(month.label),
-                style: context.textStyles.homeMonthChip,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            selected: activeMonth == month,
-            onSelected: (_) => onChipPressed(month),
-          );
+              selected: activeMonth == month,
+              onSelected: (_) => onChipPressed(month),
+            );
+          }
+
+          return const SizedBox.shrink();
         },
         separatorBuilder: (_, __) => const SizedBox(width: 12),
       ),

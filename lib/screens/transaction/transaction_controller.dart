@@ -8,6 +8,7 @@ import '../../models/category/category.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../util/date_time.dart';
 
 class TransactionController
     extends
@@ -56,22 +57,26 @@ class TransactionController
   ///
 
   void init() {
-    final category = categories
+    final now = DateTime.now();
+
+    final passedCategory = categories
         .where(
           (category) => category.id == passedTransaction?.categoryId,
         )
         .toList()
         .firstOrNull;
 
+    final category = passedCategory ?? (categories.length == 1 ? categories.firstOrNull : null);
+
     updateState(
       category: category,
       amountCents: passedTransaction?.amountCents,
-      transactionDate: passedTransaction?.createdAt ?? DateTime.now(),
+      transactionDate: passedTransaction?.createdAt ?? now,
       nameValid: passedTransaction?.name.isNotEmpty ?? false,
       amountValid: (passedTransaction?.amountCents ?? 0) > 0,
       categoryValid: category != null,
       dateValid: true,
-      activeDateEnum: passedTransaction?.createdAt != null ? ActiveDate.otherDay : ActiveDate.today,
+      activeDateEnum: passedTransaction?.createdAt == null || isSameDay(passedTransaction?.createdAt ?? now, now) ? ActiveDate.today : ActiveDate.otherDay,
     );
 
     /// Validation

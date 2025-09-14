@@ -40,19 +40,47 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
   void updateState({Month? newMonth, Category? newCategory}) {
     final all = hive.getTransactions();
 
-    /// Determine target filters
-    final targetMonth = (newMonth == value.activeMonth) ? null : (newMonth ?? value.activeMonth);
-    final targetCategory = (newCategory == value.activeCategory) ? null : (newCategory ?? value.activeCategory);
+    /// Month filter
+    Month? targetMonth;
+    if (newMonth != null) {
+      /// Clear month filter
+      if (newMonth.isAll) {
+        targetMonth = null;
+      }
+      /// Enable month filter
+      else {
+        targetMonth = (value.activeMonth != null && isSameMonth(newMonth.date, value.activeMonth!.date)) ? null : newMonth;
+      }
+    }
+    /// Keep old filter
+    else {
+      targetMonth = value.activeMonth;
+    }
+
+    /// Category filter
+    Category? targetCategory;
+
+    /// Enable category filter
+    if (newCategory != null) {
+      targetCategory = (value.activeCategory != null && value.activeCategory!.id == newCategory.id) ? null : newCategory;
+    }
+    /// Keep old filter
+    else {
+      targetCategory = value.activeCategory;
+    }
 
     /// Apply filters and sort
-    final filtered = all.where((t) {
-      final monthOk = targetMonth == null || isSameMonth(t.createdAt, targetMonth.date);
-      final categoryOk = targetCategory == null || t.categoryId == targetCategory.id;
+    final filtered =
+        all.where((t) {
+          final monthOk = targetMonth == null || isSameMonth(t.createdAt, targetMonth.date);
+          final categoryOk = targetCategory == null || t.categoryId == targetCategory.id;
 
-      return monthOk && categoryOk;
-    }).toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+          return monthOk && categoryOk;
+        }).toList()..sort(
+          (a, b) => b.createdAt.compareTo(a.createdAt),
+        );
 
-    /// Update `state`
+    /// Update state
     value = (
       datesAndTransactions: getGroupedTransactions(filtered),
       activeMonth: targetMonth,

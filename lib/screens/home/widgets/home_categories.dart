@@ -21,7 +21,7 @@ class HomeCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SliverToBoxAdapter(
     child: SizedBox(
-      height: 96,
+      height: 104,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         physics: const BouncingScrollPhysics(),
@@ -53,7 +53,7 @@ class HomeCategories extends StatelessWidget {
             hasBorder: false,
           );
         },
-        separatorBuilder: (_, __) => const SizedBox(width: 24),
+        separatorBuilder: (_, __) => const SizedBox(width: 4),
       ),
     ),
   );
@@ -77,10 +77,8 @@ class HomeCategory extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => ConstrainedBox(
-    constraints: const BoxConstraints(
-      maxWidth: 96,
-    ),
+  Widget build(BuildContext context) => SizedBox(
+    width: 80,
     child: Column(
       children: [
         Container(
@@ -95,9 +93,10 @@ class HomeCategory extends StatelessWidget {
             onPressed: onPressed,
             onLongPress: onLongPressed,
             style: IconButton.styleFrom(
-              fixedSize: const Size(58, 58),
+              padding: const EdgeInsets.all(12),
               backgroundColor: color,
               highlightColor: color.withValues(alpha: 0.25),
+              alignment: Alignment.center,
             ),
             icon: Icon(icon),
           ),
@@ -106,7 +105,7 @@ class HomeCategory extends StatelessWidget {
         Text(
           text,
           style: context.textStyles.homeCategoryTitle,
-          maxLines: 1,
+          maxLines: 2,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
         ),

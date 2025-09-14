@@ -3,57 +3,37 @@ import 'package:intl/intl.dart';
 import '../models/month/month.dart';
 import '../models/transaction/transaction.dart';
 
-/// Returns months that have transactions, without empty months
-List<Month> getMonthsFromTransactionsWithoutEmptyMonths({
-  required List<Transaction> transactions,
-  required String locale,
-}) {
-  final formatter = DateFormat.MMMM(locale);
-  final set = <String>{};
-  final uniques = <DateTime>[];
-
-  for (final t in transactions) {
-    final d = DateTime(t.createdAt.year, t.createdAt.month);
-    final key = '${d.year}-${d.month}';
-
-    if (set.add(key)) {
-      uniques.add(d);
-    }
-  }
-
-  /// Always include current month
-  final now = DateTime.now();
-  final current = DateTime(now.year, now.month);
-  if (set.add('${current.year}-${current.month}')) {
-    uniques.add(current);
-  }
-
-  uniques.sort((a, b) => b.compareTo(a));
-
-  return uniques.map((d) => Month(date: d, label: formatter.format(d))).toList();
-}
-
-/// Returns months that have transactions, including empty months
-List<Month> getMonthsFromTransactionsWithEmptyMonths({
+/// Returns months covering
+/// - the last 12 months ending at the current month
+/// - the span from earliest to latest transaction
+/// Including empty months
+/// Newest first
+List<Month> getMonthsForChips({
   required List<Transaction> transactions,
   required String locale,
 }) {
   final formatter = DateFormat.MMMM(locale);
   final now = DateTime.now();
   final current = DateTime(now.year, now.month);
+  final yearStart = DateTime(current.year, current.month - 11);
 
+  /// If no transactions, just the full year
   if (transactions.isEmpty) {
-    return [
-      Month(
-        date: current,
-        label: formatter.format(current),
-      ),
-    ];
+    final out = <Month>[];
+    var cur = yearStart;
+
+    while (!cur.isAfter(current)) {
+      out.add(Month(date: cur, label: formatter.format(cur)));
+      cur = DateTime(cur.year, cur.month + 1);
+    }
+
+    return out.reversed.toList();
   }
 
-  /// Find min and max transaction dates
+  /// Find `min` & `max` transaction dates
   var minD = transactions.first.createdAt;
   var maxD = minD;
+
   for (final t in transactions) {
     final d = t.createdAt;
 
@@ -66,18 +46,20 @@ List<Month> getMonthsFromTransactionsWithEmptyMonths({
     }
   }
 
-  /// Normalize to month starts
-  var cur = DateTime(minD.year, minD.month);
-  final lastTxMonth = DateTime(maxD.year, maxD.month);
-  final end = lastTxMonth.isAfter(current) ? lastTxMonth : current;
+  final txStart = DateTime(minD.year, minD.month);
+  final txEnd = DateTime(maxD.year, maxD.month);
+
+  final start = txStart.isBefore(yearStart) ? txStart : yearStart;
+  final end = txEnd.isAfter(current) ? txEnd : current;
 
   final out = <Month>[];
+  var cur = start;
+
   while (!cur.isAfter(end)) {
     out.add(Month(date: cur, label: formatter.format(cur)));
     cur = DateTime(cur.year, cur.month + 1);
   }
 
-  /// newest first
   return out.reversed.toList();
 }
 

@@ -23,7 +23,7 @@ class HomeTransactionWidget extends StatelessWidget {
       vertical: 1,
     ),
     child: ListTile(
-      tileColor: context.colors.background,
+      tileColor: context.colors.listTileBackground,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
