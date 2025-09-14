@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 
-import '../../constants/enums.dart';
+import '../../models/day_header/day_header.dart';
 import '../../models/transaction/transaction.dart';
 import '../../routing.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../theme/colors.dart';
 import '../../theme/theme.dart';
+import '../../util/currency.dart';
 import '../../util/dependencies.dart';
-import '../../util/group_transactions.dart';
 import '../../util/months.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'home_controller.dart';
@@ -62,21 +63,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       floatingActionButton: categories.isNotEmpty
-          ? FloatingActionButton.extended(
-              onPressed: () => openTransaction(
-                context,
-                passedTransaction: null,
-                categories: categories,
-                onTransactionUpdated: controller.updateState,
+          ? Theme(
+              data: Theme.of(context).copyWith(
+                splashColor: Colors.transparent,
+                highlightColor: context.colors.buttonBackground,
               ),
-              label: Text(
-                'Add new'.toUpperCase(),
-                style: context.textStyles.homeFloatingActionButton,
-              ),
-              icon: Icon(
-                Icons.payments_outlined,
-                color: context.colors.text,
-                size: 32,
+              child: FloatingActionButton.extended(
+                onPressed: () => openTransaction(
+                  context,
+                  passedTransaction: null,
+                  categories: categories,
+                  onTransactionUpdated: controller.updateState,
+                ),
+                label: Text(
+                  'Add new'.toUpperCase(),
+                  style: context.textStyles.homeFloatingActionButton,
+                ),
+                icon: const Icon(
+                  Icons.payments_outlined,
+                  color: TroskoColors.lighterGrey,
+                  size: 32,
+                ),
               ),
             )
           : null,
@@ -91,6 +98,10 @@ class _HomeScreenState extends State<HomeScreen> {
             actionWidgets: [
               IconButton(
                 onPressed: () {},
+                style: IconButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  highlightColor: context.colors.buttonBackground,
+                ),
                 icon: Icon(
                   Icons.settings_rounded,
                   color: context.colors.text,
@@ -165,14 +176,46 @@ class _HomeScreenState extends State<HomeScreen> {
                 final item = items[index];
 
                 ///
-                /// DATE TITLE
+                /// DAY HEADER
                 ///
-                if (item is DateGroup) {
+                if (item is DayHeader) {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(28, 28, 28, 12),
-                    child: Text(
-                      getGroupLabel(item),
-                      style: context.textStyles.homeTitle,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ///
+                        /// DAY
+                        ///
+                        Expanded(
+                          child: Text(
+                            item.label,
+                            style: context.textStyles.homeTitle,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+
+                        ///
+                        /// AMOUNT
+                        ///
+                        Text.rich(
+                          TextSpan(
+                            text: formatCentsToCurrency(
+                              item.amountCents,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: '€',
+                                style: context.textStyles.homeTitleEuro,
+                              ),
+                            ],
+                          ),
+                          style: context.textStyles.homeTitle,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
                     ),
                   );
                 }

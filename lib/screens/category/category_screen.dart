@@ -5,6 +5,7 @@ import 'package:watch_it/watch_it.dart';
 import '../../models/category/category.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../theme/colors.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
 import '../../widgets/trosko_app_bar.dart';
@@ -74,7 +75,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
               onPressed: Navigator.of(context).pop,
               style: IconButton.styleFrom(
                 backgroundColor: Colors.transparent,
-                foregroundColor: context.colors.buttonBackground,
                 highlightColor: context.colors.buttonBackground,
               ),
               icon: Icon(
@@ -90,6 +90,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     await controller.deleteCategory();
                     Navigator.of(context).pop();
                   },
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    highlightColor: context.colors.buttonBackground,
+                  ),
                   icon: Icon(
                     Icons.delete_outline_rounded,
                     color: context.colors.delete,
@@ -197,7 +201,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         MediaQuery.paddingOf(context).bottom + 12,
                       ),
                       backgroundColor: chosenColor,
-                      foregroundColor: context.colors.listTileBackground,
+                      foregroundColor: TroskoColors.lighterGrey,
+                      overlayColor: context.colors.buttonBackground,
                       disabledBackgroundColor: context.colors.buttonBackground,
                       disabledForegroundColor: context.colors.listTileBackground,
                     ),

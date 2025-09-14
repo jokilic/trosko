@@ -1,58 +1,60 @@
 import 'package:collection/collection.dart';
+import 'package:intl/intl.dart';
 
-import '../constants/enums.dart';
+import '../models/day_header/day_header.dart';
 import '../models/transaction/transaction.dart';
+import 'date_time.dart';
 
-DateGroup getDateGroup(DateTime date) {
+/// [DayHeader, Transaction, Transaction, DayHeader, ...]
+List<Object> getGroupedTransactionsByDate(
+  List<Transaction> transactions, {
+  String locale = 'hr',
+}) {
   final now = DateTime.now();
-  final today = DateTime(now.year, now.month, now.day);
+  final today = toYmd(now);
   final yesterday = today.subtract(const Duration(days: 1));
-  final startOfWeek = today.subtract(Duration(days: now.weekday - 1));
-  final firstOfThisMonth = DateTime(now.year, now.month);
-  final firstOfLastMonth = DateTime(now.year, now.month - 1);
 
-  if (date.isAfter(today.subtract(const Duration(seconds: 1)))) {
-    return DateGroup.today;
-  }
-  if (date.isAfter(yesterday.subtract(const Duration(seconds: 1))) && date.isBefore(today)) {
-    return DateGroup.yesterday;
-  }
-  if (date.isAfter(startOfWeek)) {
-    return DateGroup.thisWeek;
-  }
-  if (date.isAfter(firstOfThisMonth)) {
-    return DateGroup.thisMonth;
-  }
-  if (date.isAfter(firstOfLastMonth)) {
-    return DateGroup.lastMonth;
-  }
-  return DateGroup.older;
-}
+  final dayFmt = DateFormat('dd. MMMM', locale);
+  final dayFmtYear = DateFormat('dd. MMMM yyyy', locale);
 
-String getGroupLabel(DateGroup group) => switch (group) {
-  DateGroup.today => 'Today',
-  DateGroup.yesterday => 'Yesterday',
-  DateGroup.thisWeek => 'This week',
-  DateGroup.thisMonth => 'This month',
-  DateGroup.lastMonth => 'Last month',
-  DateGroup.older => 'Older',
-};
+  String labelFor(DateTime d) {
+    if (d == today) {
+      return 'Today';
+    }
 
-List<dynamic> getGroupedTransactions(List<Transaction> transactions) {
-  final grouped = groupBy(
+    if (d == yesterday) {
+      return 'Yesterday';
+    }
+
+    return d.year == today.year ? dayFmt.format(d) : dayFmtYear.format(d);
+  }
+
+  final grouped = groupBy<Transaction, DateTime>(
     transactions,
-    (t) => getDateGroup(t.createdAt),
+    (t) => toYmd(t.createdAt),
   );
 
-  final items = <dynamic>[];
-  for (final group in DateGroup.values) {
-    final txs = grouped[group];
+  final days = grouped.keys.toList()
+    ..sort(
+      (a, b) => b.compareTo(a),
+    );
 
-    if (txs != null && txs.isNotEmpty) {
-      items
-        ..add(group)
-        ..addAll(txs);
-    }
+  final items = <Object>[];
+
+  for (final day in days) {
+    final txs = [...grouped[day]!]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    final amountCents = txs.fold<int>(0, (s, t) => s + t.amountCents);
+
+    items
+      ..add(
+        DayHeader(
+          label: labelFor(day),
+          amountCents: amountCents,
+          day: day,
+        ),
+      )
+      ..addAll(txs);
   }
+
   return items;
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+import 'constants/durations.dart';
 import 'screens/home/home_screen.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
@@ -36,6 +37,9 @@ class TroskoApp extends StatelessWidget {
       key: ValueKey('home'),
     ),
     theme: TroskoTheme.light,
+    darkTheme: TroskoTheme.dark,
+    themeAnimationDuration: TroskoDurations.animation,
+    themeAnimationCurve: Curves.easeIn,
     builder: (_, child) {
       final appWidget =
           child ??
@@ -46,7 +50,7 @@ class TroskoApp extends StatelessWidget {
       return kDebugMode
           ? Banner(
               message: '',
-              color: context.colors.primary,
+              color: context.colors.chipPrimary,
               location: BannerLocation.topEnd,
               layoutDirection: TextDirection.ltr,
               child: appWidget,

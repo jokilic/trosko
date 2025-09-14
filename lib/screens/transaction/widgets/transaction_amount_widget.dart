@@ -247,7 +247,7 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
                 onLongPressEnd: stopHoldTimer,
                 child: Icon(
                   Icons.backspace_outlined,
-                  color: isHolding ? context.colors.primary : context.colors.text,
+                  color: isHolding ? context.colors.buttonPrimary : context.colors.text,
                   size: 28,
                 ),
               );

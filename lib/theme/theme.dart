@@ -15,10 +15,10 @@ class TroskoTheme {
 
     return defaultTheme.copyWith(
       colorScheme: ColorScheme.fromSeed(
-        seedColor: lightAppColors.primary,
+        seedColor: lightAppColors.buttonPrimary,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: lightAppColors.primary,
+        backgroundColor: lightAppColors.buttonPrimary,
         foregroundColor: lightAppColors.text,
         elevation: 1,
         highlightElevation: 2,
@@ -26,7 +26,7 @@ class TroskoTheme {
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(
-            lightAppColors.primary,
+            lightAppColors.buttonPrimary,
           ),
           foregroundColor: WidgetStateProperty.all(
             lightAppColors.buttonBackground,
@@ -53,7 +53,7 @@ class TroskoTheme {
         ),
         side: BorderSide.none,
         backgroundColor: lightAppColors.buttonBackground,
-        selectedColor: lightAppColors.primary,
+        selectedColor: lightAppColors.chipPrimary,
         showCheckmark: false,
         labelPadding: const EdgeInsets.symmetric(horizontal: 8),
         elevation: 1,
@@ -75,9 +75,9 @@ class TroskoTheme {
       scaffoldBackgroundColor: lightAppColors.scaffoldBackground,
       canvasColor: Colors.transparent,
       textSelectionTheme: TextSelectionThemeData(
-        selectionColor: lightAppColors.primary,
-        cursorColor: lightAppColors.primary,
-        selectionHandleColor: lightAppColors.primary,
+        selectionColor: lightAppColors.buttonPrimary,
+        cursorColor: lightAppColors.buttonPrimary,
+        selectionHandleColor: lightAppColors.buttonPrimary,
       ),
       extensions: [
         lightAppColors,
@@ -87,16 +87,113 @@ class TroskoTheme {
   }
 
   static final lightAppColors = TroskoColorsExtension(
-    primary: getPrimaryColor(),
     text: TroskoColors.black,
+    buttonPrimary: TroskoColors.purple,
+    chipPrimary: TroskoColors.lightBlue,
     delete: TroskoColors.red,
-    listTileBackground: TroskoColors.white,
+    listTileBackground: TroskoColors.lighterGrey,
     buttonBackground: TroskoColors.grey,
     scaffoldBackground: TroskoColors.lightGrey,
   );
 
   static final lightTextTheme = getTextThemesExtension(
     colorsExtension: lightAppColors,
+  );
+
+  ///
+  /// DARK
+  ///
+
+  static ThemeData get dark {
+    final defaultTheme = ThemeData.dark(
+      useMaterial3: true,
+    );
+
+    return defaultTheme.copyWith(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: darkAppColors.buttonPrimary,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: darkAppColors.buttonPrimary,
+        foregroundColor: darkAppColors.text,
+        elevation: 1,
+        highlightElevation: 2,
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(
+            darkAppColors.buttonPrimary,
+          ),
+          foregroundColor: WidgetStateProperty.all(
+            darkAppColors.buttonBackground,
+          ),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 16,
+            ),
+          ),
+          textStyle: WidgetStateProperty.all(
+            darkTextTheme.button,
+          ),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        side: BorderSide.none,
+        backgroundColor: darkAppColors.buttonBackground,
+        selectedColor: darkAppColors.chipPrimary,
+        showCheckmark: false,
+        labelPadding: const EdgeInsets.symmetric(horizontal: 8),
+        elevation: 1,
+        pressElevation: 2,
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: darkAppColors.text,
+          highlightColor: Colors.transparent,
+          iconSize: 28,
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(16),
+          elevation: 1,
+        ),
+      ),
+      splashColor: Colors.transparent,
+      highlightColor: darkAppColors.buttonBackground,
+      scaffoldBackgroundColor: darkAppColors.scaffoldBackground,
+      canvasColor: Colors.transparent,
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: darkAppColors.buttonPrimary,
+        cursorColor: darkAppColors.buttonPrimary,
+        selectionHandleColor: darkAppColors.buttonPrimary,
+      ),
+      extensions: [
+        darkAppColors,
+        darkTextTheme,
+      ],
+    );
+  }
+
+  static final darkAppColors = TroskoColorsExtension(
+    text: TroskoColors.lighterGrey,
+    buttonPrimary: TroskoColors.purple,
+    chipPrimary: TroskoColors.lightBlue,
+    delete: TroskoColors.red,
+    listTileBackground: TroskoColors.lightDark,
+    buttonBackground: TroskoColors.lighterDark,
+    scaffoldBackground: TroskoColors.dark,
+  );
+
+  static final darkTextTheme = getTextThemesExtension(
+    colorsExtension: darkAppColors,
   );
 }
 
@@ -127,7 +224,7 @@ TroskoTextThemesExtension getTextThemesExtension({
     color: colorsExtension.text,
   ),
   homeFloatingActionButton: TroskoTextStyles.homeFloatingActionButton.copyWith(
-    color: colorsExtension.listTileBackground,
+    color: TroskoColors.lighterGrey,
   ),
   homeTopTitle: TroskoTextStyles.homeTopTitle.copyWith(
     color: colorsExtension.text,
@@ -154,6 +251,9 @@ TroskoTextThemesExtension getTextThemesExtension({
     color: colorsExtension.text,
   ),
   homeTitle: TroskoTextStyles.homeTitle.copyWith(
+    color: colorsExtension.text,
+  ),
+  homeTitleEuro: TroskoTextStyles.homeTitleEuro.copyWith(
     color: colorsExtension.text,
   ),
   transactionAmountCurrentValue: TroskoTextStyles.transactionAmountCurrentValue.copyWith(

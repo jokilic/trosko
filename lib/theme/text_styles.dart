@@ -82,7 +82,13 @@ abstract class TroskoTextStyles {
 
   static const homeTitle = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 16,
+    fontSize: 15,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const homeTitleEuro = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 13,
     fontWeight: FontWeight.w500,
   );
 
@@ -133,6 +139,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
   final TextStyle homeTransactionValue;
   final TextStyle homeTransactionEuro;
   final TextStyle homeTitle;
+  final TextStyle homeTitleEuro;
   final TextStyle transactionAmountCurrentValue;
   final TextStyle transactionAmountNumber;
   final TextStyle transactionDateText;
@@ -154,6 +161,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     required this.homeTransactionValue,
     required this.homeTransactionEuro,
     required this.homeTitle,
+    required this.homeTitleEuro,
     required this.transactionAmountCurrentValue,
     required this.transactionAmountNumber,
     required this.transactionDateText,
@@ -177,6 +185,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     TextStyle? homeTransactionValue,
     TextStyle? homeTransactionEuro,
     TextStyle? homeTitle,
+    TextStyle? homeTitleEuro,
     TextStyle? transactionAmountCurrentValue,
     TextStyle? transactionAmountNumber,
     TextStyle? transactionDateText,
@@ -197,6 +206,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     homeTransactionValue: homeTransactionValue ?? this.homeTransactionValue,
     homeTransactionEuro: homeTransactionEuro ?? this.homeTransactionEuro,
     homeTitle: homeTitle ?? this.homeTitle,
+    homeTitleEuro: homeTitleEuro ?? this.homeTitleEuro,
     transactionAmountCurrentValue: transactionAmountCurrentValue ?? this.transactionAmountCurrentValue,
     transactionAmountNumber: transactionAmountNumber ?? this.transactionAmountNumber,
     transactionDateText: transactionDateText ?? this.transactionDateText,
@@ -228,6 +238,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
       homeTransactionValue: TextStyle.lerp(homeTransactionValue, other.homeTransactionValue, t)!,
       homeTransactionEuro: TextStyle.lerp(homeTransactionEuro, other.homeTransactionEuro, t)!,
       homeTitle: TextStyle.lerp(homeTitle, other.homeTitle, t)!,
+      homeTitleEuro: TextStyle.lerp(homeTitleEuro, other.homeTitleEuro, t)!,
       transactionAmountCurrentValue: TextStyle.lerp(transactionAmountCurrentValue, other.transactionAmountCurrentValue, t)!,
       transactionAmountNumber: TextStyle.lerp(transactionAmountNumber, other.transactionAmountNumber, t)!,
       transactionDateText: TextStyle.lerp(transactionDateText, other.transactionDateText, t)!,

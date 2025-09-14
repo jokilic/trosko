@@ -18,7 +18,7 @@ class TransactionDateCheckbox extends StatelessWidget {
     onPressed: onPressed,
     style: FilledButton.styleFrom(
       backgroundColor: Colors.transparent,
-      foregroundColor: context.colors.primary,
+      overlayColor: context.colors.buttonBackground,
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 12,

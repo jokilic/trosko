@@ -29,24 +29,28 @@ class HomeMonthChips extends StatelessWidget {
             ///
             /// ALL
             ///
-            return FilterChip(
-              label: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  minWidth: 40,
-                ),
-                child: Text(
-                  'All',
-                  style: context.textStyles.homeMonthChip.copyWith(
-                    color: activeMonth == null ? context.colors.listTileBackground : null,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+            return Theme(
+              data: Theme.of(context).copyWith(
+                splashColor: Colors.transparent,
+                highlightColor: activeMonth == null ? context.colors.buttonBackground : context.colors.listTileBackground,
               ),
-              selected: activeMonth == null,
-              onSelected: (_) => onChipPressed(
-                Month(
-                  date: DateTime.fromMillisecondsSinceEpoch(0),
-                  label: 'All',
+              child: FilterChip(
+                label: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    minWidth: 40,
+                  ),
+                  child: Text(
+                    'All',
+                    style: context.textStyles.homeMonthChip,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                selected: activeMonth == null,
+                onSelected: (_) => onChipPressed(
+                  Month(
+                    date: DateTime.fromMillisecondsSinceEpoch(0),
+                    label: 'All',
+                  ),
                 ),
               ),
             );
@@ -58,21 +62,25 @@ class HomeMonthChips extends StatelessWidget {
           final month = months.elementAtOrNull(index - 1);
 
           if (month != null) {
-            return FilterChip(
-              label: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  minWidth: 40,
-                ),
-                child: Text(
-                  capitalize(month.label),
-                  style: context.textStyles.homeMonthChip.copyWith(
-                    color: activeMonth == month ? context.colors.listTileBackground : null,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+            return Theme(
+              data: Theme.of(context).copyWith(
+                splashColor: Colors.transparent,
+                highlightColor: activeMonth == month ? context.colors.buttonBackground : context.colors.listTileBackground,
               ),
-              selected: activeMonth == month,
-              onSelected: (_) => onChipPressed(month),
+              child: FilterChip(
+                label: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    minWidth: 40,
+                  ),
+                  child: Text(
+                    capitalize(month.label),
+                    style: context.textStyles.homeMonthChip,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                selected: activeMonth == month,
+                onSelected: (_) => onChipPressed(month),
+              ),
             );
           }
 

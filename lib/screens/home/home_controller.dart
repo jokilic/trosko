@@ -82,7 +82,7 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
 
     /// Update state
     value = (
-      datesAndTransactions: getGroupedTransactions(filtered),
+      datesAndTransactions: getGroupedTransactionsByDate(filtered),
       activeMonth: targetMonth,
       activeCategory: targetCategory,
     );

@@ -31,65 +31,124 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
   @override
   Widget build(BuildContext context) => AnimatedSize(
     alignment: Alignment.topCenter,
-    duration: TroskoDurations.animationDuration,
+    duration: TroskoDurations.animation,
     curve: Curves.easeIn,
     child: Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 1,
       ),
-      child: ListTile(
-        tileColor: context.colors.listTileBackground,
-        shape: RoundedRectangleBorder(
+      child: Material(
+        color: context.colors.listTileBackground,
+        borderRadius: BorderRadius.circular(8),
+        child: InkWell(
+          onTap: toggleExpanded,
+          onLongPress: widget.onLongPressed,
+          highlightColor: context.colors.buttonBackground,
           borderRadius: BorderRadius.circular(8),
-        ),
-        onTap: toggleExpanded,
-        onLongPress: widget.onLongPressed,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 8,
-        ),
-        leading: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: widget.category?.color,
-            border: Border.all(
-              color: context.colors.text,
-              width: 2.5,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 18,
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ///
+                /// LEADING
+                ///
+                Container(
+                  height: 32,
+                  width: 32,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: widget.category?.color,
+                    border: Border.all(
+                      color: context.colors.text,
+                      width: 2.5,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+
+                ///
+                /// TITLE & SUBTITLE
+                ///
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 2),
+                      AnimatedCrossFade(
+                        duration: TroskoDurations.animation,
+                        firstCurve: Curves.easeIn,
+                        secondCurve: Curves.easeIn,
+                        sizeCurve: Curves.easeIn,
+                        crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                        firstChild: Text(
+                          widget.transaction.name,
+                          style: context.textStyles.homeTransactionTitle,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        secondChild: Text(
+                          widget.transaction.name,
+                          style: context.textStyles.homeTransactionTitle,
+                        ),
+                      ),
+                      if (widget.transaction.note?.isNotEmpty ?? false) ...[
+                        const SizedBox(height: 4),
+                        AnimatedCrossFade(
+                          duration: TroskoDurations.animation,
+                          firstCurve: Curves.easeIn,
+                          secondCurve: Curves.easeIn,
+                          sizeCurve: Curves.easeIn,
+                          crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                          firstChild: Text(
+                            widget.transaction.note!,
+                            style: context.textStyles.homeTransactionSubtitle,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          secondChild: Text(
+                            widget.transaction.note!,
+                            style: context.textStyles.homeTransactionSubtitle,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+
+                ///
+                /// TRAILING
+                ///
+                const SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 2),
+                    Text.rich(
+                      TextSpan(
+                        text: formatCentsToCurrency(
+                          widget.transaction.amountCents,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: '€',
+                            style: context.textStyles.homeTransactionEuro,
+                          ),
+                        ],
+                      ),
+                      style: context.textStyles.homeTransactionValue,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          height: 32,
-          width: 32,
-        ),
-        title: Text(
-          widget.transaction.name,
-          style: context.textStyles.homeTransactionTitle,
-          maxLines: expanded ? null : 1,
-          overflow: expanded ? TextOverflow.visible : TextOverflow.ellipsis,
-        ),
-        subtitle: widget.transaction.note?.isNotEmpty ?? false
-            ? Text(
-                widget.transaction.note!,
-                style: context.textStyles.homeTransactionSubtitle,
-                maxLines: expanded ? null : 1,
-                overflow: expanded ? TextOverflow.visible : TextOverflow.ellipsis,
-              )
-            : null,
-        trailing: Text.rich(
-          TextSpan(
-            text: formatCentsToCurrency(
-              widget.transaction.amountCents,
-            ),
-            children: [
-              TextSpan(
-                text: '€',
-                style: context.textStyles.homeTransactionEuro,
-              ),
-            ],
-          ),
-          style: context.textStyles.homeTransactionValue,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
         ),
       ),
     ),

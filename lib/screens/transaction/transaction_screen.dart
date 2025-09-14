@@ -6,6 +6,7 @@ import '../../models/category/category.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../theme/colors.dart';
 import '../../theme/theme.dart';
 import '../../util/date_time.dart';
 import '../../util/dependencies.dart';
@@ -86,7 +87,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
               onPressed: Navigator.of(context).pop,
               style: IconButton.styleFrom(
                 backgroundColor: Colors.transparent,
-                foregroundColor: context.colors.buttonBackground,
                 highlightColor: context.colors.buttonBackground,
               ),
               icon: Icon(
@@ -103,6 +103,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     widget.onTransactionUpdated();
                     Navigator.of(context).pop();
                   },
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    highlightColor: context.colors.buttonBackground,
+                  ),
                   icon: Icon(
                     Icons.delete_outline_rounded,
                     color: context.colors.delete,
@@ -271,7 +275,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       MediaQuery.paddingOf(context).bottom + 12,
                     ),
                     backgroundColor: chosenCategory?.color,
-                    foregroundColor: context.colors.listTileBackground,
+                    foregroundColor: TroskoColors.lighterGrey,
+                    overlayColor: context.colors.buttonBackground,
                     disabledBackgroundColor: context.colors.buttonBackground,
                     disabledForegroundColor: context.colors.listTileBackground,
                   ),

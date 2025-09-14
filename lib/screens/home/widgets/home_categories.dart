@@ -38,6 +38,7 @@ class HomeCategories extends StatelessWidget {
               onPressed: () => onPressedCategory(category),
               onLongPressed: () => onLongPressedCategory(category),
               color: category.color.withValues(alpha: activeCategory == category || activeCategory == null ? 1 : 0.2),
+              highlightColor: category.color.withValues(alpha: activeCategory == category || activeCategory == null ? 1 : 0.2),
               text: category.name,
             );
           }
@@ -48,6 +49,7 @@ class HomeCategories extends StatelessWidget {
           return HomeCategory(
             onPressed: onPressedAdd,
             color: context.colors.buttonBackground,
+            highlightColor: context.colors.listTileBackground,
             icon: Icons.add_rounded,
             text: 'Add',
             hasBorder: false,
@@ -63,6 +65,7 @@ class HomeCategory extends StatelessWidget {
   final Function() onPressed;
   final Function()? onLongPressed;
   final Color color;
+  final Color highlightColor;
   final IconData? icon;
   final String text;
   final bool hasBorder;
@@ -70,6 +73,7 @@ class HomeCategory extends StatelessWidget {
   const HomeCategory({
     required this.onPressed,
     required this.color,
+    required this.highlightColor,
     required this.text,
     this.icon,
     this.onLongPressed,
@@ -95,7 +99,7 @@ class HomeCategory extends StatelessWidget {
             style: IconButton.styleFrom(
               padding: const EdgeInsets.all(12),
               backgroundColor: color,
-              highlightColor: color.withValues(alpha: 0.25),
+              highlightColor: highlightColor,
               alignment: Alignment.center,
             ),
             icon: Icon(icon),

@@ -21,8 +21,8 @@ Route<T> fadePageTransition<T>(
   Duration? transitionDuration,
   Duration? reverseTransitionDuration,
 }) => PageRouteBuilder<T>(
-  transitionDuration: transitionDuration ?? TroskoDurations.fadeAnimation,
-  reverseTransitionDuration: reverseTransitionDuration ?? TroskoDurations.fadeAnimation,
+  transitionDuration: transitionDuration ?? TroskoDurations.animation,
+  reverseTransitionDuration: reverseTransitionDuration ?? TroskoDurations.animation,
   pageBuilder: (_, __, ___) => screen,
   transitionsBuilder: (_, animation, __, child) => FadeTransition(
     opacity: animation,
