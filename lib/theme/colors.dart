@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class TroskoColors {
   static const white = Color(0xFFF9F9FF);
-  static const black = Color(0xFF121c2b);
+  static const black = Color(0xFF121C2B);
   static const grey = Color(0xFFE4E6ED);
   static const lightGrey = Color(0xFFEDEDF4);
 
