@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   final category = categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
 
                   return HomeTransactionListTile(
-                    onPressed: () => openTransaction(
+                    onLongPressed: () => openTransaction(
                       context,
                       passedTransaction: item,
                       categories: categories,
