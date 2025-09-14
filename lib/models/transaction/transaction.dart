@@ -31,22 +31,6 @@ class Transaction {
     this.note,
   });
 
-  Transaction copyWith({
-    String? id,
-    String? name,
-    int? amountCents,
-    String? categoryId,
-    String? note,
-    DateTime? createdAt,
-  }) => Transaction(
-    id: id ?? this.id,
-    name: name ?? this.name,
-    amountCents: amountCents ?? this.amountCents,
-    categoryId: categoryId ?? this.categoryId,
-    note: note ?? this.note,
-    createdAt: createdAt ?? this.createdAt,
-  );
-
   @override
   String toString() => 'Transaction(id: $id, name: $name, amountCents: $amountCents, categoryId: $categoryId, note: $note, createdAt: $createdAt)';
 

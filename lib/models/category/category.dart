@@ -20,17 +20,6 @@ class Category {
     required this.color,
   });
 
-  Category copyWith({
-    String? id,
-    String? name,
-    Color? color,
-    String? icon,
-  }) => Category(
-    id: id ?? this.id,
-    name: name ?? this.name,
-    color: color ?? this.color,
-  );
-
   @override
   String toString() => 'Category(id: $id, name: $name, color: $color)';
 

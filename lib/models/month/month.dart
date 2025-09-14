@@ -7,14 +7,6 @@ class Month {
     required this.label,
   });
 
-  Month copyWith({
-    DateTime? date,
-    String? label,
-  }) => Month(
-    date: date ?? this.date,
-    label: label ?? this.label,
-  );
-
   factory Month.all() => Month(
     date: DateTime.fromMillisecondsSinceEpoch(0),
     label: 'All',
