@@ -129,7 +129,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
-                    autofocus: false,
+                    autofocus: true,
                     controller: controller.nameTextEditingController,
                     labelText: 'Transaction title',
                     keyboardType: TextInputType.text,
@@ -270,8 +270,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       24,
                       MediaQuery.paddingOf(context).bottom + 12,
                     ),
-                    backgroundColor: context.colors.primary,
-                    foregroundColor: context.colors.text,
+                    backgroundColor: chosenCategory?.color,
+                    foregroundColor: context.colors.listTileBackground,
                     disabledBackgroundColor: context.colors.buttonBackground,
                     disabledForegroundColor: context.colors.listTileBackground,
                   ),

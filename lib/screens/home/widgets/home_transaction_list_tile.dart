@@ -5,12 +5,12 @@ import '../../../models/transaction/transaction.dart';
 import '../../../theme/theme.dart';
 import '../../../util/currency.dart';
 
-class HomeTransactionWidget extends StatelessWidget {
+class HomeTransactionListTile extends StatelessWidget {
   final Function() onPressed;
   final Transaction transaction;
   final Category? category;
 
-  const HomeTransactionWidget({
+  const HomeTransactionListTile({
     required this.onPressed,
     required this.transaction,
     required this.category,

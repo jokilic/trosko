@@ -14,7 +14,7 @@ import '../../widgets/trosko_app_bar.dart';
 import 'home_controller.dart';
 import 'widgets/home_categories.dart';
 import 'widgets/home_month_chips.dart';
-import 'widgets/home_transaction_widget.dart';
+import 'widgets/home_transaction_list_tile.dart';
 
 class HomeScreen extends WatchingStatefulWidget {
   const HomeScreen({
@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (item is Transaction) {
                   final category = categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
 
-                  return HomeTransactionWidget(
+                  return HomeTransactionListTile(
                     onPressed: () => openTransaction(
                       context,
                       passedTransaction: item,

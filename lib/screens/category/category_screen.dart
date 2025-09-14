@@ -114,8 +114,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 /// CATEGORY
                 ///
                 Container(
-                  height: 80,
-                  width: 80,
+                  height: 104,
+                  width: 104,
                   margin: const EdgeInsets.symmetric(horizontal: 16),
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
@@ -135,9 +135,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
-                    autofocus: false,
+                    autofocus: true,
                     controller: controller.nameTextEditingController,
-                    labelText: 'What is the name?',
+                    labelText: 'Category name',
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
                     textCapitalization: TextCapitalization.sentences,
@@ -196,8 +196,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         24,
                         MediaQuery.paddingOf(context).bottom + 12,
                       ),
-                      backgroundColor: context.colors.primary,
-                      foregroundColor: context.colors.text,
+                      backgroundColor: chosenColor,
+                      foregroundColor: context.colors.listTileBackground,
                       disabledBackgroundColor: context.colors.buttonBackground,
                       disabledForegroundColor: context.colors.listTileBackground,
                     ),
