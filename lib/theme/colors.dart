@@ -1,4 +1,18 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+
+Color getPrimaryColor() {
+  final colors = [
+    TroskoColors.blue,
+    TroskoColors.orange,
+    TroskoColors.green,
+    TroskoColors.yellow,
+    TroskoColors.red,
+  ];
+
+  return colors[Random().nextInt(colors.length)];
+}
 
 abstract class TroskoColors {
   static const white = Color(0xFFF9F9FF);

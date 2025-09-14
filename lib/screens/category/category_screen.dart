@@ -135,7 +135,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
-                    autofocus: true,
+                    autofocus: false,
                     controller: controller.nameTextEditingController,
                     labelText: 'Category name',
                     keyboardType: TextInputType.text,

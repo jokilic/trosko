@@ -87,7 +87,7 @@ class TroskoTheme {
   }
 
   static final lightAppColors = TroskoColorsExtension(
-    primary: TroskoColors.yellow,
+    primary: getPrimaryColor(),
     text: TroskoColors.black,
     delete: TroskoColors.red,
     listTileBackground: TroskoColors.white,
@@ -127,7 +127,7 @@ TroskoTextThemesExtension getTextThemesExtension({
     color: colorsExtension.text,
   ),
   homeFloatingActionButton: TroskoTextStyles.homeFloatingActionButton.copyWith(
-    color: colorsExtension.text,
+    color: colorsExtension.listTileBackground,
   ),
   homeTopTitle: TroskoTextStyles.homeTopTitle.copyWith(
     color: colorsExtension.text,

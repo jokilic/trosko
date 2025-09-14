@@ -36,7 +36,9 @@ class HomeMonthChips extends StatelessWidget {
                 ),
                 child: Text(
                   'All',
-                  style: context.textStyles.homeMonthChip,
+                  style: context.textStyles.homeMonthChip.copyWith(
+                    color: activeMonth == null ? context.colors.listTileBackground : null,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -63,7 +65,9 @@ class HomeMonthChips extends StatelessWidget {
                 ),
                 child: Text(
                   capitalize(month.label),
-                  style: context.textStyles.homeMonthChip,
+                  style: context.textStyles.homeMonthChip.copyWith(
+                    color: activeMonth == month ? context.colors.listTileBackground : null,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),

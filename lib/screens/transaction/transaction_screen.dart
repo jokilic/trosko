@@ -129,7 +129,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
-                    autofocus: true,
+                    autofocus: false,
                     controller: controller.nameTextEditingController,
                     labelText: 'Transaction title',
                     keyboardType: TextInputType.text,

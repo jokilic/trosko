@@ -39,7 +39,7 @@ abstract class TroskoTextStyles {
 
   static const homeMonthChip = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: FontWeight.w500,
     height: 0,
   );
