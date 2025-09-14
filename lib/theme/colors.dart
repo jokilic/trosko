@@ -11,7 +11,6 @@ abstract class TroskoColors {
   static const lightDark = Color(0xFF282A2F);
   static const lighterDark = Color(0xFF2D2F34);
 
-  static const lightBlue = Color(0xFFCFD7E5);
   static const purple = Color(0xFF2F3061);
   static const red = Color(0xFFE0777D);
 }
@@ -19,7 +18,6 @@ abstract class TroskoColors {
 class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
   final Color text;
   final Color buttonPrimary;
-  final Color chipPrimary;
   final Color delete;
   final Color listTileBackground;
   final Color buttonBackground;
@@ -28,7 +26,6 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
   TroskoColorsExtension({
     required this.text,
     required this.buttonPrimary,
-    required this.chipPrimary,
     required this.delete,
     required this.listTileBackground,
     required this.buttonBackground,
@@ -39,7 +36,6 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
   ThemeExtension<TroskoColorsExtension> copyWith({
     Color? text,
     Color? buttonPrimary,
-    Color? chipPrimary,
     Color? delete,
     Color? listTileBackground,
     Color? buttonBackground,
@@ -47,7 +43,6 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
   }) => TroskoColorsExtension(
     text: text ?? this.text,
     buttonPrimary: buttonPrimary ?? this.buttonPrimary,
-    chipPrimary: chipPrimary ?? this.chipPrimary,
     delete: delete ?? this.delete,
     listTileBackground: listTileBackground ?? this.listTileBackground,
     buttonBackground: buttonBackground ?? this.buttonBackground,
@@ -66,7 +61,6 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
     return TroskoColorsExtension(
       text: Color.lerp(text, other.text, t)!,
       buttonPrimary: Color.lerp(buttonPrimary, other.buttonPrimary, t)!,
-      chipPrimary: Color.lerp(chipPrimary, other.chipPrimary, t)!,
       delete: Color.lerp(delete, other.delete, t)!,
       listTileBackground: Color.lerp(listTileBackground, other.listTileBackground, t)!,
       buttonBackground: Color.lerp(buttonBackground, other.buttonBackground, t)!,

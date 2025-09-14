@@ -53,7 +53,7 @@ class TroskoTheme {
         ),
         side: BorderSide.none,
         backgroundColor: lightAppColors.buttonBackground,
-        selectedColor: lightAppColors.chipPrimary,
+        selectedColor: lightAppColors.buttonPrimary,
         showCheckmark: false,
         labelPadding: const EdgeInsets.symmetric(horizontal: 8),
         elevation: 1,
@@ -89,7 +89,6 @@ class TroskoTheme {
   static final lightAppColors = TroskoColorsExtension(
     text: TroskoColors.black,
     buttonPrimary: TroskoColors.purple,
-    chipPrimary: TroskoColors.lightBlue,
     delete: TroskoColors.red,
     listTileBackground: TroskoColors.lighterGrey,
     buttonBackground: TroskoColors.grey,
@@ -149,7 +148,7 @@ class TroskoTheme {
         ),
         side: BorderSide.none,
         backgroundColor: darkAppColors.buttonBackground,
-        selectedColor: darkAppColors.chipPrimary,
+        selectedColor: darkAppColors.buttonPrimary,
         showCheckmark: false,
         labelPadding: const EdgeInsets.symmetric(horizontal: 8),
         elevation: 1,
@@ -185,7 +184,6 @@ class TroskoTheme {
   static final darkAppColors = TroskoColorsExtension(
     text: TroskoColors.lighterGrey,
     buttonPrimary: TroskoColors.purple,
-    chipPrimary: TroskoColors.lightBlue,
     delete: TroskoColors.red,
     listTileBackground: TroskoColors.lightDark,
     buttonBackground: TroskoColors.lighterDark,
