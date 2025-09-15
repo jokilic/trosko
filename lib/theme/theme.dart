@@ -88,7 +88,7 @@ class TroskoTheme {
 
   static final lightAppColors = TroskoColorsExtension(
     text: TroskoColors.black,
-    buttonPrimary: TroskoColors.purple,
+    buttonPrimary: TroskoColors.green,
     delete: TroskoColors.red,
     listTileBackground: TroskoColors.lighterGrey,
     buttonBackground: TroskoColors.grey,
@@ -183,7 +183,7 @@ class TroskoTheme {
 
   static final darkAppColors = TroskoColorsExtension(
     text: TroskoColors.lighterGrey,
-    buttonPrimary: TroskoColors.purple,
+    buttonPrimary: TroskoColors.green,
     delete: TroskoColors.red,
     listTileBackground: TroskoColors.lightDark,
     buttonBackground: TroskoColors.lighterDark,
@@ -222,7 +222,7 @@ TroskoTextThemesExtension getTextThemesExtension({
     color: colorsExtension.text,
   ),
   homeFloatingActionButton: TroskoTextStyles.homeFloatingActionButton.copyWith(
-    color: TroskoColors.lighterGrey,
+    color: colorsExtension.text,
   ),
   homeTopTitle: TroskoTextStyles.homeTopTitle.copyWith(
     color: colorsExtension.text,

@@ -6,7 +6,6 @@ import '../../models/transaction/transaction.dart';
 import '../../routing.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
-import '../../theme/colors.dart';
 import '../../theme/theme.dart';
 import '../../util/currency.dart';
 import '../../util/dependencies.dart';
@@ -79,9 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Add new'.toUpperCase(),
                   style: context.textStyles.homeFloatingActionButton,
                 ),
-                icon: const Icon(
+                icon: Icon(
                   Icons.payments_outlined,
-                  color: TroskoColors.lighterGrey,
+                  color: context.colors.text,
                   size: 32,
                 ),
               ),

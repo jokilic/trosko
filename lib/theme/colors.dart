@@ -11,7 +11,7 @@ abstract class TroskoColors {
   static const lightDark = Color(0xFF282A2F);
   static const lighterDark = Color(0xFF2D2F34);
 
-  static const purple = Color(0xFF2F3061);
+  static const green = Color(0xFFACD8AA);
   static const red = Color(0xFFE0777D);
 }
 
