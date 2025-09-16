@@ -29,19 +29,16 @@ dependencies:
     sdk: flutter
 
   flutter_material_color_picker: 1.2.0
+  flutter_swipe_action_cell: 3.1.6
   get_it: 8.2.0
   hive_ce: 2.12.0
   hive_ce_flutter: 2.3.2
   intl: 0.20.2
   logger: 2.6.1
   package_info_plus: 9.0.0
+  scroll_datetime_picker: 0.2.2
   uuid: 4.5.1
   watch_it: 1.7.0
-
-  calendar_date_picker2:
-    git:
-      url: https://github.com/jokilic/calendar_date_picker2.git
-      ref: feature/on-value-changed-dialog
 
 dev_dependencies:
   build_runner: 2.8.0
@@ -76,13 +73,18 @@ flutter:
 
 # Configuration for 'flutter_launcher_icons'
 # Run icon generation with 'dart run flutter_launcher_icons:main'
-flutter_icons:
+flutter_launcher_icons:
+  image_path_android: "assets/icon.png"
+  image_path_ios: "assets/icon.png"
   android: true
   ios: true
-  image_path: 'assets/icon.png'
+  adaptive_icon_background: "assets/background.png"
+  adaptive_icon_foreground: "assets/splash_icon.png"
+  adaptive_icon_foreground_inset: 16
+  adaptive_icon_monochrome: "assets/monochrome.png"
   min_sdk_android: 21
-  adaptive_icon_background: '#EDEDF4'
-  adaptive_icon_foreground: 'assets/icon.png'
+  remove_alpha_ios: true
+  background_color_ios: "#EDEDF4"
   web:
     generate: true
     image_path: 'assets/icon.png'

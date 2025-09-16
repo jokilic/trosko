@@ -255,39 +255,38 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   ),
                 ),
                 const SizedBox(height: 28),
-
-                ///
-                /// ADD TRANSACTION BUTTON
-                ///
-                FilledButton(
-                  onPressed: validated
-                      ? () async {
-                          await controller.addTransaction();
-                          widget.onTransactionUpdated();
-                          Navigator.of(context).pop();
-                        }
-                      : null,
-                  style: FilledButton.styleFrom(
-                    padding: EdgeInsets.fromLTRB(
-                      24,
-                      28,
-                      24,
-                      MediaQuery.paddingOf(context).bottom + 12,
-                    ),
-                    backgroundColor: chosenCategory?.color,
-                    foregroundColor: TroskoColors.lighterGrey,
-                    overlayColor: context.colors.buttonBackground,
-                    disabledBackgroundColor: context.colors.buttonBackground,
-                    disabledForegroundColor: context.colors.listTileBackground,
-                  ),
-                  child: Text(
-                    widget.passedTransaction != null ? 'Update transaction'.toUpperCase() : 'Add transaction'.toUpperCase(),
-                  ),
-                ),
               ],
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: SizedBox(
+        width: double.infinity,
+        child: FilledButton(
+          onPressed: validated
+              ? () async {
+                  await controller.addTransaction();
+                  widget.onTransactionUpdated();
+                  Navigator.of(context).pop();
+                }
+              : null,
+          style: FilledButton.styleFrom(
+            padding: EdgeInsets.fromLTRB(
+              24,
+              28,
+              24,
+              MediaQuery.paddingOf(context).bottom + 12,
+            ),
+            backgroundColor: chosenCategory?.color,
+            foregroundColor: TroskoColors.lighterGrey,
+            overlayColor: context.colors.buttonBackground,
+            disabledBackgroundColor: context.colors.disabledBackground,
+            disabledForegroundColor: context.colors.disabledText,
+          ),
+          child: Text(
+            (widget.passedTransaction != null ? 'Update expense' : 'Add expense').toUpperCase(),
+          ),
+        ),
       ),
     );
   }

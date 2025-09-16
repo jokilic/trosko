@@ -42,8 +42,8 @@ class TroskoTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       contentPadding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 18,
+        horizontal: 14,
+        vertical: 16,
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(

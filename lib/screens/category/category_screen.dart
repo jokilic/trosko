@@ -171,50 +171,38 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     spacing: 12,
                   ),
                 ),
-              ],
-            ),
-          ),
-
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Column(
-              children: [
-                const Spacer(),
-
-                ///
-                /// ADD CATEGORY BUTTON
-                ///
-                SizedBox(
-                  width: double.infinity,
-                  child: FilledButton(
-                    onPressed: validated
-                        ? () async {
-                            await controller.addCategory();
-                            Navigator.of(context).pop();
-                          }
-                        : null,
-                    style: FilledButton.styleFrom(
-                      padding: EdgeInsets.fromLTRB(
-                        24,
-                        28,
-                        24,
-                        MediaQuery.paddingOf(context).bottom + 12,
-                      ),
-                      backgroundColor: chosenColor,
-                      foregroundColor: TroskoColors.lighterGrey,
-                      overlayColor: context.colors.buttonBackground,
-                      disabledBackgroundColor: context.colors.buttonBackground,
-                      disabledForegroundColor: context.colors.listTileBackground,
-                    ),
-                    child: Text(
-                      widget.passedCategory != null ? 'Update category'.toUpperCase() : 'Add category'.toUpperCase(),
-                    ),
-                  ),
-                ),
+                const SizedBox(height: 28),
               ],
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: SizedBox(
+        width: double.infinity,
+        child: FilledButton(
+          onPressed: validated
+              ? () async {
+                  await controller.addCategory();
+                  Navigator.of(context).pop();
+                }
+              : null,
+          style: FilledButton.styleFrom(
+            padding: EdgeInsets.fromLTRB(
+              24,
+              28,
+              24,
+              MediaQuery.paddingOf(context).bottom + 12,
+            ),
+            backgroundColor: chosenColor,
+            foregroundColor: TroskoColors.lighterGrey,
+            overlayColor: context.colors.buttonBackground,
+            disabledBackgroundColor: context.colors.disabledBackground,
+            disabledForegroundColor: context.colors.disabledText,
+          ),
+          child: Text(
+            widget.passedCategory != null ? 'Update category'.toUpperCase() : 'Add category'.toUpperCase(),
+          ),
+        ),
       ),
     );
   }

@@ -22,6 +22,7 @@ class TroskoTheme {
         foregroundColor: lightAppColors.text,
         elevation: 1,
         highlightElevation: 2,
+        disabledElevation: 0,
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
@@ -88,11 +89,13 @@ class TroskoTheme {
 
   static final lightAppColors = TroskoColorsExtension(
     text: TroskoColors.black,
-    buttonPrimary: TroskoColors.green,
+    buttonPrimary: TroskoColors.blueLight,
     delete: TroskoColors.red,
     listTileBackground: TroskoColors.lighterGrey,
     buttonBackground: TroskoColors.grey,
     scaffoldBackground: TroskoColors.lightGrey,
+    disabledText: TroskoColors.lighterDark,
+    disabledBackground: TroskoColors.grey,
   );
 
   static final lightTextTheme = getTextThemesExtension(
@@ -117,6 +120,7 @@ class TroskoTheme {
         foregroundColor: darkAppColors.text,
         elevation: 1,
         highlightElevation: 2,
+        disabledElevation: 0,
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
@@ -183,11 +187,13 @@ class TroskoTheme {
 
   static final darkAppColors = TroskoColorsExtension(
     text: TroskoColors.lighterGrey,
-    buttonPrimary: TroskoColors.green,
+    buttonPrimary: TroskoColors.blueDark,
     delete: TroskoColors.red,
     listTileBackground: TroskoColors.lightDark,
     buttonBackground: TroskoColors.lighterDark,
     scaffoldBackground: TroskoColors.dark,
+    disabledText: TroskoColors.grey,
+    disabledBackground: TroskoColors.lighterDark,
   );
 
   static final darkTextTheme = getTextThemesExtension(

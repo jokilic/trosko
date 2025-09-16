@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/category/category.dart';
 import '../../models/month/month.dart';
+import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../util/date_time.dart';
@@ -86,5 +87,13 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
       activeMonth: targetMonth,
       activeCategory: targetCategory,
     );
+  }
+
+  /// Triggered when the user deletes transaction
+  Future<void> deleteTransaction({required Transaction transaction}) async {
+    await hive.deleteTransaction(
+      transaction: transaction,
+    );
+    updateState();
   }
 }

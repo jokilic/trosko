@@ -11,7 +11,8 @@ abstract class TroskoColors {
   static const lightDark = Color(0xFF282A2F);
   static const lighterDark = Color(0xFF2D2F34);
 
-  static const green = Color(0xFFACD8AA);
+  static const blueLight = Color(0xFFCFD7E5);
+  static const blueDark = Color(0xFF343B48);
   static const red = Color(0xFFE0777D);
 }
 
@@ -22,6 +23,8 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
   final Color listTileBackground;
   final Color buttonBackground;
   final Color scaffoldBackground;
+  final Color disabledText;
+  final Color disabledBackground;
 
   TroskoColorsExtension({
     required this.text,
@@ -30,6 +33,8 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
     required this.listTileBackground,
     required this.buttonBackground,
     required this.scaffoldBackground,
+    required this.disabledText,
+    required this.disabledBackground,
   });
 
   @override
@@ -40,6 +45,8 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
     Color? listTileBackground,
     Color? buttonBackground,
     Color? scaffoldBackground,
+    Color? disabledText,
+    Color? disabledBackground,
   }) => TroskoColorsExtension(
     text: text ?? this.text,
     buttonPrimary: buttonPrimary ?? this.buttonPrimary,
@@ -47,6 +54,8 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
     listTileBackground: listTileBackground ?? this.listTileBackground,
     buttonBackground: buttonBackground ?? this.buttonBackground,
     scaffoldBackground: scaffoldBackground ?? this.scaffoldBackground,
+    disabledText: disabledText ?? this.disabledText,
+    disabledBackground: disabledBackground ?? this.disabledBackground,
   );
 
   @override
@@ -65,6 +74,8 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
       listTileBackground: Color.lerp(listTileBackground, other.listTileBackground, t)!,
       buttonBackground: Color.lerp(buttonBackground, other.buttonBackground, t)!,
       scaffoldBackground: Color.lerp(scaffoldBackground, other.scaffoldBackground, t)!,
+      disabledText: Color.lerp(disabledText, other.disabledText, t)!,
+      disabledBackground: Color.lerp(disabledBackground, other.disabledBackground, t)!,
     );
   }
 }

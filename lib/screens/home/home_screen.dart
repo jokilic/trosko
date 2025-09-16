@@ -61,31 +61,35 @@ class _HomeScreenState extends State<HomeScreen> {
     final activeCategory = state.activeCategory;
 
     return Scaffold(
-      floatingActionButton: categories.isNotEmpty
-          ? Theme(
-              data: Theme.of(context).copyWith(
-                splashColor: Colors.transparent,
-                highlightColor: context.colors.buttonBackground,
-              ),
-              child: FloatingActionButton.extended(
-                onPressed: () => openTransaction(
+      floatingActionButton: Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: context.colors.buttonBackground,
+        ),
+        child: FloatingActionButton.extended(
+          onPressed: categories.isNotEmpty
+              ? () => openTransaction(
                   context,
                   passedTransaction: null,
                   categories: categories,
                   onTransactionUpdated: controller.updateState,
-                ),
-                label: Text(
-                  'Add new'.toUpperCase(),
-                  style: context.textStyles.homeFloatingActionButton,
-                ),
-                icon: Icon(
-                  Icons.payments_outlined,
-                  color: context.colors.text,
-                  size: 32,
-                ),
-              ),
-            )
-          : null,
+                )
+              : null,
+          backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+          foregroundColor: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
+          label: Text(
+            'Add expense'.toUpperCase(),
+            style: context.textStyles.homeFloatingActionButton.copyWith(
+              color: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
+            ),
+          ),
+          icon: Icon(
+            Icons.payments_outlined,
+            color: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
+            size: 32,
+          ),
+        ),
+      ),
       body: CustomScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),
@@ -231,6 +235,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       passedTransaction: item,
                       categories: categories,
                       onTransactionUpdated: controller.updateState,
+                    ),
+                    onDeletePressed: () => controller.deleteTransaction(
+                      transaction: item,
                     ),
                     transaction: item,
                     category: category,
