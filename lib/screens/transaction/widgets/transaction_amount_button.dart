@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../theme/theme.dart';
-import '../../../widgets/trosko_button.dart';
 
 class TransactionAmountButton extends StatelessWidget {
   final Widget child;
@@ -17,21 +16,26 @@ class TransactionAmountButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => TroskoButton(
-    onPressed: onPressed,
-    onTapDown: onLongPressStart != null ? () => onLongPressStart!() : null,
-    onTapUp: onLongPressEnd != null ? () => onLongPressEnd!() : null,
-    onTapCancel: onLongPressEnd,
-    child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: context.colors.text,
-          width: 2.5,
+  Widget build(BuildContext context) => Material(
+    color: context.colors.listTileBackground,
+    borderRadius: BorderRadius.circular(8),
+    child: InkWell(
+      onTap: onPressed,
+      onTapDown: onLongPressStart != null ? (_) => onLongPressStart!() : null,
+      onTapUp: onLongPressEnd != null ? (_) => onLongPressEnd!() : null,
+      onTapCancel: onLongPressEnd,
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: context.colors.text,
+            width: 1.5,
+          ),
+          borderRadius: BorderRadius.circular(8),
         ),
-        borderRadius: BorderRadius.circular(8),
+        alignment: Alignment.center,
+        child: child,
       ),
-      alignment: Alignment.center,
-      child: child,
     ),
   );
 }

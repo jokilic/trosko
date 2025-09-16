@@ -5,6 +5,7 @@ abstract class TroskoTextStyles {
     fontFamily: 'ProductSans',
     fontSize: 20,
     fontWeight: FontWeight.w700,
+    letterSpacing: 0.8,
   );
 
   static const appBarTitleSmall = TextStyle(
@@ -28,13 +29,8 @@ abstract class TroskoTextStyles {
   static const homeFloatingActionButton = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 15,
-    fontWeight: FontWeight.w700,
-  );
-
-  static const homeTopTitle = TextStyle(
-    fontFamily: 'ProductSans',
-    fontSize: 40,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.8,
   );
 
   static const homeMonthChip = TextStyle(
@@ -53,31 +49,31 @@ abstract class TroskoTextStyles {
   static const homeTransactionTitle = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 18,
-    fontWeight: FontWeight.w700,
-  );
-
-  static const homeTransactionSubtitle = TextStyle(
-    fontFamily: 'ProductSans',
-    fontSize: 14,
     fontWeight: FontWeight.w500,
   );
 
-  static const homeTransactionTimeAgo = TextStyle(
+  static const homeTransactionTime = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 12,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const homeTransactionNote = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 14,
     fontWeight: FontWeight.w500,
   );
 
   static const homeTransactionValue = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 20,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w500,
   );
 
   static const homeTransactionEuro = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 16,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w500,
   );
 
   static const homeTitle = TextStyle(
@@ -94,33 +90,44 @@ abstract class TroskoTextStyles {
 
   static const transactionAmountCurrentValue = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 32,
-    fontWeight: FontWeight.w700,
+    fontSize: 28,
+    fontWeight: FontWeight.w500,
   );
 
   static const transactionAmountNumber = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 24,
-    fontWeight: FontWeight.w700,
-  );
-
-  static const transactionDateText = TextStyle(
-    fontFamily: 'ProductSans',
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: FontWeight.w500,
   );
 
-  static const transactionNameTextField = TextStyle(
+  static const textField = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 18,
-    fontWeight: FontWeight.w700,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
   );
 
   static const transactionCategoryName = TextStyle(
     fontFamily: 'ProductSans',
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: FontWeight.w500,
-    height: 1.2,
+  );
+
+  static const transactionDateTimeActive = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const transactionDateTimeInactive = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const categoryName = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
   );
 }
 
@@ -130,21 +137,22 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
   final TextStyle appBarTitleBig;
   final TextStyle appBarSubtitleBig;
   final TextStyle homeFloatingActionButton;
-  final TextStyle homeTopTitle;
   final TextStyle homeMonthChip;
   final TextStyle homeCategoryTitle;
   final TextStyle homeTransactionTitle;
-  final TextStyle homeTransactionSubtitle;
-  final TextStyle homeTransactionTimeAgo;
+  final TextStyle homeTransactionTime;
+  final TextStyle homeTransactionNote;
   final TextStyle homeTransactionValue;
   final TextStyle homeTransactionEuro;
   final TextStyle homeTitle;
   final TextStyle homeTitleEuro;
   final TextStyle transactionAmountCurrentValue;
   final TextStyle transactionAmountNumber;
-  final TextStyle transactionDateText;
-  final TextStyle transactionNameTextField;
+  final TextStyle textField;
   final TextStyle transactionCategoryName;
+  final TextStyle transactionDateTimeActive;
+  final TextStyle transactionDateTimeInactive;
+  final TextStyle categoryName;
 
   const TroskoTextThemesExtension({
     required this.button,
@@ -152,21 +160,22 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     required this.appBarTitleBig,
     required this.appBarSubtitleBig,
     required this.homeFloatingActionButton,
-    required this.homeTopTitle,
     required this.homeMonthChip,
     required this.homeCategoryTitle,
     required this.homeTransactionTitle,
-    required this.homeTransactionSubtitle,
-    required this.homeTransactionTimeAgo,
+    required this.homeTransactionTime,
+    required this.homeTransactionNote,
     required this.homeTransactionValue,
     required this.homeTransactionEuro,
     required this.homeTitle,
     required this.homeTitleEuro,
     required this.transactionAmountCurrentValue,
     required this.transactionAmountNumber,
-    required this.transactionDateText,
-    required this.transactionNameTextField,
+    required this.textField,
     required this.transactionCategoryName,
+    required this.transactionDateTimeActive,
+    required this.transactionDateTimeInactive,
+    required this.categoryName,
   });
 
   @override
@@ -176,42 +185,44 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     TextStyle? appBarTitleBig,
     TextStyle? appBarSubtitleBig,
     TextStyle? homeFloatingActionButton,
-    TextStyle? homeTopTitle,
     TextStyle? homeMonthChip,
     TextStyle? homeCategoryTitle,
     TextStyle? homeTransactionTitle,
-    TextStyle? homeTransactionSubtitle,
-    TextStyle? homeTransactionTimeAgo,
+    TextStyle? homeTransactionTime,
+    TextStyle? homeTransactionNote,
     TextStyle? homeTransactionValue,
     TextStyle? homeTransactionEuro,
     TextStyle? homeTitle,
     TextStyle? homeTitleEuro,
     TextStyle? transactionAmountCurrentValue,
     TextStyle? transactionAmountNumber,
-    TextStyle? transactionDateText,
-    TextStyle? transactionNameTextField,
+    TextStyle? textField,
     TextStyle? transactionCategoryName,
+    TextStyle? transactionDateTimeActive,
+    TextStyle? transactionDateTimeInactive,
+    TextStyle? categoryName,
   }) => TroskoTextThemesExtension(
     button: button ?? this.button,
     appBarTitleSmall: appBarTitleSmall ?? this.appBarTitleSmall,
     appBarTitleBig: appBarTitleBig ?? this.appBarTitleBig,
     appBarSubtitleBig: appBarSubtitleBig ?? this.appBarSubtitleBig,
     homeFloatingActionButton: homeFloatingActionButton ?? this.homeFloatingActionButton,
-    homeTopTitle: homeTopTitle ?? this.homeTopTitle,
     homeMonthChip: homeMonthChip ?? this.homeMonthChip,
     homeCategoryTitle: homeCategoryTitle ?? this.homeCategoryTitle,
     homeTransactionTitle: homeTransactionTitle ?? this.homeTransactionTitle,
-    homeTransactionSubtitle: homeTransactionSubtitle ?? this.homeTransactionSubtitle,
-    homeTransactionTimeAgo: homeTransactionTimeAgo ?? this.homeTransactionTimeAgo,
+    homeTransactionTime: homeTransactionTime ?? this.homeTransactionTime,
+    homeTransactionNote: homeTransactionNote ?? this.homeTransactionNote,
     homeTransactionValue: homeTransactionValue ?? this.homeTransactionValue,
     homeTransactionEuro: homeTransactionEuro ?? this.homeTransactionEuro,
     homeTitle: homeTitle ?? this.homeTitle,
     homeTitleEuro: homeTitleEuro ?? this.homeTitleEuro,
     transactionAmountCurrentValue: transactionAmountCurrentValue ?? this.transactionAmountCurrentValue,
     transactionAmountNumber: transactionAmountNumber ?? this.transactionAmountNumber,
-    transactionDateText: transactionDateText ?? this.transactionDateText,
-    transactionNameTextField: transactionNameTextField ?? this.transactionNameTextField,
+    textField: textField ?? this.textField,
     transactionCategoryName: transactionCategoryName ?? this.transactionCategoryName,
+    transactionDateTimeActive: transactionDateTimeActive ?? this.transactionDateTimeActive,
+    transactionDateTimeInactive: transactionDateTimeInactive ?? this.transactionDateTimeInactive,
+    categoryName: categoryName ?? this.categoryName,
   );
 
   @override
@@ -229,21 +240,22 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
       appBarTitleBig: TextStyle.lerp(appBarTitleBig, other.appBarTitleBig, t)!,
       appBarSubtitleBig: TextStyle.lerp(appBarSubtitleBig, other.appBarSubtitleBig, t)!,
       homeFloatingActionButton: TextStyle.lerp(homeFloatingActionButton, other.homeFloatingActionButton, t)!,
-      homeTopTitle: TextStyle.lerp(homeTopTitle, other.homeTopTitle, t)!,
       homeMonthChip: TextStyle.lerp(homeMonthChip, other.homeMonthChip, t)!,
       homeCategoryTitle: TextStyle.lerp(homeCategoryTitle, other.homeCategoryTitle, t)!,
       homeTransactionTitle: TextStyle.lerp(homeTransactionTitle, other.homeTransactionTitle, t)!,
-      homeTransactionSubtitle: TextStyle.lerp(homeTransactionSubtitle, other.homeTransactionSubtitle, t)!,
-      homeTransactionTimeAgo: TextStyle.lerp(homeTransactionTimeAgo, other.homeTransactionTimeAgo, t)!,
+      homeTransactionTime: TextStyle.lerp(homeTransactionTime, other.homeTransactionTime, t)!,
+      homeTransactionNote: TextStyle.lerp(homeTransactionNote, other.homeTransactionNote, t)!,
       homeTransactionValue: TextStyle.lerp(homeTransactionValue, other.homeTransactionValue, t)!,
       homeTransactionEuro: TextStyle.lerp(homeTransactionEuro, other.homeTransactionEuro, t)!,
       homeTitle: TextStyle.lerp(homeTitle, other.homeTitle, t)!,
       homeTitleEuro: TextStyle.lerp(homeTitleEuro, other.homeTitleEuro, t)!,
       transactionAmountCurrentValue: TextStyle.lerp(transactionAmountCurrentValue, other.transactionAmountCurrentValue, t)!,
       transactionAmountNumber: TextStyle.lerp(transactionAmountNumber, other.transactionAmountNumber, t)!,
-      transactionDateText: TextStyle.lerp(transactionDateText, other.transactionDateText, t)!,
-      transactionNameTextField: TextStyle.lerp(transactionNameTextField, other.transactionNameTextField, t)!,
+      textField: TextStyle.lerp(textField, other.textField, t)!,
       transactionCategoryName: TextStyle.lerp(transactionCategoryName, other.transactionCategoryName, t)!,
+      transactionDateTimeActive: TextStyle.lerp(transactionDateTimeActive, other.transactionDateTimeActive, t)!,
+      transactionDateTimeInactive: TextStyle.lerp(transactionDateTimeInactive, other.transactionDateTimeInactive, t)!,
+      categoryName: TextStyle.lerp(categoryName, other.categoryName, t)!,
     );
   }
 }

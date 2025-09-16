@@ -21,8 +21,8 @@ class TroskoTheme {
         backgroundColor: lightAppColors.buttonPrimary,
         foregroundColor: lightAppColors.text,
         elevation: 1,
+        disabledElevation: 1,
         highlightElevation: 2,
-        disabledElevation: 0,
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
@@ -119,8 +119,8 @@ class TroskoTheme {
         backgroundColor: darkAppColors.buttonPrimary,
         foregroundColor: darkAppColors.text,
         elevation: 1,
+        disabledElevation: 1,
         highlightElevation: 2,
-        disabledElevation: 0,
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
@@ -230,9 +230,6 @@ TroskoTextThemesExtension getTextThemesExtension({
   homeFloatingActionButton: TroskoTextStyles.homeFloatingActionButton.copyWith(
     color: colorsExtension.text,
   ),
-  homeTopTitle: TroskoTextStyles.homeTopTitle.copyWith(
-    color: colorsExtension.text,
-  ),
   homeMonthChip: TroskoTextStyles.homeMonthChip.copyWith(
     color: colorsExtension.text,
   ),
@@ -242,10 +239,10 @@ TroskoTextThemesExtension getTextThemesExtension({
   homeTransactionTitle: TroskoTextStyles.homeTransactionTitle.copyWith(
     color: colorsExtension.text,
   ),
-  homeTransactionSubtitle: TroskoTextStyles.homeTransactionSubtitle.copyWith(
+  homeTransactionTime: TroskoTextStyles.homeTransactionTime.copyWith(
     color: colorsExtension.text,
   ),
-  homeTransactionTimeAgo: TroskoTextStyles.homeTransactionTimeAgo.copyWith(
+  homeTransactionNote: TroskoTextStyles.homeTransactionNote.copyWith(
     color: colorsExtension.text,
   ),
   homeTransactionValue: TroskoTextStyles.homeTransactionValue.copyWith(
@@ -266,13 +263,19 @@ TroskoTextThemesExtension getTextThemesExtension({
   transactionAmountNumber: TroskoTextStyles.transactionAmountNumber.copyWith(
     color: colorsExtension.text,
   ),
-  transactionDateText: TroskoTextStyles.transactionDateText.copyWith(
-    color: colorsExtension.text,
-  ),
-  transactionNameTextField: TroskoTextStyles.transactionNameTextField.copyWith(
+  textField: TroskoTextStyles.textField.copyWith(
     color: colorsExtension.text,
   ),
   transactionCategoryName: TroskoTextStyles.transactionCategoryName.copyWith(
+    color: colorsExtension.text,
+  ),
+  transactionDateTimeActive: TroskoTextStyles.transactionDateTimeActive.copyWith(
+    color: colorsExtension.text,
+  ),
+  transactionDateTimeInactive: TroskoTextStyles.transactionDateTimeInactive.copyWith(
+    color: colorsExtension.text,
+  ),
+  categoryName: TroskoTextStyles.categoryName.copyWith(
     color: colorsExtension.text,
   ),
 );

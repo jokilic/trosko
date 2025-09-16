@@ -31,13 +31,15 @@ class TroskoTextField extends StatelessWidget {
     controller: controller,
     cursorHeight: 24,
     cursorRadius: const Radius.circular(8),
-    cursorWidth: 2.5,
+    cursorWidth: 1.5,
     decoration: InputDecoration(
+      filled: true,
+      fillColor: context.colors.listTileBackground,
       alignLabelWithHint: true,
       border: OutlineInputBorder(
         borderSide: BorderSide(
           color: context.colors.text,
-          width: 2.5,
+          width: 1.5,
         ),
         borderRadius: BorderRadius.circular(8),
       ),
@@ -48,24 +50,24 @@ class TroskoTextField extends StatelessWidget {
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: context.colors.text,
-          width: 2.5,
+          width: 1.5,
         ),
         borderRadius: BorderRadius.circular(8),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: context.colors.text,
-          width: 2.5,
+          width: 1.5,
         ),
         borderRadius: BorderRadius.circular(8),
       ),
       labelText: labelText,
-      labelStyle: context.textStyles.transactionNameTextField,
+      labelStyle: context.textStyles.textField,
     ),
     keyboardType: keyboardType,
     minLines: minLines,
     maxLines: maxLines,
-    style: context.textStyles.transactionNameTextField,
+    style: context.textStyles.textField,
     textAlign: textAlign,
     textCapitalization: textCapitalization,
     textInputAction: textInputAction,

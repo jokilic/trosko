@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../models/category/category.dart';
@@ -58,7 +59,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
       instanceName: widget.passedCategory?.id,
     ).value;
 
-    final chosenColor = state.categoryColor;
+    final categoryName = state.categoryName;
+    final categoryColor = state.categoryColor;
 
     final validated = state.nameValid && state.categoryColor != null;
 
@@ -77,8 +79,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 backgroundColor: Colors.transparent,
                 highlightColor: context.colors.buttonBackground,
               ),
-              icon: Icon(
-                Icons.arrow_back_rounded,
+              icon: PhosphorIcon(
+                PhosphorIcons.arrowLeft(
+                  PhosphorIconsStyle.bold,
+                ),
                 color: context.colors.text,
                 size: 28,
               ),
@@ -94,8 +98,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     backgroundColor: Colors.transparent,
                     highlightColor: context.colors.buttonBackground,
                   ),
-                  icon: Icon(
-                    Icons.delete_outline_rounded,
+                  icon: PhosphorIcon(
+                    PhosphorIcons.trash(
+                      PhosphorIconsStyle.bold,
+                    ),
                     color: context.colors.delete,
                     size: 28,
                   ),
@@ -112,36 +118,60 @@ class _CategoryScreenState extends State<CategoryScreen> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                const SizedBox(height: 12),
+                const SizedBox(height: 4),
 
                 ///
                 /// CATEGORY
                 ///
-                Container(
-                  height: 104,
-                  width: 104,
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: chosenColor,
-                    border: Border.all(
-                      color: context.colors.text,
-                      width: 2.5,
+                Column(
+                  children: [
+                    Container(
+                      height: 104,
+                      width: 104,
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: categoryColor,
+                        border: Border.all(
+                          color: context.colors.text,
+                          width: 1.5,
+                        ),
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 8),
+                    Text(
+                      categoryName ?? '',
+                      style: context.textStyles.categoryName,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 20),
 
                 ///
-                /// NAME TEXT FIELD
+                /// CATEGORY TITLE
+                ///
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'Title',
+                    style: context.textStyles.homeTitle,
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                ///
+                /// TITLE TEXT FIELD
                 ///
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     autofocus: false,
                     controller: controller.nameTextEditingController,
-                    labelText: 'Category name',
+                    labelText: 'Title',
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
                     textCapitalization: TextCapitalization.sentences,
@@ -151,10 +181,31 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 const SizedBox(height: 28),
 
                 ///
-                /// CATEGORY COLOR
+                /// COLOR TITLE
                 ///
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'Color',
+                    style: context.textStyles.homeTitle,
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                ///
+                /// CATEGORY COLOR
+                ///
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: context.colors.listTileBackground,
+                    border: Border.all(
+                      color: context.colors.text,
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   child: MaterialColorPicker(
                     allowShades: false,
                     onMainColorChange: (newColorSwatch) {
@@ -162,13 +213,48 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         controller.colorChanged(newColorSwatch);
                       }
                     },
-                    selectedColor: chosenColor,
+                    selectedColor: categoryColor,
                     alignment: WrapAlignment.center,
-                    circleSize: 56,
-                    elevation: 0,
-                    iconSelected: Icons.check_rounded,
+                    circleSize: 48,
+                    elevation: 1,
+                    iconSelected: PhosphorIcons.checkFat(
+                      PhosphorIconsStyle.bold,
+                    ),
                     physics: const BouncingScrollPhysics(),
-                    spacing: 12,
+                    spacing: 16,
+                  ),
+                ),
+                const SizedBox(height: 28),
+
+                ///
+                /// ICON TITLE
+                ///
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'Icon',
+                    style: context.textStyles.homeTitle,
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                ///
+                /// CATEGORY ICON
+                ///
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: context.colors.listTileBackground,
+                    border: Border.all(
+                      color: context.colors.text,
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Placeholder(
+                    color: context.colors.text,
+                    fallbackHeight: 120,
                   ),
                 ),
                 const SizedBox(height: 28),
@@ -193,7 +279,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               24,
               MediaQuery.paddingOf(context).bottom + 12,
             ),
-            backgroundColor: chosenColor,
+            backgroundColor: categoryColor,
             foregroundColor: TroskoColors.lighterGrey,
             overlayColor: context.colors.buttonBackground,
             disabledBackgroundColor: context.colors.disabledBackground,

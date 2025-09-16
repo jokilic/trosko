@@ -37,8 +37,12 @@ class HomeCategories extends StatelessWidget {
             return HomeCategory(
               onPressed: () => onPressedCategory(category),
               onLongPressed: () => onLongPressedCategory(category),
-              color: category.color.withValues(alpha: activeCategory == category || activeCategory == null ? 1 : 0.2),
-              highlightColor: category.color.withValues(alpha: activeCategory == category || activeCategory == null ? 1 : 0.2),
+              color: category.color.withValues(
+                alpha: activeCategory == category || activeCategory == null ? 1 : 0.2,
+              ),
+              highlightColor: category.color.withValues(
+                alpha: activeCategory == category || activeCategory == null ? 1 : 0.2,
+              ),
               text: category.name,
             );
           }
@@ -90,7 +94,7 @@ class HomeCategory extends StatelessWidget {
             shape: BoxShape.circle,
             border: Border.all(
               color: hasBorder ? context.colors.text : color,
-              width: 2.5,
+              width: 1.5,
             ),
           ),
           child: IconButton(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../models/day_header/day_header.dart';
@@ -83,8 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
               color: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
             ),
           ),
-          icon: Icon(
-            Icons.payments_outlined,
+          icon: PhosphorIcon(
+            PhosphorIcons.coins(),
             color: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
             size: 32,
           ),
@@ -105,15 +106,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   backgroundColor: Colors.transparent,
                   highlightColor: context.colors.buttonBackground,
                 ),
-                icon: Icon(
-                  Icons.settings_rounded,
+                icon: PhosphorIcon(
+                  PhosphorIcons.handWaving(
+                    PhosphorIconsStyle.bold,
+                  ),
                   color: context.colors.text,
                   size: 28,
                 ),
               ),
             ],
-            smallTitle: 'Hello, Josip 👋🏼',
-            bigTitle: 'Hello, Josip 👋🏼',
+            smallTitle: 'Hello, Josip',
+            bigTitle: 'Hello, Josip',
             bigSubtitle: 'Welcome to Troško',
           ),
 
@@ -183,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ///
                 if (item is DayHeader) {
                   return Padding(
-                    padding: const EdgeInsets.fromLTRB(28, 28, 28, 12),
+                    padding: EdgeInsets.fromLTRB(28, index == 0 ? 0 : 28, 28, 12),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -253,11 +256,12 @@ class _HomeScreenState extends State<HomeScreen> {
               sliver: SliverToBoxAdapter(
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.money_off_rounded,
+                    PhosphorIcon(
+                      PhosphorIcons.coins(),
                       color: context.colors.text,
                       size: 48,
                     ),
+
                     const SizedBox(height: 8),
                     Text(
                       'No transactions',

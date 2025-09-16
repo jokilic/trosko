@@ -6,7 +6,7 @@ import '../../models/category/category.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-class CategoryController extends ValueNotifier<({Color? categoryColor, bool nameValid})> implements Disposable {
+class CategoryController extends ValueNotifier<({String? categoryName, Color? categoryColor, bool nameValid})> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -20,6 +20,7 @@ class CategoryController extends ValueNotifier<({Color? categoryColor, bool name
     required this.hive,
     required this.passedCategory,
   }) : super((
+         categoryName: null,
          categoryColor: null,
          nameValid: false,
        ));
@@ -38,15 +39,21 @@ class CategoryController extends ValueNotifier<({Color? categoryColor, bool name
 
   void init() {
     updateState(
+      categoryName: passedCategory?.name,
       categoryColor: passedCategory?.color,
       nameValid: passedCategory?.name.isNotEmpty ?? false,
     );
 
     /// Validation
     nameTextEditingController.addListener(
-      () => updateState(
-        nameValid: nameTextEditingController.text.trim().isNotEmpty,
-      ),
+      () {
+        final name = nameTextEditingController.text.trim();
+
+        updateState(
+          categoryName: name,
+          nameValid: name.isNotEmpty,
+        );
+      },
     );
   }
 
@@ -105,9 +112,11 @@ class CategoryController extends ValueNotifier<({Color? categoryColor, bool name
 
   /// Updates `state`
   void updateState({
+    String? categoryName,
     Color? categoryColor,
     bool? nameValid,
   }) => value = (
+    categoryName: categoryName ?? value.categoryName,
     categoryColor: categoryColor ?? value.categoryColor,
     nameValid: nameValid ?? value.nameValid,
   );

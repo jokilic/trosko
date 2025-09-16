@@ -62,15 +62,3 @@ List<Month> getMonthsForChips({
 
   return out.reversed.toList();
 }
-
-Month getCurrentMonth({required String locale}) {
-  final now = DateTime.now();
-  final formatter = DateFormat.MMMM(locale);
-
-  final date = DateTime(now.year, now.month);
-
-  return Month(
-    date: date,
-    label: formatter.format(date),
-  );
-}

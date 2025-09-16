@@ -14,8 +14,8 @@ List<Object> getGroupedTransactionsByDate(
   final today = toYmd(now);
   final yesterday = today.subtract(const Duration(days: 1));
 
-  final dayFmt = DateFormat('dd. MMMM', locale);
-  final dayFmtYear = DateFormat('dd. MMMM yyyy', locale);
+  final dayFormatter = DateFormat('dd. MMMM', locale);
+  final dayFormatterYear = DateFormat('dd. MMMM yyyy', locale);
 
   String labelFor(DateTime d) {
     if (d == today) {
@@ -26,7 +26,7 @@ List<Object> getGroupedTransactionsByDate(
       return 'Yesterday';
     }
 
-    return d.year == today.year ? dayFmt.format(d) : dayFmtYear.format(d);
+    return d.year == today.year ? dayFormatter.format(d) : dayFormatterYear.format(d);
   }
 
   final grouped = groupBy<Transaction, DateTime>(

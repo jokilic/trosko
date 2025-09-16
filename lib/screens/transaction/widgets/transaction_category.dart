@@ -2,50 +2,55 @@ import 'package:flutter/material.dart';
 
 import '../../../models/category/category.dart';
 import '../../../theme/theme.dart';
-import '../../../widgets/trosko_button.dart';
 
 class TransactionCategory extends StatelessWidget {
-  final bool isActive;
   final Function(Category category) onPressed;
   final Category category;
+  final Color color;
+  final Color highlightColor;
+  final IconData? icon;
 
   const TransactionCategory({
-    required this.isActive,
     required this.onPressed,
     required this.category,
+    required this.color,
+    required this.highlightColor,
+    this.icon,
   });
 
   @override
-  Widget build(BuildContext context) => TroskoButton(
-    onPressed: () => onPressed(category),
-    child: SizedBox(
-      width: 96,
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: category.color,
-              border: Border.all(
-                color: isActive ? context.colors.text : Colors.transparent,
-                width: 2.5,
-              ),
+  Widget build(BuildContext context) => SizedBox(
+    width: 80,
+    child: Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: context.colors.text,
+              width: 1.5,
             ),
-            height: 56,
-            width: 56,
           ),
-          const SizedBox(height: 8),
-          Text(
-            category.name,
-            style: context.textStyles.transactionCategoryName.copyWith(
-              fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
+          child: IconButton(
+            onPressed: () => onPressed(category),
+            style: IconButton.styleFrom(
+              padding: const EdgeInsets.all(12),
+              backgroundColor: color,
+              highlightColor: highlightColor,
+              alignment: Alignment.center,
             ),
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+            icon: Icon(icon),
           ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          category.name,
+          style: context.textStyles.transactionCategoryName,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+      ],
     ),
   );
 }

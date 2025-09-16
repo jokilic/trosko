@@ -6,8 +6,3 @@ enum DateGroup {
   lastMonth,
   older,
 }
-
-enum ActiveDate {
-  today,
-  otherDay,
-}

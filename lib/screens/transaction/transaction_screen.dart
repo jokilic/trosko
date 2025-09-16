@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:scroll_datetime_picker/scroll_datetime_picker.dart';
 import 'package:watch_it/watch_it.dart';
 
-import '../../constants/enums.dart';
 import '../../models/category/category.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/theme.dart';
-import '../../util/date_time.dart';
 import '../../util/dependencies.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'transaction_controller.dart';
 import 'widgets/transaction_amount_widget.dart';
 import 'widgets/transaction_category.dart';
-import 'widgets/transaction_date_checkbox.dart';
 
 class TransactionScreen extends WatchingStatefulWidget {
   final Transaction? passedTransaction;
@@ -68,11 +68,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
       instanceName: widget.passedTransaction?.id,
     ).value;
 
-    final chosenCategory = state.category;
+    final activeCategory = state.category;
+    final chosenDateTime = state.transactionDateTime;
 
-    final validated = state.nameValid && state.amountValid && state.dateValid && state.categoryValid;
-    final activeDateEnum = state.activeDateEnum;
-    final date = state.transactionDate;
+    final validated = state.nameValid && state.amountValid && state.categoryValid;
 
     return Scaffold(
       body: CustomScrollView(
@@ -89,8 +88,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 backgroundColor: Colors.transparent,
                 highlightColor: context.colors.buttonBackground,
               ),
-              icon: Icon(
-                Icons.arrow_back_rounded,
+              icon: PhosphorIcon(
+                PhosphorIcons.arrowLeft(
+                  PhosphorIconsStyle.bold,
+                ),
                 color: context.colors.text,
                 size: 28,
               ),
@@ -107,8 +108,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     backgroundColor: Colors.transparent,
                     highlightColor: context.colors.buttonBackground,
                   ),
-                  icon: Icon(
-                    Icons.delete_outline_rounded,
+                  icon: PhosphorIcon(
+                    PhosphorIcons.trash(
+                      PhosphorIconsStyle.bold,
+                    ),
                     color: context.colors.delete,
                     size: 28,
                   ),
@@ -125,24 +128,110 @@ class _TransactionScreenState extends State<TransactionScreen> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                const SizedBox(height: 24),
+                const SizedBox(height: 4),
 
                 ///
-                /// NAME TEXT FIELD
+                /// CATEGORY TITLE
+                ///
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'Category',
+                    style: context.textStyles.homeTitle,
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                ///
+                /// CATEGORY
+                ///
+                IntrinsicHeight(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: List.generate(
+                        widget.categories.length,
+                        (index) {
+                          final category = widget.categories[index];
+
+                          return TransactionCategory(
+                            onPressed: controller.categoryChanged,
+                            category: category,
+                            color: category.color.withValues(
+                              alpha: activeCategory == category ? 1 : 0.2,
+                            ),
+                            highlightColor: category.color.withValues(
+                              alpha: activeCategory == category ? 1 : 0.2,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                ///
+                /// TITLE & NOTE TITLE
+                ///
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'Title & note',
+                    style: context.textStyles.homeTitle,
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                ///
+                /// TITLE TEXT FIELD
                 ///
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     autofocus: false,
                     controller: controller.nameTextEditingController,
-                    labelText: 'Transaction title',
+                    labelText: 'Title',
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
                     textCapitalization: TextCapitalization.sentences,
-                    textInputAction: TextInputAction.done,
+                    textInputAction: TextInputAction.next,
                   ),
                 ),
                 const SizedBox(height: 28),
+
+                ///
+                /// NOTE TEXT FIELD
+                ///
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TroskoTextField(
+                    autofocus: false,
+                    controller: controller.noteTextEditingController,
+                    labelText: 'Note (not necessary)',
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 3,
+                    textAlign: TextAlign.left,
+                    textCapitalization: TextCapitalization.sentences,
+                    textInputAction: TextInputAction.newline,
+                  ),
+                ),
+                const SizedBox(height: 28),
+
+                ///
+                /// AMOUNT TITLE
+                ///
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'Amount',
+                    style: context.textStyles.homeTitle,
+                  ),
+                ),
+                const SizedBox(height: 12),
 
                 ///
                 /// AMOUNT KEYPAD
@@ -157,101 +246,131 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 const SizedBox(height: 28),
 
                 ///
-                /// CATEGORIES
+                /// DATE TITLE
                 ///
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: context.colors.text,
-                      width: 2.5,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: IntrinsicHeight(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      scrollDirection: Axis.horizontal,
-                      physics: const BouncingScrollPhysics(),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: List.generate(
-                          widget.categories.length,
-                          (index) {
-                            final category = widget.categories[index];
-
-                            return TransactionCategory(
-                              isActive: chosenCategory == category,
-                              onPressed: controller.categoryChanged,
-                              category: category,
-                            );
-                          },
-                        ),
-                      ),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'Date',
+                    style: context.textStyles.homeTitle,
                   ),
                 ),
-                const SizedBox(height: 28),
+                const SizedBox(height: 12),
 
                 ///
                 /// DATE
                 ///
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 16),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: BoxDecoration(
+                    color: context.colors.listTileBackground,
                     border: Border.all(
                       color: context.colors.text,
-                      width: 2.5,
+                      width: 1.5,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ///
-                      /// TODAY
-                      ///
-                      TransactionDateCheckbox(
-                        title: 'Today',
-                        isActive: activeDateEnum == ActiveDate.today,
-                        onPressed: () => controller.dateCheckboxPressed(
-                          ActiveDate.today,
-                          context: context,
-                        ),
+                  child: ScrollDateTimePicker(
+                    onChange: controller.dateChanged,
+                    itemExtent: 64,
+                    style: DateTimePickerStyle(
+                      activeStyle: context.textStyles.transactionDateTimeActive,
+                      inactiveStyle: context.textStyles.transactionDateTimeInactive,
+                      disabledStyle: context.textStyles.transactionDateTimeInactive.copyWith(
+                        color: context.colors.disabledText,
                       ),
-
-                      ///
-                      /// OTHER DAY
-                      ///
-                      TransactionDateCheckbox(
-                        title: activeDateEnum == ActiveDate.otherDay && date != null ? getFormattedDate(date) : 'Other day',
-                        isActive: activeDateEnum == ActiveDate.otherDay,
-                        onPressed: () => controller.dateCheckboxPressed(
-                          ActiveDate.otherDay,
-                          context: context,
-                        ),
+                    ),
+                    wheelOption: const DateTimePickerWheelOption(
+                      physics: BouncingScrollPhysics(),
+                    ),
+                    dateOption: DateTimePickerOption(
+                      dateFormat: DateFormat(
+                        'E, dd MMMM yyyy',
+                        'hr',
                       ),
-                    ],
+                      minDate: DateTime(2010),
+                      maxDate: DateTime(2040),
+                      initialDate: chosenDateTime,
+                    ),
+                    centerWidget: DateTimePickerCenterWidget(
+                      builder: (context, constraints, child) => Container(
+                        decoration: ShapeDecoration(
+                          shape: StadiumBorder(
+                            side: BorderSide(
+                              color: context.colors.text,
+                              width: 1.5,
+                            ),
+                          ),
+                        ),
+                        child: child,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 28),
 
                 ///
-                /// NOTE TEXT FIELD
+                /// TIME TITLE
                 ///
                 Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'Time',
+                    style: context.textStyles.homeTitle,
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                ///
+                /// TIME
+                ///
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: TroskoTextField(
-                    autofocus: false,
-                    controller: controller.noteTextEditingController,
-                    labelText: 'Additional details',
-                    keyboardType: TextInputType.multiline,
-                    maxLines: 3,
-                    textAlign: TextAlign.left,
-                    textCapitalization: TextCapitalization.sentences,
-                    textInputAction: TextInputAction.newline,
+                  decoration: BoxDecoration(
+                    color: context.colors.listTileBackground,
+                    border: Border.all(
+                      color: context.colors.text,
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: ScrollDateTimePicker(
+                    onChange: controller.timeChanged,
+                    itemExtent: 64,
+                    style: DateTimePickerStyle(
+                      activeStyle: context.textStyles.transactionDateTimeActive,
+                      inactiveStyle: context.textStyles.transactionDateTimeInactive,
+                      disabledStyle: context.textStyles.transactionDateTimeInactive.copyWith(
+                        color: context.colors.disabledText,
+                      ),
+                    ),
+                    wheelOption: const DateTimePickerWheelOption(
+                      physics: BouncingScrollPhysics(),
+                    ),
+                    dateOption: DateTimePickerOption(
+                      dateFormat: DateFormat(
+                        'HH:mm',
+                        'hr',
+                      ),
+                      minDate: DateTime(2010),
+                      maxDate: DateTime(2040),
+                      initialDate: chosenDateTime,
+                    ),
+                    centerWidget: DateTimePickerCenterWidget(
+                      builder: (context, constraints, child) => Container(
+                        decoration: ShapeDecoration(
+                          shape: StadiumBorder(
+                            side: BorderSide(
+                              color: context.colors.text,
+                              width: 1.5,
+                            ),
+                          ),
+                        ),
+                        child: child,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 28),
@@ -277,7 +396,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
               24,
               MediaQuery.paddingOf(context).bottom + 12,
             ),
-            backgroundColor: chosenCategory?.color,
+            backgroundColor: activeCategory?.color,
             foregroundColor: TroskoColors.lighterGrey,
             overlayColor: context.colors.buttonBackground,
             disabledBackgroundColor: context.colors.disabledBackground,

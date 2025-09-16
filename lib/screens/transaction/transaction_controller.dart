@@ -1,20 +1,13 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../constants/enums.dart';
 import '../../models/category/category.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
-import '../../util/date_time.dart';
 
-class TransactionController
-    extends
-        ValueNotifier<
-          ({Category? category, int? amountCents, DateTime? transactionDate, bool nameValid, bool amountValid, bool categoryValid, bool dateValid, ActiveDate activeDateEnum})
-        >
+class TransactionController extends ValueNotifier<({Category? category, int? amountCents, DateTime? transactionDateTime, bool nameValid, bool amountValid, bool categoryValid})>
     implements Disposable {
   ///
   /// CONSTRUCTOR
@@ -33,12 +26,10 @@ class TransactionController
   }) : super((
          category: null,
          amountCents: null,
-         transactionDate: null,
+         transactionDateTime: null,
          nameValid: false,
          amountValid: false,
          categoryValid: false,
-         dateValid: false,
-         activeDateEnum: ActiveDate.today,
        ));
 
   ///
@@ -68,15 +59,16 @@ class TransactionController
 
     final category = passedCategory ?? (categories.length == 1 ? categories.firstOrNull : null);
 
+    final transactionDateTime = passedTransaction?.createdAt ?? now;
+
     updateState(
       category: category,
       amountCents: passedTransaction?.amountCents,
-      transactionDate: passedTransaction?.createdAt ?? now,
+      transactionDate: transactionDateTime,
+      transactionTime: transactionDateTime,
       nameValid: passedTransaction?.name.isNotEmpty ?? false,
       amountValid: (passedTransaction?.amountCents ?? 0) > 0,
       categoryValid: category != null,
-      dateValid: true,
-      activeDateEnum: passedTransaction?.createdAt == null || isSameDay(passedTransaction?.createdAt ?? now, now) ? ActiveDate.today : ActiveDate.otherDay,
     );
 
     /// Validation
@@ -114,92 +106,10 @@ class TransactionController
   );
 
   /// Triggered when the user changes date
-  void dateChanged(DateTime newDate) => updateState(
-    transactionDate: newDate,
-    dateValid: true,
-  );
+  void dateChanged(DateTime newDate) => updateState(transactionDate: newDate);
 
-  /// Triggered when the user presses date checkbox
-  void dateCheckboxPressed(
-    ActiveDate newActiveDateEnum, {
-    required BuildContext context,
-  }) {
-    if (newActiveDateEnum == ActiveDate.today) {
-      dateChanged(DateTime.now());
-    }
-
-    if (newActiveDateEnum == ActiveDate.otherDay) {
-      openCalendar(context);
-    }
-
-    updateState(
-      activeDateEnum: newActiveDateEnum,
-    );
-  }
-
-  /// Opens calendar
-  void openCalendar(BuildContext context) => showCalendarDatePicker2Dialog(
-    context: context,
-    onValueChanged: (newValue) async {
-      final chosenDate = newValue.first;
-
-      if (chosenDate != null) {
-        Navigator.of(context).pop();
-
-        dateChanged(chosenDate);
-        updateState(
-          activeDateEnum: ActiveDate.otherDay,
-        );
-      }
-    },
-    config: CalendarDatePicker2WithActionButtonsConfig(
-      // weekdayLabelTextStyle: context.textStyles.teamTransferTeam,
-      // controlsTextStyle: context.textStyles.teamTransferTeam,
-      // dayTextStyle: context.textStyles.calendarDayInactive,
-      // todayTextStyle: context.textStyles.calendarDayActive,
-      // selectedDayTextStyle: context.textStyles.calendarDayActive.copyWith(
-      //   color: context.colors.primaryBackground,
-      // ),
-      // selectedMonthTextStyle: context.textStyles.calendarDayActive.copyWith(
-      //   color: context.colors.primaryBackground,
-      // ),
-      // selectedYearTextStyle: context.textStyles.calendarDayActive.copyWith(
-      //   color: context.colors.primaryBackground,
-      // ),
-      // selectedDayHighlightColor: context.colors.accentStrong,
-      // daySplashColor: context.colors.accentStrong,
-      firstDayOfWeek: 1,
-      useAbbrLabelForMonthModePicker: true,
-      // cancelButton: BalunButton(
-      //   child: Text(
-      //     'fixturesCalendarCancel'.tr().toUpperCase(),
-      //     style: context.textStyles.calendarDayInactive,
-      //   ),
-      // ),
-      // okButton: BalunButton(
-      //   child: Text(
-      //     'fixturesCalendarGo'.tr().toUpperCase(),
-      //     style: context.textStyles.teamTransferTeam,
-      //   ),
-      // ),
-      // lastMonthIcon: const BalunImage(
-      //   imageUrl: BalunIcons.back,
-      //   height: 20,
-      //   width: 20,
-      // ),
-      // nextMonthIcon: Transform.rotate(
-      //   angle: pi,
-      //   child: const BalunImage(
-      //     imageUrl: BalunIcons.back,
-      //     height: 20,
-      //     width: 20,
-      //   ),
-      // ),
-    ),
-    borderRadius: BorderRadius.circular(8),
-    // dialogBackgroundColor: context.colors.accentLight,
-    dialogSize: const Size(325, 400),
-  );
+  /// Triggered when the user changes time
+  void timeChanged(DateTime newTime) => updateState(transactionTime: newTime);
 
   /// Triggered when the user adds transaction
   Future<void> addTransaction() async {
@@ -214,7 +124,7 @@ class TransactionController
       amountCents: value.amountCents!,
       categoryId: value.category!.id,
       note: note.isNotEmpty ? note : null,
-      createdAt: value.transactionDate ?? DateTime.now(),
+      createdAt: value.transactionDateTime ?? DateTime.now(),
     );
 
     /// User modified transaction
@@ -245,19 +155,37 @@ class TransactionController
     Category? category,
     int? amountCents,
     DateTime? transactionDate,
+    DateTime? transactionTime,
     bool? nameValid,
     bool? amountValid,
     bool? categoryValid,
-    bool? dateValid,
-    ActiveDate? activeDateEnum,
   }) => value = (
     category: category ?? value.category,
     amountCents: amountCents ?? value.amountCents,
-    transactionDate: transactionDate ?? value.transactionDate,
+    transactionDateTime: getTransactionDateTime(
+      transactionDate: transactionDate,
+      transactionTime: transactionTime,
+    ),
     nameValid: nameValid ?? value.nameValid,
     amountValid: amountValid ?? value.amountValid,
     categoryValid: categoryValid ?? value.categoryValid,
-    dateValid: dateValid ?? value.dateValid,
-    activeDateEnum: activeDateEnum ?? value.activeDateEnum,
   );
+
+  /// Returns proper DateTime from passed `transactionDate` and `transactionTime`
+  DateTime? getTransactionDateTime({
+    required DateTime? transactionDate,
+    required DateTime? transactionTime,
+  }) {
+    final day = transactionDate?.day ?? value.transactionDateTime?.day;
+    final month = transactionDate?.month ?? value.transactionDateTime?.month;
+    final year = transactionDate?.year ?? value.transactionDateTime?.year;
+    final hour = transactionTime?.hour ?? value.transactionDateTime?.hour;
+    final minute = transactionTime?.minute ?? value.transactionDateTime?.minute;
+
+    if (day != null && month != null && year != null && hour != null && minute != null) {
+      return DateTime(year, month, day, hour, minute);
+    }
+
+    return null;
+  }
 }

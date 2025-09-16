@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../theme/theme.dart';
 import '../../../util/currency.dart';
@@ -134,127 +135,119 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.all(24),
-    decoration: BoxDecoration(
-      border: Border.all(
-        color: context.colors.text,
-        width: 2.5,
-      ),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ///
-        /// CURRENT VALUE
-        ///
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 8,
+  Widget build(BuildContext context) => Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      ///
+      /// CURRENT VALUE
+      ///
+      Container(
+        width: double.infinity,
+        padding: const EdgeInsets.fromLTRB(12, 8, 16, 8),
+        decoration: BoxDecoration(
+          color: context.colors.listTileBackground,
+          border: Border.all(
+            color: context.colors.text,
+            width: 1.5,
           ),
-          decoration: BoxDecoration(
-            border: Border.all(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          children: [
+            PhosphorIcon(
+              PhosphorIcons.currencyEur(
+                PhosphorIconsStyle.bold,
+              ),
               color: context.colors.text,
-              width: 2.5,
+              size: 28,
             ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              Icon(
-                Icons.euro_rounded,
-                color: context.colors.text,
-                size: 28,
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                currentValue,
+                style: context.textStyles.transactionAmountCurrentValue,
+                textAlign: TextAlign.right,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  currentValue,
-                  style: context.textStyles.transactionAmountCurrentValue,
-                  textAlign: TextAlign.right,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(height: 20),
+
+      ///
+      /// NUMPAD
+      ///
+      GridView.builder(
+        padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          childAspectRatio: 2,
+        ),
+        itemCount: 12,
+        itemBuilder: (_, index) {
+          ///
+          /// NUMBERS
+          ///
+          if (index < 9) {
+            final number = (index + 1).toString();
+
+            return TransactionAmountButton(
+              onPressed: () => onButtonPressed(number),
+              child: Text(
+                number,
+                style: context.textStyles.transactionAmountNumber,
               ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 24),
-
-        ///
-        /// NUMPAD
-        ///
-        GridView.builder(
-          padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 1.25,
-          ),
-          itemCount: 12,
-          itemBuilder: (_, index) {
-            ///
-            /// NUMBERS
-            ///
-            if (index < 9) {
-              final number = (index + 1).toString();
-
-              return TransactionAmountButton(
-                onPressed: () => onButtonPressed(number),
-                child: Text(
-                  number,
-                  style: context.textStyles.transactionAmountNumber,
+            );
+          }
+          ///
+          /// `00` BUTTON
+          ///
+          else if (index == 9) {
+            return TransactionAmountButton(
+              onPressed: () => onButtonPressed('00'),
+              child: Text(
+                '00',
+                style: context.textStyles.transactionAmountNumber,
+              ),
+            );
+          }
+          ///
+          /// ZERO BUTTON
+          ///
+          else if (index == 10) {
+            return TransactionAmountButton(
+              onPressed: () => onButtonPressed('0'),
+              child: Text(
+                '0',
+                style: context.textStyles.transactionAmountNumber,
+              ),
+            );
+          }
+          ///
+          /// BACKSPACE BUTTON
+          ///
+          else {
+            return TransactionAmountButton(
+              onPressed: () => onButtonPressed('backspace'),
+              onLongPressStart: startHoldTimer,
+              onLongPressEnd: stopHoldTimer,
+              child: PhosphorIcon(
+                PhosphorIcons.backspace(
+                  PhosphorIconsStyle.bold,
                 ),
-              );
-            }
-            ///
-            /// `00` BUTTON
-            ///
-            else if (index == 9) {
-              return TransactionAmountButton(
-                onPressed: () => onButtonPressed('00'),
-                child: Text(
-                  '00',
-                  style: context.textStyles.transactionAmountNumber,
-                ),
-              );
-            }
-            ///
-            /// ZERO BUTTON
-            ///
-            else if (index == 10) {
-              return TransactionAmountButton(
-                onPressed: () => onButtonPressed('0'),
-                child: Text(
-                  '0',
-                  style: context.textStyles.transactionAmountNumber,
-                ),
-              );
-            }
-            ///
-            /// BACKSPACE BUTTON
-            ///
-            else {
-              return TransactionAmountButton(
-                onPressed: () => onButtonPressed('backspace'),
-                onLongPressStart: startHoldTimer,
-                onLongPressEnd: stopHoldTimer,
-                child: Icon(
-                  Icons.backspace_outlined,
-                  color: isHolding ? context.colors.buttonPrimary : context.colors.text,
-                  size: 28,
-                ),
-              );
-            }
-          },
-        ),
-      ],
-    ),
+                color: isHolding ? context.colors.delete : context.colors.text,
+                size: 24,
+              ),
+            );
+          }
+        },
+      ),
+    ],
   );
 }

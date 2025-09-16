@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
+import 'package:intl/intl.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../constants/durations.dart';
 import '../../../models/category/category.dart';
@@ -59,10 +61,12 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
               },
               color: context.colors.delete,
               backgroundRadius: 16,
-              icon: Icon(
-                Icons.delete_rounded,
+              icon: PhosphorIcon(
+                PhosphorIcons.trash(
+                  PhosphorIconsStyle.bold,
+                ),
                 color: context.colors.listTileBackground,
-                size: 32,
+                size: 28,
               ),
             ),
           ],
@@ -74,7 +78,14 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
               onLongPress: widget.onLongPressed,
               highlightColor: context.colors.buttonBackground,
               borderRadius: BorderRadius.circular(8),
-              child: Padding(
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: context.colors.text,
+                    width: 1.5,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 12,
                   vertical: 18,
@@ -93,7 +104,7 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                         color: widget.category?.color,
                         border: Border.all(
                           color: context.colors.text,
-                          width: 2.5,
+                          width: 1.5,
                         ),
                       ),
                     ),
@@ -107,6 +118,10 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 2),
+
+                          ///
+                          /// TITLE
+                          ///
                           AnimatedCrossFade(
                             duration: TroskoDurations.animation,
                             firstCurve: Curves.easeIn,
@@ -124,6 +139,36 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                               style: context.textStyles.homeTransactionTitle,
                             ),
                           ),
+
+                          ///
+                          /// TIME
+                          ///
+                          const SizedBox(height: 4),
+                          AnimatedCrossFade(
+                            duration: TroskoDurations.animation,
+                            firstCurve: Curves.easeIn,
+                            secondCurve: Curves.easeIn,
+                            sizeCurve: Curves.easeIn,
+                            crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                            firstChild: Text(
+                              DateFormat('HH:mm', 'hr').format(
+                                widget.transaction.createdAt,
+                              ),
+                              style: context.textStyles.homeTransactionTime,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            secondChild: Text(
+                              DateFormat('HH:mm', 'hr').format(
+                                widget.transaction.createdAt,
+                              ),
+                              style: context.textStyles.homeTransactionTime,
+                            ),
+                          ),
+
+                          ///
+                          /// NOTE
+                          ///
                           if (widget.transaction.note?.isNotEmpty ?? false) ...[
                             const SizedBox(height: 4),
                             AnimatedCrossFade(
@@ -134,13 +179,13 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                               crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                               firstChild: Text(
                                 widget.transaction.note!,
-                                style: context.textStyles.homeTransactionSubtitle,
+                                style: context.textStyles.homeTransactionNote,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                               secondChild: Text(
                                 widget.transaction.note!,
-                                style: context.textStyles.homeTransactionSubtitle,
+                                style: context.textStyles.homeTransactionNote,
                               ),
                             ),
                           ],
