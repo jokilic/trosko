@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
@@ -117,7 +118,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
             smallTitle: 'Hello, Josip',
             bigTitle: 'Hello, Josip',
-            bigSubtitle: 'Welcome to Troško',
+            bigSubtitle:
+                'Today is ${DateFormat(
+                  'd. MMMM y.',
+                  'hr',
+                ).format(DateTime.now())}',
           ),
 
           ///

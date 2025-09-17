@@ -80,10 +80,6 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
               borderRadius: BorderRadius.circular(8),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: context.colors.text,
-                    width: 1.5,
-                  ),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 padding: const EdgeInsets.symmetric(
