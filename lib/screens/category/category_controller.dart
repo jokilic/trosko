@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../constants/icons.dart';
 import '../../models/category/category.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../util/icons.dart';
 
-class CategoryController extends ValueNotifier<({String? categoryName, Color? categoryColor, bool nameValid})> implements Disposable {
+class CategoryController
+    extends
+        ValueNotifier<
+          ({String? categoryName, Color? categoryColor, bool nameValid, MapEntry<String, PhosphorIconData>? categoryIcon, List<MapEntry<String, PhosphorIconData>>? searchedIcons})
+        >
+    implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -23,6 +31,8 @@ class CategoryController extends ValueNotifier<({String? categoryName, Color? ca
          categoryName: null,
          categoryColor: null,
          nameValid: false,
+         categoryIcon: null,
+         searchedIcons: null,
        ));
 
   ///
@@ -31,6 +41,10 @@ class CategoryController extends ValueNotifier<({String? categoryName, Color? ca
 
   late final nameTextEditingController = TextEditingController(
     text: passedCategory?.name,
+  );
+
+  late final iconTextEditingController = TextEditingController(
+    text: passedCategory?.iconName,
   );
 
   ///
@@ -42,6 +56,12 @@ class CategoryController extends ValueNotifier<({String? categoryName, Color? ca
       categoryName: passedCategory?.name,
       categoryColor: passedCategory?.color,
       nameValid: passedCategory?.name.isNotEmpty ?? false,
+      categoryIcon: getIconFromName(
+        passedCategory?.iconName,
+      ),
+      searchedIcons: getIconsFromName(
+        iconTextEditingController.text.trim().toLowerCase(),
+      ),
     );
 
     /// Validation
@@ -55,6 +75,15 @@ class CategoryController extends ValueNotifier<({String? categoryName, Color? ca
         );
       },
     );
+
+    /// Icon search
+    iconTextEditingController.addListener(
+      () => updateState(
+        searchedIcons: getIconsFromName(
+          iconTextEditingController.text.trim(),
+        ),
+      ),
+    );
   }
 
   ///
@@ -64,6 +93,7 @@ class CategoryController extends ValueNotifier<({String? categoryName, Color? ca
   @override
   void onDispose() {
     nameTextEditingController.dispose();
+    iconTextEditingController.dispose();
   }
 
   ///
@@ -75,6 +105,11 @@ class CategoryController extends ValueNotifier<({String? categoryName, Color? ca
     categoryColor: newColor,
   );
 
+  /// Triggered when the user presses an [Icon]
+  void iconChanged(MapEntry<String, PhosphorIconData> newIcon) => updateState(
+    categoryIcon: newIcon,
+  );
+
   /// Triggered when the user adds category
   Future<void> addCategory() async {
     /// Get [TextField] values
@@ -84,6 +119,7 @@ class CategoryController extends ValueNotifier<({String? categoryName, Color? ca
     final newCategory = Category(
       id: passedCategory?.id ?? const Uuid().v1(),
       name: name,
+      iconName: value.categoryIcon!.key,
       color: value.categoryColor!,
     );
 
@@ -115,9 +151,13 @@ class CategoryController extends ValueNotifier<({String? categoryName, Color? ca
     String? categoryName,
     Color? categoryColor,
     bool? nameValid,
+    MapEntry<String, PhosphorIconData>? categoryIcon,
+    List<MapEntry<String, PhosphorIconData>>? searchedIcons,
   }) => value = (
     categoryName: categoryName ?? value.categoryName,
     categoryColor: categoryColor ?? value.categoryColor,
     nameValid: nameValid ?? value.nameValid,
+    categoryIcon: categoryIcon ?? value.categoryIcon,
+    searchedIcons: searchedIcons ?? value.searchedIcons,
   );
 }

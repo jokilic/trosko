@@ -12,6 +12,7 @@ import '../../util/dependencies.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'category_controller.dart';
+import 'widgets/category_icon_list_tile.dart';
 
 class CategoryScreen extends WatchingStatefulWidget {
   final Category? passedCategory;
@@ -61,8 +62,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
     final categoryName = state.categoryName;
     final categoryColor = state.categoryColor;
+    final categoryIcon = state.categoryIcon;
 
-    final validated = state.nameValid && state.categoryColor != null;
+    final searchedIcons = state.searchedIcons;
+
+    final validated = state.nameValid && state.categoryColor != null && state.categoryIcon != null;
 
     return Scaffold(
       body: CustomScrollView(
@@ -129,7 +133,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       height: 104,
                       width: 104,
                       margin: const EdgeInsets.symmetric(horizontal: 16),
-                      padding: const EdgeInsets.all(24),
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: categoryColor,
@@ -137,6 +141,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           color: context.colors.text,
                           width: 1.5,
                         ),
+                      ),
+                      child: Icon(
+                        categoryIcon?.value,
+                        color: context.colors.text,
+                        size: 56,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -239,24 +248,52 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 const SizedBox(height: 12),
 
                 ///
-                /// CATEGORY ICON
+                /// CATEGORY ICON TEXT FIELD
                 ///
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: context.colors.listTileBackground,
-                    border: Border.all(
-                      color: context.colors.text,
-                      width: 1.5,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Placeholder(
-                    color: context.colors.text,
-                    fallbackHeight: 120,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TroskoTextField(
+                    autofocus: false,
+                    controller: controller.iconTextEditingController,
+                    labelText: 'Icon',
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.left,
+                    textCapitalization: TextCapitalization.sentences,
+                    textInputAction: TextInputAction.done,
                   ),
                 ),
+                const SizedBox(height: 20),
+
+                ///
+                /// CATEGORY ICONS
+                ///
+                if (searchedIcons?.isNotEmpty ?? false)
+                  Container(
+                    height: 200,
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: context.colors.listTileBackground,
+                      border: Border.all(
+                        color: context.colors.text,
+                        width: 1.5,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: searchedIcons?.length,
+                      itemBuilder: (_, index) {
+                        final icon = searchedIcons![index];
+
+                        return CategoryIconListTile(
+                          isActive: categoryIcon?.key == icon.key,
+                          onPressed: () => controller.iconChanged(icon),
+                          icon: icon,
+                        );
+                      },
+                    ),
+                  ),
                 const SizedBox(height: 28),
               ],
             ),

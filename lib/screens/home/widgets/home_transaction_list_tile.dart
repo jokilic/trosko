@@ -8,6 +8,7 @@ import '../../../models/category/category.dart';
 import '../../../models/transaction/transaction.dart';
 import '../../../theme/theme.dart';
 import '../../../util/currency.dart';
+import '../../../util/icons.dart';
 
 class HomeTransactionListTile extends StatefulWidget {
   final Function() onLongPressed;
@@ -102,6 +103,13 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                           color: context.colors.text,
                           width: 1.5,
                         ),
+                      ),
+                      child: Icon(
+                        getIconFromName(
+                          widget.category?.iconName,
+                        )?.value,
+                        color: context.colors.text,
+                        size: 16,
                       ),
                     ),
                     const SizedBox(width: 12),

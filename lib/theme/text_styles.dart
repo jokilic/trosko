@@ -129,6 +129,12 @@ abstract class TroskoTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w500,
   );
+
+  static const categoryIcon = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+  );
 }
 
 class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension> {
@@ -153,6 +159,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
   final TextStyle transactionDateTimeActive;
   final TextStyle transactionDateTimeInactive;
   final TextStyle categoryName;
+  final TextStyle categoryIcon;
 
   const TroskoTextThemesExtension({
     required this.button,
@@ -176,6 +183,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     required this.transactionDateTimeActive,
     required this.transactionDateTimeInactive,
     required this.categoryName,
+    required this.categoryIcon,
   });
 
   @override
@@ -201,6 +209,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     TextStyle? transactionDateTimeActive,
     TextStyle? transactionDateTimeInactive,
     TextStyle? categoryName,
+    TextStyle? categoryIcon,
   }) => TroskoTextThemesExtension(
     button: button ?? this.button,
     appBarTitleSmall: appBarTitleSmall ?? this.appBarTitleSmall,
@@ -223,6 +232,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     transactionDateTimeActive: transactionDateTimeActive ?? this.transactionDateTimeActive,
     transactionDateTimeInactive: transactionDateTimeInactive ?? this.transactionDateTimeInactive,
     categoryName: categoryName ?? this.categoryName,
+    categoryIcon: categoryIcon ?? this.categoryIcon,
   );
 
   @override
@@ -256,6 +266,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
       transactionDateTimeActive: TextStyle.lerp(transactionDateTimeActive, other.transactionDateTimeActive, t)!,
       transactionDateTimeInactive: TextStyle.lerp(transactionDateTimeInactive, other.transactionDateTimeInactive, t)!,
       categoryName: TextStyle.lerp(categoryName, other.categoryName, t)!,
+      categoryIcon: TextStyle.lerp(categoryIcon, other.categoryIcon, t)!,
     );
   }
 }

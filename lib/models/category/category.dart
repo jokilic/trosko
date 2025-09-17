@@ -14,14 +14,18 @@ class Category {
   @HiveField(3)
   final Color color;
 
+  @HiveField(4)
+  final String iconName;
+
   Category({
     required this.id,
     required this.name,
     required this.color,
+    required this.iconName,
   });
 
   @override
-  String toString() => 'Category(id: $id, name: $name, color: $color)';
+  String toString() => 'Category(id: $id, name: $name, color: $color, iconName: $iconName)';
 
   @override
   bool operator ==(covariant Category other) {
@@ -29,9 +33,9 @@ class Category {
       return true;
     }
 
-    return other.id == id && other.name == name && other.color == color;
+    return other.id == id && other.name == name && other.color == color && other.iconName == iconName;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ color.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode ^ color.hashCode ^ iconName.hashCode;
 }

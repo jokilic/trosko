@@ -11,6 +11,7 @@ import '../../services/logger_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
+import '../../util/icons.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'transaction_controller.dart';
@@ -166,6 +167,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             highlightColor: category.color.withValues(
                               alpha: activeCategory == category ? 1 : 0.2,
                             ),
+                            icon: getIconFromName(
+                              category.iconName,
+                            )?.value,
                           );
                         },
                       ),

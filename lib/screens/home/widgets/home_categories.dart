@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../models/category/category.dart';
 import '../../../theme/theme.dart';
+import '../../../util/icons.dart';
 
 class HomeCategories extends StatelessWidget {
   final List<Category> categories;
@@ -43,6 +45,9 @@ class HomeCategories extends StatelessWidget {
               highlightColor: category.color.withValues(
                 alpha: activeCategory == category || activeCategory == null ? 1 : 0.2,
               ),
+              icon: getIconFromName(
+                category.iconName,
+              )?.value,
               text: category.name,
             );
           }
@@ -54,7 +59,7 @@ class HomeCategories extends StatelessWidget {
             onPressed: onPressedAdd,
             color: context.colors.buttonBackground,
             highlightColor: context.colors.listTileBackground,
-            icon: Icons.add_rounded,
+            icon: PhosphorIcons.plus(),
             text: 'Add',
             hasBorder: false,
           );
@@ -106,7 +111,11 @@ class HomeCategory extends StatelessWidget {
               highlightColor: highlightColor,
               alignment: Alignment.center,
             ),
-            icon: Icon(icon),
+            icon: Icon(
+              icon,
+              color: context.colors.text,
+              size: 36,
+            ),
           ),
         ),
         const SizedBox(height: 6),

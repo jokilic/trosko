@@ -32,6 +32,7 @@ class TroskoTextField extends StatelessWidget {
     cursorHeight: 24,
     cursorRadius: const Radius.circular(8),
     cursorWidth: 1.5,
+    cursorColor: context.colors.text,
     decoration: InputDecoration(
       filled: true,
       fillColor: context.colors.listTileBackground,

@@ -278,4 +278,7 @@ TroskoTextThemesExtension getTextThemesExtension({
   categoryName: TroskoTextStyles.categoryName.copyWith(
     color: colorsExtension.text,
   ),
+  categoryIcon: TroskoTextStyles.categoryIcon.copyWith(
+    color: colorsExtension.text,
+  ),
 );

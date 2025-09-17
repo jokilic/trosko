@@ -39,7 +39,11 @@ class TransactionCategory extends StatelessWidget {
               highlightColor: highlightColor,
               alignment: Alignment.center,
             ),
-            icon: Icon(icon),
+            icon: Icon(
+              icon,
+              color: context.colors.text,
+              size: 36,
+            ),
           ),
         ),
         const SizedBox(height: 6),
