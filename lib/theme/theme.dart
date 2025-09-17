@@ -89,6 +89,7 @@ class TroskoTheme {
 
   static final lightAppColors = TroskoColorsExtension(
     text: TroskoColors.black,
+    icon: TroskoColors.grey,
     buttonPrimary: TroskoColors.blueLight,
     delete: TroskoColors.red,
     listTileBackground: TroskoColors.lighterGrey,
@@ -187,6 +188,7 @@ class TroskoTheme {
 
   static final darkAppColors = TroskoColorsExtension(
     text: TroskoColors.lighterGrey,
+    icon: TroskoColors.grey,
     buttonPrimary: TroskoColors.blueDark,
     delete: TroskoColors.red,
     listTileBackground: TroskoColors.lightDark,

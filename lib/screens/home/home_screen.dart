@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ///
                 if (item is DayHeader) {
                   return Padding(
-                    padding: EdgeInsets.fromLTRB(28, index == 0 ? 0 : 28, 28, 12),
+                    padding: EdgeInsets.fromLTRB(28, index == 0 ? 8 : 28, 28, 12),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

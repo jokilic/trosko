@@ -108,7 +108,7 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                         getIconFromName(
                           widget.category?.iconName,
                         )?.value,
-                        color: context.colors.text,
+                        color: context.colors.icon,
                         size: 16,
                       ),
                     ),

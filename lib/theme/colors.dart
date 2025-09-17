@@ -18,6 +18,7 @@ abstract class TroskoColors {
 
 class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
   final Color text;
+  final Color icon;
   final Color buttonPrimary;
   final Color delete;
   final Color listTileBackground;
@@ -28,6 +29,7 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
 
   TroskoColorsExtension({
     required this.text,
+    required this.icon,
     required this.buttonPrimary,
     required this.delete,
     required this.listTileBackground,
@@ -40,6 +42,7 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
   @override
   ThemeExtension<TroskoColorsExtension> copyWith({
     Color? text,
+    Color? icon,
     Color? buttonPrimary,
     Color? delete,
     Color? listTileBackground,
@@ -49,6 +52,7 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
     Color? disabledBackground,
   }) => TroskoColorsExtension(
     text: text ?? this.text,
+    icon: icon ?? this.icon,
     buttonPrimary: buttonPrimary ?? this.buttonPrimary,
     delete: delete ?? this.delete,
     listTileBackground: listTileBackground ?? this.listTileBackground,
@@ -69,6 +73,7 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
 
     return TroskoColorsExtension(
       text: Color.lerp(text, other.text, t)!,
+      icon: Color.lerp(icon, other.icon, t)!,
       buttonPrimary: Color.lerp(buttonPrimary, other.buttonPrimary, t)!,
       delete: Color.lerp(delete, other.delete, t)!,
       listTileBackground: Color.lerp(listTileBackground, other.listTileBackground, t)!,

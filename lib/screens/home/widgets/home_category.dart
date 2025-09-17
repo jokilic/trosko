@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/category/category.dart';
 import '../../../theme/theme.dart';
 
-class TransactionCategory extends StatelessWidget {
-  final Function(Category category) onPressed;
-  final Category category;
+class HomeCategory extends StatelessWidget {
+  final Function() onPressed;
+  final Function()? onLongPressed;
   final Color color;
   final Color highlightColor;
   final IconData? icon;
+  final String text;
+  final bool hasBorder;
 
-  const TransactionCategory({
+  const HomeCategory({
     required this.onPressed,
-    required this.category,
     required this.color,
     required this.highlightColor,
+    required this.text,
     this.icon,
+    this.onLongPressed,
+    this.hasBorder = true,
   });
 
   @override
@@ -27,12 +30,13 @@ class TransactionCategory extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: context.colors.text,
+              color: hasBorder ? context.colors.text : color,
               width: 1.5,
             ),
           ),
           child: IconButton(
-            onPressed: () => onPressed(category),
+            onPressed: onPressed,
+            onLongPress: onLongPressed,
             style: IconButton.styleFrom(
               padding: const EdgeInsets.all(12),
               backgroundColor: color,
@@ -48,8 +52,8 @@ class TransactionCategory extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         Text(
-          category.name,
-          style: context.textStyles.transactionCategoryName,
+          text,
+          style: context.textStyles.homeCategoryTitle,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,

@@ -144,7 +144,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ),
                       child: Icon(
                         categoryIcon?.value,
-                        color: context.colors.text,
+                        color: context.colors.icon,
                         size: 56,
                       ),
                     ),
