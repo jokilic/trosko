@@ -7,7 +7,11 @@ import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-class TransactionController extends ValueNotifier<({Category? category, int? amountCents, DateTime? transactionDateTime, bool nameValid, bool amountValid, bool categoryValid})>
+class TransactionController
+    extends
+        ValueNotifier<
+          ({Category? category, int? amountCents, DateTime? transactionDateTime, bool nameValid, bool amountValid, bool categoryValid, bool dateEditMode, bool timeEditMode})
+        >
     implements Disposable {
   ///
   /// CONSTRUCTOR
@@ -30,6 +34,8 @@ class TransactionController extends ValueNotifier<({Category? category, int? amo
          nameValid: false,
          amountValid: false,
          categoryValid: false,
+         dateEditMode: false,
+         timeEditMode: false,
        ));
 
   ///
@@ -69,6 +75,8 @@ class TransactionController extends ValueNotifier<({Category? category, int? amo
       nameValid: passedTransaction?.name.isNotEmpty ?? false,
       amountValid: (passedTransaction?.amountCents ?? 0) > 0,
       categoryValid: category != null,
+      dateEditMode: false,
+      timeEditMode: false,
     );
 
     /// Validation
@@ -104,6 +112,12 @@ class TransactionController extends ValueNotifier<({Category? category, int? amo
     category: newCategory,
     categoryValid: true,
   );
+
+  /// Triggered when the user enables date edit mode
+  void dateEditModeChanged() => updateState(dateEditMode: true);
+
+  /// Triggered when the user enables time edit mode
+  void timeEditModeChanged() => updateState(timeEditMode: true);
 
   /// Triggered when the user changes date
   void dateChanged(DateTime newDate) => updateState(transactionDate: newDate);
@@ -159,6 +173,8 @@ class TransactionController extends ValueNotifier<({Category? category, int? amo
     bool? nameValid,
     bool? amountValid,
     bool? categoryValid,
+    bool? dateEditMode,
+    bool? timeEditMode,
   }) => value = (
     category: category ?? value.category,
     amountCents: amountCents ?? value.amountCents,
@@ -169,6 +185,8 @@ class TransactionController extends ValueNotifier<({Category? category, int? amo
     nameValid: nameValid ?? value.nameValid,
     amountValid: amountValid ?? value.amountValid,
     categoryValid: categoryValid ?? value.categoryValid,
+    dateEditMode: dateEditMode ?? value.dateEditMode,
+    timeEditMode: timeEditMode ?? value.timeEditMode,
   );
 
   /// Returns proper DateTime from passed `transactionDate` and `transactionTime`

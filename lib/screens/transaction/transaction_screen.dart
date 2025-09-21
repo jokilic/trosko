@@ -72,6 +72,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
     final activeCategory = state.category;
     final chosenDateTime = state.transactionDateTime;
 
+    final dateEditMode = state.dateEditMode;
+    final timeEditMode = state.timeEditMode;
+
     final validated = state.nameValid && state.amountValid && state.categoryValid;
 
     return Scaffold(
@@ -264,50 +267,59 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 ///
                 /// DATE
                 ///
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: context.colors.listTileBackground,
-                    border: Border.all(
-                      color: context.colors.text,
-                      width: 1.5,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: ScrollDateTimePicker(
-                    onChange: controller.dateChanged,
-                    itemExtent: 64,
-                    style: DateTimePickerStyle(
-                      activeStyle: context.textStyles.transactionDateTimeActive,
-                      inactiveStyle: context.textStyles.transactionDateTimeInactive,
-                      disabledStyle: context.textStyles.transactionDateTimeInactive.copyWith(
-                        color: context.colors.disabledText,
+                InkWell(
+                  onTap: controller.dateEditModeChanged,
+                  highlightColor: context.colors.buttonBackground,
+                  borderRadius: BorderRadius.circular(8),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: dateEditMode ? context.colors.listTileBackground : null,
+                      border: Border.all(
+                        color: context.colors.text,
+                        width: 1.5,
                       ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    wheelOption: const DateTimePickerWheelOption(
-                      physics: BouncingScrollPhysics(),
-                    ),
-                    dateOption: DateTimePickerOption(
-                      dateFormat: DateFormat(
-                        'E, dd MMMM yyyy',
-                        'hr',
-                      ),
-                      minDate: DateTime(2010),
-                      maxDate: DateTime(2040),
-                      initialDate: chosenDateTime,
-                    ),
-                    centerWidget: DateTimePickerCenterWidget(
-                      builder: (context, constraints, child) => Container(
-                        decoration: ShapeDecoration(
-                          shape: StadiumBorder(
-                            side: BorderSide(
-                              color: context.colors.text,
-                              width: 1.5,
-                            ),
+                    child: IgnorePointer(
+                      ignoring: !dateEditMode,
+                      child: ScrollDateTimePicker(
+                        onChange: controller.dateChanged,
+                        itemExtent: 64,
+                        style: DateTimePickerStyle(
+                          activeStyle: context.textStyles.transactionDateTimeActive,
+                          inactiveStyle: context.textStyles.transactionDateTimeInactive,
+                          disabledStyle: context.textStyles.transactionDateTimeInactive.copyWith(
+                            color: context.colors.disabledText,
                           ),
                         ),
-                        child: child,
+                        wheelOption: const DateTimePickerWheelOption(
+                          physics: BouncingScrollPhysics(),
+                        ),
+                        dateOption: DateTimePickerOption(
+                          dateFormat: DateFormat(
+                            'E, dd MMMM yyyy',
+                            'hr',
+                          ),
+                          minDate: DateTime(2020),
+                          maxDate: DateTime(2040),
+                          initialDate: chosenDateTime,
+                        ),
+                        centerWidget: DateTimePickerCenterWidget(
+                          builder: (context, constraints, child) => Container(
+                            decoration: ShapeDecoration(
+                              color: context.colors.listTileBackground,
+                              shape: StadiumBorder(
+                                side: BorderSide(
+                                  color: context.colors.text,
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
+                            child: child,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -329,50 +341,59 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 ///
                 /// TIME
                 ///
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: context.colors.listTileBackground,
-                    border: Border.all(
-                      color: context.colors.text,
-                      width: 1.5,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: ScrollDateTimePicker(
-                    onChange: controller.timeChanged,
-                    itemExtent: 64,
-                    style: DateTimePickerStyle(
-                      activeStyle: context.textStyles.transactionDateTimeActive,
-                      inactiveStyle: context.textStyles.transactionDateTimeInactive,
-                      disabledStyle: context.textStyles.transactionDateTimeInactive.copyWith(
-                        color: context.colors.disabledText,
+                InkWell(
+                  onTap: controller.timeEditModeChanged,
+                  highlightColor: context.colors.buttonBackground,
+                  borderRadius: BorderRadius.circular(8),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: timeEditMode ? context.colors.listTileBackground : null,
+                      border: Border.all(
+                        color: context.colors.text,
+                        width: 1.5,
                       ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    wheelOption: const DateTimePickerWheelOption(
-                      physics: BouncingScrollPhysics(),
-                    ),
-                    dateOption: DateTimePickerOption(
-                      dateFormat: DateFormat(
-                        'HH:mm',
-                        'hr',
-                      ),
-                      minDate: DateTime(2010),
-                      maxDate: DateTime(2040),
-                      initialDate: chosenDateTime,
-                    ),
-                    centerWidget: DateTimePickerCenterWidget(
-                      builder: (context, constraints, child) => Container(
-                        decoration: ShapeDecoration(
-                          shape: StadiumBorder(
-                            side: BorderSide(
-                              color: context.colors.text,
-                              width: 1.5,
-                            ),
+                    child: IgnorePointer(
+                      ignoring: !timeEditMode,
+                      child: ScrollDateTimePicker(
+                        onChange: controller.timeChanged,
+                        itemExtent: 64,
+                        style: DateTimePickerStyle(
+                          activeStyle: context.textStyles.transactionDateTimeActive,
+                          inactiveStyle: context.textStyles.transactionDateTimeInactive,
+                          disabledStyle: context.textStyles.transactionDateTimeInactive.copyWith(
+                            color: context.colors.disabledText,
                           ),
                         ),
-                        child: child,
+                        wheelOption: const DateTimePickerWheelOption(
+                          physics: BouncingScrollPhysics(),
+                        ),
+                        dateOption: DateTimePickerOption(
+                          dateFormat: DateFormat(
+                            'HH:mm',
+                            'hr',
+                          ),
+                          minDate: DateTime(2010),
+                          maxDate: DateTime(2040),
+                          initialDate: chosenDateTime,
+                        ),
+                        centerWidget: DateTimePickerCenterWidget(
+                          builder: (context, constraints, child) => Container(
+                            decoration: ShapeDecoration(
+                              color: context.colors.listTileBackground,
+                              shape: StadiumBorder(
+                                side: BorderSide(
+                                  color: context.colors.text,
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
+                            child: child,
+                          ),
+                        ),
                       ),
                     ),
                   ),
