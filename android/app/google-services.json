@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "64667044702",
+    "project_id": "trosko-2f982",
+    "storage_bucket": "trosko-2f982.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64667044702:android:be9d2cbdcb1ca3f8671dcf",
+        "android_client_info": {
+          "package_name": "com.josipkilic.trosko"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjdeB-0aM-K2pCUkA3KxY3gNa8ZaPUPnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
