@@ -11,7 +11,6 @@ import '../../models/category/category.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
-import '../../theme/colors.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
@@ -64,7 +63,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = getIt.get<TransactionController>(
+    final transactionController = getIt.get<TransactionController>(
       instanceName: widget.passedTransaction?.id,
     );
 
@@ -110,7 +109,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     unawaited(
                       HapticFeedback.lightImpact(),
                     );
-                    await controller.deleteTransaction();
+                    await transactionController.deleteTransaction();
                     widget.onTransactionUpdated();
                     Navigator.of(context).pop();
                   },
@@ -170,7 +169,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           return TransactionCategory(
                             onPressed: (category) {
                               HapticFeedback.lightImpact();
-                              controller.categoryChanged(category);
+                              transactionController.categoryChanged(category);
                             },
                             category: category,
                             color: category.color.withValues(
@@ -209,7 +208,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     autofocus: false,
-                    controller: controller.nameTextEditingController,
+                    controller: transactionController.nameTextEditingController,
                     labelText: 'Title',
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
@@ -226,7 +225,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     autofocus: false,
-                    controller: controller.noteTextEditingController,
+                    controller: transactionController.noteTextEditingController,
                     labelText: 'Note (not necessary)',
                     keyboardType: TextInputType.multiline,
                     maxLines: 3,
@@ -255,7 +254,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TransactionAmountWidget(
-                    onValueChanged: controller.transactionAmountChanged,
+                    onValueChanged: transactionController.transactionAmountChanged,
                     initialCents: widget.passedTransaction?.amountCents ?? 0,
                   ),
                 ),
@@ -279,7 +278,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 InkWell(
                   onTap: () {
                     HapticFeedback.lightImpact();
-                    controller.dateEditModeChanged();
+                    transactionController.dateEditModeChanged();
                   },
                   highlightColor: context.colors.buttonBackground,
                   borderRadius: BorderRadius.circular(8),
@@ -297,7 +296,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     child: IgnorePointer(
                       ignoring: !dateEditMode,
                       child: ScrollDateTimePicker(
-                        onChange: controller.dateChanged,
+                        onChange: transactionController.dateChanged,
                         itemExtent: 64,
                         style: DateTimePickerStyle(
                           activeStyle: context.textStyles.transactionDateTimeActive,
@@ -356,7 +355,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 InkWell(
                   onTap: () {
                     HapticFeedback.lightImpact();
-                    controller.timeEditModeChanged();
+                    transactionController.timeEditModeChanged();
                   },
                   highlightColor: context.colors.buttonBackground,
                   borderRadius: BorderRadius.circular(8),
@@ -374,7 +373,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     child: IgnorePointer(
                       ignoring: !timeEditMode,
                       child: ScrollDateTimePicker(
-                        onChange: controller.timeChanged,
+                        onChange: transactionController.timeChanged,
                         itemExtent: 64,
                         style: DateTimePickerStyle(
                           activeStyle: context.textStyles.transactionDateTimeActive,
@@ -427,7 +426,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   unawaited(
                     HapticFeedback.lightImpact(),
                   );
-                  await controller.addTransaction();
+                  await transactionController.addTransaction();
                   widget.onTransactionUpdated();
                   Navigator.of(context).pop();
                 }
@@ -439,8 +438,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
               24,
               MediaQuery.paddingOf(context).bottom + 12,
             ),
-            backgroundColor: activeCategory?.color,
-            foregroundColor: TroskoColors.lighterGrey,
+            backgroundColor: context.colors.text,
+            foregroundColor: context.colors.listTileBackground,
             overlayColor: context.colors.buttonBackground,
             disabledBackgroundColor: context.colors.disabledBackground,
             disabledForegroundColor: context.colors.disabledText,

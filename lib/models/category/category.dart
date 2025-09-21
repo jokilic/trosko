@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 
@@ -23,6 +24,25 @@ class Category {
     required this.color,
     required this.iconName,
   });
+
+  factory Category.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data()! as Map<String, dynamic>;
+    return Category.fromMap(data);
+  }
+
+  factory Category.fromMap(Map<String, dynamic> map) => Category(
+    id: map['id'] as String,
+    name: map['name'] as String,
+    color: Color((map['color'] as num).toInt()),
+    iconName: map['iconName'] as String,
+  );
+
+  Map<String, dynamic> toMap() => <String, dynamic>{
+    'id': id,
+    'name': name,
+    'color': color.toARGB32(),
+    'iconName': iconName,
+  };
 
   @override
   String toString() => 'Category(id: $id, name: $name, color: $color, iconName: $iconName)';

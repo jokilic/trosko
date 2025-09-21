@@ -9,7 +9,6 @@ import '../../constants/colors.dart';
 import '../../models/category/category.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
-import '../../theme/colors.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
 import '../../widgets/trosko_app_bar.dart';
@@ -56,7 +55,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = getIt.get<CategoryController>(
+    final categoryController = getIt.get<CategoryController>(
       instanceName: widget.passedCategory?.id,
     );
 
@@ -102,7 +101,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     unawaited(
                       HapticFeedback.lightImpact(),
                     );
-                    await controller.deleteCategory();
+                    await categoryController.deleteCategory();
                     Navigator.of(context).pop();
                   },
                   style: IconButton.styleFrom(
@@ -186,7 +185,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     autofocus: false,
-                    controller: controller.nameTextEditingController,
+                    controller: categoryController.nameTextEditingController,
                     labelText: 'Title',
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
@@ -216,7 +215,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   activeColor: categoryColor,
                   onPressedColor: (color) {
                     HapticFeedback.lightImpact();
-                    controller.colorChanged(color);
+                    categoryController.colorChanged(color);
                   },
                   onPressedAdd: () {},
                 ),
@@ -241,7 +240,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     autofocus: false,
-                    controller: controller.iconTextEditingController,
+                    controller: categoryController.iconTextEditingController,
                     labelText: 'Icon',
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
@@ -277,7 +276,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           isActive: categoryIcon?.key == icon.key,
                           onPressed: () {
                             HapticFeedback.lightImpact();
-                            controller.iconChanged(icon);
+                            categoryController.iconChanged(icon);
                           },
                           icon: icon,
                         );
@@ -298,7 +297,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   unawaited(
                     HapticFeedback.lightImpact(),
                   );
-                  await controller.addCategory();
+                  await categoryController.addCategory();
                   Navigator.of(context).pop();
                 }
               : null,
@@ -309,8 +308,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
               24,
               MediaQuery.paddingOf(context).bottom + 12,
             ),
-            backgroundColor: categoryColor,
-            foregroundColor: TroskoColors.lighterGrey,
+            backgroundColor: context.colors.text,
+            foregroundColor: context.colors.listTileBackground,
             overlayColor: context.colors.buttonBackground,
             disabledBackgroundColor: context.colors.disabledBackground,
             disabledForegroundColor: context.colors.disabledText,

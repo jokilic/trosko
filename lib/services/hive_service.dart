@@ -8,17 +8,22 @@ import '../models/transaction/transaction.dart';
 import '../util/path.dart';
 import 'logger_service.dart';
 
-class HiveService extends ValueNotifier<({List<Transaction> transactions, List<Category> categories})> implements Disposable {
+class HiveService extends ValueNotifier<({String? username, List<Transaction> transactions, List<Category> categories})> implements Disposable {
+  ///
+  /// CONSTRUCTOR
+  ///
+
   final LoggerService logger;
 
   HiveService({
     required this.logger,
-  }) : super((transactions: [], categories: []));
+  }) : super((username: '', transactions: [], categories: []));
 
   ///
   /// VARIABLES
   ///
 
+  late final Box<String> username;
   late final Box<Transaction> transactions;
   late final Box<Category> categories;
 
@@ -36,6 +41,7 @@ class HiveService extends ValueNotifier<({List<Transaction> transactions, List<C
         ColorAdapter(),
       );
 
+    username = await Hive.openBox<String>('usernameBox');
     transactions = await Hive.openBox<Transaction>('transactionsBox');
     categories = await Hive.openBox<Category>('categoriesBox');
 
@@ -48,6 +54,7 @@ class HiveService extends ValueNotifier<({List<Transaction> transactions, List<C
 
   @override
   Future<void> onDispose() async {
+    await username.close();
     await transactions.close();
     await categories.close();
     await Hive.close();
@@ -59,15 +66,40 @@ class HiveService extends ValueNotifier<({List<Transaction> transactions, List<C
 
   /// Updates `state`
   void updateState() => value = (
+    username: getUsername(),
     transactions: getTransactions(),
     categories: getCategories(),
   );
+
+  /// Called to get `username` from [Hive]
+  String? getUsername() => username.values.toList().firstOrNull;
 
   /// Called to get `transactions` from [Hive]
   List<Transaction> getTransactions() => transactions.values.toList();
 
   /// Called to get `categories` from [Hive]
   List<Category> getCategories() => categories.values.toList();
+
+  /// Stores a new `username` in [Hive]
+  Future<void> addUsername(String? newUsername) async {
+    await username.clear();
+
+    if (newUsername != null) {
+      await username.add(newUsername);
+    }
+  }
+
+  /// Clears old list and stores a new `List<Transaction>` in [Hive]
+  Future<void> writeListTransactions(List<Transaction> newTransactions) async {
+    await transactions.clear();
+    await transactions.addAll(newTransactions.toList());
+  }
+
+  /// Clears old list and stores a new `List<Category>` in [Hive]
+  Future<void> writeListCategories(List<Category> newCategories) async {
+    await categories.clear();
+    await categories.addAll(newCategories.toList());
+  }
 
   /// Stores a new `transaction` in [Hive]
   Future<void> writeTransaction({required Transaction newTransaction}) async {

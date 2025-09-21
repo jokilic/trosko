@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive_ce/hive.dart';
 
 part 'transaction.g.dart';
@@ -30,6 +31,29 @@ class Transaction {
     required this.createdAt,
     this.note,
   });
+
+  factory Transaction.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data()! as Map<String, dynamic>;
+    return Transaction.fromMap(data);
+  }
+
+  factory Transaction.fromMap(Map<String, dynamic> map) => Transaction(
+    id: map['id'] as String,
+    name: map['name'] as String,
+    amountCents: map['amountCents'] as int,
+    categoryId: map['categoryId'] as String,
+    note: map['note'] != null ? map['note'] as String : null,
+    createdAt: (map['createdAt'] as Timestamp).toDate(),
+  );
+
+  Map<String, dynamic> toMap() => <String, dynamic>{
+    'id': id,
+    'name': name,
+    'amountCents': amountCents,
+    'categoryId': categoryId,
+    'note': note,
+    'createdAt': Timestamp.fromDate(createdAt),
+  };
 
   @override
   String toString() => 'Transaction(id: $id, name: $name, amountCents: $amountCents, categoryId: $categoryId, note: $note, createdAt: $createdAt)';

@@ -1,0 +1,89 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+
+import '../../services/firebase_service.dart';
+import '../../services/logger_service.dart';
+import '../../util/email.dart';
+
+class LoginController extends ValueNotifier<({bool emailValid, bool passwordValid})> implements Disposable {
+  ///
+  /// CONSTRUCTOR
+  ///
+
+  final LoggerService logger;
+  final FirebaseService firebase;
+
+  LoginController({
+    required this.logger,
+    required this.firebase,
+  }) : super((
+         emailValid: false,
+         passwordValid: false,
+       ));
+
+  ///
+  /// VARIABLES
+  ///
+
+  late final emailTextEditingController = TextEditingController();
+  late final passwordTextEditingController = TextEditingController();
+
+  ///
+  /// INIT
+  ///
+
+  void init() {
+    /// Validation
+    emailTextEditingController.addListener(
+      validateEmailAndPassword,
+    );
+
+    /// Validation
+    passwordTextEditingController.addListener(
+      validateEmailAndPassword,
+    );
+  }
+
+  ///
+  /// DISPOSE
+  ///
+
+  @override
+  void onDispose() {
+    emailTextEditingController.dispose();
+    passwordTextEditingController.dispose();
+  }
+
+  ///
+  /// METHODS
+  ///
+
+  /// Triggered when the user presses login button
+  /// Logs user into [Firebase]
+  Future<User?> loginUser() async {
+    /// Parse values
+    final email = emailTextEditingController.text.trim();
+    final password = passwordTextEditingController.text.trim();
+
+    return firebase.loginUser(
+      email: email,
+      password: password,
+    );
+  }
+
+  /// Triggered on every [TextField] change
+  /// Validates email & password
+  /// Updates login button state
+  void validateEmailAndPassword() {
+    /// Parse values
+    final email = emailTextEditingController.text.trim();
+    final password = passwordTextEditingController.text.trim();
+
+    /// Validate values
+    value = (
+      emailValid: isValidEmail(email),
+      passwordValid: password.length >= 8,
+    );
+  }
+}

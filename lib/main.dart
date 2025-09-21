@@ -9,6 +9,7 @@ import 'package:watch_it/watch_it.dart';
 import 'constants/durations.dart';
 import 'firebase_options.dart';
 import 'screens/home/home_screen.dart';
+import 'screens/login/login_screen.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
 
@@ -65,8 +66,9 @@ class TroskoApp extends WatchingWidget {
         ///
         /// NO USER
         ///
-        // TODO: Login screen
-        return Container();
+        return const LoginScreen(
+          key: ValueKey('login'),
+        );
       },
     ),
     onGenerateTitle: (context) => 'Troško',
