@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:scroll_datetime_picker/scroll_datetime_picker.dart';
@@ -104,6 +107,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
               if (widget.passedTransaction != null)
                 IconButton(
                   onPressed: () async {
+                    unawaited(
+                      HapticFeedback.lightImpact(),
+                    );
                     await controller.deleteTransaction();
                     widget.onTransactionUpdated();
                     Navigator.of(context).pop();
@@ -162,7 +168,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           final category = widget.categories[index];
 
                           return TransactionCategory(
-                            onPressed: controller.categoryChanged,
+                            onPressed: (category) {
+                              HapticFeedback.lightImpact();
+                              controller.categoryChanged(category);
+                            },
                             category: category,
                             color: category.color.withValues(
                               alpha: activeCategory == category ? 1 : 0.2,
@@ -268,7 +277,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 /// DATE
                 ///
                 InkWell(
-                  onTap: controller.dateEditModeChanged,
+                  onTap: () {
+                    HapticFeedback.lightImpact();
+                    controller.dateEditModeChanged();
+                  },
                   highlightColor: context.colors.buttonBackground,
                   borderRadius: BorderRadius.circular(8),
                   child: Container(
@@ -342,7 +354,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 /// TIME
                 ///
                 InkWell(
-                  onTap: controller.timeEditModeChanged,
+                  onTap: () {
+                    HapticFeedback.lightImpact();
+                    controller.timeEditModeChanged();
+                  },
                   highlightColor: context.colors.buttonBackground,
                   borderRadius: BorderRadius.circular(8),
                   child: Container(
@@ -409,6 +424,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
         child: FilledButton(
           onPressed: validated
               ? () async {
+                  unawaited(
+                    HapticFeedback.lightImpact(),
+                  );
                   await controller.addTransaction();
                   widget.onTransactionUpdated();
                   Navigator.of(context).pop();

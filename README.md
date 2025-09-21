@@ -35,12 +35,5 @@ Category can also be edited or deleted if necessary.
 
 ### To-Do
 
-- [ ]  Tamnije plava buttonPrimary boja na dark modeu
-- [ ]  Tresi FAB ako stisneš i nema kategorija
-- [ ]  Animiraj promjene liste u Homeu
-- [ ]  Vibracija na neka mjesta
-- [ ]  Dodaj custom boje i mogućnost da dodaš svoju boju u Category
-- [ ]  Stavi odabir boja da bude horizontalan u Category
-- [ ]  Napravi neke defaultne kategorije
 - [ ]  Koristi Firebase
 - [ ]  Svaki mjesec neka ima statistiku poput grafa i količine potrošenog za svaku kategoriju

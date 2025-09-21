@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../models/category/category.dart';
 import '../../models/month/month.dart';
@@ -8,7 +9,7 @@ import '../../services/logger_service.dart';
 import '../../util/date_time.dart';
 import '../../util/group_transactions.dart';
 
-class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions, Month? activeMonth, Category? activeCategory})> {
+class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions, Month? activeMonth, Category? activeCategory})> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -26,6 +27,12 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
        ));
 
   ///
+  /// VARIABLES
+  ///
+
+  AnimationController? shakeFabController;
+
+  ///
   /// INIT
   ///
 
@@ -34,8 +41,23 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
   }
 
   ///
+  /// DISPOSE
+  ///
+
+  @override
+  void onDispose() {
+    shakeFabController?.dispose();
+  }
+
+  ///
   /// METHODS
   ///
+
+  /// Trigger FAB animation
+  void triggerFabAnimation() {
+    shakeFabController?.reset();
+    shakeFabController?.forward();
+  }
 
   /// Updates `state`, depending on passed [Month] or [Category]
   void updateState({Month? newMonth, Category? newCategory}) {

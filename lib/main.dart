@@ -38,7 +38,6 @@ class TroskoApp extends StatelessWidget {
     ),
     theme: TroskoTheme.light,
     darkTheme: TroskoTheme.dark,
-    themeMode: ThemeMode.light,
     themeAnimationDuration: TroskoDurations.animation,
     themeAnimationCurve: Curves.easeIn,
     builder: (_, child) {

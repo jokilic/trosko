@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants/durations.dart';
 import '../../models/day_header/day_header.dart';
 import '../../models/transaction/transaction.dart';
 import '../../routing.dart';
@@ -49,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = getIt.get<HomeController>();
+    final homeController = getIt.get<HomeController>();
     final hive = watchIt<HiveService>();
 
     final allTransactions = hive.value.transactions;
@@ -68,27 +71,44 @@ class _HomeScreenState extends State<HomeScreen> {
           splashColor: Colors.transparent,
           highlightColor: context.colors.buttonBackground,
         ),
-        child: FloatingActionButton.extended(
-          onPressed: categories.isNotEmpty
-              ? () => openTransaction(
-                  context,
-                  passedTransaction: null,
-                  categories: categories,
-                  onTransactionUpdated: controller.updateState,
-                )
-              : null,
-          backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-          foregroundColor: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
-          label: Text(
-            'Add expense'.toUpperCase(),
-            style: context.textStyles.homeFloatingActionButton.copyWith(
-              color: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
+        child: Animate(
+          autoPlay: false,
+          onInit: (controller) => homeController.shakeFabController = controller,
+          effects: const [
+            ShakeEffect(
+              curve: Curves.easeIn,
+              duration: TroskoDurations.animation,
             ),
-          ),
-          icon: PhosphorIcon(
-            PhosphorIcons.coins(),
-            color: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
-            size: 32,
+          ],
+          child: FloatingActionButton.extended(
+            onPressed: categories.isNotEmpty
+                ? () {
+                    HapticFeedback.lightImpact();
+
+                    openTransaction(
+                      context,
+                      passedTransaction: null,
+                      categories: categories,
+                      onTransactionUpdated: homeController.updateState,
+                    );
+                  }
+                : () {
+                    HapticFeedback.lightImpact();
+                    homeController.triggerFabAnimation();
+                  },
+            backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+            foregroundColor: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
+            label: Text(
+              'Add expense'.toUpperCase(),
+              style: context.textStyles.homeFloatingActionButton.copyWith(
+                color: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
+              ),
+            ),
+            icon: PhosphorIcon(
+              PhosphorIcons.coins(),
+              color: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
+              size: 32,
+            ),
           ),
         ),
       ),
@@ -108,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   highlightColor: context.colors.buttonBackground,
                 ),
                 icon: PhosphorIcon(
-                  PhosphorIcons.handWaving(
+                  PhosphorIcons.gearSix(
                     PhosphorIconsStyle.bold,
                   ),
                   color: context.colors.text,
@@ -134,9 +154,12 @@ class _HomeScreenState extends State<HomeScreen> {
               locale: 'hr',
             ),
             activeMonth: activeMonth,
-            onChipPressed: (month) => controller.updateState(
-              newMonth: month,
-            ),
+            onChipPressed: (month) {
+              HapticFeedback.lightImpact();
+              homeController.updateState(
+                newMonth: month,
+              );
+            },
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 8),
@@ -164,17 +187,26 @@ class _HomeScreenState extends State<HomeScreen> {
           HomeCategories(
             categories: categories,
             activeCategory: activeCategory,
-            onPressedCategory: (category) => controller.updateState(
-              newCategory: category,
-            ),
-            onLongPressedCategory: (category) => openCategory(
-              context,
-              passedCategory: category,
-            ),
-            onPressedAdd: () => openCategory(
-              context,
-              passedCategory: null,
-            ),
+            onPressedCategory: (category) {
+              HapticFeedback.lightImpact();
+              homeController.updateState(
+                newCategory: category,
+              );
+            },
+            onLongPressedCategory: (category) {
+              HapticFeedback.lightImpact();
+              openCategory(
+                context,
+                passedCategory: category,
+              );
+            },
+            onPressedAdd: () {
+              HapticFeedback.lightImpact();
+              openCategory(
+                context,
+                passedCategory: null,
+              );
+            },
           ),
 
           ///
@@ -237,18 +269,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (item is Transaction) {
                   final category = categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
 
-                  return HomeTransactionListTile(
-                    onLongPressed: () => openTransaction(
-                      context,
-                      passedTransaction: item,
-                      categories: categories,
-                      onTransactionUpdated: controller.updateState,
+                  return Animate(
+                    key: ValueKey(item),
+                    delay: Duration(
+                      milliseconds: TroskoDurations.fadeAnimation.inMilliseconds * index,
                     ),
-                    onDeletePressed: () => controller.deleteTransaction(
+                    effects: const [
+                      FadeEffect(
+                        curve: Curves.easeIn,
+                        duration: TroskoDurations.animation,
+                      ),
+                    ],
+                    child: HomeTransactionListTile(
+                      onLongPressed: () {
+                        HapticFeedback.lightImpact();
+                        openTransaction(
+                          context,
+                          passedTransaction: item,
+                          categories: categories,
+                          onTransactionUpdated: homeController.updateState,
+                        );
+                      },
+                      onDeletePressed: () {
+                        HapticFeedback.lightImpact();
+                        homeController.deleteTransaction(
+                          transaction: item,
+                        );
+                      },
                       transaction: item,
+                      category: category,
                     ),
-                    transaction: item,
-                    category: category,
                   );
                 }
 
@@ -264,10 +314,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     PhosphorIcon(
                       PhosphorIcons.coins(),
                       color: context.colors.text,
-                      size: 48,
+                      size: 56,
                     ),
-
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     Text(
                       'No transactions',
                       textAlign: TextAlign.center,

@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants/colors.dart';
 import '../../models/category/category.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
@@ -12,6 +15,7 @@ import '../../util/dependencies.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'category_controller.dart';
+import 'widgets/category_colors.dart';
 import 'widgets/category_icon_list_tile.dart';
 
 class CategoryScreen extends WatchingStatefulWidget {
@@ -95,6 +99,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
               if (widget.passedCategory != null)
                 IconButton(
                   onPressed: () async {
+                    unawaited(
+                      HapticFeedback.lightImpact(),
+                    );
                     await controller.deleteCategory();
                     Navigator.of(context).pop();
                   },
@@ -202,36 +209,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 const SizedBox(height: 12),
 
                 ///
-                /// CATEGORY COLOR
+                /// CATEGORY COLORS
                 ///
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: context.colors.listTileBackground,
-                    border: Border.all(
-                      color: context.colors.text,
-                      width: 1.5,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: MaterialColorPicker(
-                    allowShades: false,
-                    onMainColorChange: (newColorSwatch) {
-                      if (newColorSwatch != null) {
-                        controller.colorChanged(newColorSwatch);
-                      }
-                    },
-                    selectedColor: categoryColor,
-                    alignment: WrapAlignment.center,
-                    circleSize: 48,
-                    elevation: 1,
-                    iconSelected: PhosphorIcons.checkFat(
-                      PhosphorIconsStyle.bold,
-                    ),
-                    physics: const BouncingScrollPhysics(),
-                    spacing: 16,
-                  ),
+                CategoryColors(
+                  colors: colors,
+                  activeColor: categoryColor,
+                  onPressedColor: (color) {
+                    HapticFeedback.lightImpact();
+                    controller.colorChanged(color);
+                  },
+                  onPressedAdd: () {},
                 ),
                 const SizedBox(height: 28),
 
@@ -288,7 +275,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
                         return CategoryIconListTile(
                           isActive: categoryIcon?.key == icon.key,
-                          onPressed: () => controller.iconChanged(icon),
+                          onPressed: () {
+                            HapticFeedback.lightImpact();
+                            controller.iconChanged(icon);
+                          },
                           icon: icon,
                         );
                       },
@@ -305,6 +295,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
         child: FilledButton(
           onPressed: validated
               ? () async {
+                  unawaited(
+                    HapticFeedback.lightImpact(),
+                  );
                   await controller.addCategory();
                   Navigator.of(context).pop();
                 }
