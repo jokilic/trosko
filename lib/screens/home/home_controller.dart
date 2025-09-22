@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../models/category/category.dart';
 import '../../models/month/month.dart';
 import '../../models/transaction/transaction.dart';
+import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../util/date_time.dart';
@@ -16,10 +19,12 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
 
   final LoggerService logger;
   final HiveService hive;
+  final FirebaseService firebase;
 
   HomeController({
     required this.logger,
     required this.hive,
+    required this.firebase,
   }) : super((
          datesAndTransactions: [],
          activeMonth: null,
@@ -116,6 +121,13 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
     await hive.deleteTransaction(
       transaction: transaction,
     );
+
+    unawaited(
+      firebase.deleteTransaction(
+        transaction: transaction,
+      ),
+    );
+
     updateState();
   }
 }

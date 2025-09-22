@@ -97,7 +97,7 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
   ///
 
   /// Fetches `Transactions` from [Firebase]
-  Future<List<Transaction>?> getTransactions({DateTime? from, DateTime? to}) async {
+  Future<List<Transaction>?> getTransactions() async {
     try {
       final user = auth.currentUser;
 
@@ -106,23 +106,6 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
       }
 
       Query<Map<String, dynamic>> query = firestore.collection('users').doc(user.uid).collection('transactions');
-
-      if (from != null) {
-        query = query.where(
-          'createdAt',
-          isGreaterThanOrEqualTo: Timestamp.fromDate(
-            from.toUtc(),
-          ),
-        );
-      }
-      if (to != null) {
-        query = query.where(
-          'createdAt',
-          isLessThanOrEqualTo: Timestamp.fromDate(
-            to.toUtc(),
-          ),
-        );
-      }
 
       query = query.orderBy('createdAt', descending: true);
 
@@ -183,7 +166,7 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
   // }
 
   /// Adds new `Transaction` into [Firebase]
-  Future<bool> addNewTransaction(Transaction transaction) async {
+  Future<bool> writeTransaction({required Transaction newTransaction}) async {
     try {
       final user = auth.currentUser;
 
@@ -193,20 +176,17 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
 
       final collection = firestore.collection('users').doc(user.uid).collection('transactions');
 
-      await collection.doc(transaction.id).set(transaction.toMap());
+      await collection.doc(newTransaction.id).set(newTransaction.toMap());
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> addNewTransaction() -> $e');
+      logger.e('FirebaseService -> writeTransaction() -> $e');
       return false;
     }
   }
 
-  /// Replaces `Transaction` into [Firebase]
-  Future<bool> replaceTransaction({
-    required String editedTransactionId,
-    required Transaction newTransaction,
-  }) async {
+  /// Updates `Transaction` in [Firebase]
+  Future<bool> updateTransaction({required Transaction newTransaction}) async {
     try {
       final user = auth.currentUser;
 
@@ -216,17 +196,17 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
 
       final collection = firestore.collection('users').doc(user.uid).collection('transactions');
 
-      await collection.doc(editedTransactionId).set(newTransaction.toMap());
+      await collection.doc(newTransaction.id).set(newTransaction.toMap());
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> replaceTransaction() -> $e');
+      logger.e('FirebaseService -> updateTransaction() -> $e');
       return false;
     }
   }
 
   /// Deletes `Transaction` from [Firebase]
-  Future<bool> deleteTransaction(Transaction transaction) async {
+  Future<bool> deleteTransaction({required Transaction transaction}) async {
     try {
       final user = auth.currentUser;
 
@@ -294,7 +274,7 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
   // }
 
   /// Adds new `Category` into [Firebase]
-  Future<bool> addNewCategory(Category category) async {
+  Future<bool> writeCategory({required Category newCategory}) async {
     try {
       final user = auth.currentUser;
 
@@ -304,20 +284,17 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
 
       final collection = firestore.collection('users').doc(user.uid).collection('categories');
 
-      await collection.doc(category.id).set(category.toMap());
+      await collection.doc(newCategory.id).set(newCategory.toMap());
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> addNewCategory() -> $e');
+      logger.e('FirebaseService -> writeCategory() -> $e');
       return false;
     }
   }
 
-  /// Replaces `Category` into [Firebase]
-  Future<bool> replaceCategory({
-    required String editedCategoryId,
-    required Category newCategory,
-  }) async {
+  /// Updates `Category` in [Firebase]
+  Future<bool> updateCategory({required Category newCategory}) async {
     try {
       final user = auth.currentUser;
 
@@ -327,17 +304,17 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
 
       final collection = firestore.collection('users').doc(user.uid).collection('categories');
 
-      await collection.doc(editedCategoryId).set(newCategory.toMap());
+      await collection.doc(newCategory.id).set(newCategory.toMap());
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> replaceCategory() -> $e');
+      logger.e('FirebaseService -> updateCategory() -> $e');
       return false;
     }
   }
 
   /// Deletes `Category` from [Firebase]
-  Future<bool> deleteCategory(Category category) async {
+  Future<bool> deleteCategory({required Category category}) async {
     try {
       final user = auth.currentUser;
 

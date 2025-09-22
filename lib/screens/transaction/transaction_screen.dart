@@ -9,6 +9,7 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../models/category/category.dart';
 import '../../models/transaction/transaction.dart';
+import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
@@ -45,6 +46,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
       () => TransactionController(
         logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
+        firebase: getIt.get<FirebaseService>(),
         passedTransaction: widget.passedTransaction,
         categories: widget.categories,
       ),

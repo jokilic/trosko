@@ -7,6 +7,7 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../constants/colors.dart';
 import '../../models/category/category.dart';
+import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
@@ -38,6 +39,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       () => CategoryController(
         logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
+        firebase: getIt.get<FirebaseService>(),
         passedCategory: widget.passedCategory,
       ),
       instanceName: widget.passedCategory?.id,

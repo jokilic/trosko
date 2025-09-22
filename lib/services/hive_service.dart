@@ -64,6 +64,19 @@ class HiveService extends ValueNotifier<({String? username, List<Transaction> tr
   /// METHODS
   ///
 
+  /// Stores all data into [Hive]
+  Future<void> storeDataFromFirebase({
+    required String? username,
+    required List<Transaction> transactions,
+    required List<Category> categories,
+  }) async {
+    await addUsername(username);
+    await writeListTransactions(transactions);
+    await writeListCategories(categories);
+
+    updateState();
+  }
+
   /// Updates `state`
   void updateState() => value = (
     username: getUsername(),

@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../models/category/category.dart';
+import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../util/icons.dart';
@@ -20,11 +23,13 @@ class CategoryController
 
   final LoggerService logger;
   final HiveService hive;
+  final FirebaseService firebase;
   final Category? passedCategory;
 
   CategoryController({
     required this.logger,
     required this.hive,
+    required this.firebase,
     required this.passedCategory,
   }) : super((
          categoryName: null,
@@ -127,11 +132,23 @@ class CategoryController
       await hive.updateCategory(
         newCategory: newCategory,
       );
+
+      unawaited(
+        firebase.updateCategory(
+          newCategory: newCategory,
+        ),
+      );
     }
     /// User created new category
     else {
       await hive.writeCategory(
         newCategory: newCategory,
+      );
+
+      unawaited(
+        firebase.writeCategory(
+          newCategory: newCategory,
+        ),
       );
     }
   }
@@ -141,6 +158,12 @@ class CategoryController
     if (passedCategory != null) {
       await hive.deleteCategory(
         category: passedCategory!,
+      );
+
+      unawaited(
+        firebase.deleteCategory(
+          category: passedCategory!,
+        ),
       );
     }
   }

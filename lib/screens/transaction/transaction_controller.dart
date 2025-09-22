@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../models/category/category.dart';
 import '../../models/transaction/transaction.dart';
+import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
@@ -19,12 +22,14 @@ class TransactionController
 
   final LoggerService logger;
   final HiveService hive;
+  final FirebaseService firebase;
   final Transaction? passedTransaction;
   final List<Category> categories;
 
   TransactionController({
     required this.logger,
     required this.hive,
+    required this.firebase,
     required this.passedTransaction,
     required this.categories,
   }) : super((
@@ -146,11 +151,23 @@ class TransactionController
       await hive.updateTransaction(
         newTransaction: newTransaction,
       );
+
+      unawaited(
+        firebase.updateTransaction(
+          newTransaction: newTransaction,
+        ),
+      );
     }
     /// User created new transaction
     else {
       await hive.writeTransaction(
         newTransaction: newTransaction,
+      );
+
+      unawaited(
+        firebase.writeTransaction(
+          newTransaction: newTransaction,
+        ),
       );
     }
   }
@@ -160,6 +177,12 @@ class TransactionController
     if (passedTransaction != null) {
       await hive.deleteTransaction(
         transaction: passedTransaction!,
+      );
+
+      unawaited(
+        firebase.deleteTransaction(
+          transaction: passedTransaction!,
+        ),
       );
     }
   }

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../services/firebase_service.dart';
+import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
@@ -30,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
       () => LoginController(
         logger: getIt.get<LoggerService>(),
         firebase: getIt.get<FirebaseService>(),
+        hive: getIt.get<HiveService>(),
       ),
       afterRegister: (controller) => controller.init(),
     );
@@ -123,6 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     HapticFeedback.lightImpact(),
                   );
                   await loginController.loginUser();
+                  await loginController.getFirebaseDataIntoHive();
                 }
               : null,
           style: FilledButton.styleFrom(

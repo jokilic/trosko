@@ -9,6 +9,7 @@ import '../../constants/durations.dart';
 import '../../models/day_header/day_header.dart';
 import '../../models/transaction/transaction.dart';
 import '../../routing.dart';
+import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
@@ -39,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       () => HomeController(
         logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
+        firebase: getIt.get<FirebaseService>(),
       ),
       afterRegister: (controller) => controller.init(),
     );

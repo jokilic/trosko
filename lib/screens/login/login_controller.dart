@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../services/firebase_service.dart';
+import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../util/email.dart';
 
@@ -13,10 +14,12 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
 
   final LoggerService logger;
   final FirebaseService firebase;
+  final HiveService hive;
 
   LoginController({
     required this.logger,
     required this.firebase,
+    required this.hive,
   }) : super((
          emailValid: false,
          passwordValid: false,
@@ -69,6 +72,19 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
     return firebase.loginUser(
       email: email,
       password: password,
+    );
+  }
+
+  /// Gets all data from [Firebase] and stores into [Hive]
+  Future<void> getFirebaseDataIntoHive() async {
+    final username = await firebase.getUsername();
+    final transactions = await firebase.getTransactions();
+    final categories = await firebase.getCategories();
+
+    await hive.storeDataFromFirebase(
+      username: username,
+      transactions: transactions ?? [],
+      categories: categories ?? [],
     );
   }
 
