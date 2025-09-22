@@ -35,5 +35,5 @@ Category can also be edited or deleted if necessary.
 
 ### To-Do
 
-- [ ]  Koristi Firebase
 - [ ]  Svaki mjesec neka ima statistiku poput grafa i količine potrošenog za svaku kategoriju
+- [ ]  Lokalizacija

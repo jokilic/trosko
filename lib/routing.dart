@@ -9,7 +9,7 @@ import 'screens/transaction/transaction_screen.dart';
 import 'util/navigation.dart';
 
 /// Opens [LoginScreen]
-void openLogin(BuildContext context) => pushScreen(
+void openLogin(BuildContext context) => removeAllAndPushScreen(
   const LoginScreen(
     key: ValueKey('login'),
   ),
@@ -17,7 +17,7 @@ void openLogin(BuildContext context) => pushScreen(
 );
 
 /// Opens [HomeScreen]
-void openHome(BuildContext context) => pushScreen(
+void openHome(BuildContext context) => removeAllAndPushScreen(
   const HomeScreen(
     key: ValueKey('home'),
   ),

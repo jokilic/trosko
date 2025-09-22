@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -71,22 +70,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
 
           ///
-          /// EMAIL TITLE
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'Email',
-                style: context.textStyles.homeTitle,
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 12),
-          ),
-
-          ///
           /// EMAIL
           ///
           SliverPadding(
@@ -104,23 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 24),
-          ),
-
-          ///
-          /// PASSWORD TITLE
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'Password',
-                style: context.textStyles.homeTitle,
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 12),
+            child: SizedBox(height: 16),
           ),
 
           ///
@@ -137,28 +104,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 keyboardType: TextInputType.visiblePassword,
                 textAlign: TextAlign.left,
                 textCapitalization: TextCapitalization.none,
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.go,
               ),
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 24),
-          ),
-
-          ///
-          /// NAME TITLE
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'Name',
-                style: context.textStyles.homeTitle,
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 12),
+            child: SizedBox(height: 16),
           ),
 
           ///
@@ -170,11 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
               child: TroskoTextField(
                 autofocus: false,
                 controller: loginController.nameTextEditingController,
-                labelText: 'Name',
+                labelText: 'Name (not necessary)',
                 keyboardType: TextInputType.name,
                 textAlign: TextAlign.left,
                 textCapitalization: TextCapitalization.words,
-                textInputAction: TextInputAction.go,
+                textInputAction: TextInputAction.done,
               ),
             ),
           ),

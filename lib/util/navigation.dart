@@ -16,6 +16,21 @@ Future<T?> pushScreen<T>(
   ),
 );
 
+Future<T?> removeAllAndPushScreen<T>(
+  Widget screen, {
+  required BuildContext context,
+  bool isCircularTransition = false,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+}) => Navigator.of(context).pushAndRemoveUntil<T>(
+  fadePageTransition(
+    screen,
+    transitionDuration: transitionDuration,
+    reverseTransitionDuration: reverseTransitionDuration,
+  ),
+  (route) => false,
+);
+
 Route<T> fadePageTransition<T>(
   Widget screen, {
   Duration? transitionDuration,

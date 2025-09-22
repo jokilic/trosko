@@ -18,11 +18,15 @@ class Category {
   @HiveField(4)
   final String iconName;
 
+  @HiveField(5)
+  final DateTime createdAt;
+
   Category({
     required this.id,
     required this.name,
     required this.color,
     required this.iconName,
+    required this.createdAt,
   });
 
   factory Category.fromFirestore(DocumentSnapshot doc) {
@@ -33,9 +37,9 @@ class Category {
   factory Category.fromMap(Map<String, dynamic> map) => Category(
     id: map['id'] as String,
     name: map['name'] as String,
-    // color: Color((map['color'] as num).toInt()),
-    color: Colors.green,
+    color: Color((map['color'] as num).toInt()),
     iconName: map['iconName'] as String,
+    createdAt: (map['createdAt'] as Timestamp).toDate(),
   );
 
   Map<String, dynamic> toMap() => <String, dynamic>{
@@ -43,10 +47,11 @@ class Category {
     'name': name,
     'color': color.toARGB32(),
     'iconName': iconName,
+    'createdAt': Timestamp.fromDate(createdAt),
   };
 
   @override
-  String toString() => 'Category(id: $id, name: $name, color: $color, iconName: $iconName)';
+  String toString() => 'Category(id: $id, name: $name, color: $color, iconName: $iconName, createdAt: $createdAt)';
 
   @override
   bool operator ==(covariant Category other) {
@@ -54,9 +59,9 @@ class Category {
       return true;
     }
 
-    return other.id == id && other.name == name && other.color == color && other.iconName == iconName;
+    return other.id == id && other.name == name && other.color == color && other.iconName == iconName && other.createdAt == createdAt;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ color.hashCode ^ iconName.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode ^ color.hashCode ^ iconName.hashCode ^ createdAt.hashCode;
 }

@@ -125,6 +125,7 @@ class CategoryController
       name: name,
       iconName: value.categoryIcon!.key,
       color: value.categoryColor!,
+      createdAt: passedCategory?.createdAt ?? DateTime.now(),
     );
 
     /// User modified category

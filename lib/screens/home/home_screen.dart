@@ -48,7 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    unRegisterIfNotDisposed<HomeController>();
+    unRegisterIfNotDisposed<HomeController>(
+      afterUnregister: (controller) => controller.onDispose(),
+    );
     super.dispose();
   }
 
@@ -125,7 +127,10 @@ class _HomeScreenState extends State<HomeScreen> {
           TroskoAppBar(
             actionWidgets: [
               IconButton(
-                onPressed: homeController.logOut,
+                onPressed: () async {
+                  await homeController.logOut();
+                  openLogin(context);
+                },
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   highlightColor: context.colors.buttonBackground,
@@ -272,36 +277,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (item is Transaction) {
                   final category = categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
 
-                  return Animate(
-                    key: ValueKey(item),
-                    delay: Duration(
-                      milliseconds: TroskoDurations.fadeAnimation.inMilliseconds * index,
-                    ),
-                    effects: const [
-                      FadeEffect(
-                        curve: Curves.easeIn,
-                        duration: TroskoDurations.animation,
-                      ),
-                    ],
-                    child: HomeTransactionListTile(
-                      onLongPressed: () {
-                        HapticFeedback.lightImpact();
-                        openTransaction(
-                          context,
-                          passedTransaction: item,
-                          categories: categories,
-                          onTransactionUpdated: homeController.updateState,
-                        );
-                      },
-                      onDeletePressed: () {
-                        HapticFeedback.lightImpact();
-                        homeController.deleteTransaction(
-                          transaction: item,
-                        );
-                      },
-                      transaction: item,
-                      category: category,
-                    ),
+                  return HomeTransactionListTile(
+                    onLongPressed: () {
+                      HapticFeedback.lightImpact();
+                      openTransaction(
+                        context,
+                        passedTransaction: item,
+                        categories: categories,
+                        onTransactionUpdated: homeController.updateState,
+                      );
+                    },
+                    onDeletePressed: () {
+                      HapticFeedback.lightImpact();
+                      homeController.deleteTransaction(
+                        transaction: item,
+                      );
+                    },
+                    transaction: item,
+                    category: category,
                   );
                 }
 
