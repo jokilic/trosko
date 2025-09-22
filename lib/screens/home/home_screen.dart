@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -12,6 +14,7 @@ import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../services/theme_service.dart';
 import '../../theme/theme.dart';
 import '../../util/currency.dart';
 import '../../util/dependencies.dart';
@@ -56,7 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeService = getIt.get<ThemeService>();
     final homeController = getIt.get<HomeController>();
+
+    final themeMode = watchIt<ThemeService>().value;
+
     final hive = watchIt<HiveService>();
 
     final allTransactions = hive.value.transactions;
@@ -127,7 +134,15 @@ class _HomeScreenState extends State<HomeScreen> {
           TroskoAppBar(
             actionWidgets: [
               IconButton(
-                onPressed: () async {
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  themeService.updateState();
+                },
+                onLongPress: () async {
+                  unawaited(
+                    HapticFeedback.lightImpact(),
+                  );
+
                   await homeController.logOut();
                   openLogin(context);
                 },
@@ -136,9 +151,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   highlightColor: context.colors.buttonBackground,
                 ),
                 icon: PhosphorIcon(
-                  PhosphorIcons.handWaving(
-                    PhosphorIconsStyle.bold,
-                  ),
+                  themeMode == ThemeMode.dark
+                      ? PhosphorIcons.moonStars(
+                          PhosphorIconsStyle.bold,
+                        )
+                      : PhosphorIcons.sunDim(
+                          PhosphorIconsStyle.bold,
+                        ),
                   color: context.colors.text,
                   size: 28,
                 ),

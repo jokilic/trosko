@@ -4,12 +4,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:watch_it/watch_it.dart';
 
 import 'constants/durations.dart';
 import 'firebase_options.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'services/hive_service.dart';
+import 'services/theme_service.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
 
@@ -46,7 +48,7 @@ Future<void> main() async {
   );
 }
 
-class TroskoApp extends StatelessWidget {
+class TroskoApp extends WatchingWidget {
   final bool isLoggedIn;
 
   const TroskoApp({
@@ -66,6 +68,7 @@ class TroskoApp extends StatelessWidget {
     onGenerateTitle: (context) => 'Troško',
     theme: TroskoTheme.light,
     darkTheme: TroskoTheme.dark,
+    themeMode: watchIt<ThemeService>().value,
     themeAnimationDuration: TroskoDurations.animation,
     themeAnimationCurve: Curves.easeIn,
     builder: (_, child) {
