@@ -65,17 +65,30 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
   ///
 
   /// Triggered when the user presses login button
-  Future<void> loginPressed() async {
-    /// Login into [Firebase]
-    final user = await loginUser();
+  Future<bool> loginPressed() async {
+    try {
+      /// Login into [Firebase]
+      final user = await loginUser();
 
-    /// Successful login
-    if (user != null) {
-      /// Store `name` into [Firebase]
-      await storeUsername();
+      /// Successful login
+      if (user != null) {
+        /// Store `isLoggedIn` into [Hive]
+        await hive.writeIsLoggedIn(true);
 
-      /// Fetch all data from [Firebase] & store into [Hive]
-      await getFirebaseDataIntoHive();
+        /// Store `name` into [Firebase] if exists
+        await storeUsername();
+
+        /// Fetch all data from [Firebase] & store into [Hive]
+        await getFirebaseDataIntoHive();
+
+        return true;
+      }
+
+      logger.e('LoginController -> loginPressed() -> user == null');
+      return false;
+    } catch (e) {
+      logger.e('LoginController -> loginPressed() -> $e');
+      return false;
     }
   }
 

@@ -70,6 +70,9 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
     }
   }
 
+  /// Logs user out of [Firebase]
+  void logOut() => auth.signOut();
+
   ///
   /// NAME
   ///

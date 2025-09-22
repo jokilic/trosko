@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    getIt.unregister<HomeController>();
+    unRegisterIfNotDisposed<HomeController>();
     super.dispose();
   }
 
@@ -59,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final allTransactions = hive.value.transactions;
     final categories = hive.value.categories;
+    final name = hive.value.username;
 
     final state = watchIt<HomeController>().value;
 
@@ -124,13 +125,13 @@ class _HomeScreenState extends State<HomeScreen> {
           TroskoAppBar(
             actionWidgets: [
               IconButton(
-                onPressed: () {},
+                onPressed: homeController.logOut,
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   highlightColor: context.colors.buttonBackground,
                 ),
                 icon: PhosphorIcon(
-                  PhosphorIcons.gearSix(
+                  PhosphorIcons.handWaving(
                     PhosphorIconsStyle.bold,
                   ),
                   color: context.colors.text,
@@ -138,8 +139,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
-            smallTitle: 'Hello, Josip',
-            bigTitle: 'Hello, Josip',
+            smallTitle: (name?.isNotEmpty ?? false) ? 'Hello, $name' : 'Hello',
+            bigTitle: (name?.isNotEmpty ?? false) ? 'Hello, $name' : 'Hello',
             bigSubtitle:
                 'Today is ${DateFormat(
                   'd. MMMM y.',

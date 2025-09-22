@@ -58,6 +58,12 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
   /// METHODS
   ///
 
+  /// Logs out of [Firebase] & clears [Hive]
+  Future<void> logOut() async {
+    firebase.logOut();
+    await hive.clearEverything();
+  }
+
   /// Trigger FAB animation
   void triggerFabAnimation() {
     shakeFabController?.reset();

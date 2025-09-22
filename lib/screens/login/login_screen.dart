@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
@@ -37,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    getIt.unregister<LoginController>();
+    unRegisterIfNotDisposed<LoginController>();
     super.dispose();
   }
 
@@ -67,6 +71,22 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
 
           ///
+          /// EMAIL TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Email',
+                style: context.textStyles.homeTitle,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
+
+          ///
           /// EMAIL
           ///
           SliverPadding(
@@ -84,7 +104,23 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 16),
+            child: SizedBox(height: 24),
+          ),
+
+          ///
+          /// PASSWORD TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Password',
+                style: context.textStyles.homeTitle,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
           ),
 
           ///
@@ -101,12 +137,28 @@ class _LoginScreenState extends State<LoginScreen> {
                 keyboardType: TextInputType.visiblePassword,
                 textAlign: TextAlign.left,
                 textCapitalization: TextCapitalization.none,
-                textInputAction: TextInputAction.go,
+                textInputAction: TextInputAction.next,
               ),
             ),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 24),
+          ),
+
+          ///
+          /// NAME TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Name',
+                style: context.textStyles.homeTitle,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
           ),
 
           ///
@@ -117,11 +169,11 @@ class _LoginScreenState extends State<LoginScreen> {
             sliver: SliverToBoxAdapter(
               child: TroskoTextField(
                 autofocus: false,
-                controller: loginController.passwordTextEditingController,
-                labelText: 'Password',
-                keyboardType: TextInputType.visiblePassword,
+                controller: loginController.nameTextEditingController,
+                labelText: 'Name',
+                keyboardType: TextInputType.name,
                 textAlign: TextAlign.left,
-                textCapitalization: TextCapitalization.none,
+                textCapitalization: TextCapitalization.words,
                 textInputAction: TextInputAction.go,
               ),
             ),
@@ -139,9 +191,16 @@ class _LoginScreenState extends State<LoginScreen> {
         width: double.infinity,
         child: FilledButton(
           onPressed: validated
-              ? () {
-                  HapticFeedback.lightImpact();
-                  loginController.loginPressed();
+              ? () async {
+                  unawaited(
+                    HapticFeedback.lightImpact(),
+                  );
+
+                  final isLoginSuccessful = await loginController.loginPressed();
+
+                  if (isLoginSuccessful) {
+                    openHome(context);
+                  }
                 }
               : null,
           style: FilledButton.styleFrom(

@@ -33,7 +33,8 @@ class Category {
   factory Category.fromMap(Map<String, dynamic> map) => Category(
     id: map['id'] as String,
     name: map['name'] as String,
-    color: Color((map['color'] as num).toInt()),
+    // color: Color((map['color'] as num).toInt()),
+    color: Colors.green,
     iconName: map['iconName'] as String,
   );
 

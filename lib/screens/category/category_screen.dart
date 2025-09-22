@@ -49,7 +49,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   void dispose() {
-    getIt.unregister<CategoryController>(
+    unRegisterIfNotDisposed<CategoryController>(
       instanceName: widget.passedCategory?.id,
     );
     super.dispose();

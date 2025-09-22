@@ -57,7 +57,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   @override
   void dispose() {
-    getIt.unregister<TransactionController>(
+    unRegisterIfNotDisposed<TransactionController>(
       instanceName: widget.passedTransaction?.id,
     );
     super.dispose();

@@ -4,12 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:watch_it/watch_it.dart';
 
 import 'constants/durations.dart';
 import 'firebase_options.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/login/login_screen.dart';
+import 'services/hive_service.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
 
@@ -35,42 +35,34 @@ Future<void> main() async {
   /// Wait for initialization to finish
   await getIt.allReady();
 
+  /// Get `isLoggedIn` value from [Hive] & [Firebase]
+  final isLoggedIn = getIt.get<HiveService>().getIsLoggedIn() && FirebaseAuth.instance.currentUser != null;
+
   /// Run `Troško`
-  runApp(TroskoApp());
+  runApp(
+    TroskoApp(
+      isLoggedIn: isLoggedIn,
+    ),
+  );
 }
 
-class TroskoApp extends WatchingWidget {
+class TroskoApp extends StatelessWidget {
+  final bool isLoggedIn;
+
+  const TroskoApp({
+    required this.isLoggedIn,
+  });
+
   @override
   Widget build(BuildContext context) => MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        ///
-        /// LOADING
-        ///
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          // TODO: Loading screen
-          return Container();
-        }
-
-        ///
-        /// USER LOGGED IN
-        ///
-        if (snapshot.hasData) {
-          return const HomeScreen(
+    home: isLoggedIn
+        ? const HomeScreen(
             key: ValueKey('home'),
-          );
-        }
-
-        ///
-        /// NO USER
-        ///
-        return const LoginScreen(
-          key: ValueKey('login'),
-        );
-      },
-    ),
+          )
+        : const LoginScreen(
+            key: ValueKey('login'),
+          ),
     onGenerateTitle: (context) => 'Troško',
     theme: TroskoTheme.light,
     darkTheme: TroskoTheme.dark,

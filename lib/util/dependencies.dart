@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import '../services/firebase_service.dart';
 import '../services/hive_service.dart';
 import '../services/logger_service.dart';
-import '../services/storage_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -26,6 +25,20 @@ void registerIfNotInitialized<T extends Object>(
       final instance = getIt.get<T>(instanceName: instanceName);
       afterRegister(instance);
     }
+  }
+}
+
+/// Unregisters a class if it's not already disposed
+/// Optionally runs a function with newly unregistered class
+void unRegisterIfNotDisposed<T extends Object>({
+  String? instanceName,
+  void Function(T controller)? afterUnregister,
+}) {
+  if (getIt.isRegistered<T>(instanceName: instanceName)) {
+    getIt.unregister<T>(
+      disposingFunction: afterUnregister,
+      instanceName: instanceName,
+    );
   }
 }
 
@@ -55,13 +68,5 @@ void initializeServices() {
         return firebase;
       },
       dependsOn: [LoggerService],
-    )
-    ..registerSingletonAsync(
-      () async => StorageService(
-        logger: getIt.get<LoggerService>(),
-        hive: getIt.get<HiveService>(),
-        firebase: getIt.get<FirebaseService>(),
-      ),
-      dependsOn: [LoggerService, HiveService, FirebaseService],
     );
 }

@@ -23,6 +23,7 @@ class HiveService extends ValueNotifier<({String? username, List<Transaction> tr
   /// VARIABLES
   ///
 
+  late final Box<bool> isLoggedIn;
   late final Box<String> username;
   late final Box<Transaction> transactions;
   late final Box<Category> categories;
@@ -41,6 +42,7 @@ class HiveService extends ValueNotifier<({String? username, List<Transaction> tr
         ColorAdapter(),
       );
 
+    isLoggedIn = await Hive.openBox<bool>('isLoggedInBox');
     username = await Hive.openBox<String>('usernameBox');
     transactions = await Hive.openBox<Transaction>('transactionsBox');
     categories = await Hive.openBox<Category>('categoriesBox');
@@ -54,6 +56,7 @@ class HiveService extends ValueNotifier<({String? username, List<Transaction> tr
 
   @override
   Future<void> onDispose() async {
+    await isLoggedIn.close();
     await username.close();
     await transactions.close();
     await categories.close();
@@ -70,11 +73,19 @@ class HiveService extends ValueNotifier<({String? username, List<Transaction> tr
     required List<Transaction> transactions,
     required List<Category> categories,
   }) async {
-    await addUsername(username);
+    await writeUsername(username);
     await writeListTransactions(transactions);
     await writeListCategories(categories);
 
     updateState();
+  }
+
+  /// Clears everything from [Hive]
+  Future<void> clearEverything() async {
+    await isLoggedIn.clear();
+    await username.clear();
+    await transactions.clear();
+    await categories.clear();
   }
 
   /// Updates `state`
@@ -83,6 +94,9 @@ class HiveService extends ValueNotifier<({String? username, List<Transaction> tr
     transactions: getTransactions(),
     categories: getCategories(),
   );
+
+  /// Called to get `isLoggedIn` from [Hive]
+  bool getIsLoggedIn() => isLoggedIn.values.toList().firstOrNull ?? false;
 
   /// Called to get `username` from [Hive]
   String? getUsername() => username.values.toList().firstOrNull;
@@ -93,8 +107,14 @@ class HiveService extends ValueNotifier<({String? username, List<Transaction> tr
   /// Called to get `categories` from [Hive]
   List<Category> getCategories() => categories.values.toList();
 
+  /// Stores a new `isLoggedIn` in [Hive]
+  Future<void> writeIsLoggedIn(bool newIsLoggedIn) async {
+    await isLoggedIn.clear();
+    await isLoggedIn.add(newIsLoggedIn);
+  }
+
   /// Stores a new `username` in [Hive]
-  Future<void> addUsername(String? newUsername) async {
+  Future<void> writeUsername(String? newUsername) async {
     await username.clear();
 
     if (newUsername != null) {
@@ -105,13 +125,13 @@ class HiveService extends ValueNotifier<({String? username, List<Transaction> tr
   /// Clears old list and stores a new `List<Transaction>` in [Hive]
   Future<void> writeListTransactions(List<Transaction> newTransactions) async {
     await transactions.clear();
-    await transactions.addAll(newTransactions.toList());
+    await transactions.addAll(newTransactions);
   }
 
   /// Clears old list and stores a new `List<Category>` in [Hive]
   Future<void> writeListCategories(List<Category> newCategories) async {
     await categories.clear();
-    await categories.addAll(newCategories.toList());
+    await categories.addAll(newCategories);
   }
 
   /// Stores a new `transaction` in [Hive]
