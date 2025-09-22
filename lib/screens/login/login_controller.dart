@@ -31,6 +31,7 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
 
   late final emailTextEditingController = TextEditingController();
   late final passwordTextEditingController = TextEditingController();
+  late final nameTextEditingController = TextEditingController();
 
   ///
   /// INIT
@@ -56,6 +57,7 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
   void onDispose() {
     emailTextEditingController.dispose();
     passwordTextEditingController.dispose();
+    nameTextEditingController.dispose();
   }
 
   ///
@@ -63,6 +65,20 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
   ///
 
   /// Triggered when the user presses login button
+  Future<void> loginPressed() async {
+    /// Login into [Firebase]
+    final user = await loginUser();
+
+    /// Successful login
+    if (user != null) {
+      /// Store `name` into [Firebase]
+      await storeUsername();
+
+      /// Fetch all data from [Firebase] & store into [Hive]
+      await getFirebaseDataIntoHive();
+    }
+  }
+
   /// Logs user into [Firebase]
   Future<User?> loginUser() async {
     /// Parse values
@@ -73,6 +89,18 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
       email: email,
       password: password,
     );
+  }
+
+  /// Stores new name into [Firebase]
+  Future<void> storeUsername() async {
+    /// Parse value
+    final username = nameTextEditingController.text.trim();
+
+    if (username.isNotEmpty) {
+      await firebase.writeUsername(
+        newUsername: username,
+      );
+    }
   }
 
   /// Gets all data from [Firebase] and stores into [Hive]

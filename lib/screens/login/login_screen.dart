@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
@@ -107,6 +105,27 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 24),
+          ),
+
+          ///
+          /// NAME
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: TroskoTextField(
+                autofocus: false,
+                controller: loginController.passwordTextEditingController,
+                labelText: 'Password',
+                keyboardType: TextInputType.visiblePassword,
+                textAlign: TextAlign.left,
+                textCapitalization: TextCapitalization.none,
+                textInputAction: TextInputAction.go,
+              ),
+            ),
+          ),
 
           ///
           /// BOTTOM SPACING
@@ -120,12 +139,9 @@ class _LoginScreenState extends State<LoginScreen> {
         width: double.infinity,
         child: FilledButton(
           onPressed: validated
-              ? () async {
-                  unawaited(
-                    HapticFeedback.lightImpact(),
-                  );
-                  await loginController.loginUser();
-                  await loginController.getFirebaseDataIntoHive();
+              ? () {
+                  HapticFeedback.lightImpact();
+                  loginController.loginPressed();
                 }
               : null,
           style: FilledButton.styleFrom(

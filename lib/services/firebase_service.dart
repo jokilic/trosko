@@ -70,7 +70,11 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
     }
   }
 
-  /// Fetches username from [Firebase]
+  ///
+  /// NAME
+  ///
+
+  /// Fetches `username` from [Firebase]
   Future<String?> getUsername() async {
     try {
       final user = auth.currentUser;
@@ -82,13 +86,35 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
       final docSnapshot = await firestore.collection('users').doc(user.uid).get();
 
       if (docSnapshot.exists) {
-        return docSnapshot.data()?['userName'];
+        return docSnapshot.data()?['username'];
       }
 
       return null;
     } catch (e) {
-      logger.e('FirebaseService -> getUserName() -> $e');
+      logger.e('FirebaseService -> getUsername() -> $e');
       return null;
+    }
+  }
+
+  /// Adds new `username` into [Firebase]
+  Future<bool> writeUsername({required String newUsername}) async {
+    try {
+      final user = auth.currentUser;
+
+      if (user == null) {
+        return false;
+      }
+
+      final docReference = firestore.collection('users').doc(user.uid);
+
+      await docReference.set(
+        {'username': newUsername.trim()},
+      );
+
+      return true;
+    } catch (e) {
+      logger.e('FirebaseService -> writeUsername() -> $e');
+      return false;
     }
   }
 
@@ -117,53 +143,6 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
       return null;
     }
   }
-
-  // Stream<List<Transaction>?> getTransactionsStream({
-  //   required DateTime? from,
-  //   required DateTime? to,
-  // }) {
-  //   try {
-  //     final user = auth.currentUser;
-
-  //     if (user == null) {
-  //       return Stream.value(null);
-  //     }
-
-  //     final collection = firestore.collection('users').doc(user.uid).collection('transactions');
-
-  //     Query<Map<String, dynamic>> query = collection;
-
-  //     if (from != null) {
-  //       query = query.where(
-  //         'createdAt',
-  //         isGreaterThanOrEqualTo: Timestamp.fromDate(
-  //           from.toUtc(),
-  //         ),
-  //       );
-  //     }
-
-  //     if (to != null) {
-  //       query = query.where(
-  //         'createdAt',
-  //         isLessThanOrEqualTo: Timestamp.fromDate(
-  //           to.toUtc(),
-  //         ),
-  //       );
-  //     }
-
-  //     query = query.orderBy(
-  //       'createdAt',
-  //       descending: true,
-  //     );
-
-  //     return query.snapshots().map(
-  //       (snapshot) => snapshot.docs.map(Transaction.fromFirestore).toList(),
-  //     );
-  //   } catch (e) {
-  //     logger.e('FirebaseService -> getTransactionsStream() -> $e');
-  //     return Stream.value(null);
-  //   }
-  // }
 
   /// Adds new `Transaction` into [Firebase]
   Future<bool> writeTransaction({required Transaction newTransaction}) async {
@@ -250,28 +229,6 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
       return null;
     }
   }
-
-  // Stream<List<Category>?> getCategoriesStream() {
-  //   try {
-  //     final user = auth.currentUser;
-
-  //     if (user == null) {
-  //       return Stream.value(null);
-  //     }
-
-  //     final collection = firestore.collection('users').doc(user.uid).collection('categories');
-
-  //     return collection
-  //         .orderBy('createdAt', descending: true)
-  //         .snapshots()
-  //         .map(
-  //           (snapshot) => snapshot.docs.map(Category.fromFirestore).toList(),
-  //         );
-  //   } catch (e) {
-  //     logger.e('FirebaseService -> getCategoriesStream() -> $e');
-  //     return Stream.value(null);
-  //   }
-  // }
 
   /// Adds new `Category` into [Firebase]
   Future<bool> writeCategory({required Category newCategory}) async {
