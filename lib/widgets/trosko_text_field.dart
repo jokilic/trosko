@@ -12,6 +12,7 @@ class TroskoTextField extends StatelessWidget {
   final TextAlign textAlign;
   final TextCapitalization textCapitalization;
   final TextInputAction textInputAction;
+  final bool obscureText;
 
   const TroskoTextField({
     required this.autofocus,
@@ -21,12 +22,14 @@ class TroskoTextField extends StatelessWidget {
     required this.textAlign,
     required this.textCapitalization,
     required this.textInputAction,
-    this.minLines,
-    this.maxLines,
+    this.minLines = 1,
+    this.maxLines = 1,
+    this.obscureText = false,
   });
 
   @override
   Widget build(BuildContext context) => TextField(
+    obscureText: obscureText,
     autofocus: autofocus,
     controller: controller,
     cursorHeight: 24,

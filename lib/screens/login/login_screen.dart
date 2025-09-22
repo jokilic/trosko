@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
         logger: getIt.get<LoggerService>(),
         firebase: getIt.get<FirebaseService>(),
       ),
+      afterRegister: (controller) => controller.init(),
     );
   }
 
@@ -61,37 +62,47 @@ class _LoginScreenState extends State<LoginScreen> {
             bigTitle: 'Welcome to Troško',
             bigSubtitle: 'Enter your credentials',
           ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 16),
+          ),
 
           ///
           /// EMAIL
           ///
-          SliverToBoxAdapter(
-            child: TroskoTextField(
-              autofocus: false,
-              controller: loginController.emailTextEditingController,
-              labelText: 'Email',
-              keyboardType: TextInputType.emailAddress,
-              textAlign: TextAlign.left,
-              textCapitalization: TextCapitalization.none,
-              textInputAction: TextInputAction.next,
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: TroskoTextField(
+                autofocus: false,
+                controller: loginController.emailTextEditingController,
+                labelText: 'Email',
+                keyboardType: TextInputType.emailAddress,
+                textAlign: TextAlign.left,
+                textCapitalization: TextCapitalization.none,
+                textInputAction: TextInputAction.next,
+              ),
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
+            child: SizedBox(height: 16),
           ),
 
           ///
           /// PASSWORD
           ///
-          SliverToBoxAdapter(
-            child: TroskoTextField(
-              autofocus: false,
-              controller: loginController.passwordTextEditingController,
-              labelText: 'Password',
-              keyboardType: TextInputType.visiblePassword,
-              textAlign: TextAlign.left,
-              textCapitalization: TextCapitalization.none,
-              textInputAction: TextInputAction.go,
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: TroskoTextField(
+                obscureText: true,
+                autofocus: false,
+                controller: loginController.passwordTextEditingController,
+                labelText: 'Password',
+                keyboardType: TextInputType.visiblePassword,
+                textAlign: TextAlign.left,
+                textCapitalization: TextCapitalization.none,
+                textInputAction: TextInputAction.go,
+              ),
             ),
           ),
 
