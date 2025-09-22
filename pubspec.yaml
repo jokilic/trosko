@@ -1,7 +1,7 @@
 name: trosko
 description: 'Budget tracking application in Flutter.'
 publish_to: 'none'
-version: 1.0.0+100
+version: 1.0.1+101
 
 #
 # DEPLOYING APP
@@ -109,5 +109,6 @@ flutter_native_splash:
   background_image_dark: 'assets/splash_dark.png'
   android_12:
     image: 'assets/splash_icon.png'
+    image_dark: 'assets/monochrome.png'
     color: '#EDEDF4'
     color_dark: '#1D2024'
