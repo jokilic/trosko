@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants/durations.dart';
 import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
@@ -11,6 +12,7 @@ import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
 import '../../widgets/trosko_app_bar.dart';
+import '../../widgets/trosko_loading.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'login_controller.dart';
 
@@ -51,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final state = watchIt<LoginController>().value;
 
     final validated = state.emailValid && state.passwordValid;
+    final isLoading = state.isLoading;
 
     return Scaffold(
       body: CustomScrollView(
@@ -138,39 +141,56 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: SizedBox(
-        width: double.infinity,
-        child: FilledButton(
-          onPressed: validated
-              ? () async {
-                  unawaited(
-                    HapticFeedback.lightImpact(),
-                  );
+      bottomNavigationBar: AnimatedSwitcher(
+        duration: TroskoDurations.loginAnimation,
+        switchInCurve: Curves.easeIn,
+        switchOutCurve: Curves.easeIn,
+        child: isLoading
+            ? Container(
+                padding: EdgeInsets.fromLTRB(
+                  24,
+                  28,
+                  24,
+                  MediaQuery.paddingOf(context).bottom + 12,
+                ),
+                child: TroskoLoading(
+                  color: context.colors.text,
+                ),
+              )
+            : SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed: validated
+                      ? () async {
+                          unawaited(
+                            HapticFeedback.lightImpact(),
+                          );
 
-                  final isLoginSuccessful = await loginController.loginPressed();
+                          final isLoginSuccessful = await loginController.loginPressed();
 
-                  if (isLoginSuccessful) {
-                    openHome(context);
-                  }
-                }
-              : null,
-          style: FilledButton.styleFrom(
-            padding: EdgeInsets.fromLTRB(
-              24,
-              28,
-              24,
-              MediaQuery.paddingOf(context).bottom + 12,
-            ),
-            backgroundColor: context.colors.text,
-            foregroundColor: context.colors.listTileBackground,
-            overlayColor: context.colors.buttonBackground,
-            disabledBackgroundColor: context.colors.disabledBackground,
-            disabledForegroundColor: context.colors.disabledText,
-          ),
-          child: Text(
-            'Login'.toUpperCase(),
-          ),
-        ),
+                          if (isLoginSuccessful) {
+                            openHome(context);
+                          }
+                        }
+                      : null,
+                  style: FilledButton.styleFrom(
+                    padding: EdgeInsets.fromLTRB(
+                      24,
+                      28,
+                      24,
+                      MediaQuery.paddingOf(context).bottom + 12,
+                    ),
+                    backgroundColor: context.colors.buttonPrimary,
+                    foregroundColor: context.colors.text,
+                    overlayColor: context.colors.buttonBackground,
+                    disabledBackgroundColor: context.colors.disabledBackground,
+                    disabledForegroundColor: context.colors.disabledText,
+                  ),
+                  child: Text(
+                    'Login'.toUpperCase(),
+                  ),
+                ),
+              ),
       ),
     );
   }

@@ -37,3 +37,12 @@ Category can also be edited or deleted if necessary.
 
 - [ ]  Svaki mjesec neka ima statistiku poput grafa i količine potrošenog za svaku kategoriju
 - [ ]  Lokalizacija
+- [ ]  Screenshoti za storeove
+- [ ]  Staviti na storeove
+- [ ]  Dodaj custom boju u Category
+- [ ]  Settings
+    - [ ] Tema
+    - [ ] Jezik
+    - [ ] Promijeni ime
+    - [ ] Logout
+    - [ ] Ikona i verzija aplikacije

@@ -11,8 +11,7 @@ abstract class TroskoColors {
   static const lightDark = Color(0xFF282A2F);
   static const lighterDark = Color(0xFF2D2F34);
 
-  static const blueLight = Color(0xFFCFD7E5);
-  static const blueDark = Color(0xFF7A82AB);
+  static const green = Color(0xFF57CC99);
   static const red = Color(0xFFE0777D);
 }
 
@@ -47,6 +46,7 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
     Color? delete,
     Color? listTileBackground,
     Color? buttonBackground,
+    Color? filledButtonBackground,
     Color? scaffoldBackground,
     Color? disabledText,
     Color? disabledBackground,

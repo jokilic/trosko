@@ -19,6 +19,7 @@ import '../../theme/theme.dart';
 import '../../util/currency.dart';
 import '../../util/dependencies.dart';
 import '../../util/months.dart';
+import '../../util/string.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'home_controller.dart';
 import 'widgets/home_categories.dart';
@@ -76,6 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final activeMonth = state.activeMonth;
     final activeCategory = state.activeCategory;
+
+    final now = DateTime.now();
+    final greeting = getGreeting(now);
 
     return Scaffold(
       floatingActionButton: Theme(
@@ -163,13 +167,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
-            smallTitle: (name?.isNotEmpty ?? false) ? 'Hello, $name' : 'Hello',
-            bigTitle: (name?.isNotEmpty ?? false) ? 'Hello, $name' : 'Hello',
+            smallTitle:
+                'Today is ${DateFormat(
+                  'd. MMMM y.',
+                  'hr',
+                ).format(now)}',
+            bigTitle: (name?.isNotEmpty ?? false) ? '$greeting, $name' : greeting,
             bigSubtitle:
                 'Today is ${DateFormat(
                   'd. MMMM y.',
                   'hr',
-                ).format(DateTime.now())}',
+                ).format(now)}',
           ),
 
           ///

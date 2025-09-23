@@ -7,7 +7,7 @@ import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../util/email.dart';
 
-class LoginController extends ValueNotifier<({bool emailValid, bool passwordValid})> implements Disposable {
+class LoginController extends ValueNotifier<({bool emailValid, bool passwordValid, bool isLoading})> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -23,6 +23,7 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
   }) : super((
          emailValid: false,
          passwordValid: false,
+         isLoading: false,
        ));
 
   ///
@@ -66,6 +67,12 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
 
   /// Triggered when the user presses login button
   Future<bool> loginPressed() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    updateState(
+      isLoading: true,
+    );
+
     try {
       /// Login into [Firebase]
       final user = await loginUser();
@@ -81,13 +88,23 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
         /// Fetch all data from [Firebase] & store into [Hive]
         await getFirebaseDataIntoHive();
 
+        updateState(
+          isLoading: false,
+        );
+
         return true;
       }
 
       logger.e('LoginController -> loginPressed() -> user == null');
+      updateState(
+        isLoading: false,
+      );
       return false;
     } catch (e) {
       logger.e('LoginController -> loginPressed() -> $e');
+      updateState(
+        isLoading: false,
+      );
       return false;
     }
   }
@@ -138,9 +155,20 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
     final password = passwordTextEditingController.text.trim();
 
     /// Validate values
-    value = (
+    updateState(
       emailValid: isValidEmail(email),
       passwordValid: password.length >= 8,
     );
   }
+
+  /// Updates `state`
+  void updateState({
+    bool? emailValid,
+    bool? passwordValid,
+    bool? isLoading,
+  }) => value = (
+    emailValid: emailValid ?? value.emailValid,
+    passwordValid: passwordValid ?? value.passwordValid,
+    isLoading: isLoading ?? value.isLoading,
+  );
 }

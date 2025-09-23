@@ -49,9 +49,9 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
         child: SwipeActionCell(
           key: ValueKey(widget.transaction),
           backgroundColor: context.colors.scaffoldBackground,
-          openAnimationDuration: 225,
-          closeAnimationDuration: 225,
-          deleteAnimationDuration: 225,
+          openAnimationDuration: 175,
+          closeAnimationDuration: 175,
+          deleteAnimationDuration: 175,
           openAnimationCurve: Curves.easeIn,
           closeAnimationCurve: Curves.easeIn,
           leadingActions: [
