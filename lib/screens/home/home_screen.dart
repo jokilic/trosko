@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
@@ -46,7 +46,11 @@ class _HomeScreenState extends State<HomeScreen> {
         hive: getIt.get<HiveService>(),
         firebase: getIt.get<FirebaseService>(),
       ),
-      afterRegister: (controller) => controller.init(),
+      afterRegister: (controller) => WidgetsBinding.instance.addPostFrameCallback(
+        (_) => controller.init(
+          locale: context.locale.languageCode,
+        ),
+      ),
     );
   }
 
@@ -105,7 +109,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       context,
                       passedTransaction: null,
                       categories: categories,
-                      onTransactionUpdated: homeController.updateState,
+                      onTransactionUpdated: () => homeController.updateState(
+                        locale: context.locale.languageCode,
+                      ),
                     );
                   }
                 : () {
@@ -115,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
             foregroundColor: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
             label: Text(
-              'Add expense'.toUpperCase(),
+              'homeAddExpense'.tr().toUpperCase(),
               style: context.textStyles.homeFloatingActionButton.copyWith(
                 color: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
               ),
@@ -167,17 +173,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
-            smallTitle:
-                'Today is ${DateFormat(
+            smallTitle: 'homeTodayIs'.tr(
+              args: [
+                DateFormat(
                   'd. MMMM y.',
-                  'hr',
-                ).format(now)}',
+                  context.locale.countryCode,
+                ).format(now),
+              ],
+            ),
             bigTitle: (name?.isNotEmpty ?? false) ? '$greeting, $name' : greeting,
-            bigSubtitle:
-                'Today is ${DateFormat(
+            bigSubtitle: 'homeTodayIs'.tr(
+              args: [
+                DateFormat(
                   'd. MMMM y.',
-                  'hr',
-                ).format(now)}',
+                  context.locale.countryCode,
+                ).format(now),
+              ],
+            ),
           ),
 
           ///
@@ -186,13 +198,14 @@ class _HomeScreenState extends State<HomeScreen> {
           HomeMonthChips(
             months: getMonthsForChips(
               transactions: allTransactions,
-              locale: 'hr',
+              locale: context.locale.languageCode,
             ),
             activeMonth: activeMonth,
             onChipPressed: (month) {
               HapticFeedback.lightImpact();
               homeController.updateState(
                 newMonth: month,
+                locale: context.locale.languageCode,
               );
             },
           ),
@@ -207,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Categories',
+                'homeCategories'.tr(),
                 style: context.textStyles.homeTitle,
               ),
             ),
@@ -226,6 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
               HapticFeedback.lightImpact();
               homeController.updateState(
                 newCategory: category,
+                locale: context.locale.languageCode,
               );
             },
             onLongPressedCategory: (category) {
@@ -281,10 +295,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           TextSpan(
                             text: formatCentsToCurrency(
                               item.amountCents,
+                              locale: context.locale.languageCode,
                             ),
                             children: [
                               TextSpan(
-                                text: '€',
+                                text: 'homeCurrency'.tr(),
                                 style: context.textStyles.homeTitleEuro,
                               ),
                             ],
@@ -311,13 +326,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         passedTransaction: item,
                         categories: categories,
-                        onTransactionUpdated: homeController.updateState,
+                        onTransactionUpdated: () => homeController.updateState(
+                          locale: context.locale.languageCode,
+                        ),
                       );
                     },
                     onDeletePressed: () {
                       HapticFeedback.lightImpact();
                       homeController.deleteTransaction(
                         transaction: item,
+                        locale: context.locale.languageCode,
                       );
                     },
                     transaction: item,
@@ -341,7 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'No transactions',
+                      'homeNoExpenses'.tr(),
                       textAlign: TextAlign.center,
                       style: context.textStyles.homeTitle,
                     ),

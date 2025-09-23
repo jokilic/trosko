@@ -32,7 +32,6 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
 
   late final emailTextEditingController = TextEditingController();
   late final passwordTextEditingController = TextEditingController();
-  late final nameTextEditingController = TextEditingController();
 
   ///
   /// INIT
@@ -58,7 +57,6 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
   void onDispose() {
     emailTextEditingController.dispose();
     passwordTextEditingController.dispose();
-    nameTextEditingController.dispose();
   }
 
   ///
@@ -81,9 +79,6 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
       if (user != null) {
         /// Store `isLoggedIn` into [Hive]
         await hive.writeIsLoggedIn(true);
-
-        /// Store `name` into [Firebase] if exists
-        await storeUsername();
 
         /// Fetch all data from [Firebase] & store into [Hive]
         await getFirebaseDataIntoHive();
@@ -119,18 +114,6 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
       email: email,
       password: password,
     );
-  }
-
-  /// Stores new name into [Firebase]
-  Future<void> storeUsername() async {
-    /// Parse value
-    final username = nameTextEditingController.text.trim();
-
-    if (username.isNotEmpty) {
-      await firebase.writeUsername(
-        newUsername: username,
-      );
-    }
   }
 
   /// Gets all data from [Firebase] and stores into [Hive]

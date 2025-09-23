@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:scroll_datetime_picker/scroll_datetime_picker.dart';
 import 'package:watch_it/watch_it.dart';
@@ -128,9 +128,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   ),
                 ),
             ],
-            smallTitle: widget.passedTransaction != null ? 'Update transaction' : 'New transaction',
-            bigTitle: widget.passedTransaction != null ? 'Update transaction' : 'New transaction',
-            bigSubtitle: widget.passedTransaction != null ? 'Edit details of an existing expense' : 'Create a new expense',
+            smallTitle: widget.passedTransaction != null ? 'transactionUpdateTitle'.tr() : 'transactionNewTitle'.tr(),
+            bigTitle: widget.passedTransaction != null ? 'transactionUpdateTitle'.tr() : 'transactionNewTitle'.tr(),
+            bigSubtitle: widget.passedTransaction != null ? 'transactionUpdateSubtitle'.tr() : 'transactionNewSubtitle'.tr(),
           ),
 
           ///
@@ -147,7 +147,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'Category',
+                    'transactionCategory'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -197,7 +197,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'Title & note',
+                    'transactionTitleNote'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -211,7 +211,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   child: TroskoTextField(
                     autofocus: false,
                     controller: transactionController.nameTextEditingController,
-                    labelText: 'Title',
+                    labelText: 'transactionTitle'.tr(),
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
                     textCapitalization: TextCapitalization.sentences,
@@ -228,7 +228,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   child: TroskoTextField(
                     autofocus: false,
                     controller: transactionController.noteTextEditingController,
-                    labelText: 'Note (not necessary)',
+                    labelText: 'transactionNote'.tr(),
                     keyboardType: TextInputType.multiline,
                     minLines: null,
                     maxLines: 3,
@@ -245,7 +245,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'Amount',
+                    'transactionAmount'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -259,6 +259,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   child: TransactionAmountWidget(
                     onValueChanged: transactionController.transactionAmountChanged,
                     initialCents: widget.passedTransaction?.amountCents ?? 0,
+                    languageCode: context.locale.languageCode,
                   ),
                 ),
                 const SizedBox(height: 28),
@@ -269,7 +270,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'Date',
+                    'transactionDate'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -313,8 +314,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         ),
                         dateOption: DateTimePickerOption(
                           dateFormat: DateFormat(
-                            'E, dd MMMM yyyy',
-                            'hr',
+                            'E, dd MMM yyyy',
+                            context.locale.countryCode,
                           ),
                           minDate: DateTime(2020),
                           maxDate: DateTime(2040),
@@ -346,7 +347,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'Time',
+                    'transactionTime'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -391,7 +392,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         dateOption: DateTimePickerOption(
                           dateFormat: DateFormat(
                             'HH:mm',
-                            'hr',
+                            context.locale.countryCode,
                           ),
                           minDate: DateTime(2010),
                           maxDate: DateTime(2040),
@@ -448,7 +449,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
             disabledForegroundColor: context.colors.disabledText,
           ),
           child: Text(
-            (widget.passedTransaction != null ? 'Update expense' : 'Add expense').toUpperCase(),
+            widget.passedTransaction != null ? 'transactionUpdateButton'.tr().toUpperCase() : 'transactionAddButton'.tr().toUpperCase(),
           ),
         ),
       ),

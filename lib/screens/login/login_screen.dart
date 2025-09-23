@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
@@ -63,10 +64,10 @@ class _LoginScreenState extends State<LoginScreen> {
           ///
           /// APP BAR
           ///
-          const TroskoAppBar(
-            smallTitle: 'Welcome to Troško',
-            bigTitle: 'Welcome to Troško',
-            bigSubtitle: 'Enter your credentials',
+          TroskoAppBar(
+            smallTitle: 'loginTitle'.tr(),
+            bigTitle: 'loginTitle'.tr(),
+            bigSubtitle: 'loginSubtitle'.tr(),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 16),
@@ -81,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: TroskoTextField(
                 autofocus: false,
                 controller: loginController.emailTextEditingController,
-                labelText: 'Email',
+                labelText: 'loginEmail'.tr(),
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.left,
                 textCapitalization: TextCapitalization.none,
@@ -103,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: true,
                 autofocus: false,
                 controller: loginController.passwordTextEditingController,
-                labelText: 'Password',
+                labelText: 'loginPassword'.tr(),
                 keyboardType: TextInputType.visiblePassword,
                 textAlign: TextAlign.left,
                 textCapitalization: TextCapitalization.none,
@@ -113,24 +114,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 16),
-          ),
-
-          ///
-          /// NAME
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(
-              child: TroskoTextField(
-                autofocus: false,
-                controller: loginController.nameTextEditingController,
-                labelText: 'Name (not necessary)',
-                keyboardType: TextInputType.name,
-                textAlign: TextAlign.left,
-                textCapitalization: TextCapitalization.words,
-                textInputAction: TextInputAction.done,
-              ),
-            ),
           ),
 
           ///
@@ -187,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     disabledForegroundColor: context.colors.disabledText,
                   ),
                   child: Text(
-                    'Login'.toUpperCase(),
+                    'loginButton'.tr().toUpperCase(),
                   ),
                 ),
               ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -119,9 +120,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ),
                 ),
             ],
-            smallTitle: widget.passedCategory != null ? 'Update category' : 'New category',
-            bigTitle: widget.passedCategory != null ? 'Update category' : 'New category',
-            bigSubtitle: widget.passedCategory != null ? 'Edit details of an existing category' : 'Create a category to track your expenses',
+            smallTitle: widget.passedCategory != null ? 'categoryUpdateTitle'.tr() : 'categoryNewTitle'.tr(),
+            bigTitle: widget.passedCategory != null ? 'categoryUpdateTitle'.tr() : 'categoryNewTitle'.tr(),
+            bigSubtitle: widget.passedCategory != null ? 'categoryUpdateSubtitle'.tr() : 'categoryNewSubtitle'.tr(),
           ),
 
           ///
@@ -174,7 +175,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'Title',
+                    'categoryTitle'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -188,7 +189,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   child: TroskoTextField(
                     autofocus: false,
                     controller: categoryController.nameTextEditingController,
-                    labelText: 'Title',
+                    labelText: 'categoryTitle'.tr(),
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
                     textCapitalization: TextCapitalization.sentences,
@@ -203,7 +204,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'Color',
+                    'categoryColor'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -229,7 +230,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'Icon',
+                    'categoryIcon'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -243,7 +244,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   child: TroskoTextField(
                     autofocus: false,
                     controller: categoryController.iconTextEditingController,
-                    labelText: 'Icon',
+                    labelText: 'categoryIcon'.tr(),
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
                     textCapitalization: TextCapitalization.sentences,
@@ -317,7 +318,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             disabledForegroundColor: context.colors.disabledText,
           ),
           child: Text(
-            widget.passedCategory != null ? 'Update category'.toUpperCase() : 'Add category'.toUpperCase(),
+            widget.passedCategory != null ? 'categoryUpdateButton'.tr().toUpperCase() : 'categoryAddButton'.tr().toUpperCase(),
           ),
         ),
       ),

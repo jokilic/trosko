@@ -11,10 +11,12 @@ import 'transaction_amount_button.dart';
 class TransactionAmountWidget extends StatefulWidget {
   final Function(int cents) onValueChanged;
   final int initialCents;
+  final String languageCode;
 
   const TransactionAmountWidget({
     required this.onValueChanged,
     required this.initialCents,
+    required this.languageCode,
   });
 
   @override
@@ -34,7 +36,10 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
 
     /// Initialize with proper formatting from `initialCents`
     currentCents = widget.initialCents;
-    currentValue = formatCentsToCurrency(currentCents);
+    currentValue = formatCentsToCurrency(
+      currentCents,
+      locale: widget.languageCode,
+    );
   }
 
   @override
@@ -80,13 +85,19 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
 
     /// Convert back to display format
     final cents = int.tryParse(rawValue) ?? 0;
-    currentValue = formatCentsToCurrency(cents);
+    currentValue = formatCentsToCurrency(
+      cents,
+      locale: widget.languageCode,
+    );
   }
 
   /// Multiply `currentCents` by 100 (add two zeros)
   void doubleZeroPressed() {
     currentCents = currentCents * 100;
-    currentValue = formatCentsToCurrency(currentCents);
+    currentValue = formatCentsToCurrency(
+      currentCents,
+      locale: widget.languageCode,
+    );
   }
 
   /// Triggered when the user presses `backspace` button
@@ -98,7 +109,10 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
 
     /// Remove last digit by dividing by 10
     currentCents = currentCents ~/ 10;
-    currentValue = formatCentsToCurrency(currentCents);
+    currentValue = formatCentsToCurrency(
+      currentCents,
+      locale: widget.languageCode,
+    );
   }
 
   /// Triggered when the user holds `backspace` button

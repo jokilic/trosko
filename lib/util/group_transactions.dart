@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../models/day_header/day_header.dart';
 import '../models/transaction/transaction.dart';
@@ -8,7 +8,7 @@ import 'date_time.dart';
 /// [DayHeader, Transaction, Transaction, DayHeader, ...]
 List<Object> getGroupedTransactionsByDate(
   List<Transaction> transactions, {
-  String locale = 'hr',
+  required String locale,
 }) {
   final now = DateTime.now();
   final today = toYmd(now);
@@ -19,11 +19,11 @@ List<Object> getGroupedTransactionsByDate(
 
   String labelFor(DateTime d) {
     if (d == today) {
-      return 'Today';
+      return 'transactionsToday'.tr();
     }
 
     if (d == yesterday) {
-      return 'Yesterday';
+      return 'transactionsYesterday'.tr();
     }
 
     return d.year == today.year ? dayFormatter.format(d) : dayFormatterYear.format(d);

@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class Month {
   final DateTime date;
   final String label;
@@ -9,7 +11,7 @@ class Month {
 
   factory Month.all() => Month(
     date: DateTime.fromMillisecondsSinceEpoch(0),
-    label: 'All',
+    label: 'monthAll'.tr(),
   );
 
   bool get isAll => date.millisecondsSinceEpoch == 0;

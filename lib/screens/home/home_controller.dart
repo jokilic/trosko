@@ -41,8 +41,10 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
   /// INIT
   ///
 
-  void init() {
-    updateState();
+  void init({required String locale}) {
+    updateState(
+      locale: locale,
+    );
   }
 
   ///
@@ -71,7 +73,11 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
   }
 
   /// Updates `state`, depending on passed [Month] or [Category]
-  void updateState({Month? newMonth, Category? newCategory}) {
+  void updateState({
+    required String locale,
+    Month? newMonth,
+    Category? newCategory,
+  }) {
     final all = hive.getTransactions();
 
     /// Month filter
@@ -116,14 +122,20 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
 
     /// Update state
     value = (
-      datesAndTransactions: getGroupedTransactionsByDate(filtered),
+      datesAndTransactions: getGroupedTransactionsByDate(
+        filtered,
+        locale: locale,
+      ),
       activeMonth: targetMonth,
       activeCategory: targetCategory,
     );
   }
 
   /// Triggered when the user deletes transaction
-  Future<void> deleteTransaction({required Transaction transaction}) async {
+  Future<void> deleteTransaction({
+    required Transaction transaction,
+    required String locale,
+  }) async {
     await hive.deleteTransaction(
       transaction: transaction,
     );
@@ -134,6 +146,8 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
       ),
     );
 
-    updateState();
+    updateState(
+      locale: locale,
+    );
   }
 }

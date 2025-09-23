@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -61,7 +62,7 @@ class HomeCategories extends StatelessWidget {
             color: context.colors.buttonBackground,
             highlightColor: context.colors.listTileBackground,
             icon: PhosphorIcons.plus(),
-            text: 'Add',
+            text: 'homeAddCategory'.tr(),
             hasBorder: false,
           );
         },

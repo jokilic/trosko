@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
-import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../constants/durations.dart';
@@ -155,7 +155,10 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                             sizeCurve: Curves.easeIn,
                             crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                             firstChild: Text(
-                              DateFormat('HH:mm', 'hr').format(
+                              DateFormat(
+                                'HH:mm',
+                                context.locale.countryCode,
+                              ).format(
                                 widget.transaction.createdAt,
                               ),
                               style: context.textStyles.homeTransactionTime,
@@ -163,7 +166,10 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                               overflow: TextOverflow.ellipsis,
                             ),
                             secondChild: Text(
-                              DateFormat('HH:mm', 'hr').format(
+                              DateFormat(
+                                'HH:mm',
+                                context.locale.countryCode,
+                              ).format(
                                 widget.transaction.createdAt,
                               ),
                               style: context.textStyles.homeTransactionTime,
@@ -209,10 +215,11 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                           TextSpan(
                             text: formatCentsToCurrency(
                               widget.transaction.amountCents,
+                              locale: context.locale.languageCode,
                             ),
                             children: [
                               TextSpan(
-                                text: '€',
+                                text: 'homeCurrency'.tr(),
                                 style: context.textStyles.homeTransactionEuro,
                               ),
                             ],

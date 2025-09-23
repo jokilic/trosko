@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -23,12 +24,16 @@ Future<void> main() async {
     [DeviceOrientation.portraitUp],
   );
 
+  /// Initialize [EasyLocalization]
+  await EasyLocalization.ensureInitialized();
+
   /// Initialize [Firebase]
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   /// Initialize dates
+  await initializeDateFormatting('en');
   await initializeDateFormatting('hr');
 
   /// Initialize services
@@ -48,7 +53,7 @@ Future<void> main() async {
   );
 }
 
-class TroskoApp extends WatchingWidget {
+class TroskoApp extends StatelessWidget {
   final bool isLoggedIn;
 
   const TroskoApp({
@@ -56,7 +61,32 @@ class TroskoApp extends WatchingWidget {
   });
 
   @override
+  Widget build(BuildContext context) => EasyLocalization(
+    useOnlyLangCode: true,
+    supportedLocales: const [
+      Locale('en'),
+      Locale('hr'),
+    ],
+    fallbackLocale: const Locale('hr'),
+    path: 'assets/translations',
+    child: TroskoWidget(
+      isLoggedIn: isLoggedIn,
+    ),
+  );
+}
+
+class TroskoWidget extends WatchingWidget {
+  final bool isLoggedIn;
+
+  const TroskoWidget({
+    required this.isLoggedIn,
+  });
+
+  @override
   Widget build(BuildContext context) => MaterialApp(
+    localizationsDelegates: context.localizationDelegates,
+    supportedLocales: context.supportedLocales,
+    locale: context.locale,
     debugShowCheckedModeBanner: false,
     home: isLoggedIn
         ? const HomeScreen(
@@ -65,7 +95,7 @@ class TroskoApp extends WatchingWidget {
         : const LoginScreen(
             key: ValueKey('login'),
           ),
-    onGenerateTitle: (context) => 'Troško',
+    onGenerateTitle: (_) => 'appName'.tr(),
     theme: TroskoTheme.light,
     darkTheme: TroskoTheme.dark,
     themeMode: watchIt<ThemeService>().value,

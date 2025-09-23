@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/month/month.dart';
@@ -40,7 +41,7 @@ class HomeMonthChips extends StatelessWidget {
                     minWidth: 40,
                   ),
                   child: Text(
-                    'All',
+                    'monthAll'.tr(),
                     style: context.textStyles.homeMonthChip,
                     textAlign: TextAlign.center,
                   ),
@@ -49,7 +50,7 @@ class HomeMonthChips extends StatelessWidget {
                 onSelected: (_) => onChipPressed(
                   Month(
                     date: DateTime.fromMillisecondsSinceEpoch(0),
-                    label: 'All',
+                    label: 'monthAll'.tr(),
                   ),
                 ),
               ),

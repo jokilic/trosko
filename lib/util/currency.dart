@@ -1,8 +1,8 @@
 import 'package:intl/intl.dart';
 
-String formatCentsToCurrency(int cents) {
+String formatCentsToCurrency(int cents, {required String locale}) {
   final format = NumberFormat.currency(
-    locale: 'hr_HR',
+    locale: locale,
     symbol: '',
   );
 
