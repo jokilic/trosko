@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart' hide Transaction;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 import '../models/category/category.dart';
 import '../models/transaction/transaction.dart';
 import 'logger_service.dart';
 
-class FirebaseService extends ValueNotifier<({String? username, List<Transaction> transactions, List<Category> categories})> {
+class FirebaseService {
   ///
   /// CONSTRUCTOR
   ///
@@ -19,38 +18,11 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
     required this.logger,
     required this.auth,
     required this.firestore,
-  }) : super((username: '', transactions: [], categories: []));
-
-  ///
-  /// INIT
-  ///
-
-  Future<void> init() async {
-    await updateState();
-  }
+  });
 
   ///
   /// METHODS
   ///
-
-  /// Updates `state` from [Firebase]
-  Future<void> updateState() async {
-    final user = auth.currentUser;
-
-    if (user == null) {
-      return;
-    }
-
-    final username = await getUsername();
-    final transactions = await getTransactions() ?? [];
-    final categories = await getCategories() ?? [];
-
-    value = (
-      username: username,
-      transactions: transactions,
-      categories: categories,
-    );
-  }
 
   /// Logs user into [Firebase]
   Future<User?> loginUser({
@@ -222,7 +194,7 @@ class FirebaseService extends ValueNotifier<({String? username, List<Transaction
 
       Query<Map<String, dynamic>> query = firestore.collection('users').doc(user.uid).collection('categories');
 
-      query = query.orderBy('createdAt', descending: true);
+      query = query.orderBy('createdAt', descending: false);
 
       final snapshot = await query.get();
 

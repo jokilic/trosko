@@ -5,6 +5,7 @@ import 'models/transaction/transaction.dart';
 import 'screens/category/category_screen.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/login/login_screen.dart';
+import 'screens/settings/settings_screen.dart';
 import 'screens/transaction/transaction_screen.dart';
 import 'util/navigation.dart';
 
@@ -20,6 +21,14 @@ void openLogin(BuildContext context) => removeAllAndPushScreen(
 void openHome(BuildContext context) => removeAllAndPushScreen(
   const HomeScreen(
     key: ValueKey('home'),
+  ),
+  context: context,
+);
+
+/// Opens [SettingsScreen]
+void openSettings(BuildContext context) => pushScreen(
+  const SettingsScreen(
+    key: ValueKey('settings'),
   ),
   context: context,
 );

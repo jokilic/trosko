@@ -65,15 +65,11 @@ void initializeServices() {
       dependsOn: [LoggerService],
     )
     ..registerSingletonAsync(
-      () async {
-        final firebase = FirebaseService(
-          logger: getIt.get<LoggerService>(),
-          auth: FirebaseAuth.instance,
-          firestore: FirebaseFirestore.instance,
-        );
-        await firebase.init();
-        return firebase;
-      },
+      () async => FirebaseService(
+        logger: getIt.get<LoggerService>(),
+        auth: FirebaseAuth.instance,
+        firestore: FirebaseFirestore.instance,
+      ),
       dependsOn: [LoggerService],
     );
 }

@@ -38,10 +38,11 @@ Category can also be edited or deleted if necessary.
 - [ ]  Svaki mjesec neka ima statistiku poput grafa i količine potrošenog za svaku kategoriju
 - [ ]  Screenshoti za storeove
 - [ ]  Staviti na storeove
+- [ ]  Pogledati kako radi na drugim platformama (Web)
 - [ ]  Dodaj custom boju u Category
 - [ ]  Settings
     - [ ] Tema
     - [ ] Jezik
-    - [ ] Promijeni ime
+    - [ ] Refetch from Firebase
     - [ ] Logout
     - [ ] Ikona i verzija aplikacije

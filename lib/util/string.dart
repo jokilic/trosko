@@ -8,8 +8,8 @@ String capitalize(String input) {
 }
 
 String getGreeting(DateTime dateTime) => switch (dateTime.hour) {
-  >= 5 && < 12 => 'greetingMorning'.tr(),
-  >= 12 && < 17 => 'greetingAfternoon'.tr(),
-  >= 17 && < 22 => 'greetingEvening'.tr(),
+  >= 6 && < 12 => 'greetingMorning'.tr(),
+  >= 12 && < 19 => 'greetingAfternoon'.tr(),
+  >= 19 && <= 23 => 'greetingEvening'.tr(),
   _ => 'greetingNight'.tr(),
 };
