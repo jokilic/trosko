@@ -1,12 +1,24 @@
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../constants/icons.dart';
+import '../constants/icons_bold.dart';
+import '../constants/icons_regular.dart';
 
-MapEntry<String, PhosphorIconData>? getIconFromName(String? iconName) => icons.entries.where((element) => element.key == iconName?.toLowerCase()).toList().firstOrNull;
+///
+/// REGULAR ICONS
+///
 
-List<MapEntry<String, PhosphorIconData>>? getIconsFromName(String? iconName) {
+MapEntry<String, PhosphorIconData>? getRegularIconFromName(String? iconName) =>
+    iconsRegular.entries.where((element) => element.key == iconName?.toLowerCase()).toList().firstOrNull;
+
+List<MapEntry<String, PhosphorIconData>>? getRegularIconsFromName(String? iconName) {
   if (iconName?.isNotEmpty ?? false) {
-    return icons.entries.where((element) => element.key.contains(iconName!.toLowerCase())).toList();
+    return iconsRegular.entries.where((element) => element.key.contains(iconName!.toLowerCase())).toList();
   }
-  return icons.entries.toList();
+  return iconsRegular.entries.toList();
 }
+
+///
+/// BOLD ICONS
+///
+
+MapEntry<String, PhosphorIconData>? getBoldIconFromName(String? iconName) => iconsBold.entries.where((element) => element.key == iconName?.toLowerCase()).toList().firstOrNull;

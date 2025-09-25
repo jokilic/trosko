@@ -27,7 +27,7 @@ class TransactionCategory extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: context.colors.text,
+              color: context.colors.borderColor,
               width: 1.5,
             ),
           ),

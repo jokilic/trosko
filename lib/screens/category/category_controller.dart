@@ -60,10 +60,10 @@ class CategoryController
       categoryName: passedCategory?.name,
       categoryColor: passedCategory?.color,
       nameValid: passedCategory?.name.isNotEmpty ?? false,
-      categoryIcon: getIconFromName(
+      categoryIcon: getRegularIconFromName(
         passedCategory?.iconName,
       ),
-      searchedIcons: getIconsFromName(
+      searchedIcons: getRegularIconsFromName(
         iconTextEditingController.text.trim().toLowerCase(),
       ),
     );
@@ -83,7 +83,7 @@ class CategoryController
     /// Icon search
     iconTextEditingController.addListener(
       () => updateState(
-        searchedIcons: getIconsFromName(
+        searchedIcons: getRegularIconsFromName(
           iconTextEditingController.text.trim(),
         ),
       ),

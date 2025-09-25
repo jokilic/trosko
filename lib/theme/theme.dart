@@ -97,6 +97,7 @@ class TroskoTheme {
     scaffoldBackground: TroskoColors.lightGrey,
     disabledText: TroskoColors.lighterDark,
     disabledBackground: TroskoColors.grey,
+    borderColor: TroskoColors.black,
   );
 
   static final lightTextTheme = getTextThemesExtension(
@@ -196,6 +197,7 @@ class TroskoTheme {
     scaffoldBackground: TroskoColors.dark,
     disabledText: TroskoColors.grey,
     disabledBackground: TroskoColors.lighterDark,
+    borderColor: TroskoColors.lightGrey,
   );
 
   static final darkTextTheme = getTextThemesExtension(

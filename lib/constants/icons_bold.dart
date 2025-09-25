@@ -1,4537 +1,4537 @@
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-final icons = {
+final iconsBold = {
   'acorn': PhosphorIcons.acorn(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'address book': PhosphorIcons.addressBook(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'address book tabs': PhosphorIcons.addressBookTabs(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'air traffic control': PhosphorIcons.airTrafficControl(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'airplane': PhosphorIcons.airplane(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'airplane in flight': PhosphorIcons.airplaneInFlight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'airplane landing': PhosphorIcons.airplaneLanding(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'airplane takeoff': PhosphorIcons.airplaneTakeoff(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'airplane taxiing': PhosphorIcons.airplaneTaxiing(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'airplane tilt': PhosphorIcons.airplaneTilt(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'airplay': PhosphorIcons.airplay(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'alarm': PhosphorIcons.alarm(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'alien': PhosphorIcons.alien(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'align bottom': PhosphorIcons.alignBottom(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'align bottom simple': PhosphorIcons.alignBottomSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'align center horizontal': PhosphorIcons.alignCenterHorizontal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'align center horizontal simple': PhosphorIcons.alignCenterHorizontalSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'align center vertical': PhosphorIcons.alignCenterVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'align center vertical simple': PhosphorIcons.alignCenterVerticalSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'align left': PhosphorIcons.alignLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'align left simple': PhosphorIcons.alignLeftSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'align right': PhosphorIcons.alignRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'align right simple': PhosphorIcons.alignRightSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'align top': PhosphorIcons.alignTop(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'align top simple': PhosphorIcons.alignTopSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'amazon logo': PhosphorIcons.amazonLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'ambulance': PhosphorIcons.ambulance(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'anchor': PhosphorIcons.anchor(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'anchor simple': PhosphorIcons.anchorSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'android logo': PhosphorIcons.androidLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'angle': PhosphorIcons.angle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'angular logo': PhosphorIcons.angularLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'aperture': PhosphorIcons.aperture(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'app store logo': PhosphorIcons.appStoreLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'app window': PhosphorIcons.appWindow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'apple logo': PhosphorIcons.appleLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'apple podcasts logo': PhosphorIcons.applePodcastsLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'approximate equals': PhosphorIcons.approximateEquals(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'archive': PhosphorIcons.archive(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'armchair': PhosphorIcons.armchair(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow arc left': PhosphorIcons.arrowArcLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow arc right': PhosphorIcons.arrowArcRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow bend double up left': PhosphorIcons.arrowBendDoubleUpLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow bend double up right': PhosphorIcons.arrowBendDoubleUpRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow bend down left': PhosphorIcons.arrowBendDownLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow bend down right': PhosphorIcons.arrowBendDownRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow bend left down': PhosphorIcons.arrowBendLeftDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow bend left up': PhosphorIcons.arrowBendLeftUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow bend right down': PhosphorIcons.arrowBendRightDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow bend right up': PhosphorIcons.arrowBendRightUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow bend up left': PhosphorIcons.arrowBendUpLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow bend up right': PhosphorIcons.arrowBendUpRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow circle down': PhosphorIcons.arrowCircleDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow circle down left': PhosphorIcons.arrowCircleDownLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow circle down right': PhosphorIcons.arrowCircleDownRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow circle left': PhosphorIcons.arrowCircleLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow circle right': PhosphorIcons.arrowCircleRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow circle up': PhosphorIcons.arrowCircleUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow circle up left': PhosphorIcons.arrowCircleUpLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow circle up right': PhosphorIcons.arrowCircleUpRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow clockwise': PhosphorIcons.arrowClockwise(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow counter clockwise': PhosphorIcons.arrowCounterClockwise(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow down': PhosphorIcons.arrowDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow down left': PhosphorIcons.arrowDownLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow down right': PhosphorIcons.arrowDownRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow elbow down left': PhosphorIcons.arrowElbowDownLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow elbow down right': PhosphorIcons.arrowElbowDownRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow elbow left': PhosphorIcons.arrowElbowLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow elbow left down': PhosphorIcons.arrowElbowLeftDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow elbow left up': PhosphorIcons.arrowElbowLeftUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow elbow right': PhosphorIcons.arrowElbowRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow elbow right down': PhosphorIcons.arrowElbowRightDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow elbow right up': PhosphorIcons.arrowElbowRightUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow elbow up left': PhosphorIcons.arrowElbowUpLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow elbow up right': PhosphorIcons.arrowElbowUpRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow fat down': PhosphorIcons.arrowFatDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow fat left': PhosphorIcons.arrowFatLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow fat line down': PhosphorIcons.arrowFatLineDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow fat line left': PhosphorIcons.arrowFatLineLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow fat line right': PhosphorIcons.arrowFatLineRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow fat line up': PhosphorIcons.arrowFatLineUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow fat lines down': PhosphorIcons.arrowFatLinesDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow fat lines left': PhosphorIcons.arrowFatLinesLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow fat lines right': PhosphorIcons.arrowFatLinesRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow fat lines up': PhosphorIcons.arrowFatLinesUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow fat right': PhosphorIcons.arrowFatRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow fat up': PhosphorIcons.arrowFatUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow left': PhosphorIcons.arrowLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow line down': PhosphorIcons.arrowLineDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow line down left': PhosphorIcons.arrowLineDownLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow line down right': PhosphorIcons.arrowLineDownRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow line left': PhosphorIcons.arrowLineLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow line right': PhosphorIcons.arrowLineRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow line up': PhosphorIcons.arrowLineUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow line up left': PhosphorIcons.arrowLineUpLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow line up right': PhosphorIcons.arrowLineUpRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow right': PhosphorIcons.arrowRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow square down': PhosphorIcons.arrowSquareDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow square down left': PhosphorIcons.arrowSquareDownLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow square down right': PhosphorIcons.arrowSquareDownRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow square in': PhosphorIcons.arrowSquareIn(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow square left': PhosphorIcons.arrowSquareLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow square out': PhosphorIcons.arrowSquareOut(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow square right': PhosphorIcons.arrowSquareRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow square up': PhosphorIcons.arrowSquareUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow square up left': PhosphorIcons.arrowSquareUpLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow square up right': PhosphorIcons.arrowSquareUpRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow u down left': PhosphorIcons.arrowUDownLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow u down right': PhosphorIcons.arrowUDownRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow u left down': PhosphorIcons.arrowULeftDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow u left up': PhosphorIcons.arrowULeftUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow u right down': PhosphorIcons.arrowURightDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow u right up': PhosphorIcons.arrowURightUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow u up left': PhosphorIcons.arrowUUpLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow u up right': PhosphorIcons.arrowUUpRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow up': PhosphorIcons.arrowUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow up left': PhosphorIcons.arrowUpLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrow up right': PhosphorIcons.arrowUpRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows clockwise': PhosphorIcons.arrowsClockwise(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows counter clockwise': PhosphorIcons.arrowsCounterClockwise(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows down up': PhosphorIcons.arrowsDownUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows horizontal': PhosphorIcons.arrowsHorizontal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows in': PhosphorIcons.arrowsIn(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows in cardinal': PhosphorIcons.arrowsInCardinal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows in line horizontal': PhosphorIcons.arrowsInLineHorizontal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows in line vertical': PhosphorIcons.arrowsInLineVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows in simple': PhosphorIcons.arrowsInSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows left right': PhosphorIcons.arrowsLeftRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows merge': PhosphorIcons.arrowsMerge(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows out': PhosphorIcons.arrowsOut(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows out cardinal': PhosphorIcons.arrowsOutCardinal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows out line horizontal': PhosphorIcons.arrowsOutLineHorizontal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows out line vertical': PhosphorIcons.arrowsOutLineVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows out simple': PhosphorIcons.arrowsOutSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows split': PhosphorIcons.arrowsSplit(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'arrows vertical': PhosphorIcons.arrowsVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'article': PhosphorIcons.article(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'article medium': PhosphorIcons.articleMedium(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'article ny times': PhosphorIcons.articleNyTimes(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'asclepius': PhosphorIcons.asclepius(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'asterisk': PhosphorIcons.asterisk(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'asterisk simple': PhosphorIcons.asteriskSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'at': PhosphorIcons.at(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'atom': PhosphorIcons.atom(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'avocado': PhosphorIcons.avocado(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'axe': PhosphorIcons.axe(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'baby': PhosphorIcons.baby(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'baby carriage': PhosphorIcons.babyCarriage(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'backpack': PhosphorIcons.backpack(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'backspace': PhosphorIcons.backspace(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bag': PhosphorIcons.bag(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bag simple': PhosphorIcons.bagSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'balloon': PhosphorIcons.balloon(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bandaids': PhosphorIcons.bandaids(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bank': PhosphorIcons.bank(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'barbell': PhosphorIcons.barbell(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'barcode': PhosphorIcons.barcode(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'barn': PhosphorIcons.barn(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'barricade': PhosphorIcons.barricade(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'baseball': PhosphorIcons.baseball(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'baseball cap': PhosphorIcons.baseballCap(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'baseball helmet': PhosphorIcons.baseballHelmet(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'basket': PhosphorIcons.basket(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'basketball': PhosphorIcons.basketball(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bathtub': PhosphorIcons.bathtub(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery charging': PhosphorIcons.batteryCharging(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery charging vertical': PhosphorIcons.batteryChargingVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery empty': PhosphorIcons.batteryEmpty(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery full': PhosphorIcons.batteryFull(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery high': PhosphorIcons.batteryHigh(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery low': PhosphorIcons.batteryLow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery medium': PhosphorIcons.batteryMedium(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery plus': PhosphorIcons.batteryPlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery plus vertical': PhosphorIcons.batteryPlusVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery vertical empty': PhosphorIcons.batteryVerticalEmpty(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery vertical full': PhosphorIcons.batteryVerticalFull(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery vertical high': PhosphorIcons.batteryVerticalHigh(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery vertical low': PhosphorIcons.batteryVerticalLow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery vertical medium': PhosphorIcons.batteryVerticalMedium(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery warning': PhosphorIcons.batteryWarning(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'battery warning vertical': PhosphorIcons.batteryWarningVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'beach ball': PhosphorIcons.beachBall(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'beanie': PhosphorIcons.beanie(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bed': PhosphorIcons.bed(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'beer bottle': PhosphorIcons.beerBottle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'beer stein': PhosphorIcons.beerStein(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'behance logo': PhosphorIcons.behanceLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bell': PhosphorIcons.bell(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bell ringing': PhosphorIcons.bellRinging(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bell simple': PhosphorIcons.bellSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bell simple ringing': PhosphorIcons.bellSimpleRinging(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bell simple slash': PhosphorIcons.bellSimpleSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bell simple z': PhosphorIcons.bellSimpleZ(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bell slash': PhosphorIcons.bellSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bell z': PhosphorIcons.bellZ(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'belt': PhosphorIcons.belt(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bezier curve': PhosphorIcons.bezierCurve(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bicycle': PhosphorIcons.bicycle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'binary': PhosphorIcons.binary(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'binoculars': PhosphorIcons.binoculars(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'biohazard': PhosphorIcons.biohazard(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bird': PhosphorIcons.bird(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'blueprint': PhosphorIcons.blueprint(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bluetooth': PhosphorIcons.bluetooth(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bluetooth connected': PhosphorIcons.bluetoothConnected(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bluetooth slash': PhosphorIcons.bluetoothSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bluetooth x': PhosphorIcons.bluetoothX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'boat': PhosphorIcons.boat(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bomb': PhosphorIcons.bomb(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bone': PhosphorIcons.bone(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'book': PhosphorIcons.book(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'book bookmark': PhosphorIcons.bookBookmark(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'book open': PhosphorIcons.bookOpen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'book open text': PhosphorIcons.bookOpenText(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'book open user': PhosphorIcons.bookOpenUser(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bookmark': PhosphorIcons.bookmark(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bookmark simple': PhosphorIcons.bookmarkSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bookmarks': PhosphorIcons.bookmarks(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bookmarks simple': PhosphorIcons.bookmarksSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'books': PhosphorIcons.books(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'boot': PhosphorIcons.boot(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'boules': PhosphorIcons.boules(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bounding box': PhosphorIcons.boundingBox(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bowl food': PhosphorIcons.bowlFood(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bowl steam': PhosphorIcons.bowlSteam(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bowling ball': PhosphorIcons.bowlingBall(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'box arrow down': PhosphorIcons.boxArrowDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'box arrow up': PhosphorIcons.boxArrowUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'boxing glove': PhosphorIcons.boxingGlove(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'brackets angle': PhosphorIcons.bracketsAngle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'brackets curly': PhosphorIcons.bracketsCurly(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'brackets round': PhosphorIcons.bracketsRound(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'brackets square': PhosphorIcons.bracketsSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'brain': PhosphorIcons.brain(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'brandy': PhosphorIcons.brandy(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bread': PhosphorIcons.bread(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bridge': PhosphorIcons.bridge(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'briefcase': PhosphorIcons.briefcase(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'briefcase metal': PhosphorIcons.briefcaseMetal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'broadcast': PhosphorIcons.broadcast(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'broom': PhosphorIcons.broom(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'browser': PhosphorIcons.browser(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'browsers': PhosphorIcons.browsers(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bug': PhosphorIcons.bug(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bug beetle': PhosphorIcons.bugBeetle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bug droid': PhosphorIcons.bugDroid(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'building': PhosphorIcons.building(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'building apartment': PhosphorIcons.buildingApartment(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'building office': PhosphorIcons.buildingOffice(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'buildings': PhosphorIcons.buildings(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bulldozer': PhosphorIcons.bulldozer(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'bus': PhosphorIcons.bus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'butterfly': PhosphorIcons.butterfly(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cable car': PhosphorIcons.cableCar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cactus': PhosphorIcons.cactus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cake': PhosphorIcons.cake(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'calculator': PhosphorIcons.calculator(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'calendar': PhosphorIcons.calendar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'calendar blank': PhosphorIcons.calendarBlank(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'calendar check': PhosphorIcons.calendarCheck(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'calendar dot': PhosphorIcons.calendarDot(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'calendar dots': PhosphorIcons.calendarDots(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'calendar heart': PhosphorIcons.calendarHeart(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'calendar minus': PhosphorIcons.calendarMinus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'calendar plus': PhosphorIcons.calendarPlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'calendar slash': PhosphorIcons.calendarSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'calendar star': PhosphorIcons.calendarStar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'calendar x': PhosphorIcons.calendarX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'call bell': PhosphorIcons.callBell(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'camera': PhosphorIcons.camera(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'camera plus': PhosphorIcons.cameraPlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'camera rotate': PhosphorIcons.cameraRotate(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'camera slash': PhosphorIcons.cameraSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'campfire': PhosphorIcons.campfire(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'car': PhosphorIcons.car(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'car battery': PhosphorIcons.carBattery(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'car profile': PhosphorIcons.carProfile(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'car simple': PhosphorIcons.carSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cardholder': PhosphorIcons.cardholder(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cards': PhosphorIcons.cards(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cards three': PhosphorIcons.cardsThree(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret circle double down': PhosphorIcons.caretCircleDoubleDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret circle double left': PhosphorIcons.caretCircleDoubleLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret circle double right': PhosphorIcons.caretCircleDoubleRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret circle double up': PhosphorIcons.caretCircleDoubleUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret circle down': PhosphorIcons.caretCircleDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret circle left': PhosphorIcons.caretCircleLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret circle right': PhosphorIcons.caretCircleRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret circle up': PhosphorIcons.caretCircleUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret circle up down': PhosphorIcons.caretCircleUpDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret double down': PhosphorIcons.caretDoubleDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret double left': PhosphorIcons.caretDoubleLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret double right': PhosphorIcons.caretDoubleRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret double up': PhosphorIcons.caretDoubleUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret down': PhosphorIcons.caretDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret left': PhosphorIcons.caretLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret line down': PhosphorIcons.caretLineDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret line left': PhosphorIcons.caretLineLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret line right': PhosphorIcons.caretLineRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret line up': PhosphorIcons.caretLineUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret right': PhosphorIcons.caretRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret up': PhosphorIcons.caretUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'caret up down': PhosphorIcons.caretUpDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'carrot': PhosphorIcons.carrot(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cash register': PhosphorIcons.cashRegister(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cassette tape': PhosphorIcons.cassetteTape(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'castle turret': PhosphorIcons.castleTurret(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cat': PhosphorIcons.cat(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cell signal full': PhosphorIcons.cellSignalFull(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cell signal high': PhosphorIcons.cellSignalHigh(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cell signal low': PhosphorIcons.cellSignalLow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cell signal medium': PhosphorIcons.cellSignalMedium(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cell signal none': PhosphorIcons.cellSignalNone(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cell signal slash': PhosphorIcons.cellSignalSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cell signal x': PhosphorIcons.cellSignalX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cell tower': PhosphorIcons.cellTower(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'certificate': PhosphorIcons.certificate(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chair': PhosphorIcons.chair(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chalkboard': PhosphorIcons.chalkboard(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chalkboard simple': PhosphorIcons.chalkboardSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chalkboard teacher': PhosphorIcons.chalkboardTeacher(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'champagne': PhosphorIcons.champagne(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'charging station': PhosphorIcons.chargingStation(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chart bar': PhosphorIcons.chartBar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chart bar horizontal': PhosphorIcons.chartBarHorizontal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chart donut': PhosphorIcons.chartDonut(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chart line': PhosphorIcons.chartLine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chart line down': PhosphorIcons.chartLineDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chart line up': PhosphorIcons.chartLineUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chart pie': PhosphorIcons.chartPie(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chart pie slice': PhosphorIcons.chartPieSlice(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chart polar': PhosphorIcons.chartPolar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chart scatter': PhosphorIcons.chartScatter(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat': PhosphorIcons.chat(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat centered': PhosphorIcons.chatCentered(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat centered dots': PhosphorIcons.chatCenteredDots(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat centered slash': PhosphorIcons.chatCenteredSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat centered text': PhosphorIcons.chatCenteredText(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat circle': PhosphorIcons.chatCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat circle dots': PhosphorIcons.chatCircleDots(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat circle slash': PhosphorIcons.chatCircleSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat circle text': PhosphorIcons.chatCircleText(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat dots': PhosphorIcons.chatDots(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat slash': PhosphorIcons.chatSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat teardrop': PhosphorIcons.chatTeardrop(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat teardrop dots': PhosphorIcons.chatTeardropDots(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat teardrop slash': PhosphorIcons.chatTeardropSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat teardrop text': PhosphorIcons.chatTeardropText(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chat text': PhosphorIcons.chatText(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chats': PhosphorIcons.chats(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chats circle': PhosphorIcons.chatsCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chats teardrop': PhosphorIcons.chatsTeardrop(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'check': PhosphorIcons.check(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'check circle': PhosphorIcons.checkCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'check fat': PhosphorIcons.checkFat(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'check square': PhosphorIcons.checkSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'check square offset': PhosphorIcons.checkSquareOffset(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'checkerboard': PhosphorIcons.checkerboard(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'checks': PhosphorIcons.checks(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cheers': PhosphorIcons.cheers(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cheese': PhosphorIcons.cheese(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'chef hat': PhosphorIcons.chefHat(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cherries': PhosphorIcons.cherries(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'church': PhosphorIcons.church(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cigarette': PhosphorIcons.cigarette(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cigarette slash': PhosphorIcons.cigaretteSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'circle': PhosphorIcons.circle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'circle dashed': PhosphorIcons.circleDashed(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'circle half': PhosphorIcons.circleHalf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'circle half tilt': PhosphorIcons.circleHalfTilt(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'circle notch': PhosphorIcons.circleNotch(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'circles four': PhosphorIcons.circlesFour(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'circles three': PhosphorIcons.circlesThree(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'circles three plus': PhosphorIcons.circlesThreePlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'circuitry': PhosphorIcons.circuitry(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'city': PhosphorIcons.city(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'clipboard': PhosphorIcons.clipboard(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'clipboard text': PhosphorIcons.clipboardText(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'clock': PhosphorIcons.clock(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'clock afternoon': PhosphorIcons.clockAfternoon(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'clock clockwise': PhosphorIcons.clockClockwise(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'clock countdown': PhosphorIcons.clockCountdown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'clock counter clockwise': PhosphorIcons.clockCounterClockwise(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'clock user': PhosphorIcons.clockUser(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'closed captioning': PhosphorIcons.closedCaptioning(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud': PhosphorIcons.cloud(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud arrow down': PhosphorIcons.cloudArrowDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud arrow up': PhosphorIcons.cloudArrowUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud check': PhosphorIcons.cloudCheck(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud fog': PhosphorIcons.cloudFog(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud lightning': PhosphorIcons.cloudLightning(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud moon': PhosphorIcons.cloudMoon(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud rain': PhosphorIcons.cloudRain(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud slash': PhosphorIcons.cloudSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud snow': PhosphorIcons.cloudSnow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud sun': PhosphorIcons.cloudSun(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud warning': PhosphorIcons.cloudWarning(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cloud x': PhosphorIcons.cloudX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'clover': PhosphorIcons.clover(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'club': PhosphorIcons.club(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'coat hanger': PhosphorIcons.coatHanger(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'coda logo': PhosphorIcons.codaLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'code': PhosphorIcons.code(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'code block': PhosphorIcons.codeBlock(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'code simple': PhosphorIcons.codeSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'codepen logo': PhosphorIcons.codepenLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'codesandbox logo': PhosphorIcons.codesandboxLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'coffee': PhosphorIcons.coffee(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'coffee bean': PhosphorIcons.coffeeBean(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'coin': PhosphorIcons.coin(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'coin vertical': PhosphorIcons.coinVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'coins': PhosphorIcons.coins(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'columns': PhosphorIcons.columns(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'columns plus left': PhosphorIcons.columnsPlusLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'columns plus right': PhosphorIcons.columnsPlusRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'command': PhosphorIcons.command(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'compass': PhosphorIcons.compass(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'compass rose': PhosphorIcons.compassRose(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'compass tool': PhosphorIcons.compassTool(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'computer tower': PhosphorIcons.computerTower(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'confetti': PhosphorIcons.confetti(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'contactless payment': PhosphorIcons.contactlessPayment(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'control': PhosphorIcons.control(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cookie': PhosphorIcons.cookie(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cooking pot': PhosphorIcons.cookingPot(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'copy': PhosphorIcons.copy(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'copy simple': PhosphorIcons.copySimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'copyleft': PhosphorIcons.copyleft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'copyright': PhosphorIcons.copyright(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'corners in': PhosphorIcons.cornersIn(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'corners out': PhosphorIcons.cornersOut(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'couch': PhosphorIcons.couch(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'court basketball': PhosphorIcons.courtBasketball(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cow': PhosphorIcons.cow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cowboy hat': PhosphorIcons.cowboyHat(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cpu': PhosphorIcons.cpu(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'crane': PhosphorIcons.crane(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'crane tower': PhosphorIcons.craneTower(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'credit card': PhosphorIcons.creditCard(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cricket': PhosphorIcons.cricket(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'crop': PhosphorIcons.crop(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cross': PhosphorIcons.cross(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'crosshair': PhosphorIcons.crosshair(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'crosshair simple': PhosphorIcons.crosshairSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'crown': PhosphorIcons.crown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'crown cross': PhosphorIcons.crownCross(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'crown simple': PhosphorIcons.crownSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cube': PhosphorIcons.cube(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cube focus': PhosphorIcons.cubeFocus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cube transparent': PhosphorIcons.cubeTransparent(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency btc': PhosphorIcons.currencyBtc(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency circle dollar': PhosphorIcons.currencyCircleDollar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency cny': PhosphorIcons.currencyCny(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency dollar': PhosphorIcons.currencyDollar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency dollar simple': PhosphorIcons.currencyDollarSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency eth': PhosphorIcons.currencyEth(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency eur': PhosphorIcons.currencyEur(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency gbp': PhosphorIcons.currencyGbp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency inr': PhosphorIcons.currencyInr(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency jpy': PhosphorIcons.currencyJpy(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency krw': PhosphorIcons.currencyKrw(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency kzt': PhosphorIcons.currencyKzt(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency ngn': PhosphorIcons.currencyNgn(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'currency rub': PhosphorIcons.currencyRub(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cursor': PhosphorIcons.cursor(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cursor click': PhosphorIcons.cursorClick(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cursor text': PhosphorIcons.cursorText(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'cylinder': PhosphorIcons.cylinder(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'database': PhosphorIcons.database(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'desk': PhosphorIcons.desk(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'desktop': PhosphorIcons.desktop(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'desktop tower': PhosphorIcons.desktopTower(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'detective': PhosphorIcons.detective(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dev to logo': PhosphorIcons.devToLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'device mobile': PhosphorIcons.deviceMobile(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'device mobile camera': PhosphorIcons.deviceMobileCamera(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'device mobile slash': PhosphorIcons.deviceMobileSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'device mobile speaker': PhosphorIcons.deviceMobileSpeaker(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'device rotate': PhosphorIcons.deviceRotate(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'device tablet': PhosphorIcons.deviceTablet(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'device tablet camera': PhosphorIcons.deviceTabletCamera(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'device tablet speaker': PhosphorIcons.deviceTabletSpeaker(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'devices': PhosphorIcons.devices(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'diamond': PhosphorIcons.diamond(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'diamonds four': PhosphorIcons.diamondsFour(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dice five': PhosphorIcons.diceFive(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dice four': PhosphorIcons.diceFour(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dice one': PhosphorIcons.diceOne(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dice six': PhosphorIcons.diceSix(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dice three': PhosphorIcons.diceThree(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dice two': PhosphorIcons.diceTwo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'disc': PhosphorIcons.disc(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'disco ball': PhosphorIcons.discoBall(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'discord logo': PhosphorIcons.discordLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'divide': PhosphorIcons.divide(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dna': PhosphorIcons.dna(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dog': PhosphorIcons.dog(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'door': PhosphorIcons.door(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'door open': PhosphorIcons.doorOpen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dot': PhosphorIcons.dot(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dot outline': PhosphorIcons.dotOutline(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dots nine': PhosphorIcons.dotsNine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dots six': PhosphorIcons.dotsSix(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dots six vertical': PhosphorIcons.dotsSixVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dots three': PhosphorIcons.dotsThree(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dots three circle': PhosphorIcons.dotsThreeCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dots three circle vertical': PhosphorIcons.dotsThreeCircleVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dots three outline': PhosphorIcons.dotsThreeOutline(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dots three outline vertical': PhosphorIcons.dotsThreeOutlineVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dots three vertical': PhosphorIcons.dotsThreeVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'download': PhosphorIcons.download(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'download simple': PhosphorIcons.downloadSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dress': PhosphorIcons.dress(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dresser': PhosphorIcons.dresser(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dribbble logo': PhosphorIcons.dribbbleLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'drone': PhosphorIcons.drone(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'drop': PhosphorIcons.drop(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'drop half': PhosphorIcons.dropHalf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'drop half bottom': PhosphorIcons.dropHalfBottom(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'drop simple': PhosphorIcons.dropSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'drop slash': PhosphorIcons.dropSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'dropbox logo': PhosphorIcons.dropboxLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'ear': PhosphorIcons.ear(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'ear slash': PhosphorIcons.earSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'egg': PhosphorIcons.egg(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'egg crack': PhosphorIcons.eggCrack(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'eject': PhosphorIcons.eject(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'eject simple': PhosphorIcons.ejectSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'elevator': PhosphorIcons.elevator(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'empty': PhosphorIcons.empty(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'engine': PhosphorIcons.engine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'envelope': PhosphorIcons.envelope(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'envelope open': PhosphorIcons.envelopeOpen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'envelope simple': PhosphorIcons.envelopeSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'envelope simple open': PhosphorIcons.envelopeSimpleOpen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'equalizer': PhosphorIcons.equalizer(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'equals': PhosphorIcons.equals(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'eraser': PhosphorIcons.eraser(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'escalator down': PhosphorIcons.escalatorDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'escalator up': PhosphorIcons.escalatorUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'exam': PhosphorIcons.exam(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'exclamation mark': PhosphorIcons.exclamationMark(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'exclude': PhosphorIcons.exclude(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'exclude square': PhosphorIcons.excludeSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'export': PhosphorIcons.export(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'eye': PhosphorIcons.eye(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'eye closed': PhosphorIcons.eyeClosed(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'eye slash': PhosphorIcons.eyeSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'eyedropper': PhosphorIcons.eyedropper(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'eyedropper sample': PhosphorIcons.eyedropperSample(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'eyeglasses': PhosphorIcons.eyeglasses(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'eyes': PhosphorIcons.eyes(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'face mask': PhosphorIcons.faceMask(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'facebook logo': PhosphorIcons.facebookLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'factory': PhosphorIcons.factory(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'faders': PhosphorIcons.faders(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'faders horizontal': PhosphorIcons.fadersHorizontal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fallout shelter': PhosphorIcons.falloutShelter(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fan': PhosphorIcons.fan(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'farm': PhosphorIcons.farm(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fast forward': PhosphorIcons.fastForward(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fast forward circle': PhosphorIcons.fastForwardCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'feather': PhosphorIcons.feather(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fediverse logo': PhosphorIcons.fediverseLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'figma logo': PhosphorIcons.figmaLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file': PhosphorIcons.file(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file archive': PhosphorIcons.fileArchive(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file arrow down': PhosphorIcons.fileArrowDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file arrow up': PhosphorIcons.fileArrowUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file audio': PhosphorIcons.fileAudio(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file c': PhosphorIcons.fileC(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file c sharp': PhosphorIcons.fileCSharp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file cloud': PhosphorIcons.fileCloud(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file code': PhosphorIcons.fileCode(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file cpp': PhosphorIcons.fileCpp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file css': PhosphorIcons.fileCss(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file csv': PhosphorIcons.fileCsv(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file dashed': PhosphorIcons.fileDashed(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file doc': PhosphorIcons.fileDoc(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file html': PhosphorIcons.fileHtml(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file image': PhosphorIcons.fileImage(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file ini': PhosphorIcons.fileIni(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file jpg': PhosphorIcons.fileJpg(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file js': PhosphorIcons.fileJs(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file jsx': PhosphorIcons.fileJsx(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file lock': PhosphorIcons.fileLock(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file magnifying glass': PhosphorIcons.fileMagnifyingGlass(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file md': PhosphorIcons.fileMd(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file minus': PhosphorIcons.fileMinus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file pdf': PhosphorIcons.filePdf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file plus': PhosphorIcons.filePlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file png': PhosphorIcons.filePng(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file ppt': PhosphorIcons.filePpt(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file py': PhosphorIcons.filePy(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file rs': PhosphorIcons.fileRs(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file sql': PhosphorIcons.fileSql(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file svg': PhosphorIcons.fileSvg(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file text': PhosphorIcons.fileText(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file ts': PhosphorIcons.fileTs(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file tsx': PhosphorIcons.fileTsx(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file txt': PhosphorIcons.fileTxt(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file video': PhosphorIcons.fileVideo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file vue': PhosphorIcons.fileVue(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file x': PhosphorIcons.fileX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file xls': PhosphorIcons.fileXls(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'file zip': PhosphorIcons.fileZip(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'files': PhosphorIcons.files(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'film reel': PhosphorIcons.filmReel(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'film script': PhosphorIcons.filmScript(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'film slate': PhosphorIcons.filmSlate(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'film strip': PhosphorIcons.filmStrip(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fingerprint': PhosphorIcons.fingerprint(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fingerprint simple': PhosphorIcons.fingerprintSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'finn the human': PhosphorIcons.finnTheHuman(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fire': PhosphorIcons.fire(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fire extinguisher': PhosphorIcons.fireExtinguisher(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fire simple': PhosphorIcons.fireSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fire truck': PhosphorIcons.fireTruck(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'first aid': PhosphorIcons.firstAid(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'first aid kit': PhosphorIcons.firstAidKit(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fish': PhosphorIcons.fish(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fish simple': PhosphorIcons.fishSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flag': PhosphorIcons.flag(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flag banner': PhosphorIcons.flagBanner(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flag banner fold': PhosphorIcons.flagBannerFold(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flag checkered': PhosphorIcons.flagCheckered(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flag pennant': PhosphorIcons.flagPennant(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flame': PhosphorIcons.flame(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flashlight': PhosphorIcons.flashlight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flask': PhosphorIcons.flask(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flip horizontal': PhosphorIcons.flipHorizontal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flip vertical': PhosphorIcons.flipVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'floppy disk': PhosphorIcons.floppyDisk(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'floppy disk back': PhosphorIcons.floppyDiskBack(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flow arrow': PhosphorIcons.flowArrow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flower': PhosphorIcons.flower(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flower lotus': PhosphorIcons.flowerLotus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flower tulip': PhosphorIcons.flowerTulip(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'flying saucer': PhosphorIcons.flyingSaucer(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder': PhosphorIcons.folder(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder dashed': PhosphorIcons.folderDashed(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder lock': PhosphorIcons.folderLock(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder minus': PhosphorIcons.folderMinus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder open': PhosphorIcons.folderOpen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder plus': PhosphorIcons.folderPlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder simple': PhosphorIcons.folderSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder simple dashed': PhosphorIcons.folderSimpleDashed(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder simple lock': PhosphorIcons.folderSimpleLock(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder simple minus': PhosphorIcons.folderSimpleMinus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder simple plus': PhosphorIcons.folderSimplePlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder simple star': PhosphorIcons.folderSimpleStar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder simple user': PhosphorIcons.folderSimpleUser(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder star': PhosphorIcons.folderStar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folder user': PhosphorIcons.folderUser(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'folders': PhosphorIcons.folders(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'football': PhosphorIcons.football(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'football helmet': PhosphorIcons.footballHelmet(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'footprints': PhosphorIcons.footprints(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'fork knife': PhosphorIcons.forkKnife(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'four k': PhosphorIcons.fourK(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'frame corners': PhosphorIcons.frameCorners(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'framer logo': PhosphorIcons.framerLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'function': PhosphorIcons.function(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'funnel': PhosphorIcons.funnel(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'funnel simple': PhosphorIcons.funnelSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'funnel simple x': PhosphorIcons.funnelSimpleX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'funnel x': PhosphorIcons.funnelX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'game controller': PhosphorIcons.gameController(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'garage': PhosphorIcons.garage(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gas can': PhosphorIcons.gasCan(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gas pump': PhosphorIcons.gasPump(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gauge': PhosphorIcons.gauge(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gavel': PhosphorIcons.gavel(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gear': PhosphorIcons.gear(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gear fine': PhosphorIcons.gearFine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gear six': PhosphorIcons.gearSix(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gender female': PhosphorIcons.genderFemale(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gender intersex': PhosphorIcons.genderIntersex(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gender male': PhosphorIcons.genderMale(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gender neuter': PhosphorIcons.genderNeuter(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gender nonbinary': PhosphorIcons.genderNonbinary(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gender transgender': PhosphorIcons.genderTransgender(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'ghost': PhosphorIcons.ghost(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gif': PhosphorIcons.gif(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gift': PhosphorIcons.gift(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'git branch': PhosphorIcons.gitBranch(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'git commit': PhosphorIcons.gitCommit(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'git diff': PhosphorIcons.gitDiff(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'git fork': PhosphorIcons.gitFork(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'git merge': PhosphorIcons.gitMerge(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'git pull request': PhosphorIcons.gitPullRequest(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'github logo': PhosphorIcons.githubLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gitlab logo': PhosphorIcons.gitlabLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gitlab logo simple': PhosphorIcons.gitlabLogoSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'globe': PhosphorIcons.globe(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'globe hemisphere east': PhosphorIcons.globeHemisphereEast(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'globe hemisphere west': PhosphorIcons.globeHemisphereWest(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'globe simple': PhosphorIcons.globeSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'globe simple x': PhosphorIcons.globeSimpleX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'globe stand': PhosphorIcons.globeStand(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'globe x': PhosphorIcons.globeX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'goggles': PhosphorIcons.goggles(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'golf': PhosphorIcons.golf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'goodreads logo': PhosphorIcons.goodreadsLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'google cardboard logo': PhosphorIcons.googleCardboardLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'google chrome logo': PhosphorIcons.googleChromeLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'google drive logo': PhosphorIcons.googleDriveLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'google logo': PhosphorIcons.googleLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'google photos logo': PhosphorIcons.googlePhotosLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'google play logo': PhosphorIcons.googlePlayLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'google podcasts logo': PhosphorIcons.googlePodcastsLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gps': PhosphorIcons.gps(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gps fix': PhosphorIcons.gpsFix(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gps slash': PhosphorIcons.gpsSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'gradient': PhosphorIcons.gradient(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'graduation cap': PhosphorIcons.graduationCap(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'grains': PhosphorIcons.grains(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'grains slash': PhosphorIcons.grainsSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'graph': PhosphorIcons.graph(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'graphics card': PhosphorIcons.graphicsCard(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'greater than': PhosphorIcons.greaterThan(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'greater than or equal': PhosphorIcons.greaterThanOrEqual(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'grid four': PhosphorIcons.gridFour(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'grid nine': PhosphorIcons.gridNine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'guitar': PhosphorIcons.guitar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hair dryer': PhosphorIcons.hairDryer(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hamburger': PhosphorIcons.hamburger(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hammer': PhosphorIcons.hammer(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand': PhosphorIcons.hand(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand arrow down': PhosphorIcons.handArrowDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand arrow up': PhosphorIcons.handArrowUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand coins': PhosphorIcons.handCoins(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand deposit': PhosphorIcons.handDeposit(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand eye': PhosphorIcons.handEye(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand fist': PhosphorIcons.handFist(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand grabbing': PhosphorIcons.handGrabbing(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand heart': PhosphorIcons.handHeart(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand palm': PhosphorIcons.handPalm(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand peace': PhosphorIcons.handPeace(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand pointing': PhosphorIcons.handPointing(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand soap': PhosphorIcons.handSoap(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand swipe left': PhosphorIcons.handSwipeLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand swipe right': PhosphorIcons.handSwipeRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand tap': PhosphorIcons.handTap(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand waving': PhosphorIcons.handWaving(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hand withdraw': PhosphorIcons.handWithdraw(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'handbag': PhosphorIcons.handbag(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'handbag simple': PhosphorIcons.handbagSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hands clapping': PhosphorIcons.handsClapping(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hands praying': PhosphorIcons.handsPraying(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'handshake': PhosphorIcons.handshake(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hard drive': PhosphorIcons.hardDrive(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hard drives': PhosphorIcons.hardDrives(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hard hat': PhosphorIcons.hardHat(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hash': PhosphorIcons.hash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hash straight': PhosphorIcons.hashStraight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'head circuit': PhosphorIcons.headCircuit(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'headlights': PhosphorIcons.headlights(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'headphones': PhosphorIcons.headphones(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'headset': PhosphorIcons.headset(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'heart': PhosphorIcons.heart(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'heart break': PhosphorIcons.heartBreak(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'heart half': PhosphorIcons.heartHalf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'heart straight': PhosphorIcons.heartStraight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'heart straight break': PhosphorIcons.heartStraightBreak(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'heartbeat': PhosphorIcons.heartbeat(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hexagon': PhosphorIcons.hexagon(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'high definition': PhosphorIcons.highDefinition(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'high heel': PhosphorIcons.highHeel(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'highlighter': PhosphorIcons.highlighter(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'highlighter circle': PhosphorIcons.highlighterCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hockey': PhosphorIcons.hockey(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hoodie': PhosphorIcons.hoodie(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'horse': PhosphorIcons.horse(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hospital': PhosphorIcons.hospital(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hourglass': PhosphorIcons.hourglass(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hourglass high': PhosphorIcons.hourglassHigh(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hourglass low': PhosphorIcons.hourglassLow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hourglass medium': PhosphorIcons.hourglassMedium(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hourglass simple': PhosphorIcons.hourglassSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hourglass simple high': PhosphorIcons.hourglassSimpleHigh(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hourglass simple low': PhosphorIcons.hourglassSimpleLow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hourglass simple medium': PhosphorIcons.hourglassSimpleMedium(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'house': PhosphorIcons.house(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'house line': PhosphorIcons.houseLine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'house simple': PhosphorIcons.houseSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'hurricane': PhosphorIcons.hurricane(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'ice cream': PhosphorIcons.iceCream(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'identification badge': PhosphorIcons.identificationBadge(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'identification card': PhosphorIcons.identificationCard(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'image': PhosphorIcons.image(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'image broken': PhosphorIcons.imageBroken(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'image square': PhosphorIcons.imageSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'images': PhosphorIcons.images(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'images square': PhosphorIcons.imagesSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'infinity': PhosphorIcons.infinity(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'info': PhosphorIcons.info(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'instagram logo': PhosphorIcons.instagramLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'intersect': PhosphorIcons.intersect(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'intersect square': PhosphorIcons.intersectSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'intersect three': PhosphorIcons.intersectThree(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'intersection': PhosphorIcons.intersection(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'invoice': PhosphorIcons.invoice(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'island': PhosphorIcons.island(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'jar': PhosphorIcons.jar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'jar label': PhosphorIcons.jarLabel(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'jeep': PhosphorIcons.jeep(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'joystick': PhosphorIcons.joystick(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'kanban': PhosphorIcons.kanban(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'key': PhosphorIcons.key(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'key return': PhosphorIcons.keyReturn(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'keyboard': PhosphorIcons.keyboard(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'keyhole': PhosphorIcons.keyhole(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'knife': PhosphorIcons.knife(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'ladder': PhosphorIcons.ladder(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'ladder simple': PhosphorIcons.ladderSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lamp': PhosphorIcons.lamp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lamp pendant': PhosphorIcons.lampPendant(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'laptop': PhosphorIcons.laptop(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lasso': PhosphorIcons.lasso(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lastfm logo': PhosphorIcons.lastfmLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'layout': PhosphorIcons.layout(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'leaf': PhosphorIcons.leaf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lectern': PhosphorIcons.lectern(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lego': PhosphorIcons.lego(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lego smiley': PhosphorIcons.legoSmiley(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'less than': PhosphorIcons.lessThan(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'less than or equal': PhosphorIcons.lessThanOrEqual(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'letter circle h': PhosphorIcons.letterCircleH(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'letter circle p': PhosphorIcons.letterCircleP(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'letter circle v': PhosphorIcons.letterCircleV(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lifebuoy': PhosphorIcons.lifebuoy(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lightbulb': PhosphorIcons.lightbulb(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lightbulb filament': PhosphorIcons.lightbulbFilament(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lighthouse': PhosphorIcons.lighthouse(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lightning': PhosphorIcons.lightning(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lightning a': PhosphorIcons.lightningA(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lightning slash': PhosphorIcons.lightningSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'line segment': PhosphorIcons.lineSegment(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'line segments': PhosphorIcons.lineSegments(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'line vertical': PhosphorIcons.lineVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'link': PhosphorIcons.link(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'link break': PhosphorIcons.linkBreak(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'link simple': PhosphorIcons.linkSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'link simple break': PhosphorIcons.linkSimpleBreak(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'link simple horizontal': PhosphorIcons.linkSimpleHorizontal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'link simple horizontal break': PhosphorIcons.linkSimpleHorizontalBreak(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'linkedin logo': PhosphorIcons.linkedinLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'linktree logo': PhosphorIcons.linktreeLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'linux logo': PhosphorIcons.linuxLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'list': PhosphorIcons.list(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'list bullets': PhosphorIcons.listBullets(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'list checks': PhosphorIcons.listChecks(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'list dashes': PhosphorIcons.listDashes(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'list heart': PhosphorIcons.listHeart(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'list magnifying glass': PhosphorIcons.listMagnifyingGlass(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'list numbers': PhosphorIcons.listNumbers(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'list plus': PhosphorIcons.listPlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'list star': PhosphorIcons.listStar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lock': PhosphorIcons.lock(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lock key': PhosphorIcons.lockKey(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lock key open': PhosphorIcons.lockKeyOpen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lock laminated': PhosphorIcons.lockLaminated(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lock laminated open': PhosphorIcons.lockLaminatedOpen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lock open': PhosphorIcons.lockOpen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lock simple': PhosphorIcons.lockSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lock simple open': PhosphorIcons.lockSimpleOpen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'lockers': PhosphorIcons.lockers(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'log': PhosphorIcons.log(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'magic wand': PhosphorIcons.magicWand(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'magnet': PhosphorIcons.magnet(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'magnet straight': PhosphorIcons.magnetStraight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'magnifying glass': PhosphorIcons.magnifyingGlass(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'magnifying glass minus': PhosphorIcons.magnifyingGlassMinus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'magnifying glass plus': PhosphorIcons.magnifyingGlassPlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'mailbox': PhosphorIcons.mailbox(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'map pin': PhosphorIcons.mapPin(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'map pin area': PhosphorIcons.mapPinArea(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'map pin line': PhosphorIcons.mapPinLine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'map pin plus': PhosphorIcons.mapPinPlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'map pin simple': PhosphorIcons.mapPinSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'map pin simple area': PhosphorIcons.mapPinSimpleArea(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'map pin simple line': PhosphorIcons.mapPinSimpleLine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'map trifold': PhosphorIcons.mapTrifold(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'markdown logo': PhosphorIcons.markdownLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'marker circle': PhosphorIcons.markerCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'martini': PhosphorIcons.martini(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'mask happy': PhosphorIcons.maskHappy(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'mask sad': PhosphorIcons.maskSad(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'mastodon logo': PhosphorIcons.mastodonLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'math operations': PhosphorIcons.mathOperations(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'matrix logo': PhosphorIcons.matrixLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'medal': PhosphorIcons.medal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'medal military': PhosphorIcons.medalMilitary(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'medium logo': PhosphorIcons.mediumLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'megaphone': PhosphorIcons.megaphone(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'megaphone simple': PhosphorIcons.megaphoneSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'member of': PhosphorIcons.memberOf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'memory': PhosphorIcons.memory(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'messenger logo': PhosphorIcons.messengerLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'meta logo': PhosphorIcons.metaLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'meteor': PhosphorIcons.meteor(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'metronome': PhosphorIcons.metronome(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'microphone': PhosphorIcons.microphone(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'microphone slash': PhosphorIcons.microphoneSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'microphone stage': PhosphorIcons.microphoneStage(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'microscope': PhosphorIcons.microscope(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'microsoft excel logo': PhosphorIcons.microsoftExcelLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'microsoft outlook logo': PhosphorIcons.microsoftOutlookLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'microsoft powerpoint logo': PhosphorIcons.microsoftPowerpointLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'microsoft teams logo': PhosphorIcons.microsoftTeamsLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'microsoft word logo': PhosphorIcons.microsoftWordLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'minus': PhosphorIcons.minus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'minus circle': PhosphorIcons.minusCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'minus square': PhosphorIcons.minusSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'money': PhosphorIcons.money(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'money wavy': PhosphorIcons.moneyWavy(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'monitor': PhosphorIcons.monitor(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'monitor arrow up': PhosphorIcons.monitorArrowUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'monitor play': PhosphorIcons.monitorPlay(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'moon': PhosphorIcons.moon(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'moon stars': PhosphorIcons.moonStars(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'moped': PhosphorIcons.moped(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'moped front': PhosphorIcons.mopedFront(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'mosque': PhosphorIcons.mosque(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'motorcycle': PhosphorIcons.motorcycle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'mountains': PhosphorIcons.mountains(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'mouse': PhosphorIcons.mouse(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'mouse left click': PhosphorIcons.mouseLeftClick(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'mouse middle click': PhosphorIcons.mouseMiddleClick(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'mouse right click': PhosphorIcons.mouseRightClick(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'mouse scroll': PhosphorIcons.mouseScroll(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'mouse simple': PhosphorIcons.mouseSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'music note': PhosphorIcons.musicNote(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'music note simple': PhosphorIcons.musicNoteSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'music notes': PhosphorIcons.musicNotes(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'music notes minus': PhosphorIcons.musicNotesMinus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'music notes plus': PhosphorIcons.musicNotesPlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'music notes simple': PhosphorIcons.musicNotesSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'navigation arrow': PhosphorIcons.navigationArrow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'needle': PhosphorIcons.needle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'network': PhosphorIcons.network(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'network slash': PhosphorIcons.networkSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'network x': PhosphorIcons.networkX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'newspaper': PhosphorIcons.newspaper(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'newspaper clipping': PhosphorIcons.newspaperClipping(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'not equals': PhosphorIcons.notEquals(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'not member of': PhosphorIcons.notMemberOf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'not subset of': PhosphorIcons.notSubsetOf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'not superset of': PhosphorIcons.notSupersetOf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'notches': PhosphorIcons.notches(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'note': PhosphorIcons.note(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'note blank': PhosphorIcons.noteBlank(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'note pencil': PhosphorIcons.notePencil(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'notebook': PhosphorIcons.notebook(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'notepad': PhosphorIcons.notepad(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'notification': PhosphorIcons.notification(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'notion logo': PhosphorIcons.notionLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'nuclear plant': PhosphorIcons.nuclearPlant(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number circle eight': PhosphorIcons.numberCircleEight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number circle five': PhosphorIcons.numberCircleFive(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number circle four': PhosphorIcons.numberCircleFour(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number circle nine': PhosphorIcons.numberCircleNine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number circle one': PhosphorIcons.numberCircleOne(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number circle seven': PhosphorIcons.numberCircleSeven(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number circle six': PhosphorIcons.numberCircleSix(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number circle three': PhosphorIcons.numberCircleThree(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number circle two': PhosphorIcons.numberCircleTwo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number circle zero': PhosphorIcons.numberCircleZero(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number eight': PhosphorIcons.numberEight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number five': PhosphorIcons.numberFive(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number four': PhosphorIcons.numberFour(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number nine': PhosphorIcons.numberNine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number one': PhosphorIcons.numberOne(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number seven': PhosphorIcons.numberSeven(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number six': PhosphorIcons.numberSix(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number square eight': PhosphorIcons.numberSquareEight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number square five': PhosphorIcons.numberSquareFive(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number square four': PhosphorIcons.numberSquareFour(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number square nine': PhosphorIcons.numberSquareNine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number square one': PhosphorIcons.numberSquareOne(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number square seven': PhosphorIcons.numberSquareSeven(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number square six': PhosphorIcons.numberSquareSix(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number square three': PhosphorIcons.numberSquareThree(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number square two': PhosphorIcons.numberSquareTwo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number square zero': PhosphorIcons.numberSquareZero(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number three': PhosphorIcons.numberThree(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number two': PhosphorIcons.numberTwo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'number zero': PhosphorIcons.numberZero(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'numpad': PhosphorIcons.numpad(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'nut': PhosphorIcons.nut(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'ny times logo': PhosphorIcons.nyTimesLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'octagon': PhosphorIcons.octagon(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'office chair': PhosphorIcons.officeChair(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'onigiri': PhosphorIcons.onigiri(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'open ai logo': PhosphorIcons.openAiLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'option': PhosphorIcons.option(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'orange': PhosphorIcons.orange(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'orange slice': PhosphorIcons.orangeSlice(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'oven': PhosphorIcons.oven(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'package': PhosphorIcons.package(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paint brush': PhosphorIcons.paintBrush(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paint brush broad': PhosphorIcons.paintBrushBroad(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paint brush household': PhosphorIcons.paintBrushHousehold(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paint bucket': PhosphorIcons.paintBucket(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paint roller': PhosphorIcons.paintRoller(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'palette': PhosphorIcons.palette(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'panorama': PhosphorIcons.panorama(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pants': PhosphorIcons.pants(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paper plane': PhosphorIcons.paperPlane(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paper plane right': PhosphorIcons.paperPlaneRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paper plane tilt': PhosphorIcons.paperPlaneTilt(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paperclip': PhosphorIcons.paperclip(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paperclip horizontal': PhosphorIcons.paperclipHorizontal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'parachute': PhosphorIcons.parachute(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paragraph': PhosphorIcons.paragraph(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'parallelogram': PhosphorIcons.parallelogram(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'park': PhosphorIcons.park(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'password': PhosphorIcons.password(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'path': PhosphorIcons.path(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'patreon logo': PhosphorIcons.patreonLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pause': PhosphorIcons.pause(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pause circle': PhosphorIcons.pauseCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paw print': PhosphorIcons.pawPrint(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'paypal logo': PhosphorIcons.paypalLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'peace': PhosphorIcons.peace(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pen': PhosphorIcons.pen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pen nib': PhosphorIcons.penNib(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pen nib straight': PhosphorIcons.penNibStraight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pencil': PhosphorIcons.pencil(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pencil circle': PhosphorIcons.pencilCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pencil line': PhosphorIcons.pencilLine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pencil ruler': PhosphorIcons.pencilRuler(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pencil simple': PhosphorIcons.pencilSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pencil simple line': PhosphorIcons.pencilSimpleLine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pencil simple slash': PhosphorIcons.pencilSimpleSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pencil slash': PhosphorIcons.pencilSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pentagon': PhosphorIcons.pentagon(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pentagram': PhosphorIcons.pentagram(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pepper': PhosphorIcons.pepper(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'percent': PhosphorIcons.percent(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person': PhosphorIcons.person(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person arms spread': PhosphorIcons.personArmsSpread(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person simple': PhosphorIcons.personSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person simple bike': PhosphorIcons.personSimpleBike(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person simple circle': PhosphorIcons.personSimpleCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person simple hike': PhosphorIcons.personSimpleHike(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person simple run': PhosphorIcons.personSimpleRun(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person simple ski': PhosphorIcons.personSimpleSki(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person simple snowboard': PhosphorIcons.personSimpleSnowboard(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person simple swim': PhosphorIcons.personSimpleSwim(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person simple tai chi': PhosphorIcons.personSimpleTaiChi(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person simple throw': PhosphorIcons.personSimpleThrow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'person simple walk': PhosphorIcons.personSimpleWalk(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'perspective': PhosphorIcons.perspective(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'phone': PhosphorIcons.phone(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'phone call': PhosphorIcons.phoneCall(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'phone disconnect': PhosphorIcons.phoneDisconnect(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'phone incoming': PhosphorIcons.phoneIncoming(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'phone list': PhosphorIcons.phoneList(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'phone outgoing': PhosphorIcons.phoneOutgoing(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'phone pause': PhosphorIcons.phonePause(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'phone plus': PhosphorIcons.phonePlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'phone slash': PhosphorIcons.phoneSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'phone transfer': PhosphorIcons.phoneTransfer(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'phone x': PhosphorIcons.phoneX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'phosphor logo': PhosphorIcons.phosphorLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pi': PhosphorIcons.pi(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'piano keys': PhosphorIcons.pianoKeys(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'picnic table': PhosphorIcons.picnicTable(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'piggy bank': PhosphorIcons.piggyBank(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pill': PhosphorIcons.pill(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'ping pong': PhosphorIcons.pingPong(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pint glass': PhosphorIcons.pintGlass(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pinterest logo': PhosphorIcons.pinterestLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pinwheel': PhosphorIcons.pinwheel(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pipe': PhosphorIcons.pipe(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pipe wrench': PhosphorIcons.pipeWrench(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pix logo': PhosphorIcons.pixLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pizza': PhosphorIcons.pizza(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'placeholder': PhosphorIcons.placeholder(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'planet': PhosphorIcons.planet(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'plant': PhosphorIcons.plant(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'play': PhosphorIcons.play(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'play circle': PhosphorIcons.playCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'play pause': PhosphorIcons.playPause(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'playlist': PhosphorIcons.playlist(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'plug': PhosphorIcons.plug(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'plug charging': PhosphorIcons.plugCharging(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'plugs': PhosphorIcons.plugs(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'plugs connected': PhosphorIcons.plugsConnected(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'plus': PhosphorIcons.plus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'plus circle': PhosphorIcons.plusCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'plus minus': PhosphorIcons.plusMinus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'plus square': PhosphorIcons.plusSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'poker chip': PhosphorIcons.pokerChip(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'police car': PhosphorIcons.policeCar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'polygon': PhosphorIcons.polygon(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'popcorn': PhosphorIcons.popcorn(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'popsicle': PhosphorIcons.popsicle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'potted plant': PhosphorIcons.pottedPlant(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'power': PhosphorIcons.power(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'prescription': PhosphorIcons.prescription(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'presentation': PhosphorIcons.presentation(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'presentation chart': PhosphorIcons.presentationChart(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'printer': PhosphorIcons.printer(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'prohibit': PhosphorIcons.prohibit(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'prohibit inset': PhosphorIcons.prohibitInset(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'projector screen': PhosphorIcons.projectorScreen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'projector screen chart': PhosphorIcons.projectorScreenChart(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'pulse': PhosphorIcons.pulse(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'push pin': PhosphorIcons.pushPin(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'push pin simple': PhosphorIcons.pushPinSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'push pin simple slash': PhosphorIcons.pushPinSimpleSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'push pin slash': PhosphorIcons.pushPinSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'puzzle piece': PhosphorIcons.puzzlePiece(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'qr code': PhosphorIcons.qrCode(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'question': PhosphorIcons.question(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'question mark': PhosphorIcons.questionMark(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'queue': PhosphorIcons.queue(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'quotes': PhosphorIcons.quotes(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rabbit': PhosphorIcons.rabbit(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'racquet': PhosphorIcons.racquet(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'radical': PhosphorIcons.radical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'radio': PhosphorIcons.radio(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'radio button': PhosphorIcons.radioButton(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'radioactive': PhosphorIcons.radioactive(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rainbow': PhosphorIcons.rainbow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rainbow cloud': PhosphorIcons.rainbowCloud(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'ranking': PhosphorIcons.ranking(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'read cv logo': PhosphorIcons.readCvLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'receipt': PhosphorIcons.receipt(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'receipt x': PhosphorIcons.receiptX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'record': PhosphorIcons.record(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rectangle': PhosphorIcons.rectangle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rectangle dashed': PhosphorIcons.rectangleDashed(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'recycle': PhosphorIcons.recycle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'reddit logo': PhosphorIcons.redditLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'repeat': PhosphorIcons.repeat(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'repeat once': PhosphorIcons.repeatOnce(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'replit logo': PhosphorIcons.replitLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'resize': PhosphorIcons.resize(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rewind': PhosphorIcons.rewind(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rewind circle': PhosphorIcons.rewindCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'road horizon': PhosphorIcons.roadHorizon(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'robot': PhosphorIcons.robot(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rocket': PhosphorIcons.rocket(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rocket launch': PhosphorIcons.rocketLaunch(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rows': PhosphorIcons.rows(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rows plus bottom': PhosphorIcons.rowsPlusBottom(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rows plus top': PhosphorIcons.rowsPlusTop(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rss': PhosphorIcons.rss(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rss simple': PhosphorIcons.rssSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'rug': PhosphorIcons.rug(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'ruler': PhosphorIcons.ruler(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sailboat': PhosphorIcons.sailboat(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'scales': PhosphorIcons.scales(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'scan': PhosphorIcons.scan(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'scan smiley': PhosphorIcons.scanSmiley(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'scissors': PhosphorIcons.scissors(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'scooter': PhosphorIcons.scooter(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'screencast': PhosphorIcons.screencast(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'screwdriver': PhosphorIcons.screwdriver(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'scribble': PhosphorIcons.scribble(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'scribble loop': PhosphorIcons.scribbleLoop(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'scroll': PhosphorIcons.scroll(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'seal': PhosphorIcons.seal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'seal check': PhosphorIcons.sealCheck(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'seal percent': PhosphorIcons.sealPercent(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'seal question': PhosphorIcons.sealQuestion(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'seal warning': PhosphorIcons.sealWarning(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'seat': PhosphorIcons.seat(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'seatbelt': PhosphorIcons.seatbelt(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'security camera': PhosphorIcons.securityCamera(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'selection': PhosphorIcons.selection(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'selection all': PhosphorIcons.selectionAll(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'selection background': PhosphorIcons.selectionBackground(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'selection foreground': PhosphorIcons.selectionForeground(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'selection inverse': PhosphorIcons.selectionInverse(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'selection plus': PhosphorIcons.selectionPlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'selection slash': PhosphorIcons.selectionSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shapes': PhosphorIcons.shapes(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'share': PhosphorIcons.share(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'share fat': PhosphorIcons.shareFat(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'share network': PhosphorIcons.shareNetwork(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shield': PhosphorIcons.shield(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shield check': PhosphorIcons.shieldCheck(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shield checkered': PhosphorIcons.shieldCheckered(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shield chevron': PhosphorIcons.shieldChevron(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shield plus': PhosphorIcons.shieldPlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shield slash': PhosphorIcons.shieldSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shield star': PhosphorIcons.shieldStar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shield warning': PhosphorIcons.shieldWarning(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shipping container': PhosphorIcons.shippingContainer(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shirt folded': PhosphorIcons.shirtFolded(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shooting star': PhosphorIcons.shootingStar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shopping bag': PhosphorIcons.shoppingBag(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shopping bag open': PhosphorIcons.shoppingBagOpen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shopping cart': PhosphorIcons.shoppingCart(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shopping cart simple': PhosphorIcons.shoppingCartSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shovel': PhosphorIcons.shovel(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shower': PhosphorIcons.shower(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shrimp': PhosphorIcons.shrimp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shuffle': PhosphorIcons.shuffle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shuffle angular': PhosphorIcons.shuffleAngular(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'shuffle simple': PhosphorIcons.shuffleSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sidebar': PhosphorIcons.sidebar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sidebar simple': PhosphorIcons.sidebarSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sigma': PhosphorIcons.sigma(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sign in': PhosphorIcons.signIn(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sign out': PhosphorIcons.signOut(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'signature': PhosphorIcons.signature(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'signpost': PhosphorIcons.signpost(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sim card': PhosphorIcons.simCard(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'siren': PhosphorIcons.siren(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sketch logo': PhosphorIcons.sketchLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'skip back': PhosphorIcons.skipBack(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'skip back circle': PhosphorIcons.skipBackCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'skip forward': PhosphorIcons.skipForward(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'skip forward circle': PhosphorIcons.skipForwardCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'skull': PhosphorIcons.skull(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'skype logo': PhosphorIcons.skypeLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'slack logo': PhosphorIcons.slackLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sliders': PhosphorIcons.sliders(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sliders horizontal': PhosphorIcons.slidersHorizontal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'slideshow': PhosphorIcons.slideshow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'smiley': PhosphorIcons.smiley(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'smiley angry': PhosphorIcons.smileyAngry(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'smiley blank': PhosphorIcons.smileyBlank(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'smiley meh': PhosphorIcons.smileyMeh(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'smiley melting': PhosphorIcons.smileyMelting(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'smiley nervous': PhosphorIcons.smileyNervous(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'smiley sad': PhosphorIcons.smileySad(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'smiley sticker': PhosphorIcons.smileySticker(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'smiley wink': PhosphorIcons.smileyWink(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'smiley x eyes': PhosphorIcons.smileyXEyes(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'snapchat logo': PhosphorIcons.snapchatLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sneaker': PhosphorIcons.sneaker(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sneaker move': PhosphorIcons.sneakerMove(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'snowflake': PhosphorIcons.snowflake(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'soccer ball': PhosphorIcons.soccerBall(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sock': PhosphorIcons.sock(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'solar panel': PhosphorIcons.solarPanel(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'solar roof': PhosphorIcons.solarRoof(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sort ascending': PhosphorIcons.sortAscending(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sort descending': PhosphorIcons.sortDescending(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'soundcloud logo': PhosphorIcons.soundcloudLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'spade': PhosphorIcons.spade(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sparkle': PhosphorIcons.sparkle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'speaker hifi': PhosphorIcons.speakerHifi(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'speaker high': PhosphorIcons.speakerHigh(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'speaker low': PhosphorIcons.speakerLow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'speaker none': PhosphorIcons.speakerNone(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'speaker simple high': PhosphorIcons.speakerSimpleHigh(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'speaker simple low': PhosphorIcons.speakerSimpleLow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'speaker simple none': PhosphorIcons.speakerSimpleNone(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'speaker simple slash': PhosphorIcons.speakerSimpleSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'speaker simple x': PhosphorIcons.speakerSimpleX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'speaker slash': PhosphorIcons.speakerSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'speaker x': PhosphorIcons.speakerX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'speedometer': PhosphorIcons.speedometer(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sphere': PhosphorIcons.sphere(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'spinner': PhosphorIcons.spinner(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'spinner ball': PhosphorIcons.spinnerBall(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'spinner gap': PhosphorIcons.spinnerGap(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'spiral': PhosphorIcons.spiral(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'split horizontal': PhosphorIcons.splitHorizontal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'split vertical': PhosphorIcons.splitVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'spotify logo': PhosphorIcons.spotifyLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'spray bottle': PhosphorIcons.sprayBottle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'square': PhosphorIcons.square(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'square half': PhosphorIcons.squareHalf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'square half bottom': PhosphorIcons.squareHalfBottom(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'square logo': PhosphorIcons.squareLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'square split horizontal': PhosphorIcons.squareSplitHorizontal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'square split vertical': PhosphorIcons.squareSplitVertical(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'squares four': PhosphorIcons.squaresFour(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'stack': PhosphorIcons.stack(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'stack minus': PhosphorIcons.stackMinus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'stack overflow logo': PhosphorIcons.stackOverflowLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'stack plus': PhosphorIcons.stackPlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'stack simple': PhosphorIcons.stackSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'stairs': PhosphorIcons.stairs(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'stamp': PhosphorIcons.stamp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'standard definition': PhosphorIcons.standardDefinition(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'star': PhosphorIcons.star(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'star and crescent': PhosphorIcons.starAndCrescent(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'star four': PhosphorIcons.starFour(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'star half': PhosphorIcons.starHalf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'star of david': PhosphorIcons.starOfDavid(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'steam logo': PhosphorIcons.steamLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'steering wheel': PhosphorIcons.steeringWheel(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'steps': PhosphorIcons.steps(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'stethoscope': PhosphorIcons.stethoscope(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sticker': PhosphorIcons.sticker(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'stool': PhosphorIcons.stool(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'stop': PhosphorIcons.stop(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'stop circle': PhosphorIcons.stopCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'storefront': PhosphorIcons.storefront(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'strategy': PhosphorIcons.strategy(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'stripe logo': PhosphorIcons.stripeLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'student': PhosphorIcons.student(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'subset of': PhosphorIcons.subsetOf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'subset proper of': PhosphorIcons.subsetProperOf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'subtitles': PhosphorIcons.subtitles(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'subtitles slash': PhosphorIcons.subtitlesSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'subtract': PhosphorIcons.subtract(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'subtract square': PhosphorIcons.subtractSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'subway': PhosphorIcons.subway(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'suitcase': PhosphorIcons.suitcase(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'suitcase rolling': PhosphorIcons.suitcaseRolling(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'suitcase simple': PhosphorIcons.suitcaseSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sun': PhosphorIcons.sun(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sun dim': PhosphorIcons.sunDim(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sun horizon': PhosphorIcons.sunHorizon(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sunglasses': PhosphorIcons.sunglasses(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'superset of': PhosphorIcons.supersetOf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'superset proper of': PhosphorIcons.supersetProperOf(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'swap': PhosphorIcons.swap(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'swatches': PhosphorIcons.swatches(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'swimming pool': PhosphorIcons.swimmingPool(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'sword': PhosphorIcons.sword(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'synagogue': PhosphorIcons.synagogue(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'syringe': PhosphorIcons.syringe(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   't shirt': PhosphorIcons.tShirt(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'table': PhosphorIcons.table(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tabs': PhosphorIcons.tabs(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tag': PhosphorIcons.tag(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tag chevron': PhosphorIcons.tagChevron(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tag simple': PhosphorIcons.tagSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'target': PhosphorIcons.target(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'taxi': PhosphorIcons.taxi(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tea bag': PhosphorIcons.teaBag(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'telegram logo': PhosphorIcons.telegramLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'television': PhosphorIcons.television(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'television simple': PhosphorIcons.televisionSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tennis ball': PhosphorIcons.tennisBall(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tent': PhosphorIcons.tent(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'terminal': PhosphorIcons.terminal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'terminal window': PhosphorIcons.terminalWindow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'test tube': PhosphorIcons.testTube(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text a underline': PhosphorIcons.textAUnderline(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text aa': PhosphorIcons.textAa(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text align center': PhosphorIcons.textAlignCenter(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text align justify': PhosphorIcons.textAlignJustify(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text align left': PhosphorIcons.textAlignLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text align right': PhosphorIcons.textAlignRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text b': PhosphorIcons.textB(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text columns': PhosphorIcons.textColumns(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text h': PhosphorIcons.textH(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text h five': PhosphorIcons.textHFive(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text h four': PhosphorIcons.textHFour(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text h one': PhosphorIcons.textHOne(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text h six': PhosphorIcons.textHSix(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text h three': PhosphorIcons.textHThree(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text h two': PhosphorIcons.textHTwo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text indent': PhosphorIcons.textIndent(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text italic': PhosphorIcons.textItalic(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text outdent': PhosphorIcons.textOutdent(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text strikethrough': PhosphorIcons.textStrikethrough(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text subscript': PhosphorIcons.textSubscript(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text superscript': PhosphorIcons.textSuperscript(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text t': PhosphorIcons.textT(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text t slash': PhosphorIcons.textTSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'text underline': PhosphorIcons.textUnderline(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'textbox': PhosphorIcons.textbox(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'thermometer': PhosphorIcons.thermometer(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'thermometer cold': PhosphorIcons.thermometerCold(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'thermometer hot': PhosphorIcons.thermometerHot(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'thermometer simple': PhosphorIcons.thermometerSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'threads logo': PhosphorIcons.threadsLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'three d': PhosphorIcons.threeD(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'thumbs down': PhosphorIcons.thumbsDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'thumbs up': PhosphorIcons.thumbsUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'ticket': PhosphorIcons.ticket(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tidal logo': PhosphorIcons.tidalLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tiktok logo': PhosphorIcons.tiktokLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tilde': PhosphorIcons.tilde(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'timer': PhosphorIcons.timer(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tip jar': PhosphorIcons.tipJar(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tipi': PhosphorIcons.tipi(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tire': PhosphorIcons.tire(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'toggle left': PhosphorIcons.toggleLeft(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'toggle right': PhosphorIcons.toggleRight(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'toilet': PhosphorIcons.toilet(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'toilet paper': PhosphorIcons.toiletPaper(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'toolbox': PhosphorIcons.toolbox(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tooth': PhosphorIcons.tooth(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tornado': PhosphorIcons.tornado(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tote': PhosphorIcons.tote(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tote simple': PhosphorIcons.toteSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'towel': PhosphorIcons.towel(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tractor': PhosphorIcons.tractor(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'trademark': PhosphorIcons.trademark(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'trademark registered': PhosphorIcons.trademarkRegistered(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'traffic cone': PhosphorIcons.trafficCone(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'traffic sign': PhosphorIcons.trafficSign(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'traffic signal': PhosphorIcons.trafficSignal(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'train': PhosphorIcons.train(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'train regional': PhosphorIcons.trainRegional(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'train simple': PhosphorIcons.trainSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tram': PhosphorIcons.tram(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'translate': PhosphorIcons.translate(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'trash': PhosphorIcons.trash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'trash simple': PhosphorIcons.trashSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tray': PhosphorIcons.tray(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tray arrow down': PhosphorIcons.trayArrowDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tray arrow up': PhosphorIcons.trayArrowUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'treasure chest': PhosphorIcons.treasureChest(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tree': PhosphorIcons.tree(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tree evergreen': PhosphorIcons.treeEvergreen(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tree palm': PhosphorIcons.treePalm(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tree structure': PhosphorIcons.treeStructure(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tree view': PhosphorIcons.treeView(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'trend down': PhosphorIcons.trendDown(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'trend up': PhosphorIcons.trendUp(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'triangle': PhosphorIcons.triangle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'triangle dashed': PhosphorIcons.triangleDashed(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'trolley': PhosphorIcons.trolley(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'trolley suitcase': PhosphorIcons.trolleySuitcase(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'trophy': PhosphorIcons.trophy(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'truck': PhosphorIcons.truck(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'truck trailer': PhosphorIcons.truckTrailer(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'tumblr logo': PhosphorIcons.tumblrLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'twitch logo': PhosphorIcons.twitchLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'twitter logo': PhosphorIcons.twitterLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'umbrella': PhosphorIcons.umbrella(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'umbrella simple': PhosphorIcons.umbrellaSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'union': PhosphorIcons.union(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'unite': PhosphorIcons.unite(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'unite square': PhosphorIcons.uniteSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'upload': PhosphorIcons.upload(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'upload simple': PhosphorIcons.uploadSimple(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'usb': PhosphorIcons.usb(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user': PhosphorIcons.user(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user check': PhosphorIcons.userCheck(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user circle': PhosphorIcons.userCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user circle check': PhosphorIcons.userCircleCheck(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user circle dashed': PhosphorIcons.userCircleDashed(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user circle gear': PhosphorIcons.userCircleGear(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user circle minus': PhosphorIcons.userCircleMinus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user circle plus': PhosphorIcons.userCirclePlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user focus': PhosphorIcons.userFocus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user gear': PhosphorIcons.userGear(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user list': PhosphorIcons.userList(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user minus': PhosphorIcons.userMinus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user plus': PhosphorIcons.userPlus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user rectangle': PhosphorIcons.userRectangle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user sound': PhosphorIcons.userSound(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user square': PhosphorIcons.userSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'user switch': PhosphorIcons.userSwitch(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'users': PhosphorIcons.users(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'users four': PhosphorIcons.usersFour(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'users three': PhosphorIcons.usersThree(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'van': PhosphorIcons.van(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'vault': PhosphorIcons.vault(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'vector three': PhosphorIcons.vectorThree(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'vector two': PhosphorIcons.vectorTwo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'vibrate': PhosphorIcons.vibrate(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'video': PhosphorIcons.video(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'video camera': PhosphorIcons.videoCamera(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'video camera slash': PhosphorIcons.videoCameraSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'video conference': PhosphorIcons.videoConference(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'vignette': PhosphorIcons.vignette(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'vinyl record': PhosphorIcons.vinylRecord(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'virtual reality': PhosphorIcons.virtualReality(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'virus': PhosphorIcons.virus(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'visor': PhosphorIcons.visor(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'voicemail': PhosphorIcons.voicemail(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'volleyball': PhosphorIcons.volleyball(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wall': PhosphorIcons.wall(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wallet': PhosphorIcons.wallet(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'warehouse': PhosphorIcons.warehouse(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'warning': PhosphorIcons.warning(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'warning circle': PhosphorIcons.warningCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'warning diamond': PhosphorIcons.warningDiamond(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'warning octagon': PhosphorIcons.warningOctagon(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'washing machine': PhosphorIcons.washingMachine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'watch': PhosphorIcons.watch(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wave sawtooth': PhosphorIcons.waveSawtooth(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wave sine': PhosphorIcons.waveSine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wave square': PhosphorIcons.waveSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wave triangle': PhosphorIcons.waveTriangle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'waveform': PhosphorIcons.waveform(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'waveform slash': PhosphorIcons.waveformSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'waves': PhosphorIcons.waves(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'webcam': PhosphorIcons.webcam(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'webcam slash': PhosphorIcons.webcamSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'webhooks logo': PhosphorIcons.webhooksLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wechat logo': PhosphorIcons.wechatLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'whatsapp logo': PhosphorIcons.whatsappLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wheelchair': PhosphorIcons.wheelchair(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wheelchair motion': PhosphorIcons.wheelchairMotion(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wifi high': PhosphorIcons.wifiHigh(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wifi low': PhosphorIcons.wifiLow(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wifi medium': PhosphorIcons.wifiMedium(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wifi none': PhosphorIcons.wifiNone(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wifi slash': PhosphorIcons.wifiSlash(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wifi x': PhosphorIcons.wifiX(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wind': PhosphorIcons.wind(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'windmill': PhosphorIcons.windmill(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'windows logo': PhosphorIcons.windowsLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wine': PhosphorIcons.wine(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'wrench': PhosphorIcons.wrench(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'x': PhosphorIcons.x(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'x circle': PhosphorIcons.xCircle(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'x logo': PhosphorIcons.xLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'x square': PhosphorIcons.xSquare(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'yarn': PhosphorIcons.yarn(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'yin yang': PhosphorIcons.yinYang(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
   'youtube logo': PhosphorIcons.youtubeLogo(
-    PhosphorIconsStyle.light,
+    PhosphorIconsStyle.bold,
   ),
 };

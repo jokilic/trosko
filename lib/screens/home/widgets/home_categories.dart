@@ -47,7 +47,7 @@ class HomeCategories extends StatelessWidget {
               highlightColor: category.color.withValues(
                 alpha: activeCategory == category || activeCategory == null ? 1 : 0.2,
               ),
-              icon: getIconFromName(
+              icon: getRegularIconFromName(
                 category.iconName,
               )?.value,
               text: category.name,

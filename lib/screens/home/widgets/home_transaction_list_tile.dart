@@ -100,12 +100,12 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                         shape: BoxShape.circle,
                         color: widget.category?.color,
                         border: Border.all(
-                          color: context.colors.text,
+                          color: context.colors.borderColor,
                           width: 1.5,
                         ),
                       ),
                       child: Icon(
-                        getIconFromName(
+                        getBoldIconFromName(
                           widget.category?.iconName,
                         )?.value,
                         color: context.colors.icon,

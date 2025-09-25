@@ -180,7 +180,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             highlightColor: category.color.withValues(
                               alpha: activeCategory == category ? 1 : 0.2,
                             ),
-                            icon: getIconFromName(
+                            icon: getRegularIconFromName(
                               category.iconName,
                             )?.value,
                           );
@@ -292,7 +292,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     decoration: BoxDecoration(
                       color: dateEditMode ? context.colors.listTileBackground : null,
                       border: Border.all(
-                        color: context.colors.text,
+                        color: context.colors.borderColor,
                         width: 1.5,
                       ),
                       borderRadius: BorderRadius.circular(8),
@@ -327,7 +327,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               color: context.colors.listTileBackground,
                               shape: StadiumBorder(
                                 side: BorderSide(
-                                  color: context.colors.text,
+                                  color: context.colors.borderColor,
                                   width: 1.5,
                                 ),
                               ),
@@ -369,7 +369,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     decoration: BoxDecoration(
                       color: timeEditMode ? context.colors.listTileBackground : null,
                       border: Border.all(
-                        color: context.colors.text,
+                        color: context.colors.borderColor,
                         width: 1.5,
                       ),
                       borderRadius: BorderRadius.circular(8),
@@ -404,7 +404,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               color: context.colors.listTileBackground,
                               shape: StadiumBorder(
                                 side: BorderSide(
-                                  color: context.colors.text,
+                                  color: context.colors.borderColor,
                                   width: 1.5,
                                 ),
                               ),

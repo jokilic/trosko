@@ -22,7 +22,7 @@ class CategoryColor extends StatelessWidget {
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       border: Border.all(
-        color: hasBorder ? context.colors.text : color,
+        color: hasBorder ? context.colors.borderColor : color,
         width: 1.5,
       ),
     ),

@@ -25,7 +25,7 @@ class CategoryColors extends StatelessWidget {
     decoration: BoxDecoration(
       color: context.colors.listTileBackground,
       border: Border.all(
-        color: context.colors.text,
+        color: context.colors.borderColor,
         width: 1.5,
       ),
       borderRadius: BorderRadius.circular(8),

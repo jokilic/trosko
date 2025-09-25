@@ -25,6 +25,7 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
   final Color scaffoldBackground;
   final Color disabledText;
   final Color disabledBackground;
+  final Color borderColor;
 
   TroskoColorsExtension({
     required this.text,
@@ -36,6 +37,7 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
     required this.scaffoldBackground,
     required this.disabledText,
     required this.disabledBackground,
+    required this.borderColor,
   });
 
   @override
@@ -50,6 +52,7 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
     Color? scaffoldBackground,
     Color? disabledText,
     Color? disabledBackground,
+    Color? borderColor,
   }) => TroskoColorsExtension(
     text: text ?? this.text,
     icon: icon ?? this.icon,
@@ -60,6 +63,7 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
     scaffoldBackground: scaffoldBackground ?? this.scaffoldBackground,
     disabledText: disabledText ?? this.disabledText,
     disabledBackground: disabledBackground ?? this.disabledBackground,
+    borderColor: borderColor ?? this.borderColor,
   );
 
   @override
@@ -81,6 +85,7 @@ class TroskoColorsExtension extends ThemeExtension<TroskoColorsExtension> {
       scaffoldBackground: Color.lerp(scaffoldBackground, other.scaffoldBackground, t)!,
       disabledText: Color.lerp(disabledText, other.disabledText, t)!,
       disabledBackground: Color.lerp(disabledBackground, other.disabledBackground, t)!,
+      borderColor: Color.lerp(borderColor, other.borderColor, t)!,
     );
   }
 }
