@@ -41,8 +41,8 @@ Category can also be edited or deleted if necessary.
 - [ ]  Pogledati kako radi na drugim platformama (Web)
 - [ ]  Dodaj custom boju u Category
 - [ ]  Settings
-    - [ ] Tema
-    - [ ] Jezik
+    - [ ] Primary boja
+    - [ ] Jezik (easy_localization ga spremi sam, pogledaj kod od Modernog Aliasa)
     - [ ] Refetch from Firebase
     - [ ] Logout
     - [ ] Ikona i verzija aplikacije

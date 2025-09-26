@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../util/theme.dart';
 
 class SettingsController implements Disposable {
   ///
@@ -40,6 +43,28 @@ class SettingsController implements Disposable {
   ///
   /// METHODS
   ///
+
+  /// Triggered when the user submits a new `name`
+  Future<void> onSubmittedName(String newName) async {
+    await hive.writeUsername(
+      newName.trim(),
+    );
+
+    unawaited(
+      firebase.writeUsername(
+        newUsername: newName,
+      ),
+    );
+  }
+
+  /// Triggered when the user presses some [ThemeMode]
+  void onPressedThemeMode(ThemeMode newThemeMode) => hive.writeSettings(
+    hive.getSettings().copyWith(
+      themeModeInt: getThemeModeInt(
+        themeMode: newThemeMode,
+      ),
+    ),
+  );
 
   /// Logs out of [Firebase] & clears [Hive]
   Future<void> logOut() async {

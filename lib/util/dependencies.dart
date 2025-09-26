@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import '../services/firebase_service.dart';
 import '../services/hive_service.dart';
 import '../services/logger_service.dart';
-import '../services/theme_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -47,12 +46,6 @@ void initializeServices() {
   getIt
     ..registerSingletonAsync(
       () async => LoggerService(),
-    )
-    ..registerSingletonAsync(
-      () async => ThemeService(
-        logger: getIt.get<LoggerService>(),
-      ),
-      dependsOn: [LoggerService],
     )
     ..registerSingletonAsync(
       () async {

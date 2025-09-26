@@ -12,9 +12,9 @@ import 'firebase_options.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'services/hive_service.dart';
-import 'services/theme_service.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
+import 'util/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,13 +42,13 @@ Future<void> main() async {
   /// Wait for initialization to finish
   await getIt.allReady();
 
-  /// Get `isLoggedIn` value from [Hive] & [Firebase]
-  final isLoggedIn = getIt.get<HiveService>().getIsLoggedIn() && FirebaseAuth.instance.currentUser != null;
+  /// Get `settings` value from [Hive]
+  final settings = getIt.get<HiveService>().getSettings();
 
   /// Run `Troško`
   runApp(
     TroskoApp(
-      isLoggedIn: isLoggedIn,
+      isLoggedIn: settings.isLoggedIn && FirebaseAuth.instance.currentUser != null,
     ),
   );
 }
@@ -98,7 +98,9 @@ class TroskoWidget extends WatchingWidget {
     onGenerateTitle: (_) => 'appName'.tr(),
     theme: TroskoTheme.light,
     darkTheme: TroskoTheme.dark,
-    themeMode: watchIt<ThemeService>().value,
+    themeMode: getThemeMode(
+      themeModeInt: watchIt<HiveService>().value.settings?.themeModeInt ?? 0,
+    ),
     themeAnimationDuration: TroskoDurations.animation,
     themeAnimationCurve: Curves.easeIn,
     builder: (_, child) {

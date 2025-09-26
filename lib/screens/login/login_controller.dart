@@ -78,7 +78,11 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
       /// Successful login
       if (user != null) {
         /// Store `isLoggedIn` into [Hive]
-        await hive.writeIsLoggedIn(true);
+        await hive.writeSettings(
+          hive.getSettings().copyWith(
+            isLoggedIn: true,
+          ),
+        );
 
         /// Fetch all data from [Firebase] & store into [Hive]
         await getFirebaseDataIntoHive();
@@ -89,12 +93,14 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
 
         return true;
       }
-
-      logger.e('LoginController -> loginPressed() -> user == null');
-      updateState(
-        isLoading: false,
-      );
-      return false;
+      /// Not successful login
+      else {
+        logger.e('LoginController -> loginPressed() -> user == null');
+        updateState(
+          isLoading: false,
+        );
+        return false;
+      }
     } catch (e) {
       logger.e('LoginController -> loginPressed() -> $e');
       updateState(

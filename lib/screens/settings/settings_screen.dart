@@ -11,9 +11,11 @@ import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
+import '../../util/theme.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'settings_controller.dart';
+import 'widgets/settings_themes.dart';
 
 class SettingsScreen extends WatchingStatefulWidget {
   const SettingsScreen({
@@ -47,6 +49,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final settingsController = getIt.get<SettingsController>();
+
+    final settings = watchIt<HiveService>().value.settings;
 
     // TODO: Localize
     return Scaffold(
@@ -104,7 +108,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             sliver: SliverToBoxAdapter(
               child: TroskoTextField(
                 onSubmitted: (value) {
-                  print('Value -> $value');
+                  unawaited(
+                    HapticFeedback.lightImpact(),
+                  );
+
+                  settingsController.onSubmittedName(value);
                 },
                 autofocus: false,
                 controller: settingsController.nameTextEditingController,
@@ -118,6 +126,62 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 24),
+          ),
+
+          ///
+          /// COLORS TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Colors',
+                style: context.textStyles.homeTitle,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
+
+          ///
+          /// COLORS
+          ///
+          SettingsThemes(
+            themeModes: const [
+              ThemeMode.system,
+              ThemeMode.light,
+              ThemeMode.dark,
+            ],
+            activeThemeMode: getThemeMode(
+              themeModeInt: settings?.themeModeInt ?? 0,
+            ),
+            onPressedThemeMode: (themeMode) {
+              unawaited(
+                HapticFeedback.lightImpact(),
+              );
+
+              settingsController.onPressedThemeMode(themeMode);
+            },
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 24),
+          ),
+
+          ///
+          /// LOGOUT TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Logout',
+                style: context.textStyles.homeTitle,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
           ),
 
           ///

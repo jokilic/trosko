@@ -4,11 +4,13 @@
 
 import 'package:hive_ce/hive.dart';
 import 'package:trosko/models/category/category.dart';
+import 'package:trosko/models/settings/settings.dart';
 import 'package:trosko/models/transaction/transaction.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(CategoryAdapter());
+    registerAdapter(SettingsAdapter());
     registerAdapter(TransactionAdapter());
   }
 }
@@ -16,6 +18,7 @@ extension HiveRegistrar on HiveInterface {
 extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
     registerAdapter(CategoryAdapter());
+    registerAdapter(SettingsAdapter());
     registerAdapter(TransactionAdapter());
   }
 }
