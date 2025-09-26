@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -15,6 +16,7 @@ import '../../util/theme.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'settings_controller.dart';
+import 'widgets/settings_languages.dart';
 import 'widgets/settings_themes.dart';
 
 class SettingsScreen extends WatchingStatefulWidget {
@@ -148,11 +150,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           /// COLORS
           ///
           SettingsThemes(
-            themeModes: const [
-              ThemeMode.system,
-              ThemeMode.light,
-              ThemeMode.dark,
-            ],
             activeThemeMode: getThemeMode(
               themeModeInt: settings?.themeModeInt ?? 0,
             ),
@@ -162,6 +159,42 @@ class _SettingsScreenState extends State<SettingsScreen> {
               );
 
               settingsController.onPressedThemeMode(themeMode);
+            },
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 24),
+          ),
+
+          ///
+          /// LANGUAGE TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Language',
+                style: context.textStyles.homeTitle,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
+
+          ///
+          /// LANGUAGES
+          ///
+          SettingsLanguages(
+            activeLanguageCode: context.locale.languageCode,
+            onPressedLanguageCode: (languageCode) {
+              unawaited(
+                HapticFeedback.lightImpact(),
+              );
+
+              settingsController.onPressedLanguage(
+                languageCode: languageCode,
+                context: context,
+              );
             },
           ),
           const SliverToBoxAdapter(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -71,4 +72,10 @@ class SettingsController implements Disposable {
     firebase.logOut();
     await hive.clearEverything();
   }
+
+  /// Triggered when the user presses a flag
+  void onPressedLanguage({
+    required String languageCode,
+    required BuildContext context,
+  }) => context.setLocale(Locale(languageCode));
 }

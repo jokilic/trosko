@@ -6,12 +6,10 @@ import '../../../theme/theme.dart';
 import 'settings_theme.dart';
 
 class SettingsThemes extends StatelessWidget {
-  final List<ThemeMode> themeModes;
   final ThemeMode? activeThemeMode;
   final Function(ThemeMode themeMode) onPressedThemeMode;
 
   const SettingsThemes({
-    required this.themeModes,
     required this.activeThemeMode,
     required this.onPressedThemeMode,
   });
@@ -74,7 +72,6 @@ class SettingsThemes extends StatelessWidget {
                   )
                 : null,
           ),
-          const SizedBox(width: 4),
         ],
       ),
     ),

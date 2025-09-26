@@ -123,7 +123,8 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
       setState(() {
         isHolding = true;
       });
-      HapticFeedback.mediumImpact();
+
+      HapticFeedback.lightImpact();
       clearAll();
     });
   }
@@ -145,7 +146,7 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
     });
 
     widget.onValueChanged(currentCents);
-    HapticFeedback.heavyImpact();
+    HapticFeedback.lightImpact();
   }
 
   @override
