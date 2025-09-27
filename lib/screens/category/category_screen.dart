@@ -214,7 +214,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 /// CATEGORY COLORS
                 ///
                 CategoryColors(
-                  colors: colors,
+                  colors: categoryColors,
                   activeColor: categoryColor,
                   onPressedColor: (color) {
                     HapticFeedback.lightImpact();

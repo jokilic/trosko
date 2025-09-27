@@ -67,15 +67,22 @@ class SettingsController implements Disposable {
     ),
   );
 
-  /// Logs out of [Firebase] & clears [Hive]
-  Future<void> logOut() async {
-    firebase.logOut();
-    await hive.clearEverything();
-  }
+  /// Triggered when the user presses some [Color]
+  void onPressedPrimaryColor(Color newPrimaryColor) => hive.writeSettings(
+    hive.getSettings().copyWith(
+      primaryColor: newPrimaryColor,
+    ),
+  );
 
   /// Triggered when the user presses a flag
   void onPressedLanguage({
     required String languageCode,
     required BuildContext context,
   }) => context.setLocale(Locale(languageCode));
+
+  /// Logs out of [Firebase] & clears [Hive]
+  Future<void> logOut() async {
+    firebase.logOut();
+    await hive.clearEverything();
+  }
 }

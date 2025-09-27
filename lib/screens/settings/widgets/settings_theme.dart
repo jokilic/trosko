@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
 
 class SettingsTheme extends StatelessWidget {
@@ -7,86 +8,127 @@ class SettingsTheme extends StatelessWidget {
   final Color color;
   final Color highlightColor;
   final IconData? icon;
+  final String text;
+  final double circleOpacity;
 
   const SettingsTheme({
     required this.onPressed,
     required this.color,
     required this.highlightColor,
+    required this.text,
+    required this.circleOpacity,
     this.icon,
   });
 
   @override
-  Widget build(BuildContext context) => Container(
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      border: Border.all(
-        color: context.colors.borderColor,
-        width: 1.5,
-      ),
-    ),
-    child: IconButton(
-      onPressed: onPressed,
-      style: IconButton.styleFrom(
-        padding: const EdgeInsets.all(12),
-        backgroundColor: color,
-        highlightColor: highlightColor,
-        alignment: Alignment.center,
-      ),
-      icon: Icon(
-        icon,
-        color: context.colors.icon,
-        size: 36,
-      ),
+  Widget build(BuildContext context) => SizedBox(
+    width: 80,
+    child: Column(
+      children: [
+        Opacity(
+          opacity: circleOpacity,
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: context.colors.borderColor,
+                width: 1.5,
+              ),
+            ),
+            child: IconButton(
+              onPressed: onPressed,
+              style: IconButton.styleFrom(
+                padding: const EdgeInsets.all(12),
+                backgroundColor: color,
+                highlightColor: highlightColor,
+                alignment: Alignment.center,
+              ),
+              icon: Icon(
+                icon,
+                color: context.colors.icon,
+                size: 36,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          text,
+          style: context.textStyles.homeCategoryTitle,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+      ],
     ),
   );
 }
 
 class SettingsSystemTheme extends StatelessWidget {
   final Function() onPressed;
-  final Color iconColor;
   final Color highlightColor;
   final IconData? icon;
+  final String text;
+  final double circleOpacity;
 
   const SettingsSystemTheme({
     required this.onPressed,
-    required this.iconColor,
     required this.highlightColor,
+    required this.text,
+    required this.circleOpacity,
     this.icon,
   });
 
   @override
-  Widget build(BuildContext context) => Container(
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [
-          TroskoTheme.light.scaffoldBackgroundColor,
-          TroskoTheme.light.scaffoldBackgroundColor,
-          TroskoTheme.dark.scaffoldBackgroundColor,
-          TroskoTheme.dark.scaffoldBackgroundColor,
-        ],
-        stops: const [0.0, 0.5, 0.5, 1.0],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-      shape: BoxShape.circle,
-      border: Border.all(
-        color: context.colors.borderColor,
-        width: 1.5,
-      ),
-    ),
-    child: IconButton(
-      onPressed: onPressed,
-      style: IconButton.styleFrom(
-        padding: const EdgeInsets.all(12),
-        backgroundColor: Colors.transparent,
-        highlightColor: highlightColor,
-        alignment: Alignment.center,
-      ),
-      icon: Icon(
-        icon,
-        color: iconColor,
-        size: 36,
-      ),
+  Widget build(BuildContext context) => SizedBox(
+    width: 80,
+    child: Column(
+      children: [
+        Opacity(
+          opacity: circleOpacity,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [
+                  TroskoColors.lightGrey,
+                  TroskoColors.lightGrey,
+                  TroskoColors.dark,
+                  TroskoColors.dark,
+                ],
+                stops: [0.0, 0.5, 0.5, 1.0],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: context.colors.borderColor,
+                width: 1.5,
+              ),
+            ),
+            child: IconButton(
+              onPressed: onPressed,
+              style: IconButton.styleFrom(
+                padding: const EdgeInsets.all(12),
+                highlightColor: highlightColor,
+                alignment: Alignment.center,
+              ),
+              icon: Icon(
+                icon,
+                color: context.colors.icon,
+                size: 36,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          text,
+          style: context.textStyles.homeCategoryTitle,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+      ],
     ),
   );
 }

@@ -38,8 +38,8 @@ Category can also be edited or deleted if necessary.
 - [ ]  Svaki mjesec neka ima statistiku poput grafa i količine potrošenog za svaku kategoriju
 - [ ]  Screenshoti za storeove
 - [ ]  Staviti na storeove
-- [ ]  Bolji način za vidjeti što je aktivno od ikona u Settings
 - [ ]  Možda neka ilustracija na LoginScreenu
+- [ ]  Napravi RegisterScreen
 - [ ]  Na LoginScreenu kad dođe tipkovnica, ne vidi se Login button
 - [ ]  Pogledati kako radi na drugim platformama (Web)
 - [ ]  Dodaj custom boju u Category

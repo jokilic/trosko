@@ -18,7 +18,7 @@ class SettingsLanguages extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SliverToBoxAdapter(
     child: SizedBox(
-      height: 72,
+      height: 88,
       child: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         physics: const BouncingScrollPhysics(),
@@ -30,12 +30,14 @@ class SettingsLanguages extends StatelessWidget {
           SettingsLanguage(
             onPressed: () => onPressedLanguageCode('hr'),
             highlightColor: context.colors.buttonBackground,
-            icon: TroskoIcons.croatia,
-            activeIcon: context.locale.languageCode == 'hr'
+            icon: context.locale.languageCode == 'hr'
                 ? PhosphorIcons.check(
                     PhosphorIconsStyle.bold,
                   )
                 : null,
+            flagIcon: TroskoIcons.croatia,
+            text: 'Croatia',
+            circleOpacity: context.locale.languageCode == 'hr' ? 1 : 0.4,
           ),
           const SizedBox(width: 16),
 
@@ -45,12 +47,14 @@ class SettingsLanguages extends StatelessWidget {
           SettingsLanguage(
             onPressed: () => onPressedLanguageCode('en'),
             highlightColor: context.colors.buttonBackground,
-            icon: TroskoIcons.unitedKingdom,
-            activeIcon: context.locale.languageCode == 'en'
+            icon: context.locale.languageCode == 'en'
                 ? PhosphorIcons.check(
                     PhosphorIconsStyle.bold,
                   )
                 : null,
+            flagIcon: TroskoIcons.unitedKingdom,
+            text: 'English',
+            circleOpacity: context.locale.languageCode == 'en' ? 1 : 0.4,
           ),
         ],
       ),

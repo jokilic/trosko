@@ -8,17 +8,19 @@ class TroskoTheme {
   /// LIGHT
   ///
 
-  static ThemeData get light {
+  static ThemeData light({
+    required Color? primaryColor,
+  }) {
     final defaultTheme = ThemeData.light(
       useMaterial3: true,
     );
 
     return defaultTheme.copyWith(
       colorScheme: ColorScheme.fromSeed(
-        seedColor: lightAppColors.buttonPrimary,
+        seedColor: primaryColor ?? lightAppColors.buttonPrimary,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: lightAppColors.buttonPrimary,
+        backgroundColor: primaryColor ?? lightAppColors.buttonPrimary,
         foregroundColor: lightAppColors.text,
         elevation: 1,
         disabledElevation: 1,
@@ -27,7 +29,7 @@ class TroskoTheme {
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(
-            lightAppColors.buttonPrimary,
+            primaryColor ?? lightAppColors.buttonPrimary,
           ),
           foregroundColor: WidgetStateProperty.all(
             lightAppColors.buttonBackground,
@@ -54,7 +56,7 @@ class TroskoTheme {
         ),
         side: BorderSide.none,
         backgroundColor: lightAppColors.buttonBackground,
-        selectedColor: lightAppColors.buttonPrimary,
+        selectedColor: primaryColor ?? lightAppColors.buttonPrimary,
         showCheckmark: false,
         labelPadding: const EdgeInsets.symmetric(horizontal: 8),
         elevation: 1,
@@ -76,9 +78,9 @@ class TroskoTheme {
       scaffoldBackgroundColor: lightAppColors.scaffoldBackground,
       canvasColor: Colors.transparent,
       textSelectionTheme: TextSelectionThemeData(
-        selectionColor: lightAppColors.buttonPrimary,
-        cursorColor: lightAppColors.buttonPrimary,
-        selectionHandleColor: lightAppColors.buttonPrimary,
+        selectionColor: primaryColor ?? lightAppColors.buttonPrimary,
+        cursorColor: primaryColor ?? lightAppColors.buttonPrimary,
+        selectionHandleColor: primaryColor ?? lightAppColors.buttonPrimary,
       ),
       extensions: [
         lightAppColors,
@@ -108,17 +110,19 @@ class TroskoTheme {
   /// DARK
   ///
 
-  static ThemeData get dark {
+  static ThemeData dark({
+    required Color? primaryColor,
+  }) {
     final defaultTheme = ThemeData.dark(
       useMaterial3: true,
     );
 
     return defaultTheme.copyWith(
       colorScheme: ColorScheme.fromSeed(
-        seedColor: darkAppColors.buttonPrimary,
+        seedColor: primaryColor ?? darkAppColors.buttonPrimary,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: darkAppColors.buttonPrimary,
+        backgroundColor: primaryColor ?? darkAppColors.buttonPrimary,
         foregroundColor: darkAppColors.text,
         elevation: 1,
         disabledElevation: 1,
@@ -127,7 +131,7 @@ class TroskoTheme {
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(
-            darkAppColors.buttonPrimary,
+            primaryColor ?? darkAppColors.buttonPrimary,
           ),
           foregroundColor: WidgetStateProperty.all(
             darkAppColors.buttonBackground,
@@ -154,7 +158,7 @@ class TroskoTheme {
         ),
         side: BorderSide.none,
         backgroundColor: darkAppColors.buttonBackground,
-        selectedColor: darkAppColors.buttonPrimary,
+        selectedColor: primaryColor ?? darkAppColors.buttonPrimary,
         showCheckmark: false,
         labelPadding: const EdgeInsets.symmetric(horizontal: 8),
         elevation: 1,
@@ -176,9 +180,9 @@ class TroskoTheme {
       scaffoldBackgroundColor: darkAppColors.scaffoldBackground,
       canvasColor: Colors.transparent,
       textSelectionTheme: TextSelectionThemeData(
-        selectionColor: darkAppColors.buttonPrimary,
-        cursorColor: darkAppColors.buttonPrimary,
-        selectionHandleColor: darkAppColors.buttonPrimary,
+        selectionColor: primaryColor ?? darkAppColors.buttonPrimary,
+        cursorColor: primaryColor ?? darkAppColors.buttonPrimary,
+        selectionHandleColor: primaryColor ?? darkAppColors.buttonPrimary,
       ),
       extensions: [
         darkAppColors,

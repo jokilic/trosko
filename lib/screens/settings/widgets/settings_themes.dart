@@ -17,7 +17,7 @@ class SettingsThemes extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SliverToBoxAdapter(
     child: SizedBox(
-      height: 72,
+      height: 88,
       child: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         physics: const BouncingScrollPhysics(),
@@ -30,13 +30,14 @@ class SettingsThemes extends StatelessWidget {
             onPressed: () => onPressedThemeMode(
               ThemeMode.system,
             ),
-            iconColor: TroskoColors.lighterGrey,
             highlightColor: context.colors.buttonBackground,
             icon: activeThemeMode == ThemeMode.system
                 ? PhosphorIcons.check(
                     PhosphorIconsStyle.bold,
                   )
                 : null,
+            text: 'System',
+            circleOpacity: activeThemeMode == ThemeMode.system ? 1 : 0.4,
           ),
           const SizedBox(width: 16),
 
@@ -47,13 +48,15 @@ class SettingsThemes extends StatelessWidget {
             onPressed: () => onPressedThemeMode(
               ThemeMode.light,
             ),
-            color: TroskoTheme.light.scaffoldBackgroundColor,
+            color: TroskoColors.lightGrey,
             highlightColor: context.colors.buttonBackground,
             icon: activeThemeMode == ThemeMode.light
                 ? PhosphorIcons.check(
                     PhosphorIconsStyle.bold,
                   )
                 : null,
+            text: 'Light',
+            circleOpacity: activeThemeMode == ThemeMode.light ? 1 : 0.4,
           ),
           const SizedBox(width: 16),
 
@@ -64,13 +67,15 @@ class SettingsThemes extends StatelessWidget {
             onPressed: () => onPressedThemeMode(
               ThemeMode.dark,
             ),
-            color: TroskoTheme.dark.scaffoldBackgroundColor,
+            color: TroskoColors.dark,
             highlightColor: context.colors.buttonBackground,
             icon: activeThemeMode == ThemeMode.dark
                 ? PhosphorIcons.check(
                     PhosphorIconsStyle.bold,
                   )
                 : null,
+            text: 'Dark',
+            circleOpacity: activeThemeMode == ThemeMode.dark ? 1 : 0.4,
           ),
         ],
       ),

@@ -83,42 +83,50 @@ class TroskoWidget extends WatchingWidget {
   });
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    localizationsDelegates: context.localizationDelegates,
-    supportedLocales: context.supportedLocales,
-    locale: context.locale,
-    debugShowCheckedModeBanner: false,
-    home: isLoggedIn
-        ? const HomeScreen(
-            key: ValueKey('home'),
-          )
-        : const LoginScreen(
-            key: ValueKey('login'),
-          ),
-    onGenerateTitle: (_) => 'appName'.tr(),
-    theme: TroskoTheme.light,
-    darkTheme: TroskoTheme.dark,
-    themeMode: getThemeMode(
-      themeModeInt: watchIt<HiveService>().value.settings?.themeModeInt ?? 0,
-    ),
-    themeAnimationDuration: TroskoDurations.animation,
-    themeAnimationCurve: Curves.easeIn,
-    builder: (_, child) {
-      final appWidget =
-          child ??
-          const Scaffold(
-            body: SizedBox.shrink(),
-          );
+  Widget build(BuildContext context) {
+    final settings = watchIt<HiveService>().value.settings;
 
-      return kDebugMode
-          ? Banner(
-              message: '',
-              color: context.colors.buttonPrimary,
-              location: BannerLocation.topEnd,
-              layoutDirection: TextDirection.ltr,
-              child: appWidget,
+    return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      debugShowCheckedModeBanner: false,
+      home: isLoggedIn
+          ? const HomeScreen(
+              key: ValueKey('home'),
             )
-          : appWidget;
-    },
-  );
+          : const LoginScreen(
+              key: ValueKey('login'),
+            ),
+      onGenerateTitle: (_) => 'appName'.tr(),
+      theme: TroskoTheme.light(
+        primaryColor: settings?.primaryColor,
+      ),
+      darkTheme: TroskoTheme.dark(
+        primaryColor: settings?.primaryColor,
+      ),
+      themeMode: getThemeMode(
+        themeModeInt: settings?.themeModeInt ?? 0,
+      ),
+      themeAnimationDuration: TroskoDurations.animation,
+      themeAnimationCurve: Curves.easeIn,
+      builder: (_, child) {
+        final appWidget =
+            child ??
+            const Scaffold(
+              body: SizedBox.shrink(),
+            );
+
+        return kDebugMode
+            ? Banner(
+                message: '',
+                color: context.colors.buttonPrimary,
+                location: BannerLocation.topEnd,
+                layoutDirection: TextDirection.ltr,
+                child: appWidget,
+              )
+            : appWidget;
+      },
+    );
+  }
 }

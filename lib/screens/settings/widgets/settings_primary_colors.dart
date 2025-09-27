@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import '../../../theme/theme.dart';
+import 'settings_primary_color.dart';
+
+class SettingsPrimaryColors extends StatelessWidget {
+  final List<Color> primaryColors;
+  final Color? activePrimaryColor;
+  final Function(Color primaryColor) onPressedPrimaryColor;
+
+  const SettingsPrimaryColors({
+    required this.primaryColors,
+    required this.activePrimaryColor,
+    required this.onPressedPrimaryColor,
+  });
+
+  @override
+  Widget build(BuildContext context) => SliverToBoxAdapter(
+    child: SizedBox(
+      height: 88,
+      child: ListView.separated(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemCount: primaryColors.length,
+        itemBuilder: (_, index) {
+          final color = primaryColors[index];
+
+          return SettingsPrimaryColor(
+            onPressed: () => onPressedPrimaryColor(color),
+            color: color,
+            highlightColor: context.colors.buttonBackground,
+            icon: activePrimaryColor == color
+                ? PhosphorIcons.check(
+                    PhosphorIconsStyle.bold,
+                  )
+                : null,
+            circleOpacity: activePrimaryColor == color ? 1 : 0.4,
+          );
+        },
+        separatorBuilder: (_, __) => const SizedBox(width: 16),
+      ),
+    ),
+  );
+}

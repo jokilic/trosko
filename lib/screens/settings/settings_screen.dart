@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants/colors.dart';
 import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
@@ -17,6 +18,7 @@ import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'settings_controller.dart';
 import 'widgets/settings_languages.dart';
+import 'widgets/settings_primary_colors.dart';
 import 'widgets/settings_themes.dart';
 
 class SettingsScreen extends WatchingStatefulWidget {
@@ -87,13 +89,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
 
           ///
-          /// NAME TITLE
+          /// ACCOUNT DETAILS TITLE
           ///
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Change name',
+                'Account details',
                 style: context.textStyles.homeTitle,
               ),
             ),
@@ -131,13 +133,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
 
           ///
-          /// COLORS TITLE
+          /// THEME TITLE
           ///
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Colors',
+                'Theme',
                 style: context.textStyles.homeTitle,
               ),
             ),
@@ -147,7 +149,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
 
           ///
-          /// COLORS
+          /// THEMES
           ///
           SettingsThemes(
             activeThemeMode: getThemeMode(
@@ -159,6 +161,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
               );
 
               settingsController.onPressedThemeMode(themeMode);
+            },
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 24),
+          ),
+
+          ///
+          /// PRIMARY COLOR TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Primary color',
+                style: context.textStyles.homeTitle,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
+
+          ///
+          /// PRIMARY COLORS
+          ///
+          SettingsPrimaryColors(
+            primaryColors: primaryColors,
+            activePrimaryColor: settings?.primaryColor,
+            onPressedPrimaryColor: (primaryColor) {
+              unawaited(
+                HapticFeedback.lightImpact(),
+              );
+
+              settingsController.onPressedPrimaryColor(primaryColor);
             },
           ),
           const SliverToBoxAdapter(
@@ -247,6 +283,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
+          ),
+
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 28),
           ),
         ],
       ),

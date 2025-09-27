@@ -4,50 +4,71 @@ import '../../../theme/theme.dart';
 
 class SettingsLanguage extends StatelessWidget {
   final Function() onPressed;
-  final String icon;
   final Color highlightColor;
-  final IconData? activeIcon;
+  final String flagIcon;
+  final IconData? icon;
+  final String text;
+  final double circleOpacity;
 
   const SettingsLanguage({
     required this.onPressed,
-    required this.icon,
+    required this.flagIcon,
     required this.highlightColor,
-    this.activeIcon,
+    required this.text,
+    required this.circleOpacity,
+    this.icon,
   });
 
   @override
-  Widget build(BuildContext context) => Container(
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      border: Border.all(
-        color: context.colors.borderColor,
-        width: 1.5,
-      ),
-    ),
-    child: IconButton(
-      onPressed: onPressed,
-      style: IconButton.styleFrom(
-        padding: EdgeInsets.zero,
-        highlightColor: highlightColor,
-        alignment: Alignment.center,
-      ),
-      icon: Stack(
-        alignment: Alignment.center,
-        children: [
-          Image.asset(
-            icon,
-            height: 58,
-            width: 58,
-          ),
-
-          if (activeIcon != null)
-            Icon(
-              activeIcon,
-              color: context.colors.icon,
-              size: 36,
+  Widget build(BuildContext context) => SizedBox(
+    width: 80,
+    child: Column(
+      children: [
+        Opacity(
+          opacity: circleOpacity,
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: context.colors.borderColor,
+                width: 1.5,
+              ),
             ),
-        ],
-      ),
+            child: IconButton(
+              onPressed: onPressed,
+              style: IconButton.styleFrom(
+                padding: EdgeInsets.zero,
+                highlightColor: highlightColor,
+                alignment: Alignment.center,
+              ),
+              icon: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Image.asset(
+                    flagIcon,
+                    height: 60,
+                    width: 60,
+                  ),
+
+                  Icon(
+                    icon,
+                    color: context.colors.icon,
+                    size: 40,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          text,
+          style: context.textStyles.homeCategoryTitle,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+      ],
     ),
   );
 }
