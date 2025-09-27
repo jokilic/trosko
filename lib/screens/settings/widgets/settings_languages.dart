@@ -36,7 +36,7 @@ class SettingsLanguages extends StatelessWidget {
                   )
                 : null,
             flagIcon: TroskoIcons.croatia,
-            text: 'Croatia',
+            text: 'settingsCroatian'.tr(),
             circleOpacity: context.locale.languageCode == 'hr' ? 1 : 0.4,
           ),
           const SizedBox(width: 16),
@@ -53,7 +53,7 @@ class SettingsLanguages extends StatelessWidget {
                   )
                 : null,
             flagIcon: TroskoIcons.unitedKingdom,
-            text: 'English',
+            text: 'settingsEnglish'.tr(),
             circleOpacity: context.locale.languageCode == 'en' ? 1 : 0.4,
           ),
         ],

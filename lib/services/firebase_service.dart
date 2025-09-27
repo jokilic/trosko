@@ -45,6 +45,24 @@ class FirebaseService {
   /// Logs user out of [Firebase]
   void logOut() => auth.signOut();
 
+  /// Registers user into [Firebase]
+  Future<User?> registerUser({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final user = await auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return user.user;
+    } catch (e) {
+      logger.e('FirebaseService -> registerUser() -> $e');
+      return null;
+    }
+  }
+
   ///
   /// NAME
   ///

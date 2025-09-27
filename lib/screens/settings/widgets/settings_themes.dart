@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -36,7 +37,7 @@ class SettingsThemes extends StatelessWidget {
                     PhosphorIconsStyle.bold,
                   )
                 : null,
-            text: 'System',
+            text: 'settingsSystem'.tr(),
             circleOpacity: activeThemeMode == ThemeMode.system ? 1 : 0.4,
           ),
           const SizedBox(width: 16),
@@ -55,7 +56,7 @@ class SettingsThemes extends StatelessWidget {
                     PhosphorIconsStyle.bold,
                   )
                 : null,
-            text: 'Light',
+            text: 'settingsLight'.tr(),
             circleOpacity: activeThemeMode == ThemeMode.light ? 1 : 0.4,
           ),
           const SizedBox(width: 16),
@@ -74,7 +75,7 @@ class SettingsThemes extends StatelessWidget {
                     PhosphorIconsStyle.bold,
                   )
                 : null,
-            text: 'Dark',
+            text: 'settingsDark'.tr(),
             circleOpacity: activeThemeMode == ThemeMode.dark ? 1 : 0.4,
           ),
         ],

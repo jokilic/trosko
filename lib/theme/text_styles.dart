@@ -82,6 +82,12 @@ abstract class TroskoTextStyles {
     fontWeight: FontWeight.w500,
   );
 
+  static const homeTitleBold = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+  );
+
   static const homeTitleEuro = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 13,
@@ -151,6 +157,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
   final TextStyle homeTransactionValue;
   final TextStyle homeTransactionEuro;
   final TextStyle homeTitle;
+  final TextStyle homeTitleBold;
   final TextStyle homeTitleEuro;
   final TextStyle transactionAmountCurrentValue;
   final TextStyle transactionAmountNumber;
@@ -175,6 +182,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     required this.homeTransactionValue,
     required this.homeTransactionEuro,
     required this.homeTitle,
+    required this.homeTitleBold,
     required this.homeTitleEuro,
     required this.transactionAmountCurrentValue,
     required this.transactionAmountNumber,
@@ -201,6 +209,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     TextStyle? homeTransactionValue,
     TextStyle? homeTransactionEuro,
     TextStyle? homeTitle,
+    TextStyle? homeTitleBold,
     TextStyle? homeTitleEuro,
     TextStyle? transactionAmountCurrentValue,
     TextStyle? transactionAmountNumber,
@@ -224,6 +233,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     homeTransactionValue: homeTransactionValue ?? this.homeTransactionValue,
     homeTransactionEuro: homeTransactionEuro ?? this.homeTransactionEuro,
     homeTitle: homeTitle ?? this.homeTitle,
+    homeTitleBold: homeTitleBold ?? this.homeTitleBold,
     homeTitleEuro: homeTitleEuro ?? this.homeTitleEuro,
     transactionAmountCurrentValue: transactionAmountCurrentValue ?? this.transactionAmountCurrentValue,
     transactionAmountNumber: transactionAmountNumber ?? this.transactionAmountNumber,
@@ -258,6 +268,7 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
       homeTransactionValue: TextStyle.lerp(homeTransactionValue, other.homeTransactionValue, t)!,
       homeTransactionEuro: TextStyle.lerp(homeTransactionEuro, other.homeTransactionEuro, t)!,
       homeTitle: TextStyle.lerp(homeTitle, other.homeTitle, t)!,
+      homeTitleBold: TextStyle.lerp(homeTitleBold, other.homeTitleBold, t)!,
       homeTitleEuro: TextStyle.lerp(homeTitleEuro, other.homeTitleEuro, t)!,
       transactionAmountCurrentValue: TextStyle.lerp(transactionAmountCurrentValue, other.transactionAmountCurrentValue, t)!,
       transactionAmountNumber: TextStyle.lerp(transactionAmountNumber, other.transactionAmountNumber, t)!,

@@ -17,24 +17,24 @@ import '../../util/dependencies.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_loading.dart';
 import '../../widgets/trosko_text_field.dart';
-import 'login_controller.dart';
+import 'register_controller.dart';
 
-class LoginScreen extends WatchingStatefulWidget {
-  const LoginScreen({
+class RegisterScreen extends WatchingStatefulWidget {
+  const RegisterScreen({
     required super.key,
   });
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
 
-    registerIfNotInitialized<LoginController>(
-      () => LoginController(
+    registerIfNotInitialized<RegisterController>(
+      () => RegisterController(
         logger: getIt.get<LoggerService>(),
         firebase: getIt.get<FirebaseService>(),
         hive: getIt.get<HiveService>(),
@@ -45,15 +45,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    unRegisterIfNotDisposed<LoginController>();
+    unRegisterIfNotDisposed<RegisterController>();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final loginController = getIt.get<LoginController>();
+    final registerController = getIt.get<RegisterController>();
 
-    final state = watchIt<LoginController>().value;
+    final state = watchIt<RegisterController>().value;
 
     final validated = state.emailValid && state.passwordValid;
     final isLoading = state.isLoading;
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
             sliver: SliverToBoxAdapter(
               child: TroskoTextField(
                 autofocus: false,
-                controller: loginController.emailTextEditingController,
+                controller: registerController.emailTextEditingController,
                 labelText: 'email'.tr(),
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.left,
@@ -119,11 +119,33 @@ class _LoginScreenState extends State<LoginScreen> {
               child: TroskoTextField(
                 obscureText: true,
                 autofocus: false,
-                controller: loginController.passwordTextEditingController,
+                controller: registerController.passwordTextEditingController,
                 labelText: 'password'.tr(),
                 keyboardType: TextInputType.visiblePassword,
                 textAlign: TextAlign.left,
                 textCapitalization: TextCapitalization.none,
+                textInputAction: TextInputAction.next,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 16),
+          ),
+
+          ///
+          /// NAME
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: TroskoTextField(
+                obscureText: true,
+                autofocus: false,
+                controller: registerController.nameTextEditingController,
+                labelText: 'name'.tr(),
+                keyboardType: TextInputType.name,
+                textAlign: TextAlign.left,
+                textCapitalization: TextCapitalization.words,
                 textInputAction: TextInputAction.go,
               ),
             ),
@@ -133,18 +155,18 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
 
           ///
-          /// REGISTER
+          /// LOGIN
           ///
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
               child: Text.rich(
                 TextSpan(
-                  text: 'loginRegister'.tr(),
+                  text: 'registerLogin'.tr(),
                   children: [
                     TextSpan(
                       text: 'clickHere'.tr(),
-                      recognizer: TapGestureRecognizer()..onTap = () => openRegister(context),
+                      recognizer: TapGestureRecognizer()..onTap = () => openLogin(context),
                       style: context.textStyles.homeTitleBold,
                     ),
                   ],
@@ -192,9 +214,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               HapticFeedback.lightImpact(),
                             );
 
-                            final isLoginSuccessful = await loginController.loginPressed();
+                            final isRegisterSuccessful = await registerController.registerPressed();
 
-                            if (isLoginSuccessful) {
+                            if (isRegisterSuccessful) {
                               openHome(context);
                             }
                           }
@@ -213,7 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       disabledForegroundColor: context.colors.disabledText,
                     ),
                     child: Text(
-                      'loginButton'.tr().toUpperCase(),
+                      'registerButton'.tr().toUpperCase(),
                     ),
                   ),
                 ),

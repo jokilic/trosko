@@ -298,6 +298,9 @@ TroskoTextThemesExtension getTextThemesExtension({
   homeTitle: TroskoTextStyles.homeTitle.copyWith(
     color: colorsExtension.text,
   ),
+  homeTitleBold: TroskoTextStyles.homeTitleBold.copyWith(
+    color: colorsExtension.text,
+  ),
   homeTitleEuro: TroskoTextStyles.homeTitleEuro.copyWith(
     color: colorsExtension.text,
   ),

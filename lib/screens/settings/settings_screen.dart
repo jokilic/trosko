@@ -85,9 +85,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 size: 28,
               ),
             ),
-            smallTitle: 'Settings',
-            bigTitle: 'Settings',
-            bigSubtitle: 'Change some stuff here',
+            smallTitle: 'settingsTitle'.tr(),
+            bigTitle: 'settingsTitle'.tr(),
+            bigSubtitle: 'settingsSubtitle'.tr(),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 16),
@@ -100,7 +100,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Theme',
+                'settingsTheme'.tr(),
                 style: context.textStyles.homeTitle,
               ),
             ),
@@ -133,7 +133,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Primary color',
+                'settingsPrimaryColor'.tr(),
                 style: context.textStyles.homeTitle,
               ),
             ),
@@ -167,7 +167,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Language',
+                'settingsLanguage'.tr(),
                 style: context.textStyles.homeTitle,
               ),
             ),
@@ -203,7 +203,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Account management',
+                'settingsAccountManagement'.tr(),
                 style: context.textStyles.homeTitle,
               ),
             ),
@@ -228,7 +228,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
                 autofocus: false,
                 controller: settingsController.nameTextEditingController,
-                labelText: 'Name',
+                labelText: 'settingsName'.tr(),
                 keyboardType: TextInputType.name,
                 textAlign: TextAlign.left,
                 textCapitalization: TextCapitalization.words,
@@ -247,7 +247,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Here you can change the name of your user.',
+                'settingsNameText'.tr(),
                 style: context.textStyles.homeTransactionNote,
               ),
             ),
@@ -256,7 +256,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Type a new name and press Enter on your keyboard.',
+                'settingsNameText2'.tr(),
                 style: context.textStyles.homeTransactionNote,
               ),
             ),
@@ -290,7 +290,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     disabledForegroundColor: context.colors.disabledText,
                   ),
                   child: Text(
-                    'Refresh data'.toUpperCase(),
+                    'settingsRefreshData'.tr().toUpperCase(),
                   ),
                 ),
               ),
@@ -307,7 +307,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Pressing this button will refresh your data.',
+                'settingsRefreshDataText'.tr(),
                 style: context.textStyles.homeTransactionNote,
               ),
             ),
@@ -316,7 +316,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                "Useful if you've added new data on the web app.",
+                'settingsRefreshDataText2'.tr(),
                 style: context.textStyles.homeTransactionNote,
               ),
             ),
@@ -350,7 +350,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     disabledForegroundColor: context.colors.disabledText,
                   ),
                   child: Text(
-                    'Logout'.toUpperCase(),
+                    'settingsLogout'.tr().toUpperCase(),
                   ),
                 ),
               ),
@@ -367,7 +367,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Pressing this button will log you out.',
+                'settingsLogoutText'.tr(),
                 style: context.textStyles.homeTransactionNote,
               ),
             ),
@@ -376,7 +376,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'You can use the app again by signing in.',
+                'settingsLogoutText2'.tr(),
                 style: context.textStyles.homeTransactionNote,
               ),
             ),
@@ -410,7 +410,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     disabledForegroundColor: context.colors.disabledText,
                   ),
                   child: Text(
-                    'Delete account'.toUpperCase(),
+                    'settingsDeleteAccount'.tr().toUpperCase(),
                   ),
                 ),
               ),
@@ -427,7 +427,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Pressing this button will delete your account.',
+                'settingsDeleteAccountText'.tr(),
                 style: context.textStyles.homeTransactionNote,
               ),
             ),
@@ -436,7 +436,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'This is non-reversible, think before you decide.',
+                'settingsDeleteAccountText2'.tr(),
                 style: context.textStyles.homeTransactionNote,
               ),
             ),

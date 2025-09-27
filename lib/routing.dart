@@ -5,6 +5,7 @@ import 'models/transaction/transaction.dart';
 import 'screens/category/category_screen.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/login/login_screen.dart';
+import 'screens/register/register_screen.dart';
 import 'screens/settings/settings_screen.dart';
 import 'screens/transaction/transaction_screen.dart';
 import 'util/navigation.dart';
@@ -13,6 +14,14 @@ import 'util/navigation.dart';
 void openLogin(BuildContext context) => removeAllAndPushScreen(
   const LoginScreen(
     key: ValueKey('login'),
+  ),
+  context: context,
+);
+
+/// Opens [RegisterScreen]
+void openRegister(BuildContext context) => removeAllAndPushScreen(
+  const RegisterScreen(
+    key: ValueKey('register'),
   ),
   context: context,
 );
