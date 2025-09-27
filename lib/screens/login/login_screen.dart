@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
             bigSubtitle: 'loginSubtitle'.tr(),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 16),
+            child: SizedBox(height: 8),
           ),
 
           ///
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Image.asset(
               TroskoIcons.illustration,
               height: 256,
-              fit: BoxFit.cover,
+              fit: BoxFit.scaleDown,
             ),
           ),
           const SliverToBoxAdapter(

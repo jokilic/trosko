@@ -39,8 +39,5 @@ Category can also be edited or deleted if necessary.
 - [ ]  Screenshoti za storeove
 - [ ]  Staviti na storeove
 - [ ]  Napravi RegisterScreen
-- [ ]  Pogledati kako radi na drugim platformama (Web)
-- [ ]  Settings
-    - [ ] Refetch from Firebase
-    - [ ] Logout
-    - [ ] Ikona i verzija aplikacije
+- [ ]  Logika za delete account
+- [ ]  Lokaliziraj Settings

@@ -7,11 +7,13 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../constants/colors.dart';
+import '../../constants/icons.dart';
 import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
+import '../../util/app_version.dart';
 import '../../util/dependencies.dart';
 import '../../util/theme.dart';
 import '../../widgets/trosko_app_bar.dart';
@@ -56,7 +58,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     final settings = watchIt<HiveService>().value.settings;
 
-    // TODO: Localize
+    final activeThemeMode = getThemeMode(
+      themeModeInt: settings?.themeModeInt ?? 0,
+    );
+
     return Scaffold(
       body: CustomScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -89,50 +94,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
 
           ///
-          /// ACCOUNT DETAILS TITLE
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'Account details',
-                style: context.textStyles.homeTitle,
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 12),
-          ),
-
-          ///
-          /// NAME
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(
-              child: TroskoTextField(
-                onSubmitted: (value) {
-                  unawaited(
-                    HapticFeedback.lightImpact(),
-                  );
-
-                  settingsController.onSubmittedName(value);
-                },
-                autofocus: false,
-                controller: settingsController.nameTextEditingController,
-                labelText: 'Name',
-                keyboardType: TextInputType.name,
-                textAlign: TextAlign.left,
-                textCapitalization: TextCapitalization.words,
-                textInputAction: TextInputAction.done,
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 24),
-          ),
-
-          ///
           /// THEME TITLE
           ///
           SliverPadding(
@@ -152,9 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           /// THEMES
           ///
           SettingsThemes(
-            activeThemeMode: getThemeMode(
-              themeModeInt: settings?.themeModeInt ?? 0,
-            ),
+            activeThemeMode: activeThemeMode,
             onPressedThemeMode: (themeMode) {
               unawaited(
                 HapticFeedback.lightImpact(),
@@ -254,6 +213,59 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
 
           ///
+          /// NAME
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: TroskoTextField(
+                onSubmitted: (value) {
+                  unawaited(
+                    HapticFeedback.lightImpact(),
+                  );
+
+                  settingsController.onSubmittedName(value);
+                },
+                autofocus: false,
+                controller: settingsController.nameTextEditingController,
+                labelText: 'Name',
+                keyboardType: TextInputType.name,
+                textAlign: TextAlign.left,
+                textCapitalization: TextCapitalization.words,
+                textInputAction: TextInputAction.done,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 8),
+          ),
+
+          ///
+          /// NAME TEXT
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Here you can change the name of your user.',
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Type a new name and press Enter on your keyboard.',
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 24),
+          ),
+
+          ///
           /// REFRESH BUTTON
           ///
           SliverPadding(
@@ -285,7 +297,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 20),
+            child: SizedBox(height: 8),
+          ),
+
+          ///
+          /// REFRESH TEXT
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Pressing this button will refresh your data.',
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                "Useful if you've added new data on the web app.",
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 24),
           ),
 
           ///
@@ -320,7 +357,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 20),
+            child: SizedBox(height: 8),
+          ),
+
+          ///
+          /// LOGOUT TEXT
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Pressing this button will log you out.',
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'You can use the app again by signing in.',
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 24),
           ),
 
           ///
@@ -355,11 +417,88 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 20),
+            child: SizedBox(height: 8),
+          ),
+
+          ///
+          /// DELETE ACCOUNT TEXT
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'Pressing this button will delete your account.',
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'This is non-reversible, think before you decide.',
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 28),
+          ),
+
+          ///
+          /// APP INFO
+          ///
+          SliverToBoxAdapter(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: context.colors.text,
+                      width: 2,
+                    ),
+                  ),
+                  child: ClipOval(
+                    child: Image.asset(
+                      TroskoIcons.iconDark,
+                      color: context.colors.text,
+                      height: 56,
+                      width: 56,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Troško',
+                      style: context.textStyles.categoryIcon,
+                    ),
+                    FutureBuilder(
+                      future: getAppVersion(),
+                      builder: (_, snapshot) {
+                        final version = snapshot.data;
+
+                        if (version != null) {
+                          return Text(
+                            'v$version',
+                            style: context.textStyles.categoryName,
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
 
           const SliverToBoxAdapter(
-            child: SizedBox(height: 28),
+            child: SizedBox(height: 48),
           ),
         ],
       ),
