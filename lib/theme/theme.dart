@@ -15,6 +15,14 @@ class TroskoTheme {
       useMaterial3: true,
     );
 
+    final lightAppColors = getLightAppColors(
+      primaryColor: primaryColor,
+    );
+
+    final lightTextTheme = getLightTextTheme(
+      primaryColor: primaryColor,
+    );
+
     return defaultTheme.copyWith(
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor ?? lightAppColors.buttonPrimary,
@@ -89,10 +97,12 @@ class TroskoTheme {
     );
   }
 
-  static final lightAppColors = TroskoColorsExtension(
+  static TroskoColorsExtension getLightAppColors({
+    required Color? primaryColor,
+  }) => TroskoColorsExtension(
     text: TroskoColors.black,
     icon: TroskoColors.black,
-    buttonPrimary: TroskoColors.green,
+    buttonPrimary: primaryColor ?? TroskoColors.green,
     delete: TroskoColors.red,
     listTileBackground: TroskoColors.lighterGrey,
     buttonBackground: TroskoColors.grey,
@@ -102,8 +112,12 @@ class TroskoTheme {
     borderColor: TroskoColors.black,
   );
 
-  static final lightTextTheme = getTextThemesExtension(
-    colorsExtension: lightAppColors,
+  static TroskoTextThemesExtension getLightTextTheme({
+    required Color? primaryColor,
+  }) => getTextThemesExtension(
+    colorsExtension: getLightAppColors(
+      primaryColor: primaryColor,
+    ),
   );
 
   ///
@@ -115,6 +129,14 @@ class TroskoTheme {
   }) {
     final defaultTheme = ThemeData.dark(
       useMaterial3: true,
+    );
+
+    final darkAppColors = getDarkAppColors(
+      primaryColor: primaryColor,
+    );
+
+    final darkTextTheme = getDarkTextTheme(
+      primaryColor: primaryColor,
     );
 
     return defaultTheme.copyWith(
@@ -191,10 +213,12 @@ class TroskoTheme {
     );
   }
 
-  static final darkAppColors = TroskoColorsExtension(
+  static TroskoColorsExtension getDarkAppColors({
+    required Color? primaryColor,
+  }) => TroskoColorsExtension(
     text: TroskoColors.lighterGrey,
     icon: TroskoColors.lighterGrey,
-    buttonPrimary: TroskoColors.green,
+    buttonPrimary: primaryColor ?? TroskoColors.green,
     delete: TroskoColors.red,
     listTileBackground: TroskoColors.lightDark,
     buttonBackground: TroskoColors.lighterDark,
@@ -204,14 +228,26 @@ class TroskoTheme {
     borderColor: TroskoColors.lightGrey,
   );
 
-  static final darkTextTheme = getTextThemesExtension(
-    colorsExtension: darkAppColors,
+  static TroskoTextThemesExtension getDarkTextTheme({
+    required Color? primaryColor,
+  }) => getTextThemesExtension(
+    colorsExtension: getDarkAppColors(
+      primaryColor: primaryColor,
+    ),
   );
 }
 
 extension TroskoThemeExtension on ThemeData {
-  TroskoColorsExtension get troskoColors => extension<TroskoColorsExtension>() ?? TroskoTheme.lightAppColors;
-  TroskoTextThemesExtension get troskoTextStyles => extension<TroskoTextThemesExtension>() ?? TroskoTheme.lightTextTheme;
+  TroskoColorsExtension get troskoColors =>
+      extension<TroskoColorsExtension>() ??
+      TroskoTheme.getLightAppColors(
+        primaryColor: TroskoColors.green,
+      );
+  TroskoTextThemesExtension get troskoTextStyles =>
+      extension<TroskoTextThemesExtension>() ??
+      TroskoTheme.getLightTextTheme(
+        primaryColor: TroskoColors.green,
+      );
 }
 
 extension ThemeGetter on BuildContext {

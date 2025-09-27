@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 
 const primaryColors = [
-  TroskoColors.black,
   TroskoColors.green,
+  TroskoColors.blue,
+  TroskoColors.yellow,
   TroskoColors.red,
-  TroskoColors.lighterGrey,
+  TroskoColors.purple,
+  TroskoColors.pink,
 ];
 
 const categoryColors = [

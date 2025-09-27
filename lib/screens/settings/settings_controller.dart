@@ -80,6 +80,19 @@ class SettingsController implements Disposable {
     required BuildContext context,
   }) => context.setLocale(Locale(languageCode));
 
+  /// Refetches all data from [Firebase] and stores into [Hive]
+  Future<void> refetchFirebaseDataIntoHive() async {
+    final username = await firebase.getUsername();
+    final transactions = await firebase.getTransactions();
+    final categories = await firebase.getCategories();
+
+    await hive.storeDataFromFirebase(
+      username: username,
+      transactions: transactions ?? [],
+      categories: categories ?? [],
+    );
+  }
+
   /// Logs out of [Firebase] & clears [Hive]
   Future<void> logOut() async {
     firebase.logOut();

@@ -238,19 +238,54 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
 
           ///
-          /// LOGOUT TITLE
+          /// ACCOUNT MANAGEMENT TITLE
           ///
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'Logout',
+                'Account management',
                 style: context.textStyles.homeTitle,
               ),
             ),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 12),
+          ),
+
+          ///
+          /// REFRESH BUTTON
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed: () async {
+                    unawaited(
+                      HapticFeedback.lightImpact(),
+                    );
+
+                    await settingsController.refetchFirebaseDataIntoHive();
+                    Navigator.of(context).pop();
+                  },
+                  style: FilledButton.styleFrom(
+                    backgroundColor: context.colors.buttonPrimary,
+                    foregroundColor: context.colors.listTileBackground,
+                    overlayColor: context.colors.buttonBackground,
+                    disabledBackgroundColor: context.colors.disabledBackground,
+                    disabledForegroundColor: context.colors.disabledText,
+                  ),
+                  child: Text(
+                    'Refresh data'.toUpperCase(),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 20),
           ),
 
           ///
@@ -283,6 +318,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 20),
+          ),
+
+          ///
+          /// DELETE ACCOUNT BUTTON
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed: () async {
+                    unawaited(
+                      HapticFeedback.lightImpact(),
+                    );
+
+                    // await settingsController.logOut();
+                    // openLogin(context);
+                  },
+                  style: FilledButton.styleFrom(
+                    backgroundColor: context.colors.delete,
+                    foregroundColor: context.colors.listTileBackground,
+                    overlayColor: context.colors.buttonBackground,
+                    disabledBackgroundColor: context.colors.disabledBackground,
+                    disabledForegroundColor: context.colors.disabledText,
+                  ),
+                  child: Text(
+                    'Delete account'.toUpperCase(),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 20),
           ),
 
           const SliverToBoxAdapter(

@@ -42,9 +42,7 @@ Category can also be edited or deleted if necessary.
 - [ ]  Napravi RegisterScreen
 - [ ]  Na LoginScreenu kad dođe tipkovnica, ne vidi se Login button
 - [ ]  Pogledati kako radi na drugim platformama (Web)
-- [ ]  Dodaj custom boju u Category
 - [ ]  Settings
-    - [ ] Primary boja
     - [ ] Refetch from Firebase
     - [ ] Logout
     - [ ] Ikona i verzija aplikacije
