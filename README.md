@@ -40,7 +40,6 @@ Category can also be edited or deleted if necessary.
 - [ ]  Staviti na storeove
 - [ ]  Možda neka ilustracija na LoginScreenu
 - [ ]  Napravi RegisterScreen
-- [ ]  Na LoginScreenu kad dođe tipkovnica, ne vidi se Login button
 - [ ]  Pogledati kako radi na drugim platformama (Web)
 - [ ]  Settings
     - [ ] Refetch from Firebase

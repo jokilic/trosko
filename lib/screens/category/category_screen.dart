@@ -292,33 +292,38 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: SizedBox(
-        width: double.infinity,
-        child: FilledButton(
-          onPressed: validated
-              ? () async {
-                  unawaited(
-                    HapticFeedback.lightImpact(),
-                  );
-                  await categoryController.addCategory();
-                  Navigator.of(context).pop();
-                }
-              : null,
-          style: FilledButton.styleFrom(
-            padding: EdgeInsets.fromLTRB(
-              24,
-              28,
-              24,
-              MediaQuery.paddingOf(context).bottom + 12,
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
+        ),
+        child: SizedBox(
+          width: double.infinity,
+          child: FilledButton(
+            onPressed: validated
+                ? () async {
+                    unawaited(
+                      HapticFeedback.lightImpact(),
+                    );
+                    await categoryController.addCategory();
+                    Navigator.of(context).pop();
+                  }
+                : null,
+            style: FilledButton.styleFrom(
+              padding: EdgeInsets.fromLTRB(
+                24,
+                28,
+                24,
+                MediaQuery.paddingOf(context).bottom + 12,
+              ),
+              backgroundColor: context.colors.buttonPrimary,
+              foregroundColor: context.colors.text,
+              overlayColor: context.colors.buttonBackground,
+              disabledBackgroundColor: context.colors.disabledBackground,
+              disabledForegroundColor: context.colors.disabledText,
             ),
-            backgroundColor: context.colors.buttonPrimary,
-            foregroundColor: context.colors.text,
-            overlayColor: context.colors.buttonBackground,
-            disabledBackgroundColor: context.colors.disabledBackground,
-            disabledForegroundColor: context.colors.disabledText,
-          ),
-          child: Text(
-            widget.passedCategory != null ? 'categoryUpdateButton'.tr().toUpperCase() : 'categoryAddButton'.tr().toUpperCase(),
+            child: Text(
+              widget.passedCategory != null ? 'categoryUpdateButton'.tr().toUpperCase() : 'categoryAddButton'.tr().toUpperCase(),
+            ),
           ),
         ),
       ),

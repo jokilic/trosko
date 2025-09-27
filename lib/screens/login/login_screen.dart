@@ -124,56 +124,61 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: AnimatedSwitcher(
-        duration: TroskoDurations.loginAnimation,
-        switchInCurve: Curves.easeIn,
-        switchOutCurve: Curves.easeIn,
-        child: isLoading
-            ? Container(
-                padding: EdgeInsets.fromLTRB(
-                  24,
-                  28,
-                  24,
-                  MediaQuery.paddingOf(context).bottom + 12,
-                ),
-                child: TroskoLoading(
-                  color: context.colors.text,
-                ),
-              )
-            : SizedBox(
-                width: double.infinity,
-                child: FilledButton(
-                  onPressed: validated
-                      ? () async {
-                          unawaited(
-                            HapticFeedback.lightImpact(),
-                          );
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
+        ),
+        child: AnimatedSwitcher(
+          duration: TroskoDurations.loginAnimation,
+          switchInCurve: Curves.easeIn,
+          switchOutCurve: Curves.easeIn,
+          child: isLoading
+              ? Container(
+                  padding: EdgeInsets.fromLTRB(
+                    24,
+                    28,
+                    24,
+                    MediaQuery.paddingOf(context).bottom + 12,
+                  ),
+                  child: TroskoLoading(
+                    color: context.colors.text,
+                  ),
+                )
+              : SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: validated
+                        ? () async {
+                            unawaited(
+                              HapticFeedback.lightImpact(),
+                            );
 
-                          final isLoginSuccessful = await loginController.loginPressed();
+                            final isLoginSuccessful = await loginController.loginPressed();
 
-                          if (isLoginSuccessful) {
-                            openHome(context);
+                            if (isLoginSuccessful) {
+                              openHome(context);
+                            }
                           }
-                        }
-                      : null,
-                  style: FilledButton.styleFrom(
-                    padding: EdgeInsets.fromLTRB(
-                      24,
-                      28,
-                      24,
-                      MediaQuery.paddingOf(context).bottom + 12,
+                        : null,
+                    style: FilledButton.styleFrom(
+                      padding: EdgeInsets.fromLTRB(
+                        24,
+                        28,
+                        24,
+                        MediaQuery.paddingOf(context).bottom + 12,
+                      ),
+                      backgroundColor: context.colors.buttonPrimary,
+                      foregroundColor: context.colors.text,
+                      overlayColor: context.colors.buttonBackground,
+                      disabledBackgroundColor: context.colors.disabledBackground,
+                      disabledForegroundColor: context.colors.disabledText,
                     ),
-                    backgroundColor: context.colors.buttonPrimary,
-                    foregroundColor: context.colors.text,
-                    overlayColor: context.colors.buttonBackground,
-                    disabledBackgroundColor: context.colors.disabledBackground,
-                    disabledForegroundColor: context.colors.disabledText,
-                  ),
-                  child: Text(
-                    'loginButton'.tr().toUpperCase(),
+                    child: Text(
+                      'loginButton'.tr().toUpperCase(),
+                    ),
                   ),
                 ),
-              ),
+        ),
       ),
     );
   }
