@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../constants/durations.dart';
+import '../../constants/icons.dart';
 import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
@@ -71,6 +72,20 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 16),
+          ),
+
+          ///
+          /// ILLUSTRATION
+          ///
+          SliverToBoxAdapter(
+            child: Image.asset(
+              TroskoIcons.illustration,
+              height: 256,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 36),
           ),
 
           ///

@@ -6,6 +6,7 @@ import '../hive_registrar.g.dart';
 import '../models/category/category.dart';
 import '../models/settings/settings.dart';
 import '../models/transaction/transaction.dart';
+import '../theme/colors.dart';
 import '../util/path.dart';
 import 'logger_service.dart';
 
@@ -32,7 +33,7 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
   final defaultSettings = Settings(
     isLoggedIn: false,
     themeModeInt: 0,
-    primaryColor: null,
+    primaryColor: TroskoColors.green,
   );
 
   ///

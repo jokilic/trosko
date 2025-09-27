@@ -38,7 +38,6 @@ Category can also be edited or deleted if necessary.
 - [ ]  Svaki mjesec neka ima statistiku poput grafa i količine potrošenog za svaku kategoriju
 - [ ]  Screenshoti za storeove
 - [ ]  Staviti na storeove
-- [ ]  Možda neka ilustracija na LoginScreenu
 - [ ]  Napravi RegisterScreen
 - [ ]  Pogledati kako radi na drugim platformama (Web)
 - [ ]  Settings
