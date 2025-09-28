@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -34,7 +35,7 @@ class _CategoryCustomColorModalState extends State<CategoryCustomColorModal> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 28),
           child: Text(
-            'Pick a custom color for your category.',
+            'settingsCustomColorModalText'.tr(),
             style: context.textStyles.homeTitle,
           ),
         ),
@@ -80,7 +81,7 @@ class _CategoryCustomColorModalState extends State<CategoryCustomColorModal> {
                 disabledForegroundColor: context.colors.disabledText,
               ),
               child: Text(
-                'Odaberi boju'.toUpperCase(),
+                'settingsCustomColorModalButton'.tr().toUpperCase(),
               ),
             ),
           ),

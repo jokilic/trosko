@@ -15,6 +15,7 @@ import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
 import '../../util/app_version.dart';
 import '../../util/dependencies.dart';
+import '../../util/sounds.dart';
 import '../../util/theme.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
@@ -474,20 +475,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: context.colors.text,
-                      width: 2,
+                GestureDetector(
+                  onLongPress: playWelcomeToTrosko,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: context.colors.text,
+                        width: 2,
+                      ),
                     ),
-                  ),
-                  child: ClipOval(
-                    child: Image.asset(
-                      TroskoIcons.iconDark,
-                      color: context.colors.text,
-                      height: 56,
-                      width: 56,
+                    child: ClipOval(
+                      child: Image.asset(
+                        TroskoIcons.iconDark,
+                        color: context.colors.text,
+                        height: 56,
+                        width: 56,
+                      ),
                     ),
                   ),
                 ),

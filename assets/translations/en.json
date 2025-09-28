@@ -68,5 +68,7 @@
     "settingsDark": "Dark",
     "settingsCroatian": "Croatian",
     "settingsEnglish": "English",
-    "settingsDeleteAccountModalText": "To delete account, enter your email and password."
+    "settingsDeleteAccountModalText": "To delete account, enter your email and password.",
+    "settingsCustomColorModalText": "Pick a custom color for your category.",
+    "settingsCustomColorModalButton": "Choose color"
 }
