@@ -30,7 +30,7 @@ class HomeCategory extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: hasBorder ? context.colors.borderColor : color,
+              color: color,
               width: 1.5,
             ),
           ),

@@ -147,7 +147,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         shape: BoxShape.circle,
                         color: categoryColor,
                         border: Border.all(
-                          color: context.colors.borderColor,
+                          color: categoryColor ?? context.colors.borderColor,
                           width: 1.5,
                         ),
                       ),

@@ -100,7 +100,7 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                         shape: BoxShape.circle,
                         color: widget.category?.color,
                         border: Border.all(
-                          color: context.colors.borderColor,
+                          color: widget.category?.color ?? context.colors.borderColor,
                           width: 1.5,
                         ),
                       ),
