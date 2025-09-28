@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive_ce_flutter/adapters.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 
-import '../hive_registrar.g.dart';
 import '../models/category/category.dart';
+import '../models/hive_registrar.g.dart';
 import '../models/settings/settings.dart';
 import '../models/transaction/transaction.dart';
 import '../theme/colors.dart';
