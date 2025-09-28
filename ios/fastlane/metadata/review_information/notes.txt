@@ -1,0 +1,5 @@
+You can register in the app yourself.
+
+Or use these credentials for login:
+Email -> test@mail.com
+Password -> pass1234
