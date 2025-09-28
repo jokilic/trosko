@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 
+import '../hive_registrar.g.dart';
 import '../models/category/category.dart';
 import '../models/settings/settings.dart';
 import '../models/transaction/transaction.dart';
@@ -40,9 +41,9 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
   ///
 
   Future<void> init() async {
-    final directory = await getHiveDirectory();
+    // final directory = await getHiveDirectory();
 
-    Hive.init(directory?.path);
+    await Hive.initFlutter();
 
     if (!Hive.isAdapterRegistered(ColorAdapter().typeId)) {
       Hive.registerAdapter(ColorAdapter());
