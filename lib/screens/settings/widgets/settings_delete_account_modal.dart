@@ -76,100 +76,106 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 24),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ///
-        /// TEXT
-        ///
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 28),
-          child: Text(
-            'settingsDeleteAccountModalText'.tr(),
-            style: context.textStyles.homeTitle,
+    padding: EdgeInsets.only(
+      bottom: MediaQuery.viewInsetsOf(context).bottom,
+    ),
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(vertical: 24),
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ///
+          /// TEXT
+          ///
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            child: Text(
+              'settingsDeleteAccountModalText'.tr(),
+              style: context.textStyles.homeTitle,
+            ),
           ),
-        ),
-        const SizedBox(height: 12),
+          const SizedBox(height: 12),
 
-        ///
-        /// EMAIL
-        ///
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: TroskoTextField(
-            autofocus: false,
-            controller: emailTextEditingController,
-            labelText: 'email'.tr(),
-            keyboardType: TextInputType.emailAddress,
-            textAlign: TextAlign.left,
-            textCapitalization: TextCapitalization.none,
-            textInputAction: TextInputAction.next,
+          ///
+          /// EMAIL
+          ///
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: TroskoTextField(
+              autofocus: false,
+              controller: emailTextEditingController,
+              labelText: 'email'.tr(),
+              keyboardType: TextInputType.emailAddress,
+              textAlign: TextAlign.left,
+              textCapitalization: TextCapitalization.none,
+              textInputAction: TextInputAction.next,
+            ),
           ),
-        ),
-        const SizedBox(height: 16),
+          const SizedBox(height: 16),
 
-        ///
-        /// PASSWORD
-        ///
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: TroskoTextField(
-            obscureText: true,
-            autofocus: false,
-            controller: passwordTextEditingController,
-            labelText: 'password'.tr(),
-            keyboardType: TextInputType.visiblePassword,
-            textAlign: TextAlign.left,
-            textCapitalization: TextCapitalization.none,
-            textInputAction: TextInputAction.go,
+          ///
+          /// PASSWORD
+          ///
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: TroskoTextField(
+              obscureText: true,
+              autofocus: false,
+              controller: passwordTextEditingController,
+              labelText: 'password'.tr(),
+              keyboardType: TextInputType.visiblePassword,
+              textAlign: TextAlign.left,
+              textCapitalization: TextCapitalization.none,
+              textInputAction: TextInputAction.go,
+            ),
           ),
-        ),
-        const SizedBox(height: 28),
+          const SizedBox(height: 28),
 
-        ///
-        /// BUTTON
-        ///
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: isEmailValid && isPasswordValid
-                  ? () async {
-                      unawaited(
-                        HapticFeedback.lightImpact(),
-                      );
+          ///
+          /// BUTTON
+          ///
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: isEmailValid && isPasswordValid
+                    ? () async {
+                        unawaited(
+                          HapticFeedback.lightImpact(),
+                        );
 
-                      /// Parse values
-                      final email = emailTextEditingController.text.trim();
-                      final password = passwordTextEditingController.text.trim();
+                        /// Parse values
+                        final email = emailTextEditingController.text.trim();
+                        final password = passwordTextEditingController.text.trim();
 
-                      Navigator.of(context).pop(
-                        (
-                          email: email,
-                          password: password,
-                          shouldDelete: widget.userEmail == email,
-                        ),
-                      );
-                    }
-                  : null,
-              style: FilledButton.styleFrom(
-                backgroundColor: context.colors.delete,
-                foregroundColor: context.colors.listTileBackground,
-                overlayColor: context.colors.buttonBackground,
-                disabledBackgroundColor: context.colors.disabledBackground,
-                disabledForegroundColor: context.colors.disabledText,
-              ),
-              child: Text(
-                'settingsDeleteAccount'.tr().toUpperCase(),
+                        Navigator.of(context).pop(
+                          (
+                            email: email,
+                            password: password,
+                            shouldDelete: widget.userEmail == email,
+                          ),
+                        );
+                      }
+                    : null,
+                style: FilledButton.styleFrom(
+                  backgroundColor: context.colors.delete,
+                  foregroundColor: context.colors.listTileBackground,
+                  overlayColor: context.colors.buttonBackground,
+                  disabledBackgroundColor: context.colors.disabledBackground,
+                  disabledForegroundColor: context.colors.disabledText,
+                ),
+                child: Text(
+                  'settingsDeleteAccount'.tr().toUpperCase(),
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(height: 28),
-      ],
+          const SizedBox(height: 28),
+        ],
+      ),
     ),
   );
 }

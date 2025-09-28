@@ -24,70 +24,76 @@ class _CategoryCustomColorModalState extends State<CategoryCustomColorModal> {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 24),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ///
-        /// TEXT
-        ///
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 28),
-          child: Text(
-            'settingsCustomColorModalText'.tr(),
-            style: context.textStyles.homeTitle,
+    padding: EdgeInsets.only(
+      bottom: MediaQuery.viewInsetsOf(context).bottom,
+    ),
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(vertical: 24),
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ///
+          /// TEXT
+          ///
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            child: Text(
+              'settingsCustomColorModalText'.tr(),
+              style: context.textStyles.homeTitle,
+            ),
           ),
-        ),
-        const SizedBox(height: 12),
+          const SizedBox(height: 12),
 
-        ///
-        /// COLOR
-        ///
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: ColorPicker(
-            pickerColor: color,
-            onColorChanged: (newColor) => color = newColor,
-            enableAlpha: false,
-            hexInputBar: true,
-            labelTypes: const [],
-            pickerAreaBorderRadius: BorderRadius.circular(8),
-            pickerAreaHeightPercent: 0.55,
+          ///
+          /// COLOR
+          ///
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ColorPicker(
+              pickerColor: color,
+              onColorChanged: (newColor) => color = newColor,
+              enableAlpha: false,
+              hexInputBar: true,
+              labelTypes: const [],
+              pickerAreaBorderRadius: BorderRadius.circular(8),
+              pickerAreaHeightPercent: 0.55,
+            ),
           ),
-        ),
-        const SizedBox(height: 28),
+          const SizedBox(height: 28),
 
-        ///
-        /// BUTTON
-        ///
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: () async {
-                unawaited(
-                  HapticFeedback.lightImpact(),
-                );
+          ///
+          /// BUTTON
+          ///
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () async {
+                  unawaited(
+                    HapticFeedback.lightImpact(),
+                  );
 
-                Navigator.of(context).pop(color);
-              },
-              style: FilledButton.styleFrom(
-                backgroundColor: context.colors.delete,
-                foregroundColor: context.colors.listTileBackground,
-                overlayColor: context.colors.buttonBackground,
-                disabledBackgroundColor: context.colors.disabledBackground,
-                disabledForegroundColor: context.colors.disabledText,
-              ),
-              child: Text(
-                'settingsCustomColorModalButton'.tr().toUpperCase(),
+                  Navigator.of(context).pop(color);
+                },
+                style: FilledButton.styleFrom(
+                  backgroundColor: context.colors.delete,
+                  foregroundColor: context.colors.listTileBackground,
+                  overlayColor: context.colors.buttonBackground,
+                  disabledBackgroundColor: context.colors.disabledBackground,
+                  disabledForegroundColor: context.colors.disabledText,
+                ),
+                child: Text(
+                  'settingsCustomColorModalButton'.tr().toUpperCase(),
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(height: 28),
-      ],
+          const SizedBox(height: 28),
+        ],
+      ),
     ),
   );
 }
