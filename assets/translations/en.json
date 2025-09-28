@@ -70,5 +70,8 @@
     "settingsEnglish": "English",
     "settingsDeleteAccountModalText": "To delete account, enter your email and password.",
     "settingsCustomColorModalText": "Pick a custom color for your category.",
-    "settingsCustomColorModalButton": "Choose color"
+    "settingsCustomColorModalButton": "Choose color",
+    "statsTitle": "Data for {}",
+    "statsSubtitle": "See data for chosen month",
+    "statsExpenseNumber": "{} expenses"
 }

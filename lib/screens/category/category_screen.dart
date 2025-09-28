@@ -132,7 +132,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                const SizedBox(height: 4),
+                const SizedBox(height: 8),
 
                 ///
                 /// CATEGORY

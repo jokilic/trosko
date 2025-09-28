@@ -32,9 +32,3 @@ Expense can also be edited or deleted if necessary.
 Add new category here.\
 You need to choose a color, category name and icon.\
 Category can also be edited or deleted if necessary.
-
-### To-Do
-
-- [ ]  Svaki mjesec neka ima statistiku poput grafa i količine potrošenog za svaku kategoriju
-- [ ]  Screenshoti za storeove
-- [ ]  Staviti na storeove

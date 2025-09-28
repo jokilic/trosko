@@ -60,6 +60,19 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
   /// METHODS
   ///
 
+  List<Transaction> getAllTransactionsFromMonth(Month month) {
+    final all = hive.getTransactions();
+
+    /// Apply filters and sort
+    final filtered = all.where((t) => isSameMonth(t.createdAt, month.date)).toList()
+      ..sort(
+        (a, b) => b.createdAt.compareTo(a.createdAt),
+      );
+
+    /// Return proper `transactions`
+    return filtered;
+  }
+
   /// Trigger FAB animation
   void triggerFabAnimation() {
     shakeFabController?.reset();

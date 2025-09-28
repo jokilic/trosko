@@ -25,12 +25,8 @@ class SettingsLanguage extends StatelessWidget {
         Opacity(
           opacity: circleOpacity,
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(
-                color: context.colors.borderColor,
-                width: 1.5,
-              ),
             ),
             child: IconButton(
               onPressed: onPressed,

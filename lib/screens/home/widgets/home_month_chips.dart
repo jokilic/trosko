@@ -9,11 +9,13 @@ class HomeMonthChips extends StatelessWidget {
   final List<Month> months;
   final Month? activeMonth;
   final Function(Month? newMonth) onChipPressed;
+  final Function(Month? newMonth)? onChipLongPressed;
 
   const HomeMonthChips({
     required this.months,
     required this.activeMonth,
     required this.onChipPressed,
+    this.onChipLongPressed,
   });
 
   @override
@@ -68,19 +70,23 @@ class HomeMonthChips extends StatelessWidget {
                 splashColor: Colors.transparent,
                 highlightColor: activeMonth == month ? context.colors.buttonBackground : context.colors.listTileBackground,
               ),
-              child: FilterChip(
-                label: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 40,
+              child: InkWell(
+                onLongPress: onChipLongPressed != null ? () => onChipLongPressed!(month) : null,
+                borderRadius: BorderRadius.circular(8),
+                child: FilterChip(
+                  label: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      minWidth: 40,
+                    ),
+                    child: Text(
+                      capitalize(month.label),
+                      style: context.textStyles.homeMonthChip,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  child: Text(
-                    capitalize(month.label),
-                    style: context.textStyles.homeMonthChip,
-                    textAlign: TextAlign.center,
-                  ),
+                  selected: activeMonth == month,
+                  onSelected: (_) => onChipPressed(month),
                 ),
-                selected: activeMonth == month,
-                onSelected: (_) => onChipPressed(month),
               ),
             );
           }

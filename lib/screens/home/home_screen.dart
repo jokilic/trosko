@@ -187,6 +187,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 locale: context.locale.languageCode,
               );
             },
+            onChipLongPressed: (month) {
+              HapticFeedback.lightImpact();
+              homeController.updateState(
+                newMonth: month,
+                locale: context.locale.languageCode,
+              );
+
+              if (month != null) {
+                final transactions = homeController.getAllTransactionsFromMonth(month);
+
+                openStats(
+                  context,
+                  month: month,
+                  transactions: transactions,
+                  categories: categories,
+                );
+              }
+            },
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 8),

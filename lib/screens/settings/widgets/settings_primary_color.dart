@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../theme/theme.dart';
-
 class SettingsPrimaryColor extends StatelessWidget {
   final Function() onPressed;
   final Color color;
@@ -24,7 +22,7 @@ class SettingsPrimaryColor extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
-            color: context.colors.borderColor,
+            color: color,
             width: 1.5,
           ),
         ),

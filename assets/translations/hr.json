@@ -70,5 +70,8 @@
     "settingsEnglish": "Engleski",
     "settingsDeleteAccountModalText": "Za brisanje računa, unesite vaš email i lozinku.",
     "settingsCustomColorModalText": "Odaberi prilagođenu boju za svoju kategoriju.",
-    "settingsCustomColorModalButton": "Odaberi boju"
+    "settingsCustomColorModalButton": "Odaberi boju",
+    "statsTitle": "Podaci za {}",
+    "statsSubtitle": "Pogledaj podatke za odabrani mjesec",
+    "statsExpenseNumber": "{} troškova"
 }

@@ -92,7 +92,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             bigSubtitle: 'settingsSubtitle'.tr(),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 16),
+            child: SizedBox(height: 4),
           ),
 
           ///
