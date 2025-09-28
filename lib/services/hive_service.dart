@@ -44,6 +44,10 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
 
     Hive.init(directory?.path);
 
+    if (!Hive.isAdapterRegistered(ColorAdapter().typeId)) {
+      Hive.registerAdapter(ColorAdapter());
+    }
+
     if (!Hive.isAdapterRegistered(CategoryAdapter().typeId)) {
       Hive.registerAdapter(CategoryAdapter());
     }
@@ -54,10 +58,6 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
 
     if (!Hive.isAdapterRegistered(SettingsAdapter().typeId)) {
       Hive.registerAdapter(SettingsAdapter());
-    }
-
-    if (!Hive.isAdapterRegistered(ColorAdapter().typeId)) {
-      Hive.registerAdapter(ColorAdapter());
     }
 
     settings = await Hive.openBox<Settings>('settingsBox');
