@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive_ce/hive.dart';
 
-part 'transaction.g.dart';
-
 @HiveType(typeId: 0)
 class Transaction {
   @HiveField(1)
