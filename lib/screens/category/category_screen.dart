@@ -229,6 +229,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     /// Show [CategoryCustomColorModal]
                     final color = await showModalBottomSheet<Color>(
                       context: context,
+                      backgroundColor: context.colors.scaffoldBackground,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       builder: (context) => CategoryCustomColorModal(
                         startingColor: context.colors.buttonPrimary,
                         key: const ValueKey('custom-color-modal'),

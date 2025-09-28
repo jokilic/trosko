@@ -404,6 +404,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     /// Show [SettingsDeleteAccountModal]
                     final value = await showModalBottomSheet<({String email, String password, bool shouldDelete})>(
                       context: context,
+                      backgroundColor: context.colors.scaffoldBackground,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       builder: (context) => SettingsDeleteAccountModal(
                         userEmail: settingsController.firebase.userEmail,
                         key: const ValueKey('delete-account-modal'),
