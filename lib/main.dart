@@ -19,55 +19,39 @@ import 'util/dependencies.dart';
 import 'util/theme.dart';
 
 Future<void> main() async {
-  FlutterError.onError = (details) {
-    // print to console and forward to zone
-    print('FlutterError: ${details.exception}\n${details.stack}');
-    Zone.current.handleUncaughtError(
-      details.exception,
-      details.stack!,
-    );
-  };
+  WidgetsFlutterBinding.ensureInitialized();
 
-  await runZonedGuarded(
-    () async {
-      WidgetsFlutterBinding.ensureInitialized();
+  /// Make sure the orientation is only `portrait`
+  await SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
 
-      /// Make sure the orientation is only `portrait`
-      await SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp],
-      );
+  /// Initialize [EasyLocalization]
+  await EasyLocalization.ensureInitialized();
 
-      /// Initialize [EasyLocalization]
-      await EasyLocalization.ensureInitialized();
+  /// Initialize [Firebase]
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-      /// Initialize [Firebase]
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
+  /// Initialize dates
+  await initializeDateFormatting('en');
+  await initializeDateFormatting('hr');
 
-      /// Initialize dates
-      await initializeDateFormatting('en');
-      await initializeDateFormatting('hr');
+  /// Initialize services
+  initializeServices();
 
-      /// Initialize services
-      initializeServices();
+  /// Wait for initialization to finish
+  await getIt.allReady();
 
-      /// Wait for initialization to finish
-      await getIt.allReady();
+  /// Get `settings` value from [Hive]
+  final settings = getIt.get<HiveService>().getSettings();
 
-      /// Get `settings` value from [Hive]
-      final settings = getIt.get<HiveService>().getSettings();
-
-      /// Run `Troško`
-      runApp(
-        TroskoApp(
-          isLoggedIn: settings.isLoggedIn && FirebaseAuth.instance.currentUser != null,
-        ),
-      );
-    },
-    (error, stack) {
-      print('Uncaught: $error\n$stack');
-    },
+  /// Run `Troško`
+  runApp(
+    TroskoApp(
+      isLoggedIn: settings.isLoggedIn && FirebaseAuth.instance.currentUser != null,
+    ),
   );
 }
 

@@ -56,7 +56,7 @@
     "settingsNameText2": "Type a new name and press Enter on your keyboard.",
     "settingsRefreshData": "Refresh data",
     "settingsRefreshDataText": "Pressing this button will refresh your data.",
-    "settingsRefreshDataText2": "Useful if you've added new data on the web app.",
+    "settingsRefreshDataText2": "Fetches everything from the remote database.",
     "settingsLogout": "Logout",
     "settingsLogoutText": "Pressing this button will log you out.",
     "settingsLogoutText2": "You can use the app again by signing in.",
