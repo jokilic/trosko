@@ -38,5 +38,5 @@ Category can also be edited or deleted if necessary.
 - [ ]  Svaki mjesec neka ima statistiku poput grafa i količine potrošenog za svaku kategoriju
 - [ ]  Screenshoti za storeove
 - [ ]  Staviti na storeove
-- [ ]  Logika za delete account
 - [ ]  Prikaži error od Logina / Registera
+- [ ]  Ilustracija mace

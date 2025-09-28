@@ -67,5 +67,6 @@
     "settingsLight": "Light",
     "settingsDark": "Dark",
     "settingsCroatian": "Croatian",
-    "settingsEnglish": "English"
+    "settingsEnglish": "English",
+    "settingsDeleteAccountModalText": "To delete account, enter your email and password."
 }

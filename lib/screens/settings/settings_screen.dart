@@ -19,6 +19,7 @@ import '../../util/theme.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'settings_controller.dart';
+import 'widgets/settings_delete_account_modal.dart';
 import 'widgets/settings_languages.dart';
 import 'widgets/settings_primary_colors.dart';
 import 'widgets/settings_themes.dart';
@@ -399,8 +400,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       HapticFeedback.lightImpact(),
                     );
 
-                    // await settingsController.logOut();
-                    // openLogin(context);
+                    /// Show [SettingsDeleteAccountModal]
+                    final value = await showModalBottomSheet<({String email, String password, bool shouldDelete})>(
+                      context: context,
+                      builder: (context) => SettingsDeleteAccountModal(
+                        userEmail: settingsController.firebase.userEmail,
+                        key: const ValueKey('delete-account-modal'),
+                      ),
+                    );
+
+                    /// `email` and `password` exist
+                    if ((value?.email.isNotEmpty ?? false) && (value?.password.isNotEmpty ?? false) && (value?.shouldDelete ?? false)) {
+                      /// Delete `user`
+                      final isDeletedUser = await settingsController.deleteUser(
+                        email: value!.email,
+                        password: value.password,
+                      );
+
+                      /// User successfully deleted
+                      if (isDeletedUser) {
+                        /// Go to [LoginScreen]
+                        openLogin(context);
+                      }
+                    }
                   },
                   style: FilledButton.styleFrom(
                     backgroundColor: context.colors.delete,

@@ -67,5 +67,6 @@
     "settingsLight": "Svjetlo",
     "settingsDark": "Tamno",
     "settingsCroatian": "Hrvatski",
-    "settingsEnglish": "Engleski"
+    "settingsEnglish": "Engleski",
+    "settingsDeleteAccountModalText": "Za brisanje računa, unesite vaš email i lozinku."
 }

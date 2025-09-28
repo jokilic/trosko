@@ -98,4 +98,22 @@ class SettingsController implements Disposable {
     firebase.logOut();
     await hive.clearEverything();
   }
+
+  /// Deletes [Firebase] user & clears [Hive]
+  Future<bool> deleteUser({
+    required String email,
+    required String password,
+  }) async {
+    final isUserDeleted = await firebase.deleteUser(
+      email: email,
+      password: password,
+    );
+
+    if (isUserDeleted) {
+      await hive.clearEverything();
+      return true;
+    }
+
+    return false;
+  }
 }

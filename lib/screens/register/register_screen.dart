@@ -139,7 +139,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
               child: TroskoTextField(
-                obscureText: true,
                 autofocus: false,
                 controller: registerController.nameTextEditingController,
                 labelText: 'name'.tr(),

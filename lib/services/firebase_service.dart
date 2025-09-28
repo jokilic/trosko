@@ -21,6 +21,12 @@ class FirebaseService {
   });
 
   ///
+  /// GETTERS
+  ///
+
+  String? get userEmail => auth.currentUser?.email;
+
+  ///
   /// METHODS
   ///
 
@@ -60,6 +66,72 @@ class FirebaseService {
     } catch (e) {
       logger.e('FirebaseService -> registerUser() -> $e');
       return null;
+    }
+  }
+
+  /// Deletes data and user from [Firebase]
+  Future<bool> deleteUser({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final user = auth.currentUser;
+
+      if (user == null) {
+        return false;
+      }
+
+      /// Reauthenticate before deleting
+      final credential = EmailAuthProvider.credential(
+        email: email,
+        password: password,
+      );
+      await user.reauthenticateWithCredential(credential);
+
+      /// Get user document reference
+      final userDoc = firestore.collection('users').doc(user.uid);
+
+      /// Delete all `Transactions`
+      await deleteCollectionPaged(
+        userDoc.collection('transactions'),
+      );
+
+      /// Delete all `Categories`
+      await deleteCollectionPaged(
+        userDoc.collection('categories'),
+      );
+
+      /// Delete `user` document
+      await userDoc.delete();
+
+      /// Delete `user`
+      await user.delete();
+      return true;
+    } catch (e) {
+      logger.e('FirebaseService -> deleteUser() -> $e');
+      return false;
+    }
+  }
+
+  /// Paged delete for [Firebase] collection
+  Future<void> deleteCollectionPaged(
+    CollectionReference<Map<String, dynamic>> collection, {
+    int batchSize = 300,
+  }) async {
+    while (true) {
+      final snap = await collection.limit(batchSize).get();
+
+      if (snap.docs.isEmpty) {
+        break;
+      }
+
+      final batch = firestore.batch();
+
+      for (final d in snap.docs) {
+        batch.delete(d.reference);
+      }
+
+      await batch.commit();
     }
   }
 
