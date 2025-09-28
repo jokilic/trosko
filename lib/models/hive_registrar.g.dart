@@ -11,11 +11,8 @@ import 'package:trosko/models/transaction/transaction.dart';
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(CategoryAdapter());
-    registerAdapter(CategoryAdapter());
     registerAdapter(ColorAdapter());
     registerAdapter(SettingsAdapter());
-    registerAdapter(SettingsAdapter());
-    registerAdapter(TransactionAdapter());
     registerAdapter(TransactionAdapter());
   }
 }
@@ -23,11 +20,8 @@ extension HiveRegistrar on HiveInterface {
 extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
     registerAdapter(CategoryAdapter());
-    registerAdapter(CategoryAdapter());
     registerAdapter(ColorAdapter());
     registerAdapter(SettingsAdapter());
-    registerAdapter(SettingsAdapter());
-    registerAdapter(TransactionAdapter());
     registerAdapter(TransactionAdapter());
   }
 }
