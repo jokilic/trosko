@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,39 +19,55 @@ import 'util/dependencies.dart';
 import 'util/theme.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  FlutterError.onError = (details) {
+    // print to console and forward to zone
+    print('FlutterError: ${details.exception}\n${details.stack}');
+    Zone.current.handleUncaughtError(
+      details.exception,
+      details.stack!,
+    );
+  };
 
-  /// Make sure the orientation is only `portrait`
-  await SystemChrome.setPreferredOrientations(
-    [DeviceOrientation.portraitUp],
-  );
+  await runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
 
-  /// Initialize [EasyLocalization]
-  await EasyLocalization.ensureInitialized();
+      /// Make sure the orientation is only `portrait`
+      await SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp],
+      );
 
-  /// Initialize [Firebase]
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+      /// Initialize [EasyLocalization]
+      await EasyLocalization.ensureInitialized();
 
-  /// Initialize dates
-  await initializeDateFormatting('en');
-  await initializeDateFormatting('hr');
+      /// Initialize [Firebase]
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
 
-  /// Initialize services
-  initializeServices();
+      /// Initialize dates
+      await initializeDateFormatting('en');
+      await initializeDateFormatting('hr');
 
-  /// Wait for initialization to finish
-  await getIt.allReady();
+      /// Initialize services
+      initializeServices();
 
-  /// Get `settings` value from [Hive]
-  final settings = getIt.get<HiveService>().getSettings();
+      /// Wait for initialization to finish
+      await getIt.allReady();
 
-  /// Run `Troško`
-  runApp(
-    TroskoApp(
-      isLoggedIn: settings.isLoggedIn && FirebaseAuth.instance.currentUser != null,
-    ),
+      /// Get `settings` value from [Hive]
+      final settings = getIt.get<HiveService>().getSettings();
+
+      /// Run `Troško`
+      runApp(
+        TroskoApp(
+          isLoggedIn: settings.isLoggedIn && FirebaseAuth.instance.currentUser != null,
+        ),
+      );
+    },
+    (error, stack) {
+      print('Uncaught: $error\n$stack');
+    },
   );
 }
 
