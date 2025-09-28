@@ -17,6 +17,7 @@ import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'category_controller.dart';
 import 'widgets/category_colors.dart';
+import 'widgets/category_custom_color_modal.dart';
 import 'widgets/category_icon_list_tile.dart';
 
 class CategoryScreen extends WatchingStatefulWidget {
@@ -220,7 +221,25 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     HapticFeedback.lightImpact();
                     categoryController.colorChanged(color);
                   },
-                  onPressedAdd: () {},
+                  onPressedAdd: () async {
+                    unawaited(
+                      HapticFeedback.lightImpact(),
+                    );
+
+                    /// Show [CategoryCustomColorModal]
+                    final color = await showModalBottomSheet<Color>(
+                      context: context,
+                      builder: (context) => CategoryCustomColorModal(
+                        startingColor: context.colors.buttonPrimary,
+                        key: const ValueKey('custom-color-modal'),
+                      ),
+                    );
+
+                    /// `color` exists
+                    if (color != null) {
+                      categoryController.colorChanged(color);
+                    }
+                  },
                 ),
                 const SizedBox(height: 28),
 

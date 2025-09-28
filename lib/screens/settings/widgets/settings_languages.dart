@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../constants/icons.dart';
 import '../../../theme/theme.dart';
@@ -30,11 +29,6 @@ class SettingsLanguages extends StatelessWidget {
           SettingsLanguage(
             onPressed: () => onPressedLanguageCode('hr'),
             highlightColor: context.colors.buttonBackground,
-            icon: context.locale.languageCode == 'hr'
-                ? PhosphorIcons.check(
-                    PhosphorIconsStyle.bold,
-                  )
-                : null,
             flagIcon: TroskoIcons.croatia,
             text: 'settingsCroatian'.tr(),
             circleOpacity: context.locale.languageCode == 'hr' ? 1 : 0.4,
@@ -47,11 +41,6 @@ class SettingsLanguages extends StatelessWidget {
           SettingsLanguage(
             onPressed: () => onPressedLanguageCode('en'),
             highlightColor: context.colors.buttonBackground,
-            icon: context.locale.languageCode == 'en'
-                ? PhosphorIcons.check(
-                    PhosphorIconsStyle.bold,
-                  )
-                : null,
             flagIcon: TroskoIcons.unitedKingdom,
             text: 'settingsEnglish'.tr(),
             circleOpacity: context.locale.languageCode == 'en' ? 1 : 0.4,

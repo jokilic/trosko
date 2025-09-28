@@ -6,7 +6,6 @@ class SettingsPrimaryColor extends StatelessWidget {
   final Function() onPressed;
   final Color color;
   final Color highlightColor;
-  final IconData? icon;
   final double circleOpacity;
 
   const SettingsPrimaryColor({
@@ -14,7 +13,6 @@ class SettingsPrimaryColor extends StatelessWidget {
     required this.color,
     required this.highlightColor,
     required this.circleOpacity,
-    this.icon,
   });
 
   @override
@@ -38,11 +36,7 @@ class SettingsPrimaryColor extends StatelessWidget {
             highlightColor: highlightColor,
             alignment: Alignment.center,
           ),
-          icon: Icon(
-            icon,
-            color: context.colors.icon,
-            size: 36,
-          ),
+          icon: const SizedBox.shrink(),
         ),
       ),
     ),

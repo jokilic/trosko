@@ -7,7 +7,6 @@ class SettingsTheme extends StatelessWidget {
   final Function() onPressed;
   final Color color;
   final Color highlightColor;
-  final IconData? icon;
   final String text;
   final double circleOpacity;
 
@@ -17,7 +16,6 @@ class SettingsTheme extends StatelessWidget {
     required this.highlightColor,
     required this.text,
     required this.circleOpacity,
-    this.icon,
   });
 
   @override
@@ -38,16 +36,12 @@ class SettingsTheme extends StatelessWidget {
             child: IconButton(
               onPressed: onPressed,
               style: IconButton.styleFrom(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(28),
                 backgroundColor: color,
                 highlightColor: highlightColor,
                 alignment: Alignment.center,
               ),
-              icon: Icon(
-                icon,
-                color: context.colors.icon,
-                size: 36,
-              ),
+              icon: const SizedBox.shrink(),
             ),
           ),
         ),
@@ -67,7 +61,6 @@ class SettingsTheme extends StatelessWidget {
 class SettingsSystemTheme extends StatelessWidget {
   final Function() onPressed;
   final Color highlightColor;
-  final IconData? icon;
   final String text;
   final double circleOpacity;
 
@@ -76,7 +69,6 @@ class SettingsSystemTheme extends StatelessWidget {
     required this.highlightColor,
     required this.text,
     required this.circleOpacity,
-    this.icon,
   });
 
   @override
@@ -108,15 +100,11 @@ class SettingsSystemTheme extends StatelessWidget {
             child: IconButton(
               onPressed: onPressed,
               style: IconButton.styleFrom(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(28),
                 highlightColor: highlightColor,
                 alignment: Alignment.center,
               ),
-              icon: Icon(
-                icon,
-                color: context.colors.icon,
-                size: 36,
-              ),
+              icon: const SizedBox.shrink(),
             ),
           ),
         ),

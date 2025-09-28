@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../theme/theme.dart';
 import 'settings_primary_color.dart';
@@ -31,11 +30,6 @@ class SettingsPrimaryColors extends StatelessWidget {
             onPressed: () => onPressedPrimaryColor(color),
             color: color,
             highlightColor: context.colors.buttonBackground,
-            icon: activePrimaryColor == color
-                ? PhosphorIcons.check(
-                    PhosphorIconsStyle.bold,
-                  )
-                : null,
             circleOpacity: activePrimaryColor == color ? 1 : 0.4,
           );
         },

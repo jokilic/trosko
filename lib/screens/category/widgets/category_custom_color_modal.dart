@@ -1,0 +1,92 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+
+import '../../../theme/theme.dart';
+
+class CategoryCustomColorModal extends StatefulWidget {
+  final Color startingColor;
+
+  const CategoryCustomColorModal({
+    required this.startingColor,
+    required super.key,
+  });
+
+  @override
+  State<CategoryCustomColorModal> createState() => _CategoryCustomColorModalState();
+}
+
+class _CategoryCustomColorModalState extends State<CategoryCustomColorModal> {
+  late var color = widget.startingColor;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.symmetric(vertical: 24),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ///
+        /// TEXT
+        ///
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 28),
+          child: Text(
+            'Pick a custom color for your category.',
+            style: context.textStyles.homeTitle,
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        ///
+        /// COLOR
+        ///
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: ColorPicker(
+            pickerColor: color,
+            onColorChanged: (newColor) => color = newColor,
+            enableAlpha: false,
+            hexInputBar: true,
+            labelTypes: const [],
+            pickerAreaBorderRadius: BorderRadius.circular(8),
+            pickerAreaHeightPercent: 0.55,
+          ),
+        ),
+        const SizedBox(height: 28),
+
+        ///
+        /// BUTTON
+        ///
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: () async {
+                unawaited(
+                  HapticFeedback.lightImpact(),
+                );
+
+                Navigator.of(context).pop(color);
+              },
+              style: FilledButton.styleFrom(
+                backgroundColor: context.colors.delete,
+                foregroundColor: context.colors.listTileBackground,
+                overlayColor: context.colors.buttonBackground,
+                disabledBackgroundColor: context.colors.disabledBackground,
+                disabledForegroundColor: context.colors.disabledText,
+              ),
+              child: Text(
+                'Odaberi boju'.toUpperCase(),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 28),
+      ],
+    ),
+  );
+}

@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
@@ -32,11 +31,6 @@ class SettingsThemes extends StatelessWidget {
               ThemeMode.system,
             ),
             highlightColor: context.colors.buttonBackground,
-            icon: activeThemeMode == ThemeMode.system
-                ? PhosphorIcons.check(
-                    PhosphorIconsStyle.bold,
-                  )
-                : null,
             text: 'settingsSystem'.tr(),
             circleOpacity: activeThemeMode == ThemeMode.system ? 1 : 0.4,
           ),
@@ -51,11 +45,6 @@ class SettingsThemes extends StatelessWidget {
             ),
             color: TroskoColors.lightGrey,
             highlightColor: context.colors.buttonBackground,
-            icon: activeThemeMode == ThemeMode.light
-                ? PhosphorIcons.check(
-                    PhosphorIconsStyle.bold,
-                  )
-                : null,
             text: 'settingsLight'.tr(),
             circleOpacity: activeThemeMode == ThemeMode.light ? 1 : 0.4,
           ),
@@ -70,11 +59,6 @@ class SettingsThemes extends StatelessWidget {
             ),
             color: TroskoColors.dark,
             highlightColor: context.colors.buttonBackground,
-            icon: activeThemeMode == ThemeMode.dark
-                ? PhosphorIcons.check(
-                    PhosphorIconsStyle.bold,
-                  )
-                : null,
             text: 'settingsDark'.tr(),
             circleOpacity: activeThemeMode == ThemeMode.dark ? 1 : 0.4,
           ),

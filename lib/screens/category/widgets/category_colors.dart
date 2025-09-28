@@ -34,8 +34,7 @@ class CategoryColors extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
-      itemCount: colors.length,
-      // itemCount: colors.length + 1,
+      itemCount: colors.length + 1,
       itemBuilder: (_, index) {
         final color = colors.elementAtOrNull(index);
 
@@ -45,28 +44,24 @@ class CategoryColors extends StatelessWidget {
         if (color != null) {
           return CategoryColor(
             onPressed: () => onPressedColor(color),
-            color: color,
-            highlightColor: context.colors.buttonBackground,
-            icon: activeColor == color
-                ? PhosphorIcons.check(
-                    PhosphorIconsStyle.bold,
-                  )
-                : null,
+            color: color.withValues(
+              alpha: activeColor == color ? 1 : 0.4,
+            ),
+            highlightColor: color.withValues(
+              alpha: activeColor == color ? 1 : 0.4,
+            ),
           );
         }
-
-        return const SizedBox.shrink();
 
         ///
         /// ADD NEW CATEGORY
         ///
-        // return CategoryColor(
-        //   onPressed: onPressedAdd,
-        //   color: context.colors.buttonBackground,
-        //   highlightColor: context.colors.listTileBackground,
-        //   icon: PhosphorIcons.plus(),
-        //   hasBorder: false,
-        // );
+        return CategoryColor(
+          onPressed: onPressedAdd,
+          color: context.colors.buttonBackground,
+          highlightColor: context.colors.listTileBackground,
+          icon: PhosphorIcons.plus(),
+        );
       },
       separatorBuilder: (_, __) => const SizedBox(width: 12),
     ),

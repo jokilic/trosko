@@ -7,13 +7,11 @@ class CategoryColor extends StatelessWidget {
   final Color color;
   final Color highlightColor;
   final IconData? icon;
-  final bool hasBorder;
 
   const CategoryColor({
     required this.onPressed,
     required this.color,
     required this.highlightColor,
-    this.hasBorder = true,
     this.icon,
   });
 
@@ -22,7 +20,7 @@ class CategoryColor extends StatelessWidget {
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       border: Border.all(
-        color: hasBorder ? context.colors.borderColor : color,
+        color: color,
         width: 1.5,
       ),
     ),
@@ -37,7 +35,7 @@ class CategoryColor extends StatelessWidget {
       icon: Icon(
         icon,
         color: context.colors.icon,
-        size: 24,
+        size: 28,
       ),
     ),
   );
