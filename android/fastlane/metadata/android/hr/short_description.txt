@@ -1,0 +1,1 @@
+Troško is a simple expense tracker.

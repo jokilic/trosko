@@ -1,0 +1,72 @@
+# Check for `Fastlane` updates
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  #
+  # Google Play
+  #
+
+  desc "Build & deploy a new release to the Google Play"
+  lane :play_store_release do
+    # Build Flutter app
+    sh("puro flutter clean")
+    sh("puro flutter pub get")
+    sh("puro flutter build appbundle")
+
+    # Upload to Play Store
+    supply(
+      json_key: "/Users/josip_fastlane_android_key.json",
+      aab: "../build/app/outputs/bundle/release/app-release.aab",
+      track: "production",
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      )
+
+    # Show notification
+    notification(
+      content_image: "../assets/icon.png",
+      title: "Troško",
+      message: "New release deployed to the Play Store",
+      )
+  end
+
+  #
+  # GitHub Releases
+  #
+
+  desc "Build & deploy a new release to GitHub Releases"
+  lane :github_release do
+    # Build Flutter app
+    sh("puro flutter clean")
+    sh("puro flutter pub get")
+    sh("puro flutter build apk --target-platform=android-arm64")
+
+    # Rename built APK to `trosko.apk`
+    sh("mv ../../build/app/outputs/flutter-apk/app-release.apk ../../build/app/outputs/flutter-apk/trosko.apk")
+
+    # Get version from `pubspec.yaml`
+    pubspec_version = File.open("../../pubspec.yaml", "r").read.match(/version: .*?(\d+\.\d+\.\d+)\+(\d+)/)[1]
+
+    # Upload to GitHub Releases
+    set_github_release(
+      repository_name: "jokilic/trosko",
+      api_token: ENV["GITHUB_TOKEN"],
+      name: "Troško v#{pubspec_version}",
+      tag_name: "v#{pubspec_version}",
+      description: (File.read("metadata/android/en-GB/changelogs/default.txt") rescue "No changelog provided"),
+      commitish: "main",
+      upload_assets: ["../build/app/outputs/flutter-apk/trosko.apk"],
+      )
+
+    # Show notification
+    notification(
+      content_image: "../assets/icon.png",
+      title: "Troško",
+      message: "New release deployed to GitHub Releases",
+      )
+  end
+end
