@@ -71,11 +71,8 @@ class _CategoryCustomColorModalState extends State<CategoryCustomColorModal> {
             child: SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: () async {
-                  unawaited(
-                    HapticFeedback.lightImpact(),
-                  );
-
+                onPressed: () {
+                  HapticFeedback.lightImpact();
                   Navigator.of(context).pop(color);
                 },
                 style: FilledButton.styleFrom(

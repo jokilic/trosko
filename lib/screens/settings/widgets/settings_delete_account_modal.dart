@@ -142,10 +142,8 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
               width: double.infinity,
               child: FilledButton(
                 onPressed: isEmailValid && isPasswordValid
-                    ? () async {
-                        unawaited(
-                          HapticFeedback.lightImpact(),
-                        );
+                    ? () {
+                        HapticFeedback.lightImpact();
 
                         /// Parse values
                         final email = emailTextEditingController.text.trim();

@@ -165,7 +165,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     TextSpan(
                       text: 'clickHere'.tr(),
-                      recognizer: TapGestureRecognizer()..onTap = () => openLogin(context),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          HapticFeedback.lightImpact();
+                          openLogin(context);
+                        },
                       style: context.textStyles.homeTitleBold,
                     ),
                   ],

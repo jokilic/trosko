@@ -138,7 +138,10 @@ class _HomeScreenState extends State<HomeScreen> {
           TroskoAppBar(
             actionWidgets: [
               IconButton(
-                onPressed: () => openSettings(context),
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  openSettings(context);
+                },
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   highlightColor: context.colors.buttonBackground,
@@ -188,12 +191,6 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
             onChipLongPressed: (month) {
-              HapticFeedback.lightImpact();
-              homeController.updateState(
-                newMonth: month,
-                locale: context.locale.languageCode,
-              );
-
               if (month != null) {
                 final transactions = homeController.getAllTransactionsFromMonth(month);
 
@@ -239,13 +236,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 locale: context.locale.languageCode,
               );
             },
-            onLongPressedCategory: (category) {
-              HapticFeedback.lightImpact();
-              openCategory(
-                context,
-                passedCategory: category,
-              );
-            },
+            onLongPressedCategory: (category) => openCategory(
+              context,
+              passedCategory: category,
+            ),
             onPressedAdd: () {
               HapticFeedback.lightImpact();
               openCategory(
@@ -317,17 +311,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   final category = categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
 
                   return HomeTransactionListTile(
-                    onLongPressed: () {
-                      HapticFeedback.lightImpact();
-                      openTransaction(
-                        context,
-                        passedTransaction: item,
-                        categories: categories,
-                        onTransactionUpdated: () => homeController.updateState(
-                          locale: context.locale.languageCode,
-                        ),
-                      );
-                    },
+                    onLongPressed: () => openTransaction(
+                      context,
+                      passedTransaction: item,
+                      categories: categories,
+                      onTransactionUpdated: () => homeController.updateState(
+                        locale: context.locale.languageCode,
+                      ),
+                    ),
                     onDeletePressed: () {
                       HapticFeedback.lightImpact();
                       homeController.deleteTransaction(

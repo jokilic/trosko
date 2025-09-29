@@ -117,10 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           SettingsThemes(
             activeThemeMode: activeThemeMode,
             onPressedThemeMode: (themeMode) {
-              unawaited(
-                HapticFeedback.lightImpact(),
-              );
-
+              HapticFeedback.lightImpact();
               settingsController.onPressedThemeMode(themeMode);
             },
           ),
@@ -151,10 +148,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             primaryColors: primaryColors,
             activePrimaryColor: settings?.primaryColor,
             onPressedPrimaryColor: (primaryColor) {
-              unawaited(
-                HapticFeedback.lightImpact(),
-              );
-
+              HapticFeedback.lightImpact();
               settingsController.onPressedPrimaryColor(primaryColor);
             },
           ),
@@ -184,10 +178,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           SettingsLanguages(
             activeLanguageCode: context.locale.languageCode,
             onPressedLanguageCode: (languageCode) {
-              unawaited(
-                HapticFeedback.lightImpact(),
-              );
-
+              HapticFeedback.lightImpact();
               settingsController.onPressedLanguage(
                 languageCode: languageCode,
                 context: context,
@@ -221,13 +212,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
               child: TroskoTextField(
-                onSubmitted: (value) {
-                  unawaited(
-                    HapticFeedback.lightImpact(),
-                  );
-
-                  settingsController.onSubmittedName(value);
-                },
+                onSubmitted: settingsController.onSubmittedName,
                 autofocus: false,
                 controller: settingsController.nameTextEditingController,
                 labelText: 'settingsName'.tr(),

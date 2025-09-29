@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
@@ -57,7 +59,9 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
           leadingActions: [
             SwipeAction(
               onTap: (handler) async {
-                await handler(true);
+                unawaited(
+                  handler(true),
+                );
                 await widget.onDeletePressed();
               },
               color: context.colors.delete,

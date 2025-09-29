@@ -144,7 +144,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     TextSpan(
                       text: 'clickHere'.tr(),
-                      recognizer: TapGestureRecognizer()..onTap = () => openRegister(context),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          HapticFeedback.lightImpact();
+                          openRegister(context);
+                        },
                       style: context.textStyles.homeTitleBold,
                     ),
                   ],
