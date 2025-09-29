@@ -32,5 +32,3 @@ Expense can also be edited or deleted if necessary.
 Add new category here.\
 You need to choose a color, category name and icon.\
 Category can also be edited or deleted if necessary.
-
-- [ ] Stats '1 trošak' -> '5 troškova'

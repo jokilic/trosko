@@ -5,6 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../constants/durations.dart';
 import '../../../theme/theme.dart';
 import '../../../util/currency.dart';
+import '../../../util/stats.dart';
 
 class StatsAllListTile extends StatefulWidget {
   final int numberOfTransactions;
@@ -124,16 +125,18 @@ class _StatsAllListTileState extends State<StatsAllListTile> {
                           sizeCurve: Curves.easeIn,
                           crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                           firstChild: Text(
-                            'statsExpenseNumber'.tr(
-                              args: ['${widget.numberOfTransactions}'],
+                            getStatsSubtitle(
+                              numberOfTransactions: widget.numberOfTransactions,
+                              languageCode: context.locale.languageCode,
                             ),
                             style: context.textStyles.homeTransactionTime,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           secondChild: Text(
-                            'statsExpenseNumber'.tr(
-                              args: ['${widget.numberOfTransactions}'],
+                            getStatsSubtitle(
+                              numberOfTransactions: widget.numberOfTransactions,
+                              languageCode: context.locale.languageCode,
                             ),
                             style: context.textStyles.homeTransactionTime,
                           ),

@@ -73,5 +73,7 @@
     "settingsCustomColorModalButton": "Choose color",
     "statsTitle": "Data for {}",
     "statsSubtitle": "See data for chosen month",
-    "statsExpenseNumber": "{} expenses"
+    "statsExpenseNumberSingular": "{} expense",
+    "statsExpenseNumberPluralSmall": "{} expenses",
+    "statsExpenseNumberPlural": "{} expenses"
 }

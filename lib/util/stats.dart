@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 import '../models/category/category.dart';
 import '../models/transaction/transaction.dart';
 
@@ -33,3 +35,34 @@ List<Category> getSortedCategories({
           ),
         ),
   );
+
+String getStatsSubtitle({
+  required int numberOfTransactions,
+  required String languageCode,
+}) {
+  /// English language
+  if (languageCode == 'en') {
+    return switch (numberOfTransactions) {
+      1 => 'statsExpenseNumberSingular'.tr(
+        args: ['$numberOfTransactions'],
+      ),
+
+      _ => 'statsExpenseNumberPlural'.tr(
+        args: ['$numberOfTransactions'],
+      ),
+    };
+  } else {
+    return switch (numberOfTransactions) {
+      1 => 'statsExpenseNumberSingular'.tr(
+        args: ['$numberOfTransactions'],
+      ),
+      2 || 3 || 4 => 'statsExpenseNumberPluralSmall'.tr(
+        args: ['$numberOfTransactions'],
+      ),
+
+      _ => 'statsExpenseNumberPlural'.tr(
+        args: ['$numberOfTransactions'],
+      ),
+    };
+  }
+}

@@ -73,5 +73,7 @@
     "settingsCustomColorModalButton": "Odaberi boju",
     "statsTitle": "Podaci za {}",
     "statsSubtitle": "Pogledaj podatke za odabrani mjesec",
-    "statsExpenseNumber": "{} troškova"
+    "statsExpenseNumberSingular": "{} trošak",
+    "statsExpenseNumberPluralSmall": "{} troška",
+    "statsExpenseNumberPlural": "{} troškova"
 }

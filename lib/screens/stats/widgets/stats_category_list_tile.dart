@@ -6,6 +6,7 @@ import '../../../models/category/category.dart';
 import '../../../theme/theme.dart';
 import '../../../util/currency.dart';
 import '../../../util/icons.dart';
+import '../../../util/stats.dart';
 
 class StatsCategoryListTile extends StatefulWidget {
   final Category category;
@@ -124,16 +125,18 @@ class _StatsCategoryListTileState extends State<StatsCategoryListTile> {
                           sizeCurve: Curves.easeIn,
                           crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                           firstChild: Text(
-                            'statsExpenseNumber'.tr(
-                              args: ['${widget.numberOfTransactions}'],
+                            getStatsSubtitle(
+                              numberOfTransactions: widget.numberOfTransactions,
+                              languageCode: context.locale.languageCode,
                             ),
                             style: context.textStyles.homeTransactionTime,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           secondChild: Text(
-                            'statsExpenseNumber'.tr(
-                              args: ['${widget.numberOfTransactions}'],
+                            getStatsSubtitle(
+                              numberOfTransactions: widget.numberOfTransactions,
+                              languageCode: context.locale.languageCode,
                             ),
                             style: context.textStyles.homeTransactionTime,
                           ),
