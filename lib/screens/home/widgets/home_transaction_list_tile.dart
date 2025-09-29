@@ -167,7 +167,7 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                             firstChild: Text(
                               DateFormat(
                                 'HH:mm',
-                                context.locale.countryCode,
+                                context.locale.languageCode,
                               ).format(
                                 widget.transaction.createdAt,
                               ),
@@ -178,7 +178,7 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                             secondChild: Text(
                               DateFormat(
                                 'HH:mm',
-                                context.locale.countryCode,
+                                context.locale.languageCode,
                               ).format(
                                 widget.transaction.createdAt,
                               ),

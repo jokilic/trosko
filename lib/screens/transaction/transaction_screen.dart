@@ -315,7 +315,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         dateOption: DateTimePickerOption(
                           dateFormat: DateFormat(
                             'E, dd MMM yyyy',
-                            context.locale.countryCode,
+                            context.locale.languageCode,
                           ),
                           minDate: DateTime(2020),
                           maxDate: DateTime(2040),
@@ -392,7 +392,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         dateOption: DateTimePickerOption(
                           dateFormat: DateFormat(
                             'HH:mm',
-                            context.locale.countryCode,
+                            context.locale.languageCode,
                           ),
                           minDate: DateTime(2010),
                           maxDate: DateTime(2040),

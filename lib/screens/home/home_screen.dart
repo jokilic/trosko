@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
               args: [
                 DateFormat(
                   'd. MMMM y.',
-                  context.locale.countryCode,
+                  context.locale.languageCode,
                 ).format(now),
               ],
             ),
@@ -169,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
               args: [
                 DateFormat(
                   'd. MMMM y.',
-                  context.locale.countryCode,
+                  context.locale.languageCode,
                 ).format(now),
               ],
             ),
