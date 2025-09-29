@@ -79,7 +79,9 @@ class _StatsAllListTileState extends State<StatsAllListTile> {
                       ),
                     ),
                     child: PhosphorIcon(
-                      PhosphorIcons.coins(),
+                      PhosphorIcons.coins(
+                        PhosphorIconsStyle.bold,
+                      ),
                       color: getBestIconColor(
                         backgroundColor: context.colors.scaffoldBackground,
                         whiteColor: TroskoColors.lighterGrey,
