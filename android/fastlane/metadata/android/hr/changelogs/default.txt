@@ -1,1 +1,6 @@
-* Initial release
+* Stats can be opened for 'All'
+* Get categories sorted by expense in Stats
+* Proper localization for Stats -> 'expense' word
+* Calculate white or black color in icons
+* Update vibrations when tapping buttons
+* Update storage initialization
