@@ -192,12 +192,10 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             onChipLongPressed: (month) {
               if (month != null) {
-                final transactions = homeController.getAllTransactionsFromMonth(month);
-
                 openStats(
                   context,
                   month: month,
-                  transactions: transactions,
+                  transactions: month.isAll ? allTransactions : homeController.getAllTransactionsFromMonth(month),
                   categories: categories,
                 );
               }

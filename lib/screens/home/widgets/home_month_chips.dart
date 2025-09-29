@@ -37,23 +37,22 @@ class HomeMonthChips extends StatelessWidget {
                 splashColor: Colors.transparent,
                 highlightColor: activeMonth == null ? context.colors.buttonBackground : context.colors.listTileBackground,
               ),
-              child: FilterChip(
-                label: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 40,
+              child: InkWell(
+                onLongPress: onChipLongPressed != null ? () => onChipLongPressed!(Month.all()) : null,
+                borderRadius: BorderRadius.circular(8),
+                child: FilterChip(
+                  label: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      minWidth: 40,
+                    ),
+                    child: Text(
+                      'monthAll'.tr(),
+                      style: context.textStyles.homeMonthChip,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  child: Text(
-                    'monthAll'.tr(),
-                    style: context.textStyles.homeMonthChip,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                selected: activeMonth == null,
-                onSelected: (_) => onChipPressed(
-                  Month(
-                    date: DateTime.fromMillisecondsSinceEpoch(0),
-                    label: 'monthAll'.tr(),
-                  ),
+                  selected: activeMonth == null,
+                  onSelected: (_) => onChipPressed(Month.all()),
                 ),
               ),
             );
