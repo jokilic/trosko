@@ -77,12 +77,12 @@ void openStats(
   BuildContext context, {
   required Month month,
   required List<Transaction> transactions,
-  required List<Category> categories,
+  required List<Category> sortedCategories,
 }) => pushScreen(
   StatsScreen(
     month: month,
     transactions: transactions,
-    categories: categories,
+    categories: sortedCategories,
     key: ValueKey(month),
   ),
   context: context,

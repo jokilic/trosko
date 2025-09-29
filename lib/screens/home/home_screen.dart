@@ -16,6 +16,7 @@ import '../../theme/theme.dart';
 import '../../util/currency.dart';
 import '../../util/dependencies.dart';
 import '../../util/months.dart';
+import '../../util/stats.dart';
 import '../../util/string.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'home_controller.dart';
@@ -192,11 +193,16 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             onChipLongPressed: (month) {
               if (month != null) {
+                final transactions = month.isAll ? allTransactions : homeController.getAllTransactionsFromMonth(month);
+
                 openStats(
                   context,
                   month: month,
-                  transactions: month.isAll ? allTransactions : homeController.getAllTransactionsFromMonth(month),
-                  categories: categories,
+                  transactions: transactions,
+                  sortedCategories: getSortedCategories(
+                    categories: categories,
+                    transactions: transactions,
+                  ),
                 );
               }
             },

@@ -6,6 +6,7 @@ import '../../models/category/category.dart';
 import '../../models/month/month.dart';
 import '../../models/transaction/transaction.dart';
 import '../../theme/theme.dart';
+import '../../util/stats.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'widgets/stats_all_list_tile.dart';
 import 'widgets/stats_category_list_tile.dart';
@@ -21,15 +22,6 @@ class StatsScreen extends StatelessWidget {
     required this.categories,
     required super.key,
   });
-
-  List<Transaction> getTransactionsWithinCategory({required Category category}) => transactions.where((transaction) => transaction.categoryId == category.id).toList();
-
-  int getTransactionsAmount({required Category category}) {
-    final categoryTransactions = getTransactionsWithinCategory(
-      category: category,
-    );
-    return categoryTransactions.fold<int>(0, (s, t) => s + t.amountCents);
-  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -89,9 +81,11 @@ class StatsScreen extends StatelessWidget {
             final category = categories[index];
             final categoryTransactions = getTransactionsWithinCategory(
               category: category,
+              transactions: transactions,
             );
             final amountCents = getTransactionsAmount(
               category: category,
+              transactions: transactions,
             );
 
             return StatsCategoryListTile(
