@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
+import '../../../util/color.dart';
 
 class HomeCategory extends StatelessWidget {
   final Function() onPressed;
@@ -45,7 +47,11 @@ class HomeCategory extends StatelessWidget {
             ),
             icon: Icon(
               icon,
-              color: context.colors.icon,
+              color: getBestIconColor(
+                backgroundColor: color,
+                whiteColor: TroskoColors.lighterGrey,
+                blackColor: TroskoColors.lightDark,
+              ),
               size: 36,
             ),
           ),

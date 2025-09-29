@@ -11,7 +11,9 @@ import '../../models/category/category.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../theme/colors.dart';
 import '../../theme/theme.dart';
+import '../../util/color.dart';
 import '../../util/dependencies.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
@@ -154,7 +156,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ),
                       child: Icon(
                         categoryIcon?.value,
-                        color: context.colors.icon,
+                        color: getBestIconColor(
+                          backgroundColor: categoryColor ?? context.colors.scaffoldBackground,
+                          whiteColor: TroskoColors.lighterGrey,
+                          blackColor: TroskoColors.lightDark,
+                        ),
                         size: 56,
                       ),
                     ),

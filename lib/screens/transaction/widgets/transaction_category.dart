@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../models/category/category.dart';
+import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
+import '../../../util/color.dart';
 
 class TransactionCategory extends StatelessWidget {
   final Function(Category category) onPressed;
@@ -41,7 +43,11 @@ class TransactionCategory extends StatelessWidget {
             ),
             icon: Icon(
               icon,
-              color: context.colors.icon,
+              color: getBestIconColor(
+                backgroundColor: color,
+                whiteColor: TroskoColors.lighterGrey,
+                blackColor: TroskoColors.lightDark,
+              ),
               size: 36,
             ),
           ),

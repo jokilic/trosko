@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../constants/durations.dart';
+import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
+import '../../../util/color.dart';
 import '../../../util/currency.dart';
 import '../../../util/stats.dart';
 
@@ -78,7 +80,11 @@ class _StatsAllListTileState extends State<StatsAllListTile> {
                     ),
                     child: PhosphorIcon(
                       PhosphorIcons.coins(),
-                      color: context.colors.icon,
+                      color: getBestIconColor(
+                        backgroundColor: context.colors.scaffoldBackground,
+                        whiteColor: TroskoColors.lighterGrey,
+                        blackColor: TroskoColors.lightDark,
+                      ),
                       size: 16,
                     ),
                   ),

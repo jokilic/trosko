@@ -8,7 +8,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../constants/durations.dart';
 import '../../../models/category/category.dart';
 import '../../../models/transaction/transaction.dart';
+import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
+import '../../../util/color.dart';
 import '../../../util/currency.dart';
 import '../../../util/icons.dart';
 
@@ -112,7 +114,11 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                         getBoldIconFromName(
                           widget.category?.iconName,
                         )?.value,
-                        color: context.colors.icon,
+                        color: getBestIconColor(
+                          backgroundColor: widget.category?.color ?? context.colors.scaffoldBackground,
+                          whiteColor: TroskoColors.lighterGrey,
+                          blackColor: TroskoColors.lightDark,
+                        ),
                         size: 16,
                       ),
                     ),
