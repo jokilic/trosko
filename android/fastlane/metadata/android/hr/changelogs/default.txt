@@ -4,3 +4,5 @@
 * Calculate white or black color in icons
 * Update vibrations when tapping buttons
 * Update storage initialization
+* Localization updates
+* Bold icon for 'all tile' in Stats
