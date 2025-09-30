@@ -6,3 +6,4 @@
 * Update storage initialization
 * Localization updates
 * Bold icon for 'all tile' in Stats
+* Dynamic button colors
