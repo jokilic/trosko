@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
+import '../../../util/color.dart';
 
 class CategoryCustomColorModal extends StatefulWidget {
   final Color startingColor;
@@ -74,8 +76,12 @@ class _CategoryCustomColorModalState extends State<CategoryCustomColorModal> {
                   Navigator.of(context).pop(color);
                 },
                 style: FilledButton.styleFrom(
-                  backgroundColor: context.colors.delete,
-                  foregroundColor: context.colors.listTileBackground,
+                  backgroundColor: context.colors.buttonPrimary,
+                  foregroundColor: getWhiteOrBlackColor(
+                    backgroundColor: context.colors.buttonPrimary,
+                    whiteColor: TroskoColors.lighterGrey,
+                    blackColor: TroskoColors.black,
+                  ),
                   overlayColor: context.colors.buttonBackground,
                   disabledBackgroundColor: context.colors.disabledBackground,
                   disabledForegroundColor: context.colors.disabledText,

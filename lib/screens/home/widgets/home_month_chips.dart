@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/month/month.dart';
+import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
+import '../../../util/color.dart';
 import '../../../util/string.dart';
 
 class HomeMonthChips extends StatelessWidget {
@@ -47,7 +49,15 @@ class HomeMonthChips extends StatelessWidget {
                     ),
                     child: Text(
                       'monthAll'.tr(),
-                      style: context.textStyles.homeMonthChip,
+                      style: context.textStyles.homeMonthChip.copyWith(
+                        color: activeMonth == null
+                            ? getWhiteOrBlackColor(
+                                backgroundColor: context.colors.buttonPrimary,
+                                whiteColor: TroskoColors.lighterGrey,
+                                blackColor: TroskoColors.black,
+                              )
+                            : null,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -79,7 +89,15 @@ class HomeMonthChips extends StatelessWidget {
                     ),
                     child: Text(
                       capitalize(month.label),
-                      style: context.textStyles.homeMonthChip,
+                      style: context.textStyles.homeMonthChip.copyWith(
+                        color: activeMonth == month
+                            ? getWhiteOrBlackColor(
+                                backgroundColor: context.colors.buttonPrimary,
+                                whiteColor: TroskoColors.lighterGrey,
+                                blackColor: TroskoColors.black,
+                              )
+                            : null,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),

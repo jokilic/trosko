@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
+import '../../../util/color.dart';
 import '../../../util/email.dart';
 import '../../../widgets/trosko_text_field.dart';
 
@@ -158,7 +160,11 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
                     : null,
                 style: FilledButton.styleFrom(
                   backgroundColor: context.colors.delete,
-                  foregroundColor: context.colors.listTileBackground,
+                  foregroundColor: getWhiteOrBlackColor(
+                    backgroundColor: context.colors.delete,
+                    whiteColor: TroskoColors.lighterGrey,
+                    blackColor: TroskoColors.black,
+                  ),
                   overlayColor: context.colors.buttonBackground,
                   disabledBackgroundColor: context.colors.disabledBackground,
                   disabledForegroundColor: context.colors.disabledText,

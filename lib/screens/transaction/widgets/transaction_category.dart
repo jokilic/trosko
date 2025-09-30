@@ -43,10 +43,10 @@ class TransactionCategory extends StatelessWidget {
             ),
             icon: Icon(
               icon,
-              color: getBestIconColor(
+              color: getWhiteOrBlackColor(
                 backgroundColor: color,
                 whiteColor: TroskoColors.lighterGrey,
-                blackColor: TroskoColors.lightDark,
+                blackColor: TroskoColors.black,
               ),
               size: 36,
             ),

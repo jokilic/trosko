@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Color getBestIconColor({
+Color getWhiteOrBlackColor({
   required Color backgroundColor,
   required Color whiteColor,
   required Color blackColor,

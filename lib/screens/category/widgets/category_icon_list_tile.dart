@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
+import '../../../util/color.dart';
 
 class CategoryIconListTile extends StatelessWidget {
   final bool isActive;
@@ -39,7 +41,13 @@ class CategoryIconListTile extends StatelessWidget {
               ///
               Icon(
                 icon.value,
-                color: context.colors.text,
+                color: isActive
+                    ? getWhiteOrBlackColor(
+                        backgroundColor: context.colors.buttonPrimary,
+                        whiteColor: TroskoColors.lighterGrey,
+                        blackColor: TroskoColors.black,
+                      )
+                    : context.colors.text,
                 size: 32,
               ),
               const SizedBox(width: 12),
@@ -50,7 +58,15 @@ class CategoryIconListTile extends StatelessWidget {
               Expanded(
                 child: Text(
                   icon.key,
-                  style: context.textStyles.categoryIcon,
+                  style: context.textStyles.categoryIcon.copyWith(
+                    color: isActive
+                        ? getWhiteOrBlackColor(
+                            backgroundColor: context.colors.buttonPrimary,
+                            whiteColor: TroskoColors.lighterGrey,
+                            blackColor: TroskoColors.black,
+                          )
+                        : null,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

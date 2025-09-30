@@ -12,7 +12,9 @@ import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../theme/colors.dart';
 import '../../theme/theme.dart';
+import '../../util/color.dart';
 import '../../util/currency.dart';
 import '../../util/dependencies.dart';
 import '../../util/months.dart';
@@ -114,16 +116,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     homeController.triggerFabAnimation();
                   },
             backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-            foregroundColor: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
+            foregroundColor: categories.isNotEmpty
+                ? getWhiteOrBlackColor(
+                    backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                    whiteColor: TroskoColors.lighterGrey,
+                    blackColor: TroskoColors.black,
+                  )
+                : context.colors.disabledText,
             label: Text(
               'homeAddExpense'.tr().toUpperCase(),
               style: context.textStyles.homeFloatingActionButton.copyWith(
-                color: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
+                color: categories.isNotEmpty
+                    ? getWhiteOrBlackColor(
+                        backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                        whiteColor: TroskoColors.lighterGrey,
+                        blackColor: TroskoColors.black,
+                      )
+                    : context.colors.disabledText,
               ),
             ),
             icon: PhosphorIcon(
               PhosphorIcons.coins(),
-              color: categories.isNotEmpty ? context.colors.text : context.colors.disabledText,
+              color: categories.isNotEmpty
+                  ? getWhiteOrBlackColor(
+                      backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                      whiteColor: TroskoColors.lighterGrey,
+                      blackColor: TroskoColors.black,
+                    )
+                  : context.colors.disabledText,
               size: 32,
             ),
           ),

@@ -80,10 +80,10 @@ class _StatsCategoryListTileState extends State<StatsCategoryListTile> {
                       getBoldIconFromName(
                         widget.category.iconName,
                       )?.value,
-                      color: getBestIconColor(
+                      color: getWhiteOrBlackColor(
                         backgroundColor: widget.category.color,
                         whiteColor: TroskoColors.lighterGrey,
-                        blackColor: TroskoColors.lightDark,
+                        blackColor: TroskoColors.black,
                       ),
                       size: 16,
                     ),

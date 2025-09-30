@@ -156,10 +156,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ),
                       child: Icon(
                         categoryIcon?.value,
-                        color: getBestIconColor(
+                        color: getWhiteOrBlackColor(
                           backgroundColor: categoryColor ?? context.colors.scaffoldBackground,
                           whiteColor: TroskoColors.lighterGrey,
-                          blackColor: TroskoColors.lightDark,
+                          blackColor: TroskoColors.black,
                         ),
                         size: 56,
                       ),
@@ -345,7 +345,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 MediaQuery.paddingOf(context).bottom + 12,
               ),
               backgroundColor: context.colors.buttonPrimary,
-              foregroundColor: context.colors.text,
+              foregroundColor: getWhiteOrBlackColor(
+                backgroundColor: context.colors.buttonPrimary,
+                whiteColor: TroskoColors.lighterGrey,
+                blackColor: TroskoColors.black,
+              ),
               overlayColor: context.colors.buttonBackground,
               disabledBackgroundColor: context.colors.disabledBackground,
               disabledForegroundColor: context.colors.disabledText,

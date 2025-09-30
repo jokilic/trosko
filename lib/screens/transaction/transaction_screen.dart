@@ -12,7 +12,9 @@ import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../theme/colors.dart';
 import '../../theme/theme.dart';
+import '../../util/color.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
 import '../../widgets/trosko_app_bar.dart';
@@ -447,7 +449,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 MediaQuery.paddingOf(context).bottom + 12,
               ),
               backgroundColor: context.colors.buttonPrimary,
-              foregroundColor: context.colors.text,
+              foregroundColor: getWhiteOrBlackColor(
+                backgroundColor: context.colors.buttonPrimary,
+                whiteColor: TroskoColors.lighterGrey,
+                blackColor: TroskoColors.black,
+              ),
               overlayColor: context.colors.buttonBackground,
               disabledBackgroundColor: context.colors.disabledBackground,
               disabledForegroundColor: context.colors.disabledText,

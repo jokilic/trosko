@@ -114,10 +114,10 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                         getBoldIconFromName(
                           widget.category?.iconName,
                         )?.value,
-                        color: getBestIconColor(
+                        color: getWhiteOrBlackColor(
                           backgroundColor: widget.category?.color ?? context.colors.scaffoldBackground,
                           whiteColor: TroskoColors.lighterGrey,
-                          blackColor: TroskoColors.lightDark,
+                          blackColor: TroskoColors.black,
                         ),
                         size: 16,
                       ),

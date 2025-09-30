@@ -12,8 +12,10 @@ import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../theme/colors.dart';
 import '../../theme/theme.dart';
 import '../../util/app_version.dart';
+import '../../util/color.dart';
 import '../../util/dependencies.dart';
 import '../../util/sounds.dart';
 import '../../util/theme.dart';
@@ -271,7 +273,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                   style: FilledButton.styleFrom(
                     backgroundColor: context.colors.buttonPrimary,
-                    foregroundColor: context.colors.listTileBackground,
+                    foregroundColor: getWhiteOrBlackColor(
+                      backgroundColor: context.colors.buttonPrimary,
+                      whiteColor: TroskoColors.lighterGrey,
+                      blackColor: TroskoColors.black,
+                    ),
                     overlayColor: context.colors.buttonBackground,
                     disabledBackgroundColor: context.colors.disabledBackground,
                     disabledForegroundColor: context.colors.disabledText,
@@ -331,7 +337,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                   style: FilledButton.styleFrom(
                     backgroundColor: context.colors.delete,
-                    foregroundColor: context.colors.listTileBackground,
+                    foregroundColor: getWhiteOrBlackColor(
+                      backgroundColor: context.colors.delete,
+                      whiteColor: TroskoColors.lighterGrey,
+                      blackColor: TroskoColors.black,
+                    ),
                     overlayColor: context.colors.buttonBackground,
                     disabledBackgroundColor: context.colors.disabledBackground,
                     disabledForegroundColor: context.colors.disabledText,
@@ -416,7 +426,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                   style: FilledButton.styleFrom(
                     backgroundColor: context.colors.delete,
-                    foregroundColor: context.colors.listTileBackground,
+                    foregroundColor: getWhiteOrBlackColor(
+                      backgroundColor: context.colors.delete,
+                      whiteColor: TroskoColors.lighterGrey,
+                      blackColor: TroskoColors.black,
+                    ),
                     overlayColor: context.colors.buttonBackground,
                     disabledBackgroundColor: context.colors.disabledBackground,
                     disabledForegroundColor: context.colors.disabledText,
