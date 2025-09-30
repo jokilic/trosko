@@ -33,7 +33,7 @@ class FirebaseService {
   ///
 
   /// Logs user into [Firebase]
-  Future<User?> loginUser({
+  Future<({User? user, String? error})> loginUser({
     required String email,
     required String password,
   }) async {
@@ -43,12 +43,23 @@ class FirebaseService {
         password: password,
       );
 
-      return user.user;
-    } catch (e) {
-      final error = 'FirebaseService -> loginUser() -> $e';
+      return (user: user.user, error: null);
+    } on FirebaseAuthException catch (e) {
+      final error = switch (e.code) {
+        'invalid-email' => 'Your email is invalid',
+        'user-disabled' => 'Your account is disabled',
+        'user-not-found' => 'Your user is not found',
+        'wrong-password' || 'invalid-credential' => 'Your password is wrong',
+        'too-many-requests' => 'Too many requests',
+        'operation-not-allowed' => 'Operation is not allowed',
+        _ => 'Login error ${e.code}',
+      };
       logger.e(error);
-
-      return null;
+      return (user: null, error: error);
+    } catch (e) {
+      final error = 'Login error $e';
+      logger.e(error);
+      return (user: null, error: error);
     }
   }
 
@@ -56,7 +67,7 @@ class FirebaseService {
   void logOut() => auth.signOut();
 
   /// Registers user into [Firebase]
-  Future<User?> registerUser({
+  Future<({User? user, String? error})> registerUser({
     required String email,
     required String password,
   }) async {
@@ -66,12 +77,22 @@ class FirebaseService {
         password: password,
       );
 
-      return user.user;
-    } catch (e) {
-      final error = 'FirebaseService -> registerUser() -> $e';
+      return (user: user.user, error: null);
+    } on FirebaseAuthException catch (e) {
+      final error = switch (e.code) {
+        'email-already-in-use' => 'Your email is already registered',
+        'invalid-email' => 'Your email is invalid',
+        'operation-not-allowed' => 'Operation is not allowed',
+        'weak-password' => 'Your password is not strong',
+        'too-many-requests' => 'Too many requests',
+        _ => 'Register error ${e.code}',
+      };
       logger.e(error);
-
-      return null;
+      return (user: null, error: error);
+    } catch (e) {
+      final error = 'Register error $e';
+      logger.e(error);
+      return (user: null, error: error);
     }
   }
 

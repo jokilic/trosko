@@ -64,7 +64,7 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
   ///
 
   /// Triggered when the user presses login button
-  Future<bool> loginPressed() async {
+  Future<({User? user, String? error})> loginPressed() async {
     FocusManager.instance.primaryFocus?.unfocus();
 
     updateState(
@@ -73,10 +73,10 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
 
     try {
       /// Login into [Firebase]
-      final user = await loginUser();
+      final loginResult = await loginUser();
 
       /// Successful login
-      if (user != null) {
+      if (loginResult.user != null && loginResult.error == null) {
         /// Store `isLoggedIn` into [Hive]
         await hive.writeSettings(
           hive.getSettings().copyWith(
@@ -90,8 +90,6 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
         updateState(
           isLoading: false,
         );
-
-        return true;
       }
       /// Not successful login
       else {
@@ -99,19 +97,20 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
         updateState(
           isLoading: false,
         );
-        return false;
       }
+
+      return loginResult;
     } catch (e) {
       logger.e('LoginController -> loginPressed() -> $e');
       updateState(
         isLoading: false,
       );
-      return false;
+      return (user: null, error: '$e');
     }
   }
 
   /// Logs user into [Firebase]
-  Future<User?> loginUser() async {
+  Future<({User? user, String? error})> loginUser() async {
     /// Parse values
     final email = emailTextEditingController.text.trim();
     final password = passwordTextEditingController.text.trim();

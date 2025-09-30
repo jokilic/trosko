@@ -66,7 +66,7 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
   ///
 
   /// Triggered when the user presses register button
-  Future<bool> registerPressed() async {
+  Future<({User? user, String? error})> registerPressed() async {
     FocusManager.instance.primaryFocus?.unfocus();
 
     updateState(
@@ -75,10 +75,10 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
 
     try {
       /// Register into [Firebase]
-      final user = await registerUser();
+      final registerResult = await registerUser();
 
       /// Successful register
-      if (user != null) {
+      if (registerResult.user != null && registerResult.error == null) {
         /// Store `isLoggedIn` into [Hive]
         await hive.writeSettings(
           hive.getSettings().copyWith(
@@ -104,8 +104,6 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
         updateState(
           isLoading: false,
         );
-
-        return true;
       }
       /// Not successful register
       else {
@@ -113,19 +111,20 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
         updateState(
           isLoading: false,
         );
-        return false;
       }
+
+      return registerResult;
     } catch (e) {
       logger.e('RegisterController -> registerPressed() -> $e');
       updateState(
         isLoading: false,
       );
-      return false;
+      return (user: null, error: '$e');
     }
   }
 
   /// Registers user into [Firebase]
-  Future<User?> registerUser() async {
+  Future<({User? user, String? error})> registerUser() async {
     /// Parse values
     final email = emailTextEditingController.text.trim();
     final password = passwordTextEditingController.text.trim();

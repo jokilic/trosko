@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../constants/durations.dart';
@@ -16,6 +17,7 @@ import '../../theme/colors.dart';
 import '../../theme/theme.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
+import '../../util/snackbars.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_loading.dart';
 import '../../widgets/trosko_text_field.dart';
@@ -215,15 +217,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: FilledButton(
                     onPressed: validated
                         ? () async {
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
                             unawaited(
                               HapticFeedback.lightImpact(),
                             );
 
-                            final isRegisterSuccessful = await registerController.registerPressed();
+                            final registerResult = await registerController.registerPressed();
 
-                            if (isRegisterSuccessful) {
+                            /// Successful register
+                            if (registerResult.user != null && registerResult.error == null) {
                               openHome(context);
+                              return;
                             }
+
+                            /// Non-successful register
+                            showSnackbar(
+                              context,
+                              text: registerResult.error ?? 'Unknown error',
+                              icon: PhosphorIcons.warningCircle(
+                                PhosphorIconsStyle.bold,
+                              ),
+                            );
                           }
                         : null,
                     style: FilledButton.styleFrom(
