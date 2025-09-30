@@ -2,11 +2,9 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart' hide Transaction;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../models/category/category.dart';
 import '../models/transaction/transaction.dart';
-import '../theme/colors.dart';
 import 'logger_service.dart';
 
 class FirebaseService {
@@ -50,18 +48,6 @@ class FirebaseService {
       final error = 'FirebaseService -> loginUser() -> $e';
       logger.e(error);
 
-      unawaited(
-        Fluttertoast.showToast(
-          msg: error,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          fontAsset: 'ProductSans',
-          backgroundColor: TroskoColors.lighterGrey,
-          textColor: TroskoColors.black,
-          fontSize: 16,
-        ),
-      );
-
       return null;
     }
   }
@@ -84,18 +70,6 @@ class FirebaseService {
     } catch (e) {
       final error = 'FirebaseService -> registerUser() -> $e';
       logger.e(error);
-
-      unawaited(
-        Fluttertoast.showToast(
-          msg: error,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          fontAsset: 'ProductSans',
-          backgroundColor: TroskoColors.lighterGrey,
-          textColor: TroskoColors.black,
-          fontSize: 16,
-        ),
-      );
 
       return null;
     }
@@ -142,18 +116,6 @@ class FirebaseService {
     } catch (e) {
       final error = 'FirebaseService -> deleteUser() -> $e';
       logger.e(error);
-
-      unawaited(
-        Fluttertoast.showToast(
-          msg: error,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          fontAsset: 'ProductSans',
-          backgroundColor: TroskoColors.lighterGrey,
-          textColor: TroskoColors.black,
-          fontSize: 16,
-        ),
-      );
 
       return false;
     }
