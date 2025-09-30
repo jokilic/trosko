@@ -72,7 +72,9 @@
     "settingsCustomColorModalText": "Pick a custom color for your category.",
     "settingsCustomColorModalButton": "Choose color",
     "statsTitle": "Data for {}",
-    "statsSubtitle": "See data for chosen month",
+    "statsTitleAll": "Data for all months",
+    "statsSubtitle": "Expenses per category for chosen month",
+    "statsSubtitleAll": "Expenses per category for all months",
     "statsExpenseNumberSingular": "{} expense",
     "statsExpenseNumberPluralSmall": "{} expenses",
     "statsExpenseNumberPlural": "{} expenses"

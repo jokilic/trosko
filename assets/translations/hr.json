@@ -72,7 +72,9 @@
     "settingsCustomColorModalText": "Odaberi prilagođenu boju za svoju kategoriju.",
     "settingsCustomColorModalButton": "Odaberi boju",
     "statsTitle": "Podaci za {}",
-    "statsSubtitle": "Pogledaj podatke za odabrani mjesec",
+    "statsTitleAll": "Podaci za sve",
+    "statsSubtitle": "Troškovi po kategoriji za odabrani mjesec",
+    "statsSubtitleAll": "Troškovi po kategoriji za svaki mjesec",
     "statsExpenseNumberSingular": "{} trošak",
     "statsExpenseNumberPluralSmall": "{} troška",
     "statsExpenseNumberPlural": "{} troškova"

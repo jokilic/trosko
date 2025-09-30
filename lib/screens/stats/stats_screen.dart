@@ -47,13 +47,17 @@ class StatsScreen extends StatelessWidget {
               size: 28,
             ),
           ),
-          smallTitle: 'statsTitle'.tr(
-            args: [month.label],
-          ),
-          bigTitle: 'statsTitle'.tr(
-            args: [month.label],
-          ),
-          bigSubtitle: 'statsSubtitle'.tr(),
+          smallTitle: month.isAll
+              ? 'statsTitleAll'.tr()
+              : 'statsTitle'.tr(
+                  args: [month.label],
+                ),
+          bigTitle: month.isAll
+              ? 'statsTitleAll'.tr()
+              : 'statsTitle'.tr(
+                  args: [month.label],
+                ),
+          bigSubtitle: month.isAll ? 'statsSubtitleAll'.tr() : 'statsSubtitle'.tr(),
         ),
         const SliverToBoxAdapter(
           child: SizedBox(height: 8),
