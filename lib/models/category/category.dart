@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 
+part 'category.g.dart';
+
 @HiveType(typeId: 1)
 class Category {
   @HiveField(1)
