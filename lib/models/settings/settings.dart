@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 
-part 'settings.g.dart';
-
 @HiveType(typeId: 2)
 class Settings {
   @HiveField(1)
