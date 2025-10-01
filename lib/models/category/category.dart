@@ -13,7 +13,7 @@ class Category {
   final String name;
 
   @HiveField(3)
-  final Color color;
+  final int color;
 
   @HiveField(4)
   final String iconName;
@@ -37,7 +37,7 @@ class Category {
   factory Category.fromMap(Map<String, dynamic> map) => Category(
     id: map['id'] as String,
     name: map['name'] as String,
-    color: Color((map['color'] as num).toInt()),
+    color: map['color'] as int,
     iconName: map['iconName'] as String,
     createdAt: (map['createdAt'] as Timestamp).toDate(),
   );
@@ -45,7 +45,7 @@ class Category {
   Map<String, dynamic> toMap() => <String, dynamic>{
     'id': id,
     'name': name,
-    'color': color.toARGB32(),
+    'color': color,
     'iconName': iconName,
     'createdAt': Timestamp.fromDate(createdAt),
   };

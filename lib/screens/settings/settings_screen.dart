@@ -151,7 +151,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ///
           SettingsPrimaryColors(
             primaryColors: primaryColors,
-            activePrimaryColor: settings?.primaryColor,
+            activePrimaryColor: Colors.green,
             onPressedPrimaryColor: (primaryColor) {
               HapticFeedback.lightImpact();
               settingsController.onPressedPrimaryColor(primaryColor);

@@ -70,9 +70,9 @@ class _StatsCategoryListTileState extends State<StatsCategoryListTile> {
                     width: 32,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: widget.category.color,
+                      // color: widget.category.color,
                       border: Border.all(
-                        color: widget.category.color,
+                        // color: widget.category.color,
                         width: 1.5,
                       ),
                     ),
@@ -81,7 +81,7 @@ class _StatsCategoryListTileState extends State<StatsCategoryListTile> {
                         widget.category.iconName,
                       )?.value,
                       color: getWhiteOrBlackColor(
-                        backgroundColor: widget.category.color,
+                        backgroundColor: Colors.green,
                         whiteColor: TroskoColors.lighterGrey,
                         blackColor: TroskoColors.black,
                       ),
