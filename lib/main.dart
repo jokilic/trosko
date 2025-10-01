@@ -19,40 +19,45 @@ import 'util/dependencies.dart';
 import 'util/theme.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  /// Make sure the orientation is only `portrait`
-  await SystemChrome.setPreferredOrientations(
-    [DeviceOrientation.portraitUp],
-  );
+    /// Make sure the orientation is only `portrait`
+    await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp],
+    );
 
-  /// Initialize [EasyLocalization]
-  await EasyLocalization.ensureInitialized();
+    /// Initialize [EasyLocalization]
+    await EasyLocalization.ensureInitialized();
 
-  /// Initialize [Firebase]
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+    /// Initialize [Firebase]
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
-  /// Initialize dates
-  await initializeDateFormatting('en');
-  await initializeDateFormatting('hr');
+    /// Initialize dates
+    await initializeDateFormatting('en');
+    await initializeDateFormatting('hr');
 
-  /// Initialize services
-  initializeServices();
+    /// Initialize services
+    initializeServices();
 
-  /// Wait for initialization to finish
-  await getIt.allReady();
+    /// Wait for initialization to finish
+    await getIt.allReady();
 
-  /// Get `settings` value from [Hive]
-  final settings = getIt.get<HiveService>().getSettings();
+    /// Get `settings` value from [Hive]
+    final settings = getIt.get<HiveService>().getSettings();
 
-  /// Run `Troško`
-  runApp(
-    TroskoApp(
-      isLoggedIn: settings.isLoggedIn && FirebaseAuth.instance.currentUser != null,
-    ),
-  );
+    /// Run `Troško`
+    runApp(
+      TroskoApp(
+        isLoggedIn: settings.isLoggedIn && FirebaseAuth.instance.currentUser != null,
+      ),
+    );
+  } catch (e) {
+    print('Errorrrr');
+    print('$e');
+  }
 }
 
 class TroskoApp extends StatelessWidget {

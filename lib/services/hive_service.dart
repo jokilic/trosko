@@ -41,25 +41,18 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
   ///
 
   Future<void> init() async {
-    value = (
-      username: 'Hello',
-      transactions: [],
-      categories: [],
-      settings: defaultSettings,
-    );
+    final directory = await getHiveDirectory();
 
-    // final directory = await getHiveDirectory();
+    Hive
+      ..init(directory?.path)
+      ..registerAdapters();
 
-    // Hive
-    //   ..init(directory?.path)
-    //   ..registerAdapters();
+    settings = await Hive.openBox<Settings>('settingsBox');
+    username = await Hive.openBox<String>('usernameBox');
+    transactions = await Hive.openBox<Transaction>('transactionsBox');
+    categories = await Hive.openBox<Category>('categoriesBox');
 
-    // settings = await Hive.openBox<Settings>('settingsBox');
-    // username = await Hive.openBox<String>('usernameBox');
-    // transactions = await Hive.openBox<Transaction>('transactionsBox');
-    // categories = await Hive.openBox<Category>('categoriesBox');
-
-    // updateState();
+    updateState();
   }
 
   ///
