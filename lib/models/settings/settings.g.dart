@@ -19,7 +19,7 @@ class SettingsAdapter extends TypeAdapter<Settings> {
     return Settings(
       isLoggedIn: fields[1] as bool,
       themeModeInt: (fields[2] as num).toInt(),
-      primaryColor: fields[3] as int,
+      primaryColor: fields[3] as Color,
     );
   }
 

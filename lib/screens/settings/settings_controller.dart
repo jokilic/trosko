@@ -70,7 +70,7 @@ class SettingsController implements Disposable {
   /// Triggered when the user presses some [Color]
   void onPressedPrimaryColor(Color newPrimaryColor) => hive.writeSettings(
     hive.getSettings().copyWith(
-      // primaryColor: newPrimaryColor,
+      primaryColor: newPrimaryColor,
     ),
   );
 

@@ -101,7 +101,12 @@ class TroskoWidget extends WatchingWidget {
               key: ValueKey('login'),
             ),
       onGenerateTitle: (_) => 'appName'.tr(),
-
+      theme: TroskoTheme.light(
+        primaryColor: settings?.primaryColor,
+      ),
+      darkTheme: TroskoTheme.dark(
+        primaryColor: settings?.primaryColor,
+      ),
       themeMode: getThemeMode(
         themeModeInt: settings?.themeModeInt ?? 0,
       ),

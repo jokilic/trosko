@@ -41,8 +41,12 @@ class HomeCategories extends StatelessWidget {
             return HomeCategory(
               onPressed: () => onPressedCategory(category),
               onLongPressed: () => onLongPressedCategory(category),
-              color: Colors.red,
-              highlightColor: Colors.green,
+              color: category.color.withValues(
+                alpha: activeCategory == category || activeCategory == null ? 1 : 0.2,
+              ),
+              highlightColor: category.color.withValues(
+                alpha: activeCategory == category || activeCategory == null ? 1 : 0.2,
+              ),
               icon: getRegularIconFromName(
                 category.iconName,
               )?.value,

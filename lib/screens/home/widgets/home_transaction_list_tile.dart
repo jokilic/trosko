@@ -104,9 +104,9 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                       width: 32,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        // color: widget.category?.color,
+                        color: widget.category?.color,
                         border: Border.all(
-                          // color: widget.category?.color ?? context.colors.borderColor,
+                          color: widget.category?.color ?? context.colors.borderColor,
                           width: 1.5,
                         ),
                       ),
@@ -115,7 +115,7 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
                           widget.category?.iconName,
                         )?.value,
                         color: getWhiteOrBlackColor(
-                          backgroundColor: Colors.red,
+                          backgroundColor: widget.category?.color ?? context.colors.scaffoldBackground,
                           whiteColor: TroskoColors.lighterGrey,
                           blackColor: TroskoColors.black,
                         ),

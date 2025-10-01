@@ -12,7 +12,7 @@ class Settings {
   final int themeModeInt;
 
   @HiveField(3)
-  final int? primaryColor;
+  final Color? primaryColor;
 
   Settings({
     required this.isLoggedIn,
@@ -23,7 +23,7 @@ class Settings {
   Settings copyWith({
     bool? isLoggedIn,
     int? themeModeInt,
-    int? primaryColor,
+    Color? primaryColor,
     String? languageLocale,
   }) => Settings(
     isLoggedIn: isLoggedIn ?? this.isLoggedIn,

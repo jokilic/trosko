@@ -177,8 +177,12 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               transactionController.categoryChanged(category);
                             },
                             category: category,
-                            color: Colors.yellow,
-                            highlightColor: Colors.amber,
+                            color: category.color.withValues(
+                              alpha: activeCategory == category ? 1 : 0.2,
+                            ),
+                            highlightColor: category.color.withValues(
+                              alpha: activeCategory == category ? 1 : 0.2,
+                            ),
                             icon: getRegularIconFromName(
                               category.iconName,
                             )?.value,

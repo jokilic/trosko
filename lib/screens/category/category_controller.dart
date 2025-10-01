@@ -58,7 +58,7 @@ class CategoryController
   void init() {
     updateState(
       categoryName: passedCategory?.name,
-
+      categoryColor: passedCategory?.color,
       nameValid: passedCategory?.name.isNotEmpty ?? false,
       categoryIcon: getRegularIconFromName(
         passedCategory?.iconName,
@@ -124,7 +124,7 @@ class CategoryController
       id: passedCategory?.id ?? const Uuid().v1(),
       name: name,
       iconName: value.categoryIcon!.key,
-color: 0,
+      color: value.categoryColor!,
       createdAt: passedCategory?.createdAt ?? DateTime.now(),
     );
 
