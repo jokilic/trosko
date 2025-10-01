@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart' hide Transaction;
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/category/category.dart';
@@ -46,13 +47,14 @@ class FirebaseService {
       return (user: user.user, error: null);
     } on FirebaseAuthException catch (e) {
       final error = switch (e.code) {
-        'invalid-email' => 'Your email is invalid',
-        'user-disabled' => 'Your account is disabled',
-        'user-not-found' => 'Your user is not found',
-        'wrong-password' || 'invalid-credential' => 'Your password is wrong',
-        'too-many-requests' => 'Too many requests',
-        'operation-not-allowed' => 'Operation is not allowed',
-        _ => 'Login error ${e.code}',
+        'invalid-email' => 'errorEmailInvalid'.tr(),
+        'user-disabled' => 'errorAccountDisabled'.tr(),
+        'user-not-found' => 'errorUserNotFound'.tr(),
+        'wrong-password' => 'errorPasswordWrong'.tr(),
+        'invalid-credential' => 'errorInvalidCredential'.tr(),
+        'too-many-requests' => 'errorTooManyRequests'.tr(),
+        'operation-not-allowed' => 'errorOperationNotAllowed'.tr(),
+        _ => e.code,
       };
       logger.e(error);
       return (user: null, error: error);
@@ -80,12 +82,12 @@ class FirebaseService {
       return (user: user.user, error: null);
     } on FirebaseAuthException catch (e) {
       final error = switch (e.code) {
-        'email-already-in-use' => 'Your email is already registered',
-        'invalid-email' => 'Your email is invalid',
-        'operation-not-allowed' => 'Operation is not allowed',
-        'weak-password' => 'Your password is not strong',
-        'too-many-requests' => 'Too many requests',
-        _ => 'Register error ${e.code}',
+        'email-already-in-use' => 'errorEmailInUse'.tr(),
+        'invalid-email' => 'errorEmailInvalid'.tr(),
+        'operation-not-allowed' => 'errorOperationNotAllowed'.tr(),
+        'weak-password' => 'errorWeakPassword'.tr(),
+        'too-many-requests' => 'errorTooManyRequests'.tr(),
+        _ => e.code,
       };
       logger.e(error);
       return (user: null, error: error);

@@ -234,7 +234,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             /// Non-successful register
                             showSnackbar(
                               context,
-                              text: registerResult.error ?? 'Unknown error',
+                              text: registerResult.error ?? 'errorUnknown'.tr(),
                               icon: PhosphorIcons.warningCircle(
                                 PhosphorIconsStyle.bold,
                               ),

@@ -213,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             /// Non-successful login
                             showSnackbar(
                               context,
-                              text: loginResult.error ?? 'Unknown error',
+                              text: loginResult.error ?? 'errorUnknown'.tr(),
                               icon: PhosphorIcons.warningCircle(
                                 PhosphorIconsStyle.bold,
                               ),

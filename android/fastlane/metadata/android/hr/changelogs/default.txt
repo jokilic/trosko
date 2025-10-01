@@ -7,3 +7,4 @@
 * Localization updates
 * Bold icon for 'all tile' in Stats
 * Dynamic button colors
+* Show login & register errors properly

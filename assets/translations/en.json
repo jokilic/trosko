@@ -77,5 +77,15 @@
     "statsSubtitleAll": "Expenses per category for every month",
     "statsExpenseNumberSingular": "{} expense",
     "statsExpenseNumberPluralSmall": "{} expenses",
-    "statsExpenseNumberPlural": "{} expenses"
+    "statsExpenseNumberPlural": "{} expenses",
+    "errorEmailInUse": "Your email is already registered",
+    "errorEmailInvalid": "Your email is invalid",
+    "errorOperationNotAllowed": "Operation is not allowed",
+    "errorWeakPassword": "Your password is not strong",
+    "errorTooManyRequests": "Too many requests",
+    "errorAccountDisabled": "Your account is disabled",
+    "errorUserNotFound": "Your user is not found",
+    "errorPasswordWrong": "Your password is wrong",
+    "errorInvalidCredential": "Your credential is invalid",
+    "errorUnknown": "Unknown error"
 }
