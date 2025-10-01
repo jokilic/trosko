@@ -61,7 +61,7 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
   ///
 
   List<Transaction> getAllTransactionsFromMonth(Month month) {
-    final all = [];
+    final all = hive.getTransactions();
 
     /// Apply filters and sort
     final filtered = all.where((t) => isSameMonth(t.createdAt, month.date)).toList()
@@ -70,7 +70,7 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
       );
 
     /// Return proper `transactions`
-    return [];
+    return filtered;
   }
 
   /// Trigger FAB animation
@@ -85,7 +85,7 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
     Month? newMonth,
     Category? newCategory,
   }) {
-    final all = [];
+    final all = hive.getTransactions();
 
     /// Month filter
     Month? targetMonth;
@@ -130,7 +130,7 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
     /// Update state
     value = (
       datesAndTransactions: getGroupedTransactionsByDate(
-        [],
+        filtered,
         locale: locale,
       ),
       activeMonth: targetMonth,
@@ -143,9 +143,9 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
     required Transaction transaction,
     required String locale,
   }) async {
-    // await hive.deleteTransaction(
-    //   transaction: transaction,
-    // );
+    await hive.deleteTransaction(
+      transaction: transaction,
+    );
 
     unawaited(
       firebase.deleteTransaction(

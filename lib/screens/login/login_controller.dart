@@ -78,11 +78,11 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
       /// Successful login
       if (loginResult.user != null && loginResult.error == null) {
         /// Store `isLoggedIn` into [Hive]
-        // await hive.writeSettings(
-        //   hive.getSettings().copyWith(
-        //     isLoggedIn: true,
-        //   ),
-        // );
+        await hive.writeSettings(
+          hive.getSettings().copyWith(
+            isLoggedIn: true,
+          ),
+        );
 
         /// Fetch all data from [Firebase] & store into [Hive]
         await getFirebaseDataIntoHive();
@@ -127,11 +127,11 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
     final transactions = await firebase.getTransactions();
     final categories = await firebase.getCategories();
 
-    // await hive.storeDataFromFirebase(
-    //   username: username,
-    //   transactions: transactions ?? [],
-    //   categories: categories ?? [],
-    // );
+    await hive.storeDataFromFirebase(
+      username: username,
+      transactions: transactions ?? [],
+      categories: categories ?? [],
+    );
   }
 
   /// Triggered on every [TextField] change

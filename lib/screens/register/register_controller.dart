@@ -80,18 +80,18 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
       /// Successful register
       if (registerResult.user != null && registerResult.error == null) {
         /// Store `isLoggedIn` into [Hive]
-        // await hive.writeSettings(
-        //   hive.getSettings().copyWith(
-        //     isLoggedIn: true,
-        //   ),
-        // );
+        await hive.writeSettings(
+          hive.getSettings().copyWith(
+            isLoggedIn: true,
+          ),
+        );
 
         /// Check if user has written a `name`
         final name = nameTextEditingController.text.trim();
 
         /// name exists, store in [Hive] and [Firebase]
         if (name.isNotEmpty) {
-          // await hive.writeUsername(name);
+          await hive.writeUsername(name);
 
           await firebase.writeUsername(
             newUsername: name,
@@ -141,11 +141,11 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
     final transactions = await firebase.getTransactions();
     final categories = await firebase.getCategories();
 
-    // await hive.storeDataFromFirebase(
-    //   username: username,
-    //   transactions: transactions ?? [],
-    //   categories: categories ?? [],
-    // );
+    await hive.storeDataFromFirebase(
+      username: username,
+      transactions: transactions ?? [],
+      categories: categories ?? [],
+    );
   }
 
   /// Triggered on every [TextField] change

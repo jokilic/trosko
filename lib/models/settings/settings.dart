@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive_ce/hive.dart';
 
+@HiveType(typeId: 2)
 class Settings {
+  @HiveField(1)
   final bool isLoggedIn;
 
+  @HiveField(2)
   final int themeModeInt;
 
+  @HiveField(3)
   final Color? primaryColor;
 
   Settings({

@@ -46,7 +46,7 @@ Future<void> main() async {
     await getIt.allReady();
 
     /// Get `settings` value from [Hive]
-    final settings = getIt.get<HiveService>().defaultSettings;
+    final settings = getIt.get<HiveService>().getSettings();
 
     /// Run `Troško`
     runApp(
