@@ -47,9 +47,9 @@ class SettingsController implements Disposable {
 
   /// Triggered when the user submits a new `name`
   Future<void> onSubmittedName(String newName) async {
-    await hive.writeUsername(
-      newName.trim(),
-    );
+    // await hive.writeUsername(
+    //   newName.trim(),
+    // );
 
     unawaited(
       firebase.writeUsername(
@@ -59,20 +59,24 @@ class SettingsController implements Disposable {
   }
 
   /// Triggered when the user presses some [ThemeMode]
-  void onPressedThemeMode(ThemeMode newThemeMode) => hive.writeSettings(
-    hive.getSettings().copyWith(
-      themeModeInt: getThemeModeInt(
-        themeMode: newThemeMode,
-      ),
-    ),
-  );
+  void onPressedThemeMode(ThemeMode newThemeMode) {
+    //   hive.writeSettings(
+    //   hive.getSettings().copyWith(
+    //     themeModeInt: getThemeModeInt(
+    //       themeMode: newThemeMode,
+    //     ),
+    //   ),
+    // );
+  }
 
   /// Triggered when the user presses some [Color]
-  void onPressedPrimaryColor(Color newPrimaryColor) => hive.writeSettings(
-    hive.getSettings().copyWith(
-      primaryColor: newPrimaryColor,
-    ),
-  );
+  void onPressedPrimaryColor(Color newPrimaryColor) {
+    //   hive.writeSettings(
+    //   hive.getSettings().copyWith(
+    //     primaryColor: newPrimaryColor,
+    //   ),
+    // );
+  }
 
   /// Triggered when the user presses a flag
   void onPressedLanguage({
@@ -86,11 +90,11 @@ class SettingsController implements Disposable {
     final transactions = await firebase.getTransactions();
     final categories = await firebase.getCategories();
 
-    await hive.storeDataFromFirebase(
-      username: username,
-      transactions: transactions ?? [],
-      categories: categories ?? [],
-    );
+    // await hive.storeDataFromFirebase(
+    //   username: username,
+    //   transactions: transactions ?? [],
+    //   categories: categories ?? [],
+    // );
   }
 
   /// Logs out of [Firebase] & clears [Hive]

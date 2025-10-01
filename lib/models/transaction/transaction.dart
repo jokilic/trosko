@@ -1,24 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hive_ce/hive.dart';
 
-@HiveType(typeId: 0)
 class Transaction {
-  @HiveField(1)
   final String id;
 
-  @HiveField(2)
   final String name;
 
-  @HiveField(3)
   final int amountCents;
 
-  @HiveField(4)
   final String categoryId;
 
-  @HiveField(5)
   final String? note;
 
-  @HiveField(6)
   final DateTime createdAt;
 
   Transaction({

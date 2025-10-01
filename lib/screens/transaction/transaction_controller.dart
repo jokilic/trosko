@@ -148,9 +148,9 @@ class TransactionController
 
     /// User modified transaction
     if (passedTransaction != null) {
-      await hive.updateTransaction(
-        newTransaction: newTransaction,
-      );
+      // await hive.updateTransaction(
+      //   newTransaction: newTransaction,
+      // );
 
       unawaited(
         firebase.updateTransaction(
@@ -160,9 +160,9 @@ class TransactionController
     }
     /// User created new transaction
     else {
-      await hive.writeTransaction(
-        newTransaction: newTransaction,
-      );
+      // await hive.writeTransaction(
+      //   newTransaction: newTransaction,
+      // );
 
       unawaited(
         firebase.writeTransaction(
@@ -175,9 +175,9 @@ class TransactionController
   /// Triggered when the user deletes transaction
   Future<void> deleteTransaction() async {
     if (passedTransaction != null) {
-      await hive.deleteTransaction(
-        transaction: passedTransaction!,
-      );
+      // await hive.deleteTransaction(
+      //   transaction: passedTransaction!,
+      // );
 
       unawaited(
         firebase.deleteTransaction(

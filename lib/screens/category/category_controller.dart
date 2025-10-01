@@ -130,9 +130,9 @@ class CategoryController
 
     /// User modified category
     if (passedCategory != null) {
-      await hive.updateCategory(
-        newCategory: newCategory,
-      );
+      // await hive.updateCategory(
+      //   newCategory: newCategory,
+      // );
 
       unawaited(
         firebase.updateCategory(
@@ -142,9 +142,9 @@ class CategoryController
     }
     /// User created new category
     else {
-      await hive.writeCategory(
-        newCategory: newCategory,
-      );
+      // await hive.writeCategory(
+      //   newCategory: newCategory,
+      // );
 
       unawaited(
         firebase.writeCategory(
@@ -157,9 +157,9 @@ class CategoryController
   /// Triggered when the user deletes category
   Future<void> deleteCategory() async {
     if (passedCategory != null) {
-      await hive.deleteCategory(
-        category: passedCategory!,
-      );
+      // await hive.deleteCategory(
+      //   category: passedCategory!,
+      // );
 
       unawaited(
         firebase.deleteCategory(
