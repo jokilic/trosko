@@ -113,6 +113,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     unawaited(
                       HapticFeedback.lightImpact(),
                     );
+
                     await transactionController.deleteTransaction();
                     widget.onTransactionUpdated();
                     Navigator.of(context).pop();
@@ -436,6 +437,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     unawaited(
                       HapticFeedback.lightImpact(),
                     );
+
                     await transactionController.addTransaction();
                     widget.onTransactionUpdated();
                     Navigator.of(context).pop();

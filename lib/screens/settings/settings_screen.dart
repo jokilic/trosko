@@ -28,7 +28,10 @@ import 'widgets/settings_primary_colors.dart';
 import 'widgets/settings_themes.dart';
 
 class SettingsScreen extends WatchingStatefulWidget {
+  final Function() onRefetchCompleted;
+
   const SettingsScreen({
+    required this.onRefetchCompleted,
     required super.key,
   });
 
@@ -269,6 +272,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     );
 
                     await settingsController.refetchFirebaseDataIntoHive();
+                    widget.onRefetchCompleted();
                     Navigator.of(context).pop();
                   },
                   style: FilledButton.styleFrom(

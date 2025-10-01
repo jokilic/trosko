@@ -37,9 +37,13 @@ void openHome(BuildContext context) => removeAllAndPushScreen(
 );
 
 /// Opens [SettingsScreen]
-void openSettings(BuildContext context) => pushScreen(
-  const SettingsScreen(
-    key: ValueKey('settings'),
+void openSettings(
+  BuildContext context, {
+  required Function() onRefetchCompleted,
+}) => pushScreen(
+  SettingsScreen(
+    onRefetchCompleted: onRefetchCompleted,
+    key: const ValueKey('settings'),
   ),
   context: context,
 );

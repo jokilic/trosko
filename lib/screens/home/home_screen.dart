@@ -161,7 +161,12 @@ class _HomeScreenState extends State<HomeScreen> {
               IconButton(
                 onPressed: () {
                   HapticFeedback.lightImpact();
-                  openSettings(context);
+                  openSettings(
+                    context,
+                    onRefetchCompleted: () => homeController.updateState(
+                      locale: context.locale.languageCode,
+                    ),
+                  );
                 },
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.transparent,
