@@ -8,3 +8,6 @@
 * Bold icon for 'all tile' in Stats
 * Dynamic button colors
 * Show login & register errors properly
+* Update state when refetching from backend
+* Small UI update in Transaction amount
+* Don't delete settings from storage when logging out
