@@ -87,9 +87,14 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     updateState();
   }
 
-  /// Clears everything from [Hive]
+  /// Clears everything from [Hive] & updates `isLoggedIn`
   Future<void> clearEverything() async {
-    await settings.clear();
+    await writeSettings(
+      getSettings().copyWith(
+        isLoggedIn: false,
+      ),
+    );
+
     await username.clear();
     await transactions.clear();
     await categories.clear();

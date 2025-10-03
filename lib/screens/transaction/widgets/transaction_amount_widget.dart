@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../../constants/durations.dart';
 import '../../../theme/theme.dart';
 import '../../../util/currency.dart';
 import 'transaction_amount_button.dart';
@@ -119,7 +120,7 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
   void startHoldTimer() {
     holdTimer?.cancel();
 
-    holdTimer = Timer(const Duration(milliseconds: 500), () {
+    holdTimer = Timer(TroskoDurations.backspaceHold, () {
       setState(() {
         isHolding = true;
       });
@@ -197,10 +198,10 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 16,
+          mainAxisExtent: 56,
           crossAxisCount: 3,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          childAspectRatio: 2,
+          crossAxisSpacing: 16,
         ),
         itemCount: 12,
         itemBuilder: (_, index) {
