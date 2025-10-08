@@ -163,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   HapticFeedback.lightImpact();
                   openSettings(
                     context,
-                    onRefetchCompleted: () => homeController.updateState(
+                    onStateUpdateTriggered: () => homeController.updateState(
                       locale: context.locale.languageCode,
                     ),
                   );

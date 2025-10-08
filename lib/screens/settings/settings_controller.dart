@@ -75,10 +75,10 @@ class SettingsController implements Disposable {
   );
 
   /// Triggered when the user presses a flag
-  void onPressedLanguage({
+  Future<void> onPressedLanguage({
     required String languageCode,
     required BuildContext context,
-  }) => context.setLocale(Locale(languageCode));
+  }) async => context.setLocale(Locale(languageCode));
 
   /// Refetches all data from [Firebase] and stores into [Hive]
   Future<void> refetchFirebaseDataIntoHive() async {

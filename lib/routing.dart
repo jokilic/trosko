@@ -39,10 +39,10 @@ void openHome(BuildContext context) => removeAllAndPushScreen(
 /// Opens [SettingsScreen]
 void openSettings(
   BuildContext context, {
-  required Function() onRefetchCompleted,
+  required Function() onStateUpdateTriggered,
 }) => pushScreen(
   SettingsScreen(
-    onRefetchCompleted: onRefetchCompleted,
+    onStateUpdateTriggered: onStateUpdateTriggered,
     key: const ValueKey('settings'),
   ),
   context: context,

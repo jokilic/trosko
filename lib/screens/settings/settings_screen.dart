@@ -28,10 +28,10 @@ import 'widgets/settings_primary_colors.dart';
 import 'widgets/settings_themes.dart';
 
 class SettingsScreen extends WatchingStatefulWidget {
-  final Function() onRefetchCompleted;
+  final Function() onStateUpdateTriggered;
 
   const SettingsScreen({
-    required this.onRefetchCompleted,
+    required this.onStateUpdateTriggered,
     required super.key,
   });
 
@@ -182,11 +182,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ///
           SettingsLanguages(
             activeLanguageCode: context.locale.languageCode,
-            onPressedLanguageCode: (languageCode) {
-              HapticFeedback.lightImpact();
-              settingsController.onPressedLanguage(
+            onPressedLanguageCode: (languageCode) async {
+              unawaited(
+                HapticFeedback.lightImpact(),
+              );
+
+              await settingsController.onPressedLanguage(
                 languageCode: languageCode,
                 context: context,
+              );
+              WidgetsBinding.instance.addPostFrameCallback(
+                (_) => widget.onStateUpdateTriggered(),
               );
             },
           ),
@@ -272,7 +278,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     );
 
                     await settingsController.refetchFirebaseDataIntoHive();
-                    widget.onRefetchCompleted();
+                    WidgetsBinding.instance.addPostFrameCallback(
+                      (_) => widget.onStateUpdateTriggered(),
+                    );
                     Navigator.of(context).pop();
                   },
                   style: FilledButton.styleFrom(
