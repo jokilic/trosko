@@ -46,6 +46,9 @@ Future<void> main() async {
   /// Wait for initialization to finish
   await getIt.allReady();
 
+  /// Use `edge-to-edge` display
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
   /// Set refresh rate to high
   await setDisplayMode(
     logger: getIt.get<LoggerService>(),
