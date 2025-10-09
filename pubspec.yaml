@@ -34,6 +34,7 @@ dependencies:
   firebase_core: 4.1.1
   flutter_animate: 4.5.2
   flutter_colorpicker: 1.1.0
+  flutter_displaymode: 0.7.0
   flutter_swipe_action_cell: 3.1.6
   get_it: 8.2.0
   hive_ce: 2.14.0

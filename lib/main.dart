@@ -14,8 +14,10 @@ import 'firebase_options.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'services/hive_service.dart';
+import 'services/logger_service.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
+import 'util/display_mode.dart';
 import 'util/theme.dart';
 
 Future<void> main() async {
@@ -43,6 +45,11 @@ Future<void> main() async {
 
   /// Wait for initialization to finish
   await getIt.allReady();
+
+  /// Set refresh rate to high
+  await setDisplayMode(
+    logger: getIt.get<LoggerService>(),
+  );
 
   /// Get `settings` value from [Hive]
   final settings = getIt.get<HiveService>().getSettings();
