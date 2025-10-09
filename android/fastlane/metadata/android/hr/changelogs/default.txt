@@ -1,13 +1,5 @@
-* Stats can be opened for 'All'
-* Get categories sorted by expense in Stats
-* Proper localization for Stats -> 'expense' word
-* Calculate white or black color in icons
-* Update vibrations when tapping buttons
-* Update storage initialization
-* Localization updates
-* Bold icon for 'all tile' in Stats
-* Dynamic button colors
-* Show login & register errors properly
+* Updated localization logic
 * Update state when refetching from backend
-* Small UI update in Transaction amount
-* Don't delete settings from storage when logging out
+* Small UI updates in TransactionAmount
+* Don't delete settings when logging out
+* Under-the-hood updates
