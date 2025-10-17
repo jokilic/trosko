@@ -9,7 +9,6 @@ import 'package:watch_it/watch_it.dart';
 import '../../constants/durations.dart';
 import '../../models/day_header/day_header.dart';
 import '../../models/transaction/transaction.dart';
-import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
@@ -22,6 +21,9 @@ import '../../util/months.dart';
 import '../../util/stats.dart';
 import '../../util/string.dart';
 import '../../widgets/trosko_app_bar.dart';
+import '../category/category_screen.dart';
+import '../settings/settings_screen.dart';
+import '../stats/stats_screen.dart';
 import '../transaction/transaction_screen.dart';
 import 'home_controller.dart';
 import 'widgets/home_categories.dart';
@@ -86,7 +88,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       floatingActionButton: OpenContainer(
+        transitionDuration: TroskoDurations.switchScreenAnimation,
         middleColor: context.colors.scaffoldBackground,
+        openElevation: 0,
         openColor: context.colors.scaffoldBackground,
         openShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
@@ -95,7 +99,6 @@ class _HomeScreenState extends State<HomeScreen> {
         closedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        openElevation: 1,
         closedBuilder: (context, openContainer) => Theme(
           data: Theme.of(context).copyWith(
             splashColor: Colors.transparent,
@@ -172,26 +175,41 @@ class _HomeScreenState extends State<HomeScreen> {
           ///
           TroskoAppBar(
             actionWidgets: [
-              IconButton(
-                onPressed: () {
-                  HapticFeedback.lightImpact();
-                  openSettings(
-                    context,
-                    onStateUpdateTriggered: () => homeController.updateState(
-                      locale: context.locale.languageCode,
-                    ),
-                  );
-                },
-                style: IconButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  highlightColor: context.colors.buttonBackground,
+              OpenContainer(
+                transitionDuration: TroskoDurations.switchScreenAnimation,
+                middleColor: context.colors.scaffoldBackground,
+                openElevation: 0,
+                openColor: context.colors.scaffoldBackground,
+                openShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                icon: PhosphorIcon(
-                  PhosphorIcons.gearSix(
-                    PhosphorIconsStyle.bold,
+                closedElevation: 0,
+                closedColor: context.colors.scaffoldBackground,
+                closedShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                closedBuilder: (context, openContainer) => IconButton(
+                  onPressed: () {
+                    HapticFeedback.lightImpact();
+                    openContainer();
+                  },
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    highlightColor: context.colors.buttonBackground,
                   ),
-                  color: context.colors.text,
-                  size: 28,
+                  icon: PhosphorIcon(
+                    PhosphorIcons.gearSix(
+                      PhosphorIconsStyle.bold,
+                    ),
+                    color: context.colors.text,
+                    size: 28,
+                  ),
+                ),
+                openBuilder: (context, _) => SettingsScreen(
+                  onStateUpdateTriggered: () => homeController.updateState(
+                    locale: context.locale.languageCode,
+                  ),
+                  key: const ValueKey('settings'),
                 ),
               ),
             ],
@@ -230,18 +248,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 locale: context.locale.languageCode,
               );
             },
-            onChipLongPressed: (month) {
+            onLongPressed: (month) {
               if (month != null) {
                 final transactions = month.isAll ? allTransactions : homeController.getAllTransactionsFromMonth(month);
 
-                openStats(
-                  context,
+                return StatsScreen(
                   month: month,
                   transactions: transactions,
-                  sortedCategories: getSortedCategories(
+                  categories: getSortedCategories(
                     categories: categories,
                     transactions: transactions,
                   ),
+                  key: ValueKey(month),
                 );
               }
             },
@@ -279,15 +297,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 locale: context.locale.languageCode,
               );
             },
-            onLongPressedCategory: (category) => openCategory(
-              context,
+            onLongPressedCategory: (category) => CategoryScreen(
               passedCategory: category,
+              key: ValueKey(category.id),
             ),
+
             onPressedAdd: () {
               HapticFeedback.lightImpact();
-              openCategory(
-                context,
+
+              return const CategoryScreen(
                 passedCategory: null,
+                key: ValueKey(null),
               );
             },
           ),
@@ -354,13 +374,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   final category = categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
 
                   return HomeTransactionListTile(
-                    onLongPressed: () => openTransaction(
-                      context,
+                    onLongPressed: () => TransactionScreen(
                       passedTransaction: item,
                       categories: categories,
                       onTransactionUpdated: () => homeController.updateState(
                         locale: context.locale.languageCode,
                       ),
+                      key: ValueKey(item.id),
                     ),
                     onDeletePressed: () {
                       HapticFeedback.lightImpact();
