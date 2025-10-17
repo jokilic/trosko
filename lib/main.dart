@@ -28,6 +28,12 @@ Future<void> main() async {
     [DeviceOrientation.portraitUp],
   );
 
+  /// Use `edge-to-edge` display
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
+  /// Set refresh rate to high
+  await setDisplayMode();
+
   /// Initialize [EasyLocalization]
   await EasyLocalization.ensureInitialized();
 
@@ -45,14 +51,6 @@ Future<void> main() async {
 
   /// Wait for initialization to finish
   await getIt.allReady();
-
-  /// Use `edge-to-edge` display
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-
-  /// Set refresh rate to high
-  await setDisplayMode(
-    logger: getIt.get<LoggerService>(),
-  );
 
   /// Get `settings` value from [Hive]
   final settings = getIt.get<HiveService>().getSettings();
