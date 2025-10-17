@@ -28,6 +28,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  animations: 2.1.0
   cloud_firestore: 6.0.2
   easy_localization: 3.0.8
   firebase_auth: 6.1.0

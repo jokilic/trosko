@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +22,7 @@ import '../../util/months.dart';
 import '../../util/stats.dart';
 import '../../util/string.dart';
 import '../../widgets/trosko_app_bar.dart';
+import '../transaction/transaction_screen.dart';
 import 'home_controller.dart';
 import 'widgets/home_categories.dart';
 import 'widgets/home_month_chips.dart';
@@ -83,49 +85,63 @@ class _HomeScreenState extends State<HomeScreen> {
     final greeting = getGreeting(now);
 
     return Scaffold(
-      floatingActionButton: Theme(
-        data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: context.colors.buttonBackground,
+      floatingActionButton: OpenContainer(
+        middleColor: context.colors.scaffoldBackground,
+        openColor: context.colors.scaffoldBackground,
+        openShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
         ),
-        child: Animate(
-          autoPlay: false,
-          onInit: (controller) => homeController.shakeFabController = controller,
-          effects: const [
-            ShakeEffect(
-              curve: Curves.easeIn,
-              duration: TroskoDurations.animation,
-            ),
-          ],
-          child: FloatingActionButton.extended(
-            onPressed: categories.isNotEmpty
-                ? () {
-                    HapticFeedback.lightImpact();
-
-                    openTransaction(
-                      context,
-                      passedTransaction: null,
-                      categories: categories,
-                      onTransactionUpdated: () => homeController.updateState(
-                        locale: context.locale.languageCode,
-                      ),
-                    );
-                  }
-                : () {
-                    HapticFeedback.lightImpact();
-                    homeController.triggerFabAnimation();
-                  },
-            backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-            foregroundColor: categories.isNotEmpty
-                ? getWhiteOrBlackColor(
-                    backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                    whiteColor: TroskoColors.lighterGrey,
-                    blackColor: TroskoColors.black,
-                  )
-                : context.colors.disabledText,
-            label: Text(
-              'homeAddExpense'.tr().toUpperCase(),
-              style: context.textStyles.homeFloatingActionButton.copyWith(
+        closedColor: context.colors.scaffoldBackground,
+        closedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        openElevation: 1,
+        closedBuilder: (context, openContainer) => Theme(
+          data: Theme.of(context).copyWith(
+            splashColor: Colors.transparent,
+            highlightColor: context.colors.buttonBackground,
+          ),
+          child: Animate(
+            autoPlay: false,
+            onInit: (controller) => homeController.shakeFabController = controller,
+            effects: const [
+              ShakeEffect(
+                curve: Curves.easeIn,
+                duration: TroskoDurations.animation,
+              ),
+            ],
+            child: FloatingActionButton.extended(
+              onPressed: categories.isNotEmpty
+                  ? () {
+                      HapticFeedback.lightImpact();
+                      openContainer();
+                    }
+                  : () {
+                      HapticFeedback.lightImpact();
+                      homeController.triggerFabAnimation();
+                    },
+              backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+              foregroundColor: categories.isNotEmpty
+                  ? getWhiteOrBlackColor(
+                      backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                      whiteColor: TroskoColors.lighterGrey,
+                      blackColor: TroskoColors.black,
+                    )
+                  : context.colors.disabledText,
+              label: Text(
+                'homeAddExpense'.tr().toUpperCase(),
+                style: context.textStyles.homeFloatingActionButton.copyWith(
+                  color: categories.isNotEmpty
+                      ? getWhiteOrBlackColor(
+                          backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                          whiteColor: TroskoColors.lighterGrey,
+                          blackColor: TroskoColors.black,
+                        )
+                      : context.colors.disabledText,
+                ),
+              ),
+              icon: PhosphorIcon(
+                PhosphorIcons.coins(),
                 color: categories.isNotEmpty
                     ? getWhiteOrBlackColor(
                         backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
@@ -133,20 +149,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         blackColor: TroskoColors.black,
                       )
                     : context.colors.disabledText,
+                size: 32,
               ),
             ),
-            icon: PhosphorIcon(
-              PhosphorIcons.coins(),
-              color: categories.isNotEmpty
-                  ? getWhiteOrBlackColor(
-                      backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                      whiteColor: TroskoColors.lighterGrey,
-                      blackColor: TroskoColors.black,
-                    )
-                  : context.colors.disabledText,
-              size: 32,
-            ),
           ),
+        ),
+        openBuilder: (context, _) => TransactionScreen(
+          passedTransaction: null,
+          categories: categories,
+          onTransactionUpdated: () => homeController.updateState(
+            locale: context.locale.languageCode,
+          ),
+          key: const ValueKey(null),
         ),
       ),
       body: CustomScrollView(
