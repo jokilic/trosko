@@ -33,7 +33,7 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
   final defaultSettings = Settings(
     isLoggedIn: false,
     themeModeInt: 0,
-    primaryColor: TroskoColors.green,
+    primaryColor: TroskoColors.blue,
   );
 
   ///
