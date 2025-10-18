@@ -93,7 +93,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
           ///
           TroskoAppBar(
             leadingWidget: IconButton(
-              onPressed: Navigator.of(context).pop,
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                Navigator.of(context).pop();
+              },
               style: IconButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 highlightColor: context.colors.buttonBackground,

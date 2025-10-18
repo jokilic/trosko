@@ -79,7 +79,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ///
           TroskoAppBar(
             leadingWidget: IconButton(
-              onPressed: Navigator.of(context).pop,
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                Navigator.of(context).pop();
+              },
               style: IconButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 highlightColor: context.colors.buttonBackground,

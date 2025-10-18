@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/category/category.dart';
@@ -34,7 +35,10 @@ class StatsScreen extends StatelessWidget {
         ///
         TroskoAppBar(
           leadingWidget: IconButton(
-            onPressed: Navigator.of(context).pop,
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              Navigator.of(context).pop();
+            },
             style: IconButton.styleFrom(
               backgroundColor: Colors.transparent,
               highlightColor: context.colors.buttonBackground,
