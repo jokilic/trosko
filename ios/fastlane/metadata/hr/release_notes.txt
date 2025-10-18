@@ -7,3 +7,4 @@
 * High refresh rate
 * Refresh icons and splash screen
 * Update status bar and navigation bar colors
+* Autofill when logging in or registering

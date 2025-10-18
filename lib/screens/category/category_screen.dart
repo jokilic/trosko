@@ -197,7 +197,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
-                    autofocus: false,
                     controller: categoryController.nameTextEditingController,
                     labelText: 'categoryTitle'.tr(),
                     keyboardType: TextInputType.text,
@@ -274,7 +273,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
-                    autofocus: false,
                     controller: categoryController.iconTextEditingController,
                     labelText: 'categoryIcon'.tr(),
                     keyboardType: TextInputType.text,

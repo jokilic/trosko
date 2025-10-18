@@ -104,7 +104,6 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: TroskoTextField(
-              autofocus: false,
               controller: emailTextEditingController,
               labelText: 'email'.tr(),
               keyboardType: TextInputType.emailAddress,
@@ -122,7 +121,6 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: TroskoTextField(
               obscureText: true,
-              autofocus: false,
               controller: passwordTextEditingController,
               labelText: 'password'.tr(),
               keyboardType: TextInputType.visiblePassword,

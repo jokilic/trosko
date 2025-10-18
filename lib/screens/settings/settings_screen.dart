@@ -227,9 +227,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             sliver: SliverToBoxAdapter(
               child: TroskoTextField(
                 onSubmitted: settingsController.onSubmittedName,
-                autofocus: false,
                 controller: settingsController.nameTextEditingController,
                 labelText: 'settingsName'.tr(),
+                autofillHints: const [AutofillHints.name],
                 keyboardType: TextInputType.name,
                 textAlign: TextAlign.left,
                 textCapitalization: TextCapitalization.words,

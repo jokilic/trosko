@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../services/firebase_service.dart';
@@ -79,6 +80,9 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
 
       /// Successful register
       if (registerResult.user != null && registerResult.error == null) {
+        /// Put `email` and `password` into password manager
+        TextInput.finishAutofillContext();
+
         /// Store `isLoggedIn` into [Hive]
         await hive.writeSettings(
           hive.getSettings().copyWith(

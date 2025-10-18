@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../theme/theme.dart';
 
 class TroskoTextField extends StatelessWidget {
+  final bool autocorrect;
   final bool autofocus;
   final TextEditingController controller;
   final String labelText;
@@ -14,25 +15,30 @@ class TroskoTextField extends StatelessWidget {
   final TextInputAction textInputAction;
   final bool obscureText;
   final Function(String value)? onSubmitted;
+  final Iterable<String>? autofillHints;
 
   const TroskoTextField({
-    required this.autofocus,
     required this.controller,
     required this.labelText,
     required this.keyboardType,
     required this.textAlign,
     required this.textCapitalization,
     required this.textInputAction,
+    this.autocorrect = true,
+    this.autofocus = false,
     this.minLines = 1,
     this.maxLines = 1,
     this.obscureText = false,
     this.onSubmitted,
+    this.autofillHints,
   });
 
   @override
   Widget build(BuildContext context) => TextField(
+    autofillHints: autofillHints,
     onSubmitted: onSubmitted,
     obscureText: obscureText,
+    autocorrect: autocorrect,
     autofocus: autofocus,
     controller: controller,
     cursorHeight: 24,

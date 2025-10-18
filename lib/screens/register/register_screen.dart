@@ -63,134 +63,138 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final isLoading = state.isLoading;
 
     return Scaffold(
-      body: CustomScrollView(
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          ///
-          /// APP BAR
-          ///
-          TroskoAppBar(
-            smallTitle: 'welcomeTitle'.tr(),
-            bigTitle: 'welcomeTitle'.tr(),
-            bigSubtitle: 'welcomeSubtitle'.tr(),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 12),
-          ),
-
-          ///
-          /// ILLUSTRATION
-          ///
-          SliverToBoxAdapter(
-            child: Image.asset(
-              TroskoIcons.illustration,
-              height: 256,
-              fit: BoxFit.scaleDown,
+      body: AutofillGroup(
+        child: CustomScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            ///
+            /// APP BAR
+            ///
+            TroskoAppBar(
+              smallTitle: 'welcomeTitle'.tr(),
+              bigTitle: 'welcomeTitle'.tr(),
+              bigSubtitle: 'welcomeSubtitle'.tr(),
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 40),
-          ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 12),
+            ),
 
-          ///
-          /// EMAIL
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(
-              child: TroskoTextField(
-                autofocus: false,
-                controller: registerController.emailTextEditingController,
-                labelText: 'email'.tr(),
-                keyboardType: TextInputType.emailAddress,
-                textAlign: TextAlign.left,
-                textCapitalization: TextCapitalization.none,
-                textInputAction: TextInputAction.next,
+            ///
+            /// ILLUSTRATION
+            ///
+            SliverToBoxAdapter(
+              child: Image.asset(
+                TroskoIcons.illustration,
+                height: 256,
+                fit: BoxFit.scaleDown,
               ),
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 16),
-          ),
-
-          ///
-          /// PASSWORD
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(
-              child: TroskoTextField(
-                obscureText: true,
-                autofocus: false,
-                controller: registerController.passwordTextEditingController,
-                labelText: 'password'.tr(),
-                keyboardType: TextInputType.visiblePassword,
-                textAlign: TextAlign.left,
-                textCapitalization: TextCapitalization.none,
-                textInputAction: TextInputAction.next,
-              ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 40),
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 16),
-          ),
 
-          ///
-          /// NAME
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(
-              child: TroskoTextField(
-                autofocus: false,
-                controller: registerController.nameTextEditingController,
-                labelText: 'name'.tr(),
-                keyboardType: TextInputType.name,
-                textAlign: TextAlign.left,
-                textCapitalization: TextCapitalization.words,
-                textInputAction: TextInputAction.go,
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 16),
-          ),
-
-          ///
-          /// LOGIN
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(
-              child: Text.rich(
-                TextSpan(
-                  text: 'registerLogin'.tr(),
-                  children: [
-                    TextSpan(
-                      text: 'clickHere'.tr(),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          HapticFeedback.lightImpact();
-                          openLogin(context);
-                        },
-                      style: context.textStyles.homeTitleBold,
-                    ),
-                  ],
+            ///
+            /// EMAIL
+            ///
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: TroskoTextField(
+                  autocorrect: false,
+                  controller: registerController.emailTextEditingController,
+                  labelText: 'email'.tr(),
+                  autofillHints: const [AutofillHints.email],
+                  keyboardType: TextInputType.emailAddress,
+                  textAlign: TextAlign.left,
+                  textCapitalization: TextCapitalization.none,
+                  textInputAction: TextInputAction.next,
                 ),
-                style: context.textStyles.homeTitle,
-                textAlign: TextAlign.center,
               ),
             ),
-          ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 16),
+            ),
 
-          ///
-          /// BOTTOM SPACING
-          ///
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 120),
-          ),
-        ],
+            ///
+            /// PASSWORD
+            ///
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: TroskoTextField(
+                  autocorrect: false,
+                  obscureText: true,
+                  controller: registerController.passwordTextEditingController,
+                  labelText: 'password'.tr(),
+                  autofillHints: const [AutofillHints.password],
+                  keyboardType: TextInputType.visiblePassword,
+                  textAlign: TextAlign.left,
+                  textCapitalization: TextCapitalization.none,
+                  textInputAction: TextInputAction.next,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 16),
+            ),
+
+            ///
+            /// NAME
+            ///
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: TroskoTextField(
+                  controller: registerController.nameTextEditingController,
+                  labelText: 'name'.tr(),
+                  autofillHints: const [AutofillHints.name],
+                  keyboardType: TextInputType.name,
+                  textAlign: TextAlign.left,
+                  textCapitalization: TextCapitalization.words,
+                  textInputAction: TextInputAction.go,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 16),
+            ),
+
+            ///
+            /// LOGIN
+            ///
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: Text.rich(
+                  TextSpan(
+                    text: 'registerLogin'.tr(),
+                    children: [
+                      TextSpan(
+                        text: 'clickHere'.tr(),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            HapticFeedback.lightImpact();
+                            openLogin(context);
+                          },
+                        style: context.textStyles.homeTitleBold,
+                      ),
+                    ],
+                  ),
+                  style: context.textStyles.homeTitle,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+
+            ///
+            /// BOTTOM SPACING
+            ///
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 120),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.only(
