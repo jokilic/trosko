@@ -9,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:watch_it/watch_it.dart';
 
-import 'constants/durations.dart';
 import 'firebase_options.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/login/login_screen.dart';
