@@ -1,5 +1,9 @@
-* Updated localization logic
-* Update state when refetching from backend
-* Small UI updates in TransactionAmount
-* Don't delete settings when logging out
-* Under-the-hood updates
+* Fancy animations when switching screens
+* Search transactions
+* Calendar instead of date picker
+* Reorder categories
+* Theme updates
+* Localization updates
+* High refresh rate
+* Refresh icons and splash screen
+* Update status bar and navigation bar colors

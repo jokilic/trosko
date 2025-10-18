@@ -56,8 +56,14 @@ Future<void> main() async {
 
   /// Run `Troško`
   runApp(
-    TroskoApp(
-      isLoggedIn: settings.isLoggedIn && FirebaseAuth.instance.currentUser != null,
+    AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+      ),
+      child: TroskoApp(
+        isLoggedIn: settings.isLoggedIn && FirebaseAuth.instance.currentUser != null,
+      ),
     ),
   );
 }
