@@ -87,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       floatingActionButton: OpenContainer(
+        transitionType: ContainerTransitionType.fadeThrough,
         transitionDuration: TroskoDurations.switchAnimation,
         middleColor: context.colors.scaffoldBackground,
         openElevation: 0,
@@ -176,10 +177,11 @@ class _HomeScreenState extends State<HomeScreen> {
           TroskoAppBar(
             actionWidgets: [
               OpenContainer(
+                transitionType: ContainerTransitionType.fadeThrough,
                 transitionDuration: TroskoDurations.switchAnimation,
-                middleColor: Colors.transparent,
+                middleColor: context.colors.scaffoldBackground,
                 openElevation: 0,
-                openColor: Colors.transparent,
+                openColor: context.colors.scaffoldBackground,
                 openShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),

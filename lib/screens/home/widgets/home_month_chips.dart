@@ -37,6 +37,7 @@ class HomeMonthChips extends StatelessWidget {
             /// ALL
             ///
             return OpenContainer(
+              transitionType: ContainerTransitionType.fadeThrough,
               transitionDuration: TroskoDurations.switchAnimation,
               middleColor: context.colors.scaffoldBackground,
               openElevation: 0,

@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../constants/durations.dart';
 import '../../../models/category/category.dart';
@@ -29,6 +30,7 @@ class HomeCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => OpenContainer(
+    transitionType: ContainerTransitionType.fadeThrough,
     transitionDuration: TroskoDurations.switchAnimation,
     middleColor: context.colors.scaffoldBackground,
     openElevation: 0,
@@ -54,7 +56,14 @@ class HomeCategory extends StatelessWidget {
               ),
             ),
             child: IconButton(
-              onPressed: onPressed ?? openContainer,
+              onPressed: () {
+                if (onPressed != null) {
+                  onPressed!();
+                } else {
+                  HapticFeedback.lightImpact();
+                  openContainer();
+                }
+              },
               onLongPress: onPressed != null ? openContainer : null,
               style: IconButton.styleFrom(
                 padding: const EdgeInsets.all(12),
