@@ -42,11 +42,11 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
   @override
   Widget build(BuildContext context) => OpenContainer(
     transitionDuration: TroskoDurations.switchScreenAnimation,
-    middleColor: context.colors.scaffoldBackground,
+    middleColor: Colors.transparent,
     openElevation: 0,
-    openColor: context.colors.scaffoldBackground,
+    openColor: Colors.transparent,
     openShape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(16),
     ),
     closedElevation: 0,
     closedColor: context.colors.scaffoldBackground,
