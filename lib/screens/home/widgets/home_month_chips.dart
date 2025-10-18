@@ -37,10 +37,10 @@ class HomeMonthChips extends StatelessWidget {
             /// ALL
             ///
             return OpenContainer(
-              transitionDuration: TroskoDurations.switchScreenAnimation,
-              middleColor: Colors.transparent,
+              transitionDuration: TroskoDurations.switchAnimation,
+              middleColor: context.colors.scaffoldBackground,
               openElevation: 0,
-              openColor: Colors.transparent,
+              openColor: context.colors.scaffoldBackground,
               openShape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
@@ -92,10 +92,10 @@ class HomeMonthChips extends StatelessWidget {
 
           if (month != null) {
             return OpenContainer(
-              transitionDuration: TroskoDurations.switchScreenAnimation,
-              middleColor: Colors.transparent,
+              transitionDuration: TroskoDurations.switchAnimation,
+              middleColor: context.colors.scaffoldBackground,
               openElevation: 0,
-              openColor: Colors.transparent,
+              openColor: context.colors.scaffoldBackground,
               openShape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),

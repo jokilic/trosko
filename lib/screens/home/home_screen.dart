@@ -88,15 +88,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       floatingActionButton: OpenContainer(
-        transitionDuration: TroskoDurations.switchScreenAnimation,
-        middleColor: Colors.transparent,
+        transitionDuration: TroskoDurations.switchAnimation,
+        middleColor: context.colors.scaffoldBackground,
         openElevation: 0,
-        openColor: Colors.transparent,
+        openColor: context.colors.scaffoldBackground,
         openShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
         closedElevation: 0,
-        closedColor: Colors.transparent,
+        closedColor: context.colors.scaffoldBackground,
         closedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -177,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
           TroskoAppBar(
             actionWidgets: [
               OpenContainer(
-                transitionDuration: TroskoDurations.switchScreenAnimation,
+                transitionDuration: TroskoDurations.switchAnimation,
                 middleColor: Colors.transparent,
                 openElevation: 0,
                 openColor: Colors.transparent,

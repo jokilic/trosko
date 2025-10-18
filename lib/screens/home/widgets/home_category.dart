@@ -29,10 +29,10 @@ class HomeCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => OpenContainer(
-    transitionDuration: TroskoDurations.switchScreenAnimation,
-    middleColor: Colors.transparent,
+    transitionDuration: TroskoDurations.switchAnimation,
+    middleColor: context.colors.scaffoldBackground,
     openElevation: 0,
-    openColor: Colors.transparent,
+    openColor: context.colors.scaffoldBackground,
     openShape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(16),
     ),
