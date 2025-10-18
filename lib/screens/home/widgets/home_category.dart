@@ -2,14 +2,15 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/durations.dart';
+import '../../../models/category/category.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
 import '../../../util/color.dart';
+import '../../category/category_screen.dart';
 
 class HomeCategory extends StatelessWidget {
+  final Category? category;
   final Function()? onPressed;
-  final Function()? onPressedAdd;
-  final Function()? onLongPressed;
   final Color color;
   final Color highlightColor;
   final IconData? icon;
@@ -17,13 +18,12 @@ class HomeCategory extends StatelessWidget {
   final bool hasBorder;
 
   const HomeCategory({
+    required this.category,
     required this.color,
     required this.highlightColor,
     required this.text,
     this.icon,
     this.onPressed,
-    this.onPressedAdd,
-    this.onLongPressed,
     this.hasBorder = true,
   });
 
@@ -54,8 +54,8 @@ class HomeCategory extends StatelessWidget {
               ),
             ),
             child: IconButton(
-              onPressed: onPressedAdd != null ? openContainer : onPressed,
-              onLongPress: onLongPressed != null ? openContainer : null,
+              onPressed: onPressed ?? openContainer,
+              onLongPress: onPressed != null ? openContainer : null,
               style: IconButton.styleFrom(
                 padding: const EdgeInsets.all(12),
                 backgroundColor: color,
@@ -84,10 +84,9 @@ class HomeCategory extends StatelessWidget {
         ],
       ),
     ),
-    openBuilder: (context, _) => onLongPressed != null
-        ? onLongPressed!()
-        : onPressedAdd != null
-        ? onPressedAdd!()
-        : null,
+    openBuilder: (context, _) => CategoryScreen(
+      passedCategory: category,
+      key: ValueKey(category?.id),
+    ),
   );
 }

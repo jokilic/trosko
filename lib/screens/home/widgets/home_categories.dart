@@ -11,15 +11,11 @@ class HomeCategories extends StatelessWidget {
   final List<Category> categories;
   final Category? activeCategory;
   final Function(Category category) onPressedCategory;
-  final Function(Category category) onLongPressedCategory;
-  final Function() onPressedAdd;
 
   const HomeCategories({
     required this.categories,
     required this.activeCategory,
     required this.onPressedCategory,
-    required this.onLongPressedCategory,
-    required this.onPressedAdd,
   });
 
   @override
@@ -39,8 +35,8 @@ class HomeCategories extends StatelessWidget {
           ///
           if (category != null) {
             return HomeCategory(
+              category: category,
               onPressed: () => onPressedCategory(category),
-              onLongPressed: () => onLongPressedCategory(category),
               color: category.color.withValues(
                 alpha: activeCategory == category || activeCategory == null ? 1 : 0.2,
               ),
@@ -58,7 +54,7 @@ class HomeCategories extends StatelessWidget {
           /// ADD NEW CATEGORY
           ///
           return HomeCategory(
-            onPressedAdd: onPressedAdd,
+            category: null,
             color: context.colors.buttonBackground,
             highlightColor: context.colors.listTileBackground,
             icon: PhosphorIcons.plus(),

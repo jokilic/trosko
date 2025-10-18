@@ -123,7 +123,6 @@ class TroskoWidget extends WatchingWidget {
       themeMode: getThemeMode(
         themeModeInt: settings?.themeModeInt ?? 0,
       ),
-      themeAnimationDuration: TroskoDurations.animation,
       themeAnimationCurve: Curves.easeIn,
       builder: (_, child) {
         final appWidget =

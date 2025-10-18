@@ -21,7 +21,6 @@ import '../../util/months.dart';
 import '../../util/stats.dart';
 import '../../util/string.dart';
 import '../../widgets/trosko_app_bar.dart';
-import '../category/category_screen.dart';
 import '../settings/settings_screen.dart';
 import '../stats/stats_screen.dart';
 import '../transaction/transaction_screen.dart';
@@ -296,17 +295,6 @@ class _HomeScreenState extends State<HomeScreen> {
               homeController.updateState(
                 newCategory: category,
                 locale: context.locale.languageCode,
-              );
-            },
-            onLongPressedCategory: (category) => CategoryScreen(
-              passedCategory: category,
-              key: ValueKey(category.id),
-            ),
-            onPressedAdd: () {
-              HapticFeedback.lightImpact();
-              return const CategoryScreen(
-                passedCategory: null,
-                key: ValueKey(null),
               );
             },
           ),
