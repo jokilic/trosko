@@ -160,6 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
         openBuilder: (context, _) => TransactionScreen(
           passedTransaction: null,
           categories: categories,
+          passedCategory: activeCategory,
           onTransactionUpdated: () => homeController.updateState(
             locale: context.locale.languageCode,
           ),
@@ -175,6 +176,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ///
           TroskoAppBar(
             actionWidgets: [
+              ///
+              /// SETTINGS
+              ///
               OpenContainer(
                 transitionType: ContainerTransitionType.fadeThrough,
                 middleColor: context.colors.scaffoldBackground,
@@ -210,6 +214,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     locale: context.locale.languageCode,
                   ),
                   key: const ValueKey('settings'),
+                ),
+              ),
+
+              ///
+              /// SEARCH
+              ///
+              IconButton(
+                onPressed: HapticFeedback.lightImpact,
+                style: IconButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  highlightColor: context.colors.buttonBackground,
+                ),
+                icon: PhosphorIcon(
+                  PhosphorIcons.magnifyingGlass(
+                    PhosphorIconsStyle.bold,
+                  ),
+                  color: context.colors.text,
+                  size: 28,
                 ),
               ),
             ],
@@ -364,6 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onLongPressed: () => TransactionScreen(
                       passedTransaction: item,
                       categories: categories,
+                      passedCategory: activeCategory,
                       onTransactionUpdated: () => homeController.updateState(
                         locale: context.locale.languageCode,
                       ),

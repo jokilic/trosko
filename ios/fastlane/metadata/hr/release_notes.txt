@@ -8,3 +8,4 @@
 * Refresh icons and splash screen
 * Update status bar and navigation bar colors
 * Autofill when logging in or registering
+* Having a category filtered and adding a new transaction will have the relevant category enabled

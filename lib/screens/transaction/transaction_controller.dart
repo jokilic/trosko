@@ -25,6 +25,7 @@ class TransactionController
   final FirebaseService firebase;
   final Transaction? passedTransaction;
   final List<Category> categories;
+  final Category? passedCategory;
 
   TransactionController({
     required this.logger,
@@ -32,6 +33,7 @@ class TransactionController
     required this.firebase,
     required this.passedTransaction,
     required this.categories,
+    required this.passedCategory,
   }) : super((
          category: null,
          amountCents: null,
@@ -61,14 +63,14 @@ class TransactionController
   void init() {
     final now = DateTime.now();
 
-    final passedCategory = categories
+    final categoryFromPassedTransaction = categories
         .where(
           (category) => category.id == passedTransaction?.categoryId,
         )
         .toList()
         .firstOrNull;
 
-    final category = passedCategory ?? (categories.length == 1 ? categories.firstOrNull : null);
+    final category = categoryFromPassedTransaction ?? passedCategory ?? (categories.length == 1 ? categories.firstOrNull : null);
 
     final transactionDateTime = passedTransaction?.createdAt ?? now;
 

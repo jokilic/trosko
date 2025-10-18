@@ -27,11 +27,13 @@ import 'widgets/transaction_category.dart';
 class TransactionScreen extends WatchingStatefulWidget {
   final Transaction? passedTransaction;
   final List<Category> categories;
+  final Category? passedCategory;
   final Function() onTransactionUpdated;
 
   const TransactionScreen({
     required this.passedTransaction,
     required this.categories,
+    required this.passedCategory,
     required this.onTransactionUpdated,
     required super.key,
   });
@@ -52,6 +54,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         firebase: getIt.get<FirebaseService>(),
         passedTransaction: widget.passedTransaction,
         categories: widget.categories,
+        passedCategory: widget.passedCategory,
       ),
       instanceName: widget.passedTransaction?.id,
       afterRegister: (controller) => controller.init(),
