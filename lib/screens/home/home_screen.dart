@@ -302,10 +302,13 @@ class _HomeScreenState extends State<HomeScreen> {
               passedCategory: category,
               key: ValueKey(category.id),
             ),
-            onPressedAdd: () => const CategoryScreen(
-              passedCategory: null,
-              key: ValueKey(null),
-            ),
+            onPressedAdd: () {
+              HapticFeedback.lightImpact();
+              return const CategoryScreen(
+                passedCategory: null,
+                key: ValueKey(null),
+              );
+            },
           ),
 
           ///
