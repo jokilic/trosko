@@ -316,11 +316,17 @@ TroskoTextThemesExtension getTextThemesExtension({
   transactionCategoryName: TroskoTextStyles.transactionCategoryName.copyWith(
     color: colorsExtension.text,
   ),
-  transactionDateTimeActive: TroskoTextStyles.transactionDateTimeActive.copyWith(
+  transactionTimeActive: TroskoTextStyles.transactionTimeActive.copyWith(
     color: colorsExtension.text,
   ),
-  transactionDateTimeInactive: TroskoTextStyles.transactionDateTimeInactive.copyWith(
+  transactionTimeInactive: TroskoTextStyles.transactionTimeInactive.copyWith(
     color: colorsExtension.text,
+  ),
+  transactionDateInactive: TroskoTextStyles.transactionDateInactive.copyWith(
+    color: colorsExtension.text,
+  ),
+  transactionDateActive: TroskoTextStyles.transactionDateActive.copyWith(
+    color: colorsExtension.listTileBackground,
   ),
   categoryName: TroskoTextStyles.categoryName.copyWith(
     color: colorsExtension.text,

@@ -59,7 +59,6 @@ String getStatsSubtitle({
       2 || 3 || 4 => 'statsExpenseNumberPluralSmall'.tr(
         args: ['$numberOfTransactions'],
       ),
-
       _ => 'statsExpenseNumberPlural'.tr(
         args: ['$numberOfTransactions'],
       ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -292,7 +293,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   borderRadius: BorderRadius.circular(8),
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.fromLTRB(4, 8, 4, 16),
                     decoration: BoxDecoration(
                       color: dateEditMode ? context.colors.listTileBackground : null,
                       border: Border.all(
@@ -303,41 +304,42 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     ),
                     child: IgnorePointer(
                       ignoring: !dateEditMode,
-                      child: ScrollDateTimePicker(
-                        onChange: transactionController.dateChanged,
-                        itemExtent: 64,
-                        style: DateTimePickerStyle(
-                          activeStyle: context.textStyles.transactionDateTimeActive,
-                          inactiveStyle: context.textStyles.transactionDateTimeInactive,
-                          disabledStyle: context.textStyles.transactionDateTimeInactive.copyWith(
-                            color: context.colors.disabledText,
+                      child: CalendarDatePicker2(
+                        config: CalendarDatePicker2Config(
+                          calendarViewScrollPhysics: const BouncingScrollPhysics(),
+                          controlsTextStyle: context.textStyles.homeTitle,
+                          currentDate: DateTime.now(),
+                          customModePickerIcon: const SizedBox.shrink(),
+                          daySplashColor: Colors.transparent,
+                          dayTextStyle: context.textStyles.transactionDateInactive,
+                          dynamicCalendarRows: true,
+                          hideMonthPickerDividers: true,
+                          hideScrollViewMonthWeekHeader: true,
+                          hideScrollViewTopHeader: true,
+                          hideScrollViewTopHeaderDivider: true,
+                          hideYearPickerDividers: true,
+                          lastMonthIcon: PhosphorIcon(
+                            PhosphorIcons.caretCircleLeft(),
+                            color: context.colors.text,
+                            size: 28,
                           ),
-                        ),
-                        wheelOption: const DateTimePickerWheelOption(
-                          physics: BouncingScrollPhysics(),
-                        ),
-                        dateOption: DateTimePickerOption(
-                          dateFormat: DateFormat(
-                            'E, dd MMM yyyy',
-                            context.locale.languageCode,
+                          monthTextStyle: context.textStyles.transactionDateInactive,
+                          nextMonthIcon: PhosphorIcon(
+                            PhosphorIcons.caretCircleRight(),
+                            color: context.colors.text,
+                            size: 28,
                           ),
-                          minDate: DateTime(2020),
-                          maxDate: DateTime(2040),
-                          initialDate: chosenDateTime,
+                          selectedDayHighlightColor: context.colors.text,
+                          selectedDayTextStyle: context.textStyles.transactionDateActive,
+                          selectedMonthTextStyle: context.textStyles.transactionDateActive,
+                          selectedYearTextStyle: context.textStyles.transactionDateActive,
+                          todayTextStyle: context.textStyles.transactionDateInactive,
+                          weekdayLabelTextStyle: context.textStyles.homeTransactionNote,
+                          yearTextStyle: context.textStyles.transactionDateInactive,
                         ),
-                        centerWidget: DateTimePickerCenterWidget(
-                          builder: (context, constraints, child) => Container(
-                            decoration: ShapeDecoration(
-                              color: context.colors.listTileBackground,
-                              shape: StadiumBorder(
-                                side: BorderSide(
-                                  color: context.colors.borderColor,
-                                  width: 1.5,
-                                ),
-                              ),
-                            ),
-                            child: child,
-                          ),
+                        value: [chosenDateTime],
+                        onValueChanged: (dates) => transactionController.dateChanged(
+                          dates.first,
                         ),
                       ),
                     ),
@@ -384,9 +386,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         onChange: transactionController.timeChanged,
                         itemExtent: 64,
                         style: DateTimePickerStyle(
-                          activeStyle: context.textStyles.transactionDateTimeActive,
-                          inactiveStyle: context.textStyles.transactionDateTimeInactive,
-                          disabledStyle: context.textStyles.transactionDateTimeInactive.copyWith(
+                          activeStyle: context.textStyles.transactionTimeActive,
+                          inactiveStyle: context.textStyles.transactionTimeInactive,
+                          disabledStyle: context.textStyles.transactionTimeInactive.copyWith(
                             color: context.colors.disabledText,
                           ),
                         ),

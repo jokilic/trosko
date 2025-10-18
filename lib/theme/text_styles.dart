@@ -118,13 +118,25 @@ abstract class TroskoTextStyles {
     fontWeight: FontWeight.w500,
   );
 
-  static const transactionDateTimeActive = TextStyle(
+  static const transactionTimeActive = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 20,
     fontWeight: FontWeight.w500,
   );
 
-  static const transactionDateTimeInactive = TextStyle(
+  static const transactionTimeInactive = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const transactionDateInactive = TextStyle(
+    fontFamily: 'ProductSans',
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const transactionDateActive = TextStyle(
     fontFamily: 'ProductSans',
     fontSize: 16,
     fontWeight: FontWeight.w500,
@@ -163,8 +175,10 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
   final TextStyle transactionAmountNumber;
   final TextStyle textField;
   final TextStyle transactionCategoryName;
-  final TextStyle transactionDateTimeActive;
-  final TextStyle transactionDateTimeInactive;
+  final TextStyle transactionTimeActive;
+  final TextStyle transactionTimeInactive;
+  final TextStyle transactionDateInactive;
+  final TextStyle transactionDateActive;
   final TextStyle categoryName;
   final TextStyle categoryIcon;
 
@@ -188,8 +202,10 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     required this.transactionAmountNumber,
     required this.textField,
     required this.transactionCategoryName,
-    required this.transactionDateTimeActive,
-    required this.transactionDateTimeInactive,
+    required this.transactionTimeActive,
+    required this.transactionTimeInactive,
+    required this.transactionDateInactive,
+    required this.transactionDateActive,
     required this.categoryName,
     required this.categoryIcon,
   });
@@ -215,8 +231,10 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     TextStyle? transactionAmountNumber,
     TextStyle? textField,
     TextStyle? transactionCategoryName,
-    TextStyle? transactionDateTimeActive,
-    TextStyle? transactionDateTimeInactive,
+    TextStyle? transactionTimeActive,
+    TextStyle? transactionTimeInactive,
+    TextStyle? transactionDateInactive,
+    TextStyle? transactionDateActive,
     TextStyle? categoryName,
     TextStyle? categoryIcon,
   }) => TroskoTextThemesExtension(
@@ -239,8 +257,10 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
     transactionAmountNumber: transactionAmountNumber ?? this.transactionAmountNumber,
     textField: textField ?? this.textField,
     transactionCategoryName: transactionCategoryName ?? this.transactionCategoryName,
-    transactionDateTimeActive: transactionDateTimeActive ?? this.transactionDateTimeActive,
-    transactionDateTimeInactive: transactionDateTimeInactive ?? this.transactionDateTimeInactive,
+    transactionTimeActive: transactionTimeActive ?? this.transactionTimeActive,
+    transactionTimeInactive: transactionTimeInactive ?? this.transactionTimeInactive,
+    transactionDateInactive: transactionDateInactive ?? this.transactionDateInactive,
+    transactionDateActive: transactionDateActive ?? this.transactionDateActive,
     categoryName: categoryName ?? this.categoryName,
     categoryIcon: categoryIcon ?? this.categoryIcon,
   );
@@ -274,8 +294,10 @@ class TroskoTextThemesExtension extends ThemeExtension<TroskoTextThemesExtension
       transactionAmountNumber: TextStyle.lerp(transactionAmountNumber, other.transactionAmountNumber, t)!,
       textField: TextStyle.lerp(textField, other.textField, t)!,
       transactionCategoryName: TextStyle.lerp(transactionCategoryName, other.transactionCategoryName, t)!,
-      transactionDateTimeActive: TextStyle.lerp(transactionDateTimeActive, other.transactionDateTimeActive, t)!,
-      transactionDateTimeInactive: TextStyle.lerp(transactionDateTimeInactive, other.transactionDateTimeInactive, t)!,
+      transactionTimeActive: TextStyle.lerp(transactionTimeActive, other.transactionTimeActive, t)!,
+      transactionTimeInactive: TextStyle.lerp(transactionTimeInactive, other.transactionTimeInactive, t)!,
+      transactionDateInactive: TextStyle.lerp(transactionDateInactive, other.transactionDateInactive, t)!,
+      transactionDateActive: TextStyle.lerp(transactionDateActive, other.transactionDateActive, t)!,
       categoryName: TextStyle.lerp(categoryName, other.categoryName, t)!,
       categoryIcon: TextStyle.lerp(categoryIcon, other.categoryIcon, t)!,
     );
