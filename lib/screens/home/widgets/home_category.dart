@@ -2,7 +2,6 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../constants/durations.dart';
 import '../../../models/category/category.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
@@ -31,7 +30,6 @@ class HomeCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) => OpenContainer(
     transitionType: ContainerTransitionType.fadeThrough,
-    transitionDuration: TroskoDurations.switchAnimation,
     middleColor: context.colors.scaffoldBackground,
     openElevation: 0,
     openColor: context.colors.scaffoldBackground,

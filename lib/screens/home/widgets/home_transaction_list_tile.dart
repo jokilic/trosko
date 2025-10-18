@@ -42,7 +42,6 @@ class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
   @override
   Widget build(BuildContext context) => OpenContainer(
     transitionType: ContainerTransitionType.fadeThrough,
-    transitionDuration: TroskoDurations.switchAnimation,
     middleColor: context.colors.scaffoldBackground,
     openElevation: 0,
     openColor: context.colors.scaffoldBackground,

@@ -88,7 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       floatingActionButton: OpenContainer(
         transitionType: ContainerTransitionType.fadeThrough,
-        transitionDuration: TroskoDurations.switchAnimation,
         middleColor: context.colors.scaffoldBackground,
         openElevation: 0,
         openColor: context.colors.scaffoldBackground,
@@ -178,7 +177,6 @@ class _HomeScreenState extends State<HomeScreen> {
             actionWidgets: [
               OpenContainer(
                 transitionType: ContainerTransitionType.fadeThrough,
-                transitionDuration: TroskoDurations.switchAnimation,
                 middleColor: context.colors.scaffoldBackground,
                 openElevation: 0,
                 openColor: context.colors.scaffoldBackground,

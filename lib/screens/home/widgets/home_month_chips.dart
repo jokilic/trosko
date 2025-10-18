@@ -2,7 +2,6 @@ import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants/durations.dart';
 import '../../../models/month/month.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
@@ -38,7 +37,6 @@ class HomeMonthChips extends StatelessWidget {
             ///
             return OpenContainer(
               transitionType: ContainerTransitionType.fadeThrough,
-              transitionDuration: TroskoDurations.switchAnimation,
               middleColor: context.colors.scaffoldBackground,
               openElevation: 0,
               openColor: context.colors.scaffoldBackground,
@@ -93,7 +91,6 @@ class HomeMonthChips extends StatelessWidget {
 
           if (month != null) {
             return OpenContainer(
-              transitionDuration: TroskoDurations.switchAnimation,
               middleColor: context.colors.scaffoldBackground,
               openElevation: 0,
               openColor: context.colors.scaffoldBackground,
