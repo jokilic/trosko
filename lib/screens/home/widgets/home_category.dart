@@ -7,7 +7,8 @@ import '../../../theme/theme.dart';
 import '../../../util/color.dart';
 
 class HomeCategory extends StatelessWidget {
-  final Function() onPressed;
+  final Function()? onPressed;
+  final Function()? onPressedAdd;
   final Function()? onLongPressed;
   final Color color;
   final Color highlightColor;
@@ -16,11 +17,12 @@ class HomeCategory extends StatelessWidget {
   final bool hasBorder;
 
   const HomeCategory({
-    required this.onPressed,
     required this.color,
     required this.highlightColor,
     required this.text,
     this.icon,
+    this.onPressed,
+    this.onPressedAdd,
     this.onLongPressed,
     this.hasBorder = true,
   });
@@ -52,8 +54,8 @@ class HomeCategory extends StatelessWidget {
               ),
             ),
             child: IconButton(
-              onPressed: onPressed,
-              onLongPress: openContainer,
+              onPressed: onPressedAdd != null ? openContainer : onPressed,
+              onLongPress: onLongPressed != null ? openContainer : null,
               style: IconButton.styleFrom(
                 padding: const EdgeInsets.all(12),
                 backgroundColor: color,
@@ -82,6 +84,10 @@ class HomeCategory extends StatelessWidget {
         ],
       ),
     ),
-    openBuilder: (context, _) => onLongPressed != null ? onLongPressed!() : null,
+    openBuilder: (context, _) => onLongPressed != null
+        ? onLongPressed!()
+        : onPressedAdd != null
+        ? onPressedAdd!()
+        : null,
   );
 }
