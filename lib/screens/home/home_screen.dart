@@ -88,6 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       floatingActionButton: OpenContainer(
+        transitionDuration: TroskoDurations.switchAnimation,
         transitionType: ContainerTransitionType.fadeThrough,
         middleColor: context.colors.scaffoldBackground,
         openElevation: 0,
@@ -181,6 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
               /// SETTINGS
               ///
               OpenContainer(
+                transitionDuration: TroskoDurations.switchAnimation,
                 transitionType: ContainerTransitionType.fadeThrough,
                 middleColor: context.colors.scaffoldBackground,
                 openElevation: 0,
@@ -222,6 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
               /// SEARCH
               ///
               OpenContainer(
+                transitionDuration: TroskoDurations.switchAnimation,
                 transitionType: ContainerTransitionType.fadeThrough,
                 middleColor: context.colors.scaffoldBackground,
                 openElevation: 0,
