@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive_ce/hive.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 11)
 class Transaction {
   @HiveField(1)
   final String id;

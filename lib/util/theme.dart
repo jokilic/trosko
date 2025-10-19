@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 
-ThemeMode getThemeMode({
-  required int themeModeInt,
-}) => switch (themeModeInt) {
-  1 => ThemeMode.light,
-  2 => ThemeMode.dark,
-  _ => ThemeMode.system,
+import '../models/trosko_theme_tag/trosko_theme_tag.dart';
+import '../theme/theme.dart';
+
+ThemeData? getTroskoTheme({
+  required TroskoThemeId? id,
+  required Color primaryColor,
+}) => switch (id) {
+  TroskoThemeId.light => TroskoTheme.light(
+    primaryColor: primaryColor,
+  ),
+  TroskoThemeId.dark => TroskoTheme.dark(
+    primaryColor: primaryColor,
+  ),
+  _ => null,
 };
 
-int getThemeModeInt({
-  required ThemeMode themeMode,
-}) => switch (themeMode) {
-  ThemeMode.light => 1,
-  ThemeMode.dark => 2,
-  _ => 0,
+TroskoThemeId? getTroskoThemeId({required ThemeData? themeData}) => switch (themeData?.extension<TroskoThemeTag>()?.id) {
+  TroskoThemeId.light => TroskoThemeId.light,
+  TroskoThemeId.dark => TroskoThemeId.dark,
+  _ => null,
 };

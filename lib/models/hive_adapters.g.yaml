@@ -41,11 +41,11 @@ types:
         index: 4
   Settings:
     typeId: 3
-    nextIndex: 3
+    nextIndex: 5
     fields:
       isLoggedIn:
         index: 0
-      themeModeInt:
-        index: 1
       primaryColor:
         index: 2
+      troskoThemeId:
+        index: 4

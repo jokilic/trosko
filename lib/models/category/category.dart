@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 12)
 class Category {
   @HiveField(1)
   final String id;

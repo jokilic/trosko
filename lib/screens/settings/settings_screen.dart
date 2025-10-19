@@ -65,8 +65,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     final settings = watchIt<HiveService>().value.settings;
 
-    final activeThemeMode = getThemeMode(
-      themeModeInt: settings?.themeModeInt ?? 0,
+    final primaryColor = settings?.primaryColor ?? context.colors.buttonPrimary;
+
+    final activeTroskoTheme = getTroskoTheme(
+      id: settings?.troskoThemeId,
+      primaryColor: primaryColor,
     );
 
     return Scaffold(
@@ -123,10 +126,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
           /// THEMES
           ///
           SettingsThemes(
-            activeThemeMode: activeThemeMode,
-            onPressedThemeMode: (themeMode) {
+            primaryColor: primaryColor,
+            activeTroskoTheme: activeTroskoTheme,
+            onPressedThemeData: (themeData) {
               HapticFeedback.lightImpact();
-              settingsController.onPressedThemeMode(themeMode);
+              settingsController.onPressedThemeData(
+                newThemeData: themeData,
+                primaryColor: primaryColor,
+              );
             },
           ),
           const SliverToBoxAdapter(

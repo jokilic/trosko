@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../models/trosko_theme_tag/trosko_theme_tag.dart';
 import 'colors.dart';
 import 'text_styles.dart';
 
@@ -93,6 +94,9 @@ class TroskoTheme {
       extensions: [
         lightAppColors,
         lightTextTheme,
+        const TroskoThemeTag(
+          TroskoThemeId.light,
+        ),
       ],
     );
   }
@@ -209,6 +213,9 @@ class TroskoTheme {
       extensions: [
         darkAppColors,
         darkTextTheme,
+        const TroskoThemeTag(
+          TroskoThemeId.dark,
+        ),
       ],
     );
   }

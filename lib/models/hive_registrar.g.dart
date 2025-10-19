@@ -7,21 +7,14 @@ import 'package:trosko/models/category/category.dart';
 import 'package:trosko/models/hive_adapters.dart';
 import 'package:trosko/models/settings/settings.dart';
 import 'package:trosko/models/transaction/transaction.dart';
+import 'package:trosko/models/trosko_theme_tag/trosko_theme_tag.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
-    registerAdapter(CategoryAdapter());
     registerAdapter(ColorAdapter());
-    registerAdapter(SettingsAdapter());
     registerAdapter(TransactionAdapter());
-  }
-}
-
-extension IsolatedHiveRegistrar on IsolatedHiveInterface {
-  void registerAdapters() {
     registerAdapter(CategoryAdapter());
-    registerAdapter(ColorAdapter());
     registerAdapter(SettingsAdapter());
-    registerAdapter(TransactionAdapter());
+    registerAdapter(TroskoThemeIdAdapter());
   }
 }

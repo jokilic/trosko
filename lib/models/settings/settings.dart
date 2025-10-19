@@ -1,36 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 
-@HiveType(typeId: 2)
+import '../trosko_theme_tag/trosko_theme_tag.dart';
+
+@HiveType(typeId: 13)
 class Settings {
   @HiveField(1)
   final bool isLoggedIn;
 
   @HiveField(2)
-  final int themeModeInt;
+  final TroskoThemeId? troskoThemeId;
 
   @HiveField(3)
   final Color? primaryColor;
 
   Settings({
     required this.isLoggedIn,
-    required this.themeModeInt,
+    required this.troskoThemeId,
     required this.primaryColor,
   });
 
   Settings copyWith({
     bool? isLoggedIn,
-    int? themeModeInt,
+    TroskoThemeId? troskoThemeId,
     Color? primaryColor,
     String? languageLocale,
   }) => Settings(
     isLoggedIn: isLoggedIn ?? this.isLoggedIn,
-    themeModeInt: themeModeInt ?? this.themeModeInt,
+    troskoThemeId: troskoThemeId ?? this.troskoThemeId,
     primaryColor: primaryColor ?? this.primaryColor,
   );
 
   @override
-  String toString() => 'Settings(isLoggedIn: $isLoggedIn, themeModeInt: $themeModeInt, primaryColor: $primaryColor)';
+  String toString() => 'Settings(isLoggedIn: $isLoggedIn, troskoThemeId: $troskoThemeId, primaryColor: $primaryColor)';
 
   @override
   bool operator ==(covariant Settings other) {
@@ -38,9 +40,9 @@ class Settings {
       return true;
     }
 
-    return other.isLoggedIn == isLoggedIn && other.themeModeInt == themeModeInt && other.primaryColor == primaryColor;
+    return other.isLoggedIn == isLoggedIn && other.troskoThemeId == troskoThemeId && other.primaryColor == primaryColor;
   }
 
   @override
-  int get hashCode => isLoggedIn.hashCode ^ themeModeInt.hashCode ^ primaryColor.hashCode;
+  int get hashCode => isLoggedIn.hashCode ^ troskoThemeId.hashCode ^ primaryColor.hashCode;
 }

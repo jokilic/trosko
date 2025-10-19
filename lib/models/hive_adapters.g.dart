@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+import '../models/trosko_theme_tag/trosko_theme_tag.dart';
+
 part of 'hive_adapters.dart';
 
 // **************************************************************************
@@ -145,7 +147,7 @@ class SettingsAdapter extends TypeAdapter<Settings> {
     };
     return Settings(
       isLoggedIn: fields[0] as bool,
-      themeModeInt: (fields[1] as num).toInt(),
+      troskoThemeId: fields[4] as TroskoThemeId?,
       primaryColor: fields[2] as Color?,
     );
   }
@@ -156,10 +158,10 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       ..writeByte(3)
       ..writeByte(0)
       ..write(obj.isLoggedIn)
-      ..writeByte(1)
-      ..write(obj.themeModeInt)
       ..writeByte(2)
-      ..write(obj.primaryColor);
+      ..write(obj.primaryColor)
+      ..writeByte(4)
+      ..write(obj.troskoThemeId);
   }
 
   @override

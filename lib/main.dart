@@ -101,6 +101,11 @@ class TroskoWidget extends WatchingWidget {
   Widget build(BuildContext context) {
     final settings = watchIt<HiveService>().value.settings;
 
+    final activeTroskoTheme = getTroskoTheme(
+      id: settings?.troskoThemeId,
+      primaryColor: settings?.primaryColor ?? context.colors.buttonPrimary,
+    );
+
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
@@ -114,15 +119,17 @@ class TroskoWidget extends WatchingWidget {
               key: ValueKey('login'),
             ),
       onGenerateTitle: (_) => 'appName'.tr(),
-      theme: TroskoTheme.light(
-        primaryColor: settings?.primaryColor,
-      ),
-      darkTheme: TroskoTheme.dark(
-        primaryColor: settings?.primaryColor,
-      ),
-      themeMode: getThemeMode(
-        themeModeInt: settings?.themeModeInt ?? 0,
-      ),
+      theme:
+          activeTroskoTheme ??
+          TroskoTheme.light(
+            primaryColor: settings?.primaryColor,
+          ),
+      darkTheme:
+          activeTroskoTheme ??
+          TroskoTheme.dark(
+            primaryColor: settings?.primaryColor,
+          ),
+      themeMode: activeTroskoTheme == null ? ThemeMode.system : null,
       themeAnimationDuration: TroskoDurations.animation,
       themeAnimationCurve: Curves.easeIn,
       builder: (_, child) {

@@ -6,12 +6,14 @@ import '../../../theme/theme.dart';
 import 'settings_theme.dart';
 
 class SettingsThemes extends StatelessWidget {
-  final ThemeMode? activeThemeMode;
-  final Function(ThemeMode themeMode) onPressedThemeMode;
+  final ThemeData? activeTroskoTheme;
+  final Function(ThemeData? themeData) onPressedThemeData;
+  final Color primaryColor;
 
   const SettingsThemes({
-    required this.activeThemeMode,
-    required this.onPressedThemeMode,
+    required this.activeTroskoTheme,
+    required this.onPressedThemeData,
+    required this.primaryColor,
   });
 
   @override
@@ -27,12 +29,10 @@ class SettingsThemes extends StatelessWidget {
           /// SYSTEM
           ///
           SettingsSystemTheme(
-            onPressed: () => onPressedThemeMode(
-              ThemeMode.system,
-            ),
+            onPressed: () => onPressedThemeData(null),
             highlightColor: context.colors.buttonBackground,
             text: 'settingsSystem'.tr(),
-            circleOpacity: activeThemeMode == ThemeMode.system ? 1 : 0.4,
+            circleOpacity: activeTroskoTheme == null ? 1 : 0.4,
           ),
           const SizedBox(width: 16),
 
@@ -40,13 +40,13 @@ class SettingsThemes extends StatelessWidget {
           /// LIGHT
           ///
           SettingsTheme(
-            onPressed: () => onPressedThemeMode(
-              ThemeMode.light,
+            onPressed: () => onPressedThemeData(
+              TroskoTheme.light(primaryColor: primaryColor),
             ),
             color: TroskoColors.lightGrey,
             highlightColor: context.colors.buttonBackground,
             text: 'settingsLight'.tr(),
-            circleOpacity: activeThemeMode == ThemeMode.light ? 1 : 0.4,
+            circleOpacity: activeTroskoTheme == TroskoTheme.light(primaryColor: primaryColor) ? 1 : 0.4,
           ),
           const SizedBox(width: 16),
 
@@ -54,13 +54,13 @@ class SettingsThemes extends StatelessWidget {
           /// DARK
           ///
           SettingsTheme(
-            onPressed: () => onPressedThemeMode(
-              ThemeMode.dark,
+            onPressed: () => onPressedThemeData(
+              TroskoTheme.dark(primaryColor: primaryColor),
             ),
             color: TroskoColors.dark,
             highlightColor: context.colors.buttonBackground,
             text: 'settingsDark'.tr(),
-            circleOpacity: activeThemeMode == ThemeMode.dark ? 1 : 0.4,
+            circleOpacity: activeTroskoTheme == TroskoTheme.dark(primaryColor: primaryColor) ? 1 : 0.4,
           ),
         ],
       ),
