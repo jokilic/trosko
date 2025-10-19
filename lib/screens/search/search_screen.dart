@@ -92,12 +92,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 size: 28,
               ),
             ),
-            // TODO: Localize
-            smallTitle: 'Search',
-            // TODO: Localize
-            bigTitle: 'Search',
-            // TODO: Localize
-            bigSubtitle: 'Find your transactions',
+            smallTitle: 'searchTitle'.tr(),
+            bigTitle: 'searchTitle'.tr(),
+            bigSubtitle: 'searchSubtitle'.tr(),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 4),
@@ -111,8 +108,7 @@ class _SearchScreenState extends State<SearchScreen> {
             sliver: SliverToBoxAdapter(
               child: TroskoTextField(
                 controller: searchController.searchTextEditingController,
-                // TODO: Localize
-                labelText: 'Search',
+                labelText: 'searchTextField'.tr(),
                 keyboardType: TextInputType.text,
                 textAlign: TextAlign.left,
                 textCapitalization: TextCapitalization.sentences,
@@ -229,8 +225,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      // TODO: Localize
-                      isTextFieldEmpty ? 'Hello' : 'Nothing found',
+                      isTextFieldEmpty ? 'searchEmpty'.tr() : 'searchNothingFound'.tr(),
                       textAlign: TextAlign.center,
                       style: context.textStyles.homeTitle,
                     ),

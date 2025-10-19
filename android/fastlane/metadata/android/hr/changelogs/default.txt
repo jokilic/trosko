@@ -1,7 +1,6 @@
 * Fancy animations when switching screens
 * Search transactions
 * Calendar instead of date picker
-* Reorder categories
 * Theme updates
 * Localization updates
 * High refresh rate

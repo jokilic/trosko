@@ -87,5 +87,10 @@
     "errorUserNotFound": "Your user is not found",
     "errorPasswordWrong": "Your password is wrong",
     "errorInvalidCredential": "Your credential is invalid",
-    "errorUnknown": "Unknown error"
+    "errorUnknown": "Unknown error",
+    "searchTitle": "Search",
+    "searchSubtitle": "Find your expenses",
+    "searchTextField": "Search",
+    "searchNothingFound": "Nothing is found",
+    "searchEmpty": "Type something"
 }
