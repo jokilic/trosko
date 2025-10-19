@@ -6,22 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../constants/durations.dart';
-import '../../../models/category/category.dart';
-import '../../../models/transaction/transaction.dart';
-import '../../../theme/colors.dart';
-import '../../../theme/extensions.dart';
-import '../../../util/color.dart';
-import '../../../util/currency.dart';
-import '../../../util/icons.dart';
+import '../constants/durations.dart';
+import '../models/category/category.dart';
+import '../models/transaction/transaction.dart';
+import '../theme/colors.dart';
+import '../theme/extensions.dart';
+import '../util/color.dart';
+import '../util/currency.dart';
+import '../util/icons.dart';
 
-class HomeTransactionListTile extends StatefulWidget {
+class TroskoTransactionListTile extends StatefulWidget {
   final Function() onLongPressed;
   final Function() onDeletePressed;
   final Transaction transaction;
   final Category? category;
 
-  const HomeTransactionListTile({
+  const TroskoTransactionListTile({
     required this.onLongPressed,
     required this.onDeletePressed,
     required this.transaction,
@@ -29,10 +29,10 @@ class HomeTransactionListTile extends StatefulWidget {
   });
 
   @override
-  State<HomeTransactionListTile> createState() => _HomeTransactionListTileState();
+  State<TroskoTransactionListTile> createState() => _TroskoTransactionListTileState();
 }
 
-class _HomeTransactionListTileState extends State<HomeTransactionListTile> {
+class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
   var expanded = false;
 
   void toggleExpanded() => setState(

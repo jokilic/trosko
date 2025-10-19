@@ -127,7 +127,7 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
           (a, b) => b.createdAt.compareTo(a.createdAt),
         );
 
-    /// Update state
+    /// Update `state`
     value = (
       datesAndTransactions: getGroupedTransactionsByDate(
         filtered,

@@ -7,6 +7,7 @@ import 'screens/category/category_screen.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'screens/register/register_screen.dart';
+import 'screens/search/search_screen.dart';
 import 'screens/settings/settings_screen.dart';
 import 'screens/stats/stats_screen.dart';
 import 'screens/transaction/transaction_screen.dart';
@@ -32,6 +33,22 @@ void openRegister(BuildContext context) => removeAllAndPushScreen(
 void openHome(BuildContext context) => removeAllAndPushScreen(
   const HomeScreen(
     key: ValueKey('home'),
+  ),
+  context: context,
+);
+
+/// Opens [SearchScreen]
+void openSearch(
+  BuildContext context, {
+  required List<Category> categories,
+  required Function() onTransactionUpdated,
+  required String locale,
+}) => pushScreen(
+  SearchScreen(
+    categories: categories,
+    onTransactionUpdated: onTransactionUpdated,
+    locale: locale,
+    key: const ValueKey('search'),
   ),
   context: context,
 );

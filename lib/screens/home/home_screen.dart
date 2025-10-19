@@ -21,13 +21,14 @@ import '../../util/months.dart';
 import '../../util/stats.dart';
 import '../../util/string.dart';
 import '../../widgets/trosko_app_bar.dart';
+import '../../widgets/trosko_transaction_list_tile.dart';
+import '../search/search_screen.dart';
 import '../settings/settings_screen.dart';
 import '../stats/stats_screen.dart';
 import '../transaction/transaction_screen.dart';
 import 'home_controller.dart';
 import 'widgets/home_categories.dart';
 import 'widgets/home_month_chips.dart';
-import 'widgets/home_transaction_list_tile.dart';
 
 class HomeScreen extends WatchingStatefulWidget {
   const HomeScreen({
@@ -220,18 +221,43 @@ class _HomeScreenState extends State<HomeScreen> {
               ///
               /// SEARCH
               ///
-              IconButton(
-                onPressed: HapticFeedback.lightImpact,
-                style: IconButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  highlightColor: context.colors.buttonBackground,
+              OpenContainer(
+                transitionType: ContainerTransitionType.fadeThrough,
+                middleColor: context.colors.scaffoldBackground,
+                openElevation: 0,
+                openColor: context.colors.scaffoldBackground,
+                openShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                icon: PhosphorIcon(
-                  PhosphorIcons.magnifyingGlass(
-                    PhosphorIconsStyle.bold,
+                closedElevation: 0,
+                closedColor: context.colors.scaffoldBackground,
+                closedShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                closedBuilder: (context, openContainer) => IconButton(
+                  onPressed: () {
+                    HapticFeedback.lightImpact();
+                    openContainer();
+                  },
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    highlightColor: context.colors.buttonBackground,
                   ),
-                  color: context.colors.text,
-                  size: 28,
+                  icon: PhosphorIcon(
+                    PhosphorIcons.magnifyingGlass(
+                      PhosphorIconsStyle.bold,
+                    ),
+                    color: context.colors.text,
+                    size: 28,
+                  ),
+                ),
+                openBuilder: (context, _) => SearchScreen(
+                  categories: categories,
+                  onTransactionUpdated: () => homeController.updateState(
+                    locale: context.locale.languageCode,
+                  ),
+                  locale: context.locale.languageCode,
+                  key: const ValueKey('search'),
                 ),
               ),
             ],
@@ -382,7 +408,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (item is Transaction) {
                   final category = categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
 
-                  return HomeTransactionListTile(
+                  return TroskoTransactionListTile(
                     onLongPressed: () => TransactionScreen(
                       passedTransaction: item,
                       categories: categories,
