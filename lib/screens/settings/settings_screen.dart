@@ -8,6 +8,7 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/icons.dart';
+import '../../models/trosko_theme_tag/trosko_theme_tag.dart';
 import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
@@ -67,10 +68,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     final primaryColor = settings?.primaryColor ?? context.colors.buttonPrimary;
 
-    final activeTroskoTheme = getTroskoTheme(
+    final activeTroskoThemeId = getTroskoTheme(
       id: settings?.troskoThemeId,
       primaryColor: primaryColor,
-    );
+    )?.extension<TroskoThemeTag>()?.id;
 
     return Scaffold(
       body: CustomScrollView(
@@ -127,7 +128,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ///
           SettingsThemes(
             primaryColor: primaryColor,
-            activeTroskoTheme: activeTroskoTheme,
+            activeTroskoThemeId: activeTroskoThemeId,
             onPressedThemeData: (themeData) {
               HapticFeedback.lightImpact();
               settingsController.onPressedThemeData(

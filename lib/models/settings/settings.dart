@@ -21,15 +21,17 @@ class Settings {
   });
 
   Settings copyWith({
-    bool? isLoggedIn,
-    TroskoThemeId? troskoThemeId,
-    Color? primaryColor,
-    String? languageLocale,
+    Object? isLoggedIn = noChange,
+    Object? troskoThemeId = noChange,
+    Object? primaryColor = noChange,
+    Object? languageLocale = noChange,
   }) => Settings(
-    isLoggedIn: isLoggedIn ?? this.isLoggedIn,
-    troskoThemeId: troskoThemeId ?? this.troskoThemeId,
-    primaryColor: primaryColor ?? this.primaryColor,
+    isLoggedIn: isLoggedIn == noChange ? this.isLoggedIn : isLoggedIn! as bool,
+    troskoThemeId: troskoThemeId == noChange ? this.troskoThemeId : troskoThemeId as TroskoThemeId?,
+    primaryColor: primaryColor == noChange ? this.primaryColor : primaryColor as Color?,
   );
+
+  static const noChange = Object();
 
   @override
   String toString() => 'Settings(isLoggedIn: $isLoggedIn, troskoThemeId: $troskoThemeId, primaryColor: $primaryColor)';

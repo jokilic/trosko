@@ -42,7 +42,7 @@ class ColorAdapter extends TypeAdapter<Color> {
 
 class TransactionAdapter extends TypeAdapter<Transaction> {
   @override
-  final typeId = 1;
+  final typeId = 11;
 
   @override
   Transaction read(BinaryReader reader) {
@@ -91,7 +91,7 @@ class TransactionAdapter extends TypeAdapter<Transaction> {
 
 class CategoryAdapter extends TypeAdapter<Category> {
   @override
-  final typeId = 2;
+  final typeId = 12;
 
   @override
   Category read(BinaryReader reader) {
@@ -137,7 +137,7 @@ class CategoryAdapter extends TypeAdapter<Category> {
 
 class SettingsAdapter extends TypeAdapter<Settings> {
   @override
-  final typeId = 3;
+  final typeId = 13;
 
   @override
   Settings read(BinaryReader reader) {
@@ -171,6 +171,43 @@ class SettingsAdapter extends TypeAdapter<Settings> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SettingsAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class TroskoThemeIdAdapter extends TypeAdapter<TroskoThemeId> {
+  @override
+  final typeId = 14;
+
+  @override
+  TroskoThemeId read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return TroskoThemeId.light;
+      case 1:
+        return TroskoThemeId.dark;
+      default:
+        return TroskoThemeId.light;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, TroskoThemeId obj) {
+    switch (obj) {
+      case TroskoThemeId.light:
+        writer.writeByte(0);
+      case TroskoThemeId.dark:
+        writer.writeByte(1);
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TroskoThemeIdAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

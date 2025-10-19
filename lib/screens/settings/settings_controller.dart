@@ -62,13 +62,15 @@ class SettingsController implements Disposable {
   void onPressedThemeData({
     required ThemeData? newThemeData,
     required Color primaryColor,
-  }) => hive.writeSettings(
-    hive.getSettings().copyWith(
-      troskoThemeId: getTroskoThemeId(
-        themeData: newThemeData,
+  }) {
+    hive.writeSettings(
+      hive.getSettings().copyWith(
+        troskoThemeId: getTroskoThemeId(
+          themeData: newThemeData,
+        ),
       ),
-    ),
-  );
+    );
+  }
 
   /// Triggered when the user presses some [Color]
   void onPressedPrimaryColor(Color newPrimaryColor) => hive.writeSettings(

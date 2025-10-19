@@ -1,17 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/trosko_theme_tag/trosko_theme_tag.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/theme.dart';
 import 'settings_theme.dart';
 
 class SettingsThemes extends StatelessWidget {
-  final ThemeData? activeTroskoTheme;
+  final TroskoThemeId? activeTroskoThemeId;
   final Function(ThemeData? themeData) onPressedThemeData;
   final Color primaryColor;
 
   const SettingsThemes({
-    required this.activeTroskoTheme,
+    required this.activeTroskoThemeId,
     required this.onPressedThemeData,
     required this.primaryColor,
   });
@@ -32,7 +33,7 @@ class SettingsThemes extends StatelessWidget {
             onPressed: () => onPressedThemeData(null),
             highlightColor: context.colors.buttonBackground,
             text: 'settingsSystem'.tr(),
-            circleOpacity: activeTroskoTheme == null ? 1 : 0.4,
+            circleOpacity: activeTroskoThemeId == null ? 1 : 0.4,
           ),
           const SizedBox(width: 16),
 
@@ -46,7 +47,7 @@ class SettingsThemes extends StatelessWidget {
             color: TroskoColors.lightGrey,
             highlightColor: context.colors.buttonBackground,
             text: 'settingsLight'.tr(),
-            circleOpacity: activeTroskoTheme == TroskoTheme.light(primaryColor: primaryColor) ? 1 : 0.4,
+            circleOpacity: activeTroskoThemeId == TroskoThemeId.light ? 1 : 0.4,
           ),
           const SizedBox(width: 16),
 
@@ -60,7 +61,7 @@ class SettingsThemes extends StatelessWidget {
             color: TroskoColors.dark,
             highlightColor: context.colors.buttonBackground,
             text: 'settingsDark'.tr(),
-            circleOpacity: activeTroskoTheme == TroskoTheme.dark(primaryColor: primaryColor) ? 1 : 0.4,
+            circleOpacity: activeTroskoThemeId == TroskoThemeId.dark ? 1 : 0.4,
           ),
         ],
       ),

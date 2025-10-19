@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 
-part 'trosko_theme_tag.g.dart';
-
 @HiveType(typeId: 14)
 enum TroskoThemeId {
   @HiveField(0)
