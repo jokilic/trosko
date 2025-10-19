@@ -9,6 +9,7 @@ const primaryColors = [
   TroskoColors.red,
   TroskoColors.purple,
   TroskoColors.pink,
+  TroskoColors.darkBlue,
 ];
 
 const categoryColors = [

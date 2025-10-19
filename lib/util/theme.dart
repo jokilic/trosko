@@ -15,11 +15,3 @@ ThemeData? getTroskoTheme({
   ),
   _ => null,
 };
-
-TroskoThemeId? getTroskoThemeId({
-  required ThemeData? themeData,
-}) => switch (themeData?.extension<TroskoThemeTag>()?.id) {
-  TroskoThemeId.light => TroskoThemeId.light,
-  TroskoThemeId.dark => TroskoThemeId.dark,
-  _ => null,
-};

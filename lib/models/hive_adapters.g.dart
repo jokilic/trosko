@@ -186,6 +186,8 @@ class TroskoThemeIdAdapter extends TypeAdapter<TroskoThemeId> {
         return TroskoThemeId.light;
       case 1:
         return TroskoThemeId.dark;
+      case 2:
+        return TroskoThemeId.blue;
       default:
         return TroskoThemeId.light;
     }
@@ -198,6 +200,8 @@ class TroskoThemeIdAdapter extends TypeAdapter<TroskoThemeId> {
         writer.writeByte(0);
       case TroskoThemeId.dark:
         writer.writeByte(1);
+      case TroskoThemeId.blue:
+        writer.writeByte(2);
     }
   }
 

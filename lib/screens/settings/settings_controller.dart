@@ -4,10 +4,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../models/trosko_theme_tag/trosko_theme_tag.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
-import '../../util/theme.dart';
 
 class SettingsController implements Disposable {
   ///
@@ -65,9 +65,7 @@ class SettingsController implements Disposable {
   }) {
     hive.writeSettings(
       hive.getSettings().copyWith(
-        troskoThemeId: getTroskoThemeId(
-          themeData: newThemeData,
-        ),
+        troskoThemeId: newThemeData?.extension<TroskoThemeTag>()?.id,
       ),
     );
   }

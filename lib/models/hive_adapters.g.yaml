@@ -51,9 +51,11 @@ types:
         index: 4
   TroskoThemeId:
     typeId: 4
-    nextIndex: 2
+    nextIndex: 3
     fields:
       light:
         index: 0
       dark:
         index: 1
+      blue:
+        index: 2
