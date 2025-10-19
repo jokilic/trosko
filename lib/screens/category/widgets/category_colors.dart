@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../theme/theme.dart';
+import '../../../theme/extensions.dart';
 import 'category_color.dart';
 
 class CategoryColors extends StatelessWidget {

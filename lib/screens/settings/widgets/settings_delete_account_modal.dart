@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../theme/colors.dart';
-import '../../../theme/theme.dart';
+import '../../../theme/extensions.dart';
 import '../../../util/color.dart';
 import '../../../util/email.dart';
 import '../../../widgets/trosko_text_field.dart';

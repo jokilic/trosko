@@ -4,7 +4,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../constants/durations.dart';
 import '../../../theme/colors.dart';
-import '../../../theme/theme.dart';
+import '../../../theme/extensions.dart';
 import '../../../util/color.dart';
 import '../../../util/currency.dart';
 import '../../../util/stats.dart';

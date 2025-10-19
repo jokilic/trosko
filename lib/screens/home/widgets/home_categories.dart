@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../models/category/category.dart';
-import '../../../theme/theme.dart';
+import '../../../theme/extensions.dart';
 import '../../../util/icons.dart';
 import 'home_category.dart';
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../models/trosko_theme_tag/trosko_theme_tag.dart';
 import '../../../theme/colors.dart';
+import '../../../theme/extensions.dart';
 import '../../../theme/theme.dart';
 import 'settings_theme.dart';
 

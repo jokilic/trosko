@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../constants/durations.dart';
-import '../../../theme/theme.dart';
+import '../../../theme/extensions.dart';
 import '../../../util/currency.dart';
 import 'transaction_amount_button.dart';
 

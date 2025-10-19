@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import '../../../theme/colors.dart';
-import '../../../theme/theme.dart';
+import '../../../theme/extensions.dart';
 import '../../../util/color.dart';
 
 class CategoryCustomColorModal extends StatefulWidget {

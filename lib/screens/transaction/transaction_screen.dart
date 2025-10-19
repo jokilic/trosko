@@ -14,7 +14,7 @@ import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/colors.dart';
-import '../../theme/theme.dart';
+import '../../theme/extensions.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';

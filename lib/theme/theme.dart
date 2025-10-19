@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/trosko_theme_tag/trosko_theme_tag.dart';
 import 'colors.dart';
+import 'extensions.dart';
 import 'text_styles.dart';
 
 class TroskoTheme {
@@ -242,103 +243,123 @@ class TroskoTheme {
       primaryColor: primaryColor,
     ),
   );
-}
 
-extension TroskoThemeExtension on ThemeData {
-  TroskoColorsExtension get troskoColors =>
-      extension<TroskoColorsExtension>() ??
-      TroskoTheme.getLightAppColors(
-        primaryColor: TroskoColors.green,
-      );
-  TroskoTextThemesExtension get troskoTextStyles =>
-      extension<TroskoTextThemesExtension>() ??
-      TroskoTheme.getLightTextTheme(
-        primaryColor: TroskoColors.green,
-      );
-}
+  ///
+  /// BLUE
+  ///
 
-extension ThemeGetter on BuildContext {
-  ThemeData get theme => Theme.of(this);
-  TroskoColorsExtension get colors => theme.troskoColors;
-  TroskoTextThemesExtension get textStyles => theme.troskoTextStyles;
-}
+  static ThemeData blue({
+    required Color? primaryColor,
+  }) {
+    final defaultTheme = ThemeData.dark(
+      useMaterial3: true,
+    );
 
-TroskoTextThemesExtension getTextThemesExtension({
-  required TroskoColorsExtension colorsExtension,
-}) => TroskoTextThemesExtension(
-  button: TroskoTextStyles.button.copyWith(
-    color: colorsExtension.text,
-  ),
-  appBarTitleSmall: TroskoTextStyles.appBarTitleSmall.copyWith(
-    color: colorsExtension.text,
-  ),
-  appBarTitleBig: TroskoTextStyles.appBarTitleBig.copyWith(
-    color: colorsExtension.text,
-  ),
-  appBarSubtitleBig: TroskoTextStyles.appBarSubtitleBig.copyWith(
-    color: colorsExtension.text,
-  ),
-  homeFloatingActionButton: TroskoTextStyles.homeFloatingActionButton.copyWith(
-    color: colorsExtension.text,
-  ),
-  homeMonthChip: TroskoTextStyles.homeMonthChip.copyWith(
-    color: colorsExtension.text,
-  ),
-  homeCategoryTitle: TroskoTextStyles.homeCategoryTitle.copyWith(
-    color: colorsExtension.text,
-  ),
-  homeTransactionTitle: TroskoTextStyles.homeTransactionTitle.copyWith(
-    color: colorsExtension.text,
-  ),
-  homeTransactionTime: TroskoTextStyles.homeTransactionTime.copyWith(
-    color: colorsExtension.text,
-  ),
-  homeTransactionNote: TroskoTextStyles.homeTransactionNote.copyWith(
-    color: colorsExtension.text,
-  ),
-  homeTransactionValue: TroskoTextStyles.homeTransactionValue.copyWith(
-    color: colorsExtension.text,
-  ),
-  homeTransactionEuro: TroskoTextStyles.homeTransactionEuro.copyWith(
-    color: colorsExtension.text,
-  ),
-  homeTitle: TroskoTextStyles.homeTitle.copyWith(
-    color: colorsExtension.text,
-  ),
-  homeTitleBold: TroskoTextStyles.homeTitleBold.copyWith(
-    color: colorsExtension.text,
-  ),
-  homeTitleEuro: TroskoTextStyles.homeTitleEuro.copyWith(
-    color: colorsExtension.text,
-  ),
-  transactionAmountCurrentValue: TroskoTextStyles.transactionAmountCurrentValue.copyWith(
-    color: colorsExtension.text,
-  ),
-  transactionAmountNumber: TroskoTextStyles.transactionAmountNumber.copyWith(
-    color: colorsExtension.text,
-  ),
-  textField: TroskoTextStyles.textField.copyWith(
-    color: colorsExtension.text,
-  ),
-  transactionCategoryName: TroskoTextStyles.transactionCategoryName.copyWith(
-    color: colorsExtension.text,
-  ),
-  transactionTimeActive: TroskoTextStyles.transactionTimeActive.copyWith(
-    color: colorsExtension.text,
-  ),
-  transactionTimeInactive: TroskoTextStyles.transactionTimeInactive.copyWith(
-    color: colorsExtension.text,
-  ),
-  transactionDateInactive: TroskoTextStyles.transactionDateInactive.copyWith(
-    color: colorsExtension.text,
-  ),
-  transactionDateActive: TroskoTextStyles.transactionDateActive.copyWith(
-    color: colorsExtension.listTileBackground,
-  ),
-  categoryName: TroskoTextStyles.categoryName.copyWith(
-    color: colorsExtension.text,
-  ),
-  categoryIcon: TroskoTextStyles.categoryIcon.copyWith(
-    color: colorsExtension.text,
-  ),
-);
+    final blueAppColors = getBlueAppColors(
+      primaryColor: primaryColor,
+    );
+
+    final blueTextTheme = getBlueTextTheme(
+      primaryColor: primaryColor,
+    );
+
+    return defaultTheme.copyWith(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryColor ?? blueAppColors.buttonPrimary,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: primaryColor ?? blueAppColors.buttonPrimary,
+        foregroundColor: blueAppColors.text,
+        elevation: 1,
+        disabledElevation: 1,
+        highlightElevation: 2,
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(
+            primaryColor ?? blueAppColors.buttonPrimary,
+          ),
+          foregroundColor: WidgetStateProperty.all(
+            blueAppColors.buttonBackground,
+          ),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 16,
+            ),
+          ),
+          textStyle: WidgetStateProperty.all(
+            blueTextTheme.button,
+          ),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        side: BorderSide.none,
+        backgroundColor: blueAppColors.buttonBackground,
+        selectedColor: primaryColor ?? blueAppColors.buttonPrimary,
+        showCheckmark: false,
+        labelPadding: const EdgeInsets.symmetric(horizontal: 8),
+        elevation: 1,
+        pressElevation: 2,
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: blueAppColors.text,
+          highlightColor: Colors.transparent,
+          iconSize: 28,
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(16),
+          elevation: 1,
+        ),
+      ),
+      splashColor: Colors.transparent,
+      highlightColor: blueAppColors.buttonBackground,
+      scaffoldBackgroundColor: blueAppColors.scaffoldBackground,
+      canvasColor: Colors.transparent,
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: primaryColor ?? blueAppColors.buttonPrimary,
+        cursorColor: primaryColor ?? blueAppColors.buttonPrimary,
+        selectionHandleColor: primaryColor ?? blueAppColors.buttonPrimary,
+      ),
+      extensions: [
+        blueAppColors,
+        blueTextTheme,
+        const TroskoThemeTag(
+          TroskoThemeId.blue,
+        ),
+      ],
+    );
+  }
+
+  static TroskoColorsExtension getBlueAppColors({
+    required Color? primaryColor,
+  }) => TroskoColorsExtension(
+    text: TroskoColors.black,
+    icon: TroskoColors.black,
+    buttonPrimary: primaryColor ?? TroskoColors.green,
+    delete: TroskoColors.red,
+    listTileBackground: TroskoColors.lighterGrey,
+    buttonBackground: TroskoColors.grey,
+    scaffoldBackground: TroskoColors.lightGrey,
+    disabledText: TroskoColors.lighterDark,
+    disabledBackground: TroskoColors.grey,
+    borderColor: TroskoColors.black,
+  );
+
+  static TroskoTextThemesExtension getBlueTextTheme({
+    required Color? primaryColor,
+  }) => getTextThemesExtension(
+    colorsExtension: getBlueAppColors(
+      primaryColor: primaryColor,
+    ),
+  );
+}

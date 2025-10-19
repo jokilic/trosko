@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../theme/theme.dart';
+import '../../../theme/extensions.dart';
 
 class TransactionAmountButton extends StatelessWidget {
   final Widget child;

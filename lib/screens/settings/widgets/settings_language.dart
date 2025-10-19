@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../theme/theme.dart';
+import '../../../theme/extensions.dart';
 
 class SettingsLanguage extends StatelessWidget {
   final Function() onPressed;

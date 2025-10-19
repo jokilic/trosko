@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../theme/theme.dart';
+import '../../../theme/extensions.dart';
 import 'settings_primary_color.dart';
 
 class SettingsPrimaryColors extends StatelessWidget {

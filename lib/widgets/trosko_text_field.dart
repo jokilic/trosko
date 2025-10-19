@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/theme.dart';
+import '../theme/extensions.dart';
 
 class TroskoTextField extends StatelessWidget {
   final bool autocorrect;

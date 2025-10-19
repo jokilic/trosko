@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../theme/colors.dart';
-import '../../../theme/theme.dart';
+import '../../../theme/extensions.dart';
 
 class SettingsTheme extends StatelessWidget {
   final Function() onPressed;

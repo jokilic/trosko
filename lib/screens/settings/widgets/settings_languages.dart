@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/icons.dart';
-import '../../../theme/theme.dart';
+import '../../../theme/extensions.dart';
 import 'settings_language.dart';
 
 class SettingsLanguages extends StatelessWidget {

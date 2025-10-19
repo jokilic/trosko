@@ -6,7 +6,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../models/category/category.dart';
 import '../../models/month/month.dart';
 import '../../models/transaction/transaction.dart';
-import '../../theme/theme.dart';
+import '../../theme/extensions.dart';
 import '../../util/stats.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'widgets/stats_all_list_tile.dart';
