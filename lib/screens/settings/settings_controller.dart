@@ -32,6 +32,31 @@ class SettingsController implements Disposable {
     text: hive.value.username,
   );
 
+  final primaryColorsKeys = <Color, GlobalKey>{};
+
+  ///
+  /// INIT
+  ///
+
+  void init() {
+    final settings = hive.getSettings();
+
+    /// Scroll to `primaryColor`
+    if (settings.primaryColor != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final key = primaryColorsKeys[settings.primaryColor];
+        final ctx = key?.currentContext;
+
+        if (ctx != null) {
+          Scrollable.ensureVisible(
+            ctx,
+            alignment: 0.5,
+          );
+        }
+      });
+    }
+  }
+
   ///
   /// DISPOSE
   ///

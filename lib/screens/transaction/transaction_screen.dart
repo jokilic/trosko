@@ -169,7 +169,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 ///
                 IntrinsicHeight(
                   child: SingleChildScrollView(
-                    controller: transactionController.categoriesScrollController,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),

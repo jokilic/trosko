@@ -51,6 +51,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         hive: getIt.get<HiveService>(),
         firebase: getIt.get<FirebaseService>(),
       ),
+      afterRegister: (controller) => controller.init(),
     );
   }
 
@@ -161,6 +162,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           /// PRIMARY COLORS
           ///
           SettingsPrimaryColors(
+            onGenerateKey: settingsController.primaryColorsKeys.putIfAbsent,
             primaryColors: primaryColors,
             activePrimaryColor: settings?.primaryColor,
             onPressedPrimaryColor: (primaryColor) {

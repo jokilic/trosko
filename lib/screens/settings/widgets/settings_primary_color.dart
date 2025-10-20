@@ -11,6 +11,7 @@ class SettingsPrimaryColor extends StatelessWidget {
     required this.color,
     required this.highlightColor,
     required this.circleOpacity,
+    required super.key,
   });
 
   @override

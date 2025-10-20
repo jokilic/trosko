@@ -7,11 +7,17 @@ class SettingsPrimaryColors extends StatelessWidget {
   final List<Color> primaryColors;
   final Color? activePrimaryColor;
   final Function(Color primaryColor) onPressedPrimaryColor;
+  final GlobalKey Function(
+    Color primaryColor,
+    GlobalKey Function() key,
+  )
+  onGenerateKey;
 
   const SettingsPrimaryColors({
     required this.primaryColors,
     required this.activePrimaryColor,
     required this.onPressedPrimaryColor,
+    required this.onGenerateKey,
   });
 
   @override
@@ -25,8 +31,13 @@ class SettingsPrimaryColors extends StatelessWidget {
         itemCount: primaryColors.length,
         itemBuilder: (_, index) {
           final color = primaryColors[index];
+          final key = onGenerateKey(
+            color,
+            GlobalKey.new,
+          );
 
           return SettingsPrimaryColor(
+            key: key,
             onPressed: () => onPressedPrimaryColor(color),
             color: color,
             highlightColor: context.colors.buttonBackground,
