@@ -80,6 +80,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
     ).value;
 
     final activeCategory = state.category;
+
     final chosenDateTime = state.transactionDateTime;
 
     final dateEditMode = state.dateEditMode;
@@ -168,6 +169,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 ///
                 IntrinsicHeight(
                   child: SingleChildScrollView(
+                    controller: transactionController.categoriesScrollController,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
@@ -177,8 +179,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         widget.categories.length,
                         (index) {
                           final category = widget.categories[index];
+                          final key = transactionController.categoryKeys.putIfAbsent(
+                            category.id,
+                            GlobalKey.new,
+                          );
 
                           return TransactionCategory(
+                            key: key,
                             onPressed: (category) {
                               HapticFeedback.lightImpact();
                               transactionController.categoryChanged(category);

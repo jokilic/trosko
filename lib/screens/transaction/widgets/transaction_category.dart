@@ -17,6 +17,7 @@ class TransactionCategory extends StatelessWidget {
     required this.category,
     required this.color,
     required this.highlightColor,
+    required super.key,
     this.icon,
   });
 

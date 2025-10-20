@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../constants/durations.dart';
 import '../../models/category/category.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
@@ -49,6 +50,9 @@ class TransactionController
   /// VARIABLES
   ///
 
+  late final categoriesScrollController = ScrollController();
+  final categoryKeys = <String, GlobalKey>{};
+
   late final nameTextEditingController = TextEditingController(
     text: passedTransaction?.name,
   );
@@ -92,6 +96,22 @@ class TransactionController
         nameValid: nameTextEditingController.text.trim().isNotEmpty,
       ),
     );
+
+    /// Scroll to `activeCategory`
+    if (value.category != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final key = categoryKeys[value.category?.id];
+
+        final ctx = key?.currentContext;
+
+        if (ctx != null) {
+          Scrollable.ensureVisible(
+            ctx,
+            alignment: 0.5,
+          );
+        }
+      });
+    }
   }
 
   ///
