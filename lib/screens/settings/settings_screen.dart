@@ -23,6 +23,7 @@ import '../../util/theme.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'settings_controller.dart';
+import 'widgets/settings_categories.dart';
 import 'widgets/settings_delete_account_modal.dart';
 import 'widgets/settings_languages.dart';
 import 'widgets/settings_primary_colors.dart';
@@ -64,8 +65,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final settingsController = getIt.get<SettingsController>();
+    final hiveService = getIt.get<HiveService>();
 
-    final settings = watchIt<HiveService>().value.settings;
+    final hive = watchIt<HiveService>();
+
+    final categories = hive.value.categories;
+    final settings = hive.value.settings;
 
     final primaryColor = settings?.primaryColor ?? context.colors.buttonPrimary;
 
@@ -211,6 +216,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 24),
+          ),
+
+          ///
+          /// CATEGORIES TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'settingsCategoryPosition'.tr(),
+                style: context.textStyles.homeTitle,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
+
+          ///
+          /// CATEGORIES
+          ///
+          SettingsCategories(
+            categories: categories,
+            onReorderCategories: hiveService.updateCategoriesOrder,
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 16),
           ),
 
           ///

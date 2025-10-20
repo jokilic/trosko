@@ -24,37 +24,11 @@ class HomeCategories extends StatelessWidget {
   Widget build(BuildContext context) => SliverToBoxAdapter(
     child: SizedBox(
       height: 104,
-      child: ReorderableListView.builder(
+      child: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        buildDefaultDragHandles: false,
         itemCount: categories.length + 1,
-        onReorder: (oldIndex, newIndex) {
-          /// keep the "Add" tile fixed at the end
-          if (oldIndex >= categories.length) {
-            return;
-          }
-
-          if (newIndex > categories.length) {
-            newIndex = categories.length;
-          }
-
-          final list = List<Category>.from(categories);
-
-          if (newIndex > oldIndex) {
-            newIndex -= 1;
-          }
-
-          final item = list.removeAt(oldIndex);
-          list.insert(newIndex, item);
-
-          onReorderCategories(list);
-        },
-        proxyDecorator: (child, index, animation) => Material(
-          borderRadius: BorderRadius.circular(16),
-          child: child,
-        ),
         itemBuilder: (_, index) {
           ///
           /// CATEGORY

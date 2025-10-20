@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../../../models/category/category.dart';
+import '../../../theme/extensions.dart';
 import '../../../util/icons.dart';
 import 'settings_category.dart';
 
 class SettingsCategories extends StatelessWidget {
   final List<Category> categories;
-  final Category? activeCategory;
   final void Function(List<Category> newOrder) onReorderCategories;
 
   const SettingsCategories({
     required this.categories,
-    required this.activeCategory,
     required this.onReorderCategories,
   });
 
@@ -42,7 +41,8 @@ class SettingsCategories extends StatelessWidget {
           onReorderCategories(list);
         },
         proxyDecorator: (child, _, __) => Material(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(8),
+          color: context.colors.listTileBackground,
           child: child,
         ),
         itemBuilder: (_, index) {
@@ -52,12 +52,8 @@ class SettingsCategories extends StatelessWidget {
             key: ValueKey(category.id),
             index: index,
             child: SettingsCategory(
-              color: category.color.withValues(
-                alpha: activeCategory == category || activeCategory == null ? 1 : 0.2,
-              ),
-              highlightColor: category.color.withValues(
-                alpha: activeCategory == category || activeCategory == null ? 1 : 0.2,
-              ),
+              color: category.color,
+              highlightColor: category.color,
               icon: getRegularIconFromName(category.iconName)?.value,
               text: category.name,
             ),
