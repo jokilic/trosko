@@ -68,6 +68,7 @@ class HomeCategory extends StatelessWidget {
               style: IconButton.styleFrom(
                 padding: const EdgeInsets.all(12),
                 backgroundColor: color,
+                disabledBackgroundColor: color,
                 highlightColor: highlightColor,
                 alignment: Alignment.center,
               ),

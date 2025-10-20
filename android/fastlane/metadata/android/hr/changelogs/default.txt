@@ -9,3 +9,4 @@
 * Autofill when logging in or registering
 * Having a category filtered and adding a new transaction will have the relevant category enabled
 * Auto-scroll to active category and color in Settings
+* Reorder categories in Settings

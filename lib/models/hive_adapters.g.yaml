@@ -27,7 +27,7 @@ types:
         index: 5
   Category:
     typeId: 2
-    nextIndex: 5
+    nextIndex: 6
     fields:
       id:
         index: 0

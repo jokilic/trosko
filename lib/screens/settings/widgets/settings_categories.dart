@@ -1,23 +1,18 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../models/category/category.dart';
-import '../../../theme/extensions.dart';
 import '../../../util/icons.dart';
-import 'home_category.dart';
+import 'settings_category.dart';
 
-class HomeCategories extends StatelessWidget {
+class SettingsCategories extends StatelessWidget {
   final List<Category> categories;
   final Category? activeCategory;
   final void Function(List<Category> newOrder) onReorderCategories;
-  final void Function(Category category) onPressedCategory;
 
-  const HomeCategories({
+  const SettingsCategories({
     required this.categories,
     required this.activeCategory,
     required this.onReorderCategories,
-    required this.onPressedCategory,
   });
 
   @override
@@ -29,13 +24,8 @@ class HomeCategories extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         buildDefaultDragHandles: false,
-        itemCount: categories.length + 1,
+        itemCount: categories.length,
         onReorder: (oldIndex, newIndex) {
-          /// keep the "Add" tile fixed at the end
-          if (oldIndex >= categories.length) {
-            return;
-          }
-
           if (newIndex > categories.length) {
             newIndex = categories.length;
           }
@@ -51,20 +41,17 @@ class HomeCategories extends StatelessWidget {
 
           onReorderCategories(list);
         },
-        proxyDecorator: (child, index, animation) => Material(
+        proxyDecorator: (child, _, __) => Material(
           borderRadius: BorderRadius.circular(16),
           child: child,
         ),
         itemBuilder: (_, index) {
-          ///
-          /// CATEGORY
-          ///
-          if (index < categories.length) {
-            final category = categories[index];
+          final category = categories[index];
 
-            return HomeCategory(
-              category: category,
-              onPressed: () => onPressedCategory(category),
+          return ReorderableDelayedDragStartListener(
+            key: ValueKey(category.id),
+            index: index,
+            child: SettingsCategory(
               color: category.color.withValues(
                 alpha: activeCategory == category || activeCategory == null ? 1 : 0.2,
               ),
@@ -73,19 +60,7 @@ class HomeCategories extends StatelessWidget {
               ),
               icon: getRegularIconFromName(category.iconName)?.value,
               text: category.name,
-            );
-          }
-
-          ///
-          /// ADD CATEGORY
-          ///
-          return HomeCategory(
-            category: null,
-            color: context.colors.buttonBackground,
-            highlightColor: context.colors.listTileBackground,
-            icon: PhosphorIcons.plus(),
-            text: 'homeAddCategory'.tr(),
-            hasBorder: false,
+            ),
           );
         },
       ),

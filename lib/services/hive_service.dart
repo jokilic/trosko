@@ -87,6 +87,16 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     updateState();
   }
 
+  /// Updates `List<Category>` ordering
+  Future<void> updateCategoriesOrder(
+    List<Category> reorderedCategories,
+  ) async {
+    updateState(
+      newCategories: reorderedCategories,
+    );
+    await writeListCategories(reorderedCategories);
+  }
+
   /// Clears everything from [Hive] & updates `isLoggedIn`
   Future<void> clearEverything() async {
     await writeSettings(
@@ -101,11 +111,16 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
   }
 
   /// Updates `state`
-  void updateState() => value = (
-    username: getUsername(),
-    transactions: getTransactions(),
-    categories: getCategories(),
-    settings: getSettings(),
+  void updateState({
+    Settings? newSettings,
+    String? newUsername,
+    List<Transaction>? newTransactions,
+    List<Category>? newCategories,
+  }) => value = (
+    username: newUsername ?? getUsername(),
+    transactions: newTransactions ?? getTransactions(),
+    categories: newCategories ?? getCategories(),
+    settings: newSettings ?? getSettings(),
   );
 
   /// Called to get `settings` from [Hive]

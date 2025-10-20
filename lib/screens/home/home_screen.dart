@@ -341,6 +341,7 @@ class _HomeScreenState extends State<HomeScreen> {
           HomeCategories(
             categories: categories,
             activeCategory: activeCategory,
+            onReorderCategories: hive.updateCategoriesOrder,
             onPressedCategory: (category) {
               HapticFeedback.lightImpact();
               homeController.updateState(

@@ -42,7 +42,7 @@ class ColorAdapter extends TypeAdapter<Color> {
 
 class TransactionAdapter extends TypeAdapter<Transaction> {
   @override
-  final typeId = 11;
+  final typeId = 1;
 
   @override
   Transaction read(BinaryReader reader) {
@@ -91,7 +91,7 @@ class TransactionAdapter extends TypeAdapter<Transaction> {
 
 class CategoryAdapter extends TypeAdapter<Category> {
   @override
-  final typeId = 12;
+  final typeId = 2;
 
   @override
   Category read(BinaryReader reader) {
@@ -137,7 +137,7 @@ class CategoryAdapter extends TypeAdapter<Category> {
 
 class SettingsAdapter extends TypeAdapter<Settings> {
   @override
-  final typeId = 13;
+  final typeId = 3;
 
   @override
   Settings read(BinaryReader reader) {
@@ -177,7 +177,7 @@ class SettingsAdapter extends TypeAdapter<Settings> {
 
 class TroskoThemeIdAdapter extends TypeAdapter<TroskoThemeId> {
   @override
-  final typeId = 14;
+  final typeId = 4;
 
   @override
   TroskoThemeId read(BinaryReader reader) {
