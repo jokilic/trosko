@@ -139,7 +139,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               HapticFeedback.lightImpact();
               settingsController.onPressedThemeData(
                 newThemeData: themeData,
-                primaryColor: primaryColor,
               );
             },
           ),

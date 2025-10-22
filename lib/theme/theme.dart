@@ -241,31 +241,31 @@ class TroskoTheme {
   );
 
   ///
-  /// DARK ALTERNATE
+  /// LIGHT2
   ///
 
-  static ThemeData darkAlternate({
+  static ThemeData light2({
     required Color? primaryColor,
   }) {
-    final defaultTheme = ThemeData.dark(
+    final defaultTheme = ThemeData.light(
       useMaterial3: true,
     );
 
-    final darkAlternateAppColors = getDarkAlternateAppColors(
+    final light2AppColors = getLight2AppColors(
       primaryColor: primaryColor,
     );
 
-    final darkAlternateTextTheme = getDarkAlternateTextTheme(
+    final light2TextTheme = getLight2TextTheme(
       primaryColor: primaryColor,
     );
 
     return defaultTheme.copyWith(
       colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryColor ?? darkAlternateAppColors.buttonPrimary,
+        seedColor: primaryColor ?? light2AppColors.buttonPrimary,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: primaryColor ?? darkAlternateAppColors.buttonPrimary,
-        foregroundColor: darkAlternateAppColors.text,
+        backgroundColor: primaryColor ?? light2AppColors.buttonPrimary,
+        foregroundColor: light2AppColors.text,
         elevation: 1,
         disabledElevation: 1,
         highlightElevation: 2,
@@ -273,10 +273,10 @@ class TroskoTheme {
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(
-            primaryColor ?? darkAlternateAppColors.buttonPrimary,
+            primaryColor ?? light2AppColors.buttonPrimary,
           ),
           foregroundColor: WidgetStateProperty.all(
-            darkAlternateAppColors.buttonBackground,
+            light2AppColors.buttonBackground,
           ),
           shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
@@ -290,7 +290,7 @@ class TroskoTheme {
             ),
           ),
           textStyle: WidgetStateProperty.all(
-            darkAlternateTextTheme.button,
+            light2TextTheme.button,
           ),
         ),
       ),
@@ -299,8 +299,8 @@ class TroskoTheme {
           borderRadius: BorderRadius.circular(8),
         ),
         side: BorderSide.none,
-        backgroundColor: darkAlternateAppColors.buttonBackground,
-        selectedColor: primaryColor ?? darkAlternateAppColors.buttonPrimary,
+        backgroundColor: light2AppColors.buttonBackground,
+        selectedColor: primaryColor ?? light2AppColors.buttonPrimary,
         showCheckmark: false,
         labelPadding: const EdgeInsets.symmetric(horizontal: 8),
         elevation: 1,
@@ -309,7 +309,7 @@ class TroskoTheme {
       iconButtonTheme: IconButtonThemeData(
         style: IconButton.styleFrom(
           backgroundColor: Colors.transparent,
-          foregroundColor: darkAlternateAppColors.text,
+          foregroundColor: light2AppColors.text,
           highlightColor: Colors.transparent,
           iconSize: 28,
           shape: const CircleBorder(),
@@ -318,41 +318,158 @@ class TroskoTheme {
         ),
       ),
       splashColor: Colors.transparent,
-      highlightColor: darkAlternateAppColors.buttonBackground,
-      scaffoldBackgroundColor: darkAlternateAppColors.scaffoldBackground,
+      highlightColor: light2AppColors.buttonBackground,
+      scaffoldBackgroundColor: light2AppColors.scaffoldBackground,
       canvasColor: Colors.transparent,
       textSelectionTheme: TextSelectionThemeData(
-        selectionColor: primaryColor ?? darkAlternateAppColors.buttonPrimary,
-        cursorColor: primaryColor ?? darkAlternateAppColors.buttonPrimary,
-        selectionHandleColor: primaryColor ?? darkAlternateAppColors.buttonPrimary,
+        selectionColor: primaryColor ?? light2AppColors.buttonPrimary,
+        cursorColor: primaryColor ?? light2AppColors.buttonPrimary,
+        selectionHandleColor: primaryColor ?? light2AppColors.buttonPrimary,
       ),
       extensions: [
-        darkAlternateAppColors,
-        darkAlternateTextTheme,
+        light2AppColors,
+        light2TextTheme,
         const TroskoThemeTag(
-          TroskoThemeId.darkAlternate,
+          TroskoThemeId.light2,
         ),
       ],
     );
   }
 
-  static TroskoColorsExtension getDarkAlternateAppColors({
+  static TroskoColorsExtension getLight2AppColors({
     required Color? primaryColor,
   }) => TroskoColorsExtension(
-    text: TroskoColors.darkAlternateThemeWhiteText,
+    text: TroskoColors.light2ThemeBlackText,
     buttonPrimary: primaryColor ?? TroskoColors.green,
     delete: TroskoColors.redDelete,
-    listTileBackground: TroskoColors.darkAlternateThemeBlackBackground,
-    buttonBackground: TroskoColors.darkAlternateThemeButtonBackground,
-    scaffoldBackground: TroskoColors.darkAlternateThemeBlackScaffold,
-    disabledText: TroskoColors.darkAlternateThemeDisabledText,
-    disabledBackground: TroskoColors.darkAlternateThemeDisabledBackground,
+    listTileBackground: TroskoColors.light2ThemeWhiteBackground,
+    buttonBackground: TroskoColors.light2ThemeButtonBackground,
+    scaffoldBackground: TroskoColors.light2ThemeWhiteScaffold,
+    disabledText: TroskoColors.light2ThemeDisabledText,
+    disabledBackground: TroskoColors.light2ThemeDisabledBackground,
   );
 
-  static TroskoTextThemesExtension getDarkAlternateTextTheme({
+  static TroskoTextThemesExtension getLight2TextTheme({
     required Color? primaryColor,
   }) => getTextThemesExtension(
-    colorsExtension: getDarkAlternateAppColors(
+    colorsExtension: getLight2AppColors(
+      primaryColor: primaryColor,
+    ),
+  );
+
+  ///
+  /// DARK2
+  ///
+
+  static ThemeData dark2({
+    required Color? primaryColor,
+  }) {
+    final defaultTheme = ThemeData.dark(
+      useMaterial3: true,
+    );
+
+    final dark2AppColors = getDark2AppColors(
+      primaryColor: primaryColor,
+    );
+
+    final dark2TextTheme = getDark2TextTheme(
+      primaryColor: primaryColor,
+    );
+
+    return defaultTheme.copyWith(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryColor ?? dark2AppColors.buttonPrimary,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: primaryColor ?? dark2AppColors.buttonPrimary,
+        foregroundColor: dark2AppColors.text,
+        elevation: 1,
+        disabledElevation: 1,
+        highlightElevation: 2,
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(
+            primaryColor ?? dark2AppColors.buttonPrimary,
+          ),
+          foregroundColor: WidgetStateProperty.all(
+            dark2AppColors.buttonBackground,
+          ),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 16,
+            ),
+          ),
+          textStyle: WidgetStateProperty.all(
+            dark2TextTheme.button,
+          ),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        side: BorderSide.none,
+        backgroundColor: dark2AppColors.buttonBackground,
+        selectedColor: primaryColor ?? dark2AppColors.buttonPrimary,
+        showCheckmark: false,
+        labelPadding: const EdgeInsets.symmetric(horizontal: 8),
+        elevation: 1,
+        pressElevation: 2,
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: dark2AppColors.text,
+          highlightColor: Colors.transparent,
+          iconSize: 28,
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(16),
+          elevation: 1,
+        ),
+      ),
+      splashColor: Colors.transparent,
+      highlightColor: dark2AppColors.buttonBackground,
+      scaffoldBackgroundColor: dark2AppColors.scaffoldBackground,
+      canvasColor: Colors.transparent,
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: primaryColor ?? dark2AppColors.buttonPrimary,
+        cursorColor: primaryColor ?? dark2AppColors.buttonPrimary,
+        selectionHandleColor: primaryColor ?? dark2AppColors.buttonPrimary,
+      ),
+      extensions: [
+        dark2AppColors,
+        dark2TextTheme,
+        const TroskoThemeTag(
+          TroskoThemeId.dark2,
+        ),
+      ],
+    );
+  }
+
+  static TroskoColorsExtension getDark2AppColors({
+    required Color? primaryColor,
+  }) => TroskoColorsExtension(
+    text: TroskoColors.dark2ThemeWhiteText,
+    buttonPrimary: primaryColor ?? TroskoColors.green,
+    delete: TroskoColors.redDelete,
+    listTileBackground: TroskoColors.dark2ThemeBlackBackground,
+    buttonBackground: TroskoColors.dark2ThemeButtonBackground,
+    scaffoldBackground: TroskoColors.dark2ThemeBlackScaffold,
+    disabledText: TroskoColors.dark2ThemeDisabledText,
+    disabledBackground: TroskoColors.dark2ThemeDisabledBackground,
+  );
+
+  static TroskoTextThemesExtension getDark2TextTheme({
+    required Color? primaryColor,
+  }) => getTextThemesExtension(
+    colorsExtension: getDark2AppColors(
       primaryColor: primaryColor,
     ),
   );

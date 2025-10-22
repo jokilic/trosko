@@ -24,15 +24,26 @@ abstract class TroskoColors {
   static const darkThemeDisabledBackground = Color(0xFF2D2F34);
 
   ///
-  /// DARK ALTERNATE THEME
+  /// LIGHT2 THEME
   ///
 
-  static const darkAlternateThemeWhiteText = Color(0xFFF9F9FF);
-  static const darkAlternateThemeBlackBackground = Color(0xFF243145);
-  static const darkAlternateThemeButtonBackground = Color(0xFF2D2F34);
-  static const darkAlternateThemeBlackScaffold = Color(0xFF1B2432);
-  static const darkAlternateThemeDisabledText = Color(0xFFE4E6ED);
-  static const darkAlternateThemeDisabledBackground = Color(0xFF2D2F34);
+  static const light2ThemeBlackText = Color(0xFF121C2B);
+  static const light2ThemeWhiteBackground = Color(0xFFF9F9FF);
+  static const light2ThemeButtonBackground = Color(0xFFE4E6ED);
+  static const light2ThemeWhiteScaffold = Color(0xFFEDEDF4);
+  static const light2ThemeDisabledText = Color(0xFF2D2F34);
+  static const light2ThemeDisabledBackground = Color(0xFFE4E6ED);
+
+  ///
+  /// DARK2 THEME
+  ///
+
+  static const dark2ThemeWhiteText = Color(0xFFF9F9FF);
+  static const dark2ThemeBlackBackground = Color(0xFF243145);
+  static const dark2ThemeButtonBackground = Color(0xFF2D2F34);
+  static const dark2ThemeBlackScaffold = Color(0xFF1B2432);
+  static const dark2ThemeDisabledText = Color(0xFFE4E6ED);
+  static const dark2ThemeDisabledBackground = Color(0xFF2D2F34);
 
   ///
   /// DELETE
