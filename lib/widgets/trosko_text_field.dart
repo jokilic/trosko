@@ -51,7 +51,7 @@ class TroskoTextField extends StatelessWidget {
       alignLabelWithHint: true,
       border: OutlineInputBorder(
         borderSide: BorderSide(
-          color: context.colors.borderColor,
+          color: context.colors.text,
           width: 1.5,
         ),
         borderRadius: BorderRadius.circular(8),
@@ -62,14 +62,14 @@ class TroskoTextField extends StatelessWidget {
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: context.colors.borderColor,
+          color: context.colors.text,
           width: 1.5,
         ),
         borderRadius: BorderRadius.circular(8),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: context.colors.borderColor,
+          color: context.colors.text,
           width: 1.5,
         ),
         borderRadius: BorderRadius.circular(8),

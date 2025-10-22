@@ -306,7 +306,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     decoration: BoxDecoration(
                       color: dateEditMode ? context.colors.listTileBackground : null,
                       border: Border.all(
-                        color: context.colors.borderColor,
+                        color: context.colors.text,
                         width: 1.5,
                       ),
                       borderRadius: BorderRadius.circular(8),
@@ -384,7 +384,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     decoration: BoxDecoration(
                       color: timeEditMode ? context.colors.listTileBackground : null,
                       border: Border.all(
-                        color: context.colors.borderColor,
+                        color: context.colors.text,
                         width: 1.5,
                       ),
                       borderRadius: BorderRadius.circular(8),
@@ -419,7 +419,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               color: context.colors.listTileBackground,
                               shape: StadiumBorder(
                                 side: BorderSide(
-                                  color: context.colors.borderColor,
+                                  color: context.colors.text,
                                   width: 1.5,
                                 ),
                               ),
@@ -465,8 +465,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
               backgroundColor: context.colors.buttonPrimary,
               foregroundColor: getWhiteOrBlackColor(
                 backgroundColor: context.colors.buttonPrimary,
-                whiteColor: TroskoColors.lighterGrey,
-                blackColor: TroskoColors.black,
+                whiteColor: TroskoColors.lightThemeWhiteBackground,
+                blackColor: TroskoColors.lightThemeBlackText,
               ),
               overlayColor: context.colors.buttonBackground,
               disabledBackgroundColor: context.colors.disabledBackground,

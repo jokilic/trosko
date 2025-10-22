@@ -129,8 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
               foregroundColor: categories.isNotEmpty
                   ? getWhiteOrBlackColor(
                       backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                      whiteColor: TroskoColors.lighterGrey,
-                      blackColor: TroskoColors.black,
+                      whiteColor: TroskoColors.lightThemeWhiteBackground,
+                      blackColor: TroskoColors.lightThemeBlackText,
                     )
                   : context.colors.disabledText,
               label: Text(
@@ -139,8 +139,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: categories.isNotEmpty
                       ? getWhiteOrBlackColor(
                           backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                          whiteColor: TroskoColors.lighterGrey,
-                          blackColor: TroskoColors.black,
+                          whiteColor: TroskoColors.lightThemeWhiteBackground,
+                          blackColor: TroskoColors.lightThemeBlackText,
                         )
                       : context.colors.disabledText,
                 ),
@@ -150,8 +150,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: categories.isNotEmpty
                     ? getWhiteOrBlackColor(
                         backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                        whiteColor: TroskoColors.lighterGrey,
-                        blackColor: TroskoColors.black,
+                        whiteColor: TroskoColors.lightThemeWhiteBackground,
+                        blackColor: TroskoColors.lightThemeBlackText,
                       )
                     : context.colors.disabledText,
                 size: 32,

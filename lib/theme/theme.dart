@@ -105,16 +105,14 @@ class TroskoTheme {
   static TroskoColorsExtension getLightAppColors({
     required Color? primaryColor,
   }) => TroskoColorsExtension(
-    text: TroskoColors.black,
-    icon: TroskoColors.black,
+    text: TroskoColors.lightThemeBlackText,
     buttonPrimary: primaryColor ?? TroskoColors.green,
-    delete: TroskoColors.red,
-    listTileBackground: TroskoColors.lighterGrey,
-    buttonBackground: TroskoColors.grey,
-    scaffoldBackground: TroskoColors.lightGrey,
-    disabledText: TroskoColors.lighterDark,
-    disabledBackground: TroskoColors.grey,
-    borderColor: TroskoColors.black,
+    delete: TroskoColors.redDelete,
+    listTileBackground: TroskoColors.lightThemeWhiteBackground,
+    buttonBackground: TroskoColors.lightThemeButtonBackground,
+    scaffoldBackground: TroskoColors.lightThemeWhiteScaffold,
+    disabledText: TroskoColors.lightThemeDisabledText,
+    disabledBackground: TroskoColors.lightThemeDisabledBackground,
   );
 
   static TroskoTextThemesExtension getLightTextTheme({
@@ -224,22 +222,137 @@ class TroskoTheme {
   static TroskoColorsExtension getDarkAppColors({
     required Color? primaryColor,
   }) => TroskoColorsExtension(
-    text: TroskoColors.lighterGrey,
-    icon: TroskoColors.lighterGrey,
+    text: TroskoColors.darkThemeWhiteText,
     buttonPrimary: primaryColor ?? TroskoColors.green,
-    delete: TroskoColors.red,
-    listTileBackground: TroskoColors.lightDark,
-    buttonBackground: TroskoColors.lighterDark,
-    scaffoldBackground: TroskoColors.dark,
-    disabledText: TroskoColors.grey,
-    disabledBackground: TroskoColors.lighterDark,
-    borderColor: TroskoColors.lightGrey,
+    delete: TroskoColors.redDelete,
+    listTileBackground: TroskoColors.darkThemeBlackBackground,
+    buttonBackground: TroskoColors.darkThemeButtonBackground,
+    scaffoldBackground: TroskoColors.darkThemeBlackScaffold,
+    disabledText: TroskoColors.darkThemeDisabledText,
+    disabledBackground: TroskoColors.darkThemeDisabledBackground,
   );
 
   static TroskoTextThemesExtension getDarkTextTheme({
     required Color? primaryColor,
   }) => getTextThemesExtension(
     colorsExtension: getDarkAppColors(
+      primaryColor: primaryColor,
+    ),
+  );
+
+  ///
+  /// DARK ALTERNATE
+  ///
+
+  static ThemeData darkAlternate({
+    required Color? primaryColor,
+  }) {
+    final defaultTheme = ThemeData.dark(
+      useMaterial3: true,
+    );
+
+    final darkAlternateAppColors = getDarkAlternateAppColors(
+      primaryColor: primaryColor,
+    );
+
+    final darkAlternateTextTheme = getDarkAlternateTextTheme(
+      primaryColor: primaryColor,
+    );
+
+    return defaultTheme.copyWith(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryColor ?? darkAlternateAppColors.buttonPrimary,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: primaryColor ?? darkAlternateAppColors.buttonPrimary,
+        foregroundColor: darkAlternateAppColors.text,
+        elevation: 1,
+        disabledElevation: 1,
+        highlightElevation: 2,
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(
+            primaryColor ?? darkAlternateAppColors.buttonPrimary,
+          ),
+          foregroundColor: WidgetStateProperty.all(
+            darkAlternateAppColors.buttonBackground,
+          ),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 16,
+            ),
+          ),
+          textStyle: WidgetStateProperty.all(
+            darkAlternateTextTheme.button,
+          ),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        side: BorderSide.none,
+        backgroundColor: darkAlternateAppColors.buttonBackground,
+        selectedColor: primaryColor ?? darkAlternateAppColors.buttonPrimary,
+        showCheckmark: false,
+        labelPadding: const EdgeInsets.symmetric(horizontal: 8),
+        elevation: 1,
+        pressElevation: 2,
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: darkAlternateAppColors.text,
+          highlightColor: Colors.transparent,
+          iconSize: 28,
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(16),
+          elevation: 1,
+        ),
+      ),
+      splashColor: Colors.transparent,
+      highlightColor: darkAlternateAppColors.buttonBackground,
+      scaffoldBackgroundColor: darkAlternateAppColors.scaffoldBackground,
+      canvasColor: Colors.transparent,
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: primaryColor ?? darkAlternateAppColors.buttonPrimary,
+        cursorColor: primaryColor ?? darkAlternateAppColors.buttonPrimary,
+        selectionHandleColor: primaryColor ?? darkAlternateAppColors.buttonPrimary,
+      ),
+      extensions: [
+        darkAlternateAppColors,
+        darkAlternateTextTheme,
+        const TroskoThemeTag(
+          TroskoThemeId.darkAlternate,
+        ),
+      ],
+    );
+  }
+
+  static TroskoColorsExtension getDarkAlternateAppColors({
+    required Color? primaryColor,
+  }) => TroskoColorsExtension(
+    text: TroskoColors.darkAlternateThemeWhiteText,
+    buttonPrimary: primaryColor ?? TroskoColors.green,
+    delete: TroskoColors.redDelete,
+    listTileBackground: TroskoColors.darkAlternateThemeBlackBackground,
+    buttonBackground: TroskoColors.darkAlternateThemeButtonBackground,
+    scaffoldBackground: TroskoColors.darkAlternateThemeBlackScaffold,
+    disabledText: TroskoColors.darkAlternateThemeDisabledText,
+    disabledBackground: TroskoColors.darkAlternateThemeDisabledBackground,
+  );
+
+  static TroskoTextThemesExtension getDarkAlternateTextTheme({
+    required Color? primaryColor,
+  }) => getTextThemesExtension(
+    colorsExtension: getDarkAlternateAppColors(
       primaryColor: primaryColor,
     ),
   );

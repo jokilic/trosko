@@ -44,8 +44,8 @@ class CategoryIconListTile extends StatelessWidget {
                 color: isActive
                     ? getWhiteOrBlackColor(
                         backgroundColor: context.colors.buttonPrimary,
-                        whiteColor: TroskoColors.lighterGrey,
-                        blackColor: TroskoColors.black,
+                        whiteColor: TroskoColors.lightThemeWhiteBackground,
+                        blackColor: TroskoColors.lightThemeBlackText,
                       )
                     : context.colors.text,
                 size: 32,
@@ -62,8 +62,8 @@ class CategoryIconListTile extends StatelessWidget {
                     color: isActive
                         ? getWhiteOrBlackColor(
                             backgroundColor: context.colors.buttonPrimary,
-                            whiteColor: TroskoColors.lighterGrey,
-                            blackColor: TroskoColors.black,
+                            whiteColor: TroskoColors.lightThemeWhiteBackground,
+                            blackColor: TroskoColors.lightThemeBlackText,
                           )
                         : null,
                   ),

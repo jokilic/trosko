@@ -45,7 +45,7 @@ class SettingsThemes extends StatelessWidget {
             onPressed: () => onPressedThemeData(
               TroskoTheme.light(primaryColor: primaryColor),
             ),
-            color: TroskoColors.lightGrey,
+            color: TroskoColors.lightThemeWhiteScaffold,
             highlightColor: context.colors.buttonBackground,
             text: 'settingsLight'.tr(),
             circleOpacity: activeTroskoThemeId == TroskoThemeId.light ? 1 : 0.4,
@@ -59,7 +59,7 @@ class SettingsThemes extends StatelessWidget {
             onPressed: () => onPressedThemeData(
               TroskoTheme.dark(primaryColor: primaryColor),
             ),
-            color: TroskoColors.dark,
+            color: TroskoColors.darkThemeBlackScaffold,
             highlightColor: context.colors.buttonBackground,
             text: 'settingsDark'.tr(),
             circleOpacity: activeTroskoThemeId == TroskoThemeId.dark ? 1 : 0.4,

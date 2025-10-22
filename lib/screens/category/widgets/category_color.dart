@@ -37,8 +37,8 @@ class CategoryColor extends StatelessWidget {
         icon,
         color: getWhiteOrBlackColor(
           backgroundColor: color,
-          whiteColor: TroskoColors.lighterGrey,
-          blackColor: TroskoColors.black,
+          whiteColor: TroskoColors.lightThemeWhiteBackground,
+          blackColor: TroskoColors.lightThemeBlackText,
         ),
         size: 28,
       ),

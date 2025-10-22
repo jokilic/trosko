@@ -153,7 +153,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         shape: BoxShape.circle,
                         color: categoryColor,
                         border: Border.all(
-                          color: categoryColor ?? context.colors.borderColor,
+                          color: categoryColor ?? context.colors.text,
                           width: 1.5,
                         ),
                       ),
@@ -161,8 +161,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         categoryIcon?.value,
                         color: getWhiteOrBlackColor(
                           backgroundColor: categoryColor ?? context.colors.scaffoldBackground,
-                          whiteColor: TroskoColors.lighterGrey,
-                          blackColor: TroskoColors.black,
+                          whiteColor: TroskoColors.lightThemeWhiteBackground,
+                          blackColor: TroskoColors.lightThemeBlackText,
                         ),
                         size: 56,
                       ),
@@ -293,7 +293,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     decoration: BoxDecoration(
                       color: context.colors.listTileBackground,
                       border: Border.all(
-                        color: context.colors.borderColor,
+                        color: context.colors.text,
                         width: 1.5,
                       ),
                       borderRadius: BorderRadius.circular(8),
@@ -348,8 +348,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
               backgroundColor: context.colors.buttonPrimary,
               foregroundColor: getWhiteOrBlackColor(
                 backgroundColor: context.colors.buttonPrimary,
-                whiteColor: TroskoColors.lighterGrey,
-                blackColor: TroskoColors.black,
+                whiteColor: TroskoColors.lightThemeWhiteBackground,
+                blackColor: TroskoColors.lightThemeBlackText,
               ),
               overlayColor: context.colors.buttonBackground,
               disabledBackgroundColor: context.colors.disabledBackground,

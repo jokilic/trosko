@@ -121,7 +121,7 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                           shape: BoxShape.circle,
                           color: widget.category?.color,
                           border: Border.all(
-                            color: widget.category?.color ?? context.colors.borderColor,
+                            color: widget.category?.color ?? context.colors.text,
                             width: 1.5,
                           ),
                         ),
@@ -131,8 +131,8 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                           )?.value,
                           color: getWhiteOrBlackColor(
                             backgroundColor: widget.category?.color ?? context.colors.scaffoldBackground,
-                            whiteColor: TroskoColors.lighterGrey,
-                            blackColor: TroskoColors.black,
+                            whiteColor: TroskoColors.lightThemeWhiteBackground,
+                            blackColor: TroskoColors.lightThemeBlackText,
                           ),
                           size: 16,
                         ),

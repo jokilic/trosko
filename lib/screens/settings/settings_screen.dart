@@ -332,8 +332,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     backgroundColor: context.colors.buttonPrimary,
                     foregroundColor: getWhiteOrBlackColor(
                       backgroundColor: context.colors.buttonPrimary,
-                      whiteColor: TroskoColors.lighterGrey,
-                      blackColor: TroskoColors.black,
+                      whiteColor: TroskoColors.lightThemeWhiteBackground,
+                      blackColor: TroskoColors.lightThemeBlackText,
                     ),
                     overlayColor: context.colors.buttonBackground,
                     disabledBackgroundColor: context.colors.disabledBackground,
@@ -396,8 +396,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     backgroundColor: context.colors.delete,
                     foregroundColor: getWhiteOrBlackColor(
                       backgroundColor: context.colors.delete,
-                      whiteColor: TroskoColors.lighterGrey,
-                      blackColor: TroskoColors.black,
+                      whiteColor: TroskoColors.lightThemeWhiteBackground,
+                      blackColor: TroskoColors.lightThemeBlackText,
                     ),
                     overlayColor: context.colors.buttonBackground,
                     disabledBackgroundColor: context.colors.disabledBackground,
@@ -485,8 +485,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     backgroundColor: context.colors.delete,
                     foregroundColor: getWhiteOrBlackColor(
                       backgroundColor: context.colors.delete,
-                      whiteColor: TroskoColors.lighterGrey,
-                      blackColor: TroskoColors.black,
+                      whiteColor: TroskoColors.lightThemeWhiteBackground,
+                      blackColor: TroskoColors.lightThemeBlackText,
                     ),
                     overlayColor: context.colors.buttonBackground,
                     disabledBackgroundColor: context.colors.disabledBackground,

@@ -69,8 +69,8 @@ class HomeMonthChips extends StatelessWidget {
                           color: activeMonth == null
                               ? getWhiteOrBlackColor(
                                   backgroundColor: context.colors.buttonPrimary,
-                                  whiteColor: TroskoColors.lighterGrey,
-                                  blackColor: TroskoColors.black,
+                                  whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                  blackColor: TroskoColors.lightThemeBlackText,
                                 )
                               : null,
                         ),
@@ -124,8 +124,8 @@ class HomeMonthChips extends StatelessWidget {
                           color: activeMonth == month
                               ? getWhiteOrBlackColor(
                                   backgroundColor: context.colors.buttonPrimary,
-                                  whiteColor: TroskoColors.lighterGrey,
-                                  blackColor: TroskoColors.black,
+                                  whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                  blackColor: TroskoColors.lightThemeBlackText,
                                 )
                               : null,
                         ),

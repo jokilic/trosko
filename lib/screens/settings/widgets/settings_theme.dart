@@ -29,7 +29,7 @@ class SettingsTheme extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: context.colors.borderColor,
+                color: context.colors.text,
                 width: 1.5,
               ),
             ),
@@ -82,10 +82,10 @@ class SettingsSystemTheme extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [
-                  TroskoColors.lightGrey,
-                  TroskoColors.lightGrey,
-                  TroskoColors.dark,
-                  TroskoColors.dark,
+                  TroskoColors.lightThemeWhiteScaffold,
+                  TroskoColors.lightThemeWhiteScaffold,
+                  TroskoColors.darkThemeBlackScaffold,
+                  TroskoColors.darkThemeBlackScaffold,
                 ],
                 stops: [0.0, 0.5, 0.5, 1.0],
                 begin: Alignment.topLeft,
@@ -93,7 +93,7 @@ class SettingsSystemTheme extends StatelessWidget {
               ),
               shape: BoxShape.circle,
               border: Border.all(
-                color: context.colors.borderColor,
+                color: context.colors.text,
                 width: 1.5,
               ),
             ),

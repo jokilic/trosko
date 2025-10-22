@@ -28,7 +28,7 @@ class TransactionAmountButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: context.colors.borderColor,
+            color: context.colors.text,
             width: 1.5,
           ),
           borderRadius: BorderRadius.circular(8),

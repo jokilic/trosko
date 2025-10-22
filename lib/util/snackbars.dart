@@ -17,7 +17,7 @@ void showSnackbar(
         children: [
           PhosphorIcon(
             icon,
-            color: context.colors.icon,
+            color: context.colors.text,
             size: 28,
           ),
           const SizedBox(width: 10),
@@ -35,7 +35,7 @@ void showSnackbar(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
-          color: context.colors.borderColor,
+          color: context.colors.text,
           width: 1.5,
         ),
       ),

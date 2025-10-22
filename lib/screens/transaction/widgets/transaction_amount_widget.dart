@@ -161,7 +161,7 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
         decoration: BoxDecoration(
           color: context.colors.listTileBackground,
           border: Border.all(
-            color: context.colors.borderColor,
+            color: context.colors.text,
             width: 1.5,
           ),
           borderRadius: BorderRadius.circular(8),

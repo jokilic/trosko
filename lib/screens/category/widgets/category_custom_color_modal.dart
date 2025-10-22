@@ -79,8 +79,8 @@ class _CategoryCustomColorModalState extends State<CategoryCustomColorModal> {
                   backgroundColor: context.colors.buttonPrimary,
                   foregroundColor: getWhiteOrBlackColor(
                     backgroundColor: context.colors.buttonPrimary,
-                    whiteColor: TroskoColors.lighterGrey,
-                    blackColor: TroskoColors.black,
+                    whiteColor: TroskoColors.lightThemeWhiteBackground,
+                    blackColor: TroskoColors.lightThemeBlackText,
                   ),
                   overlayColor: context.colors.buttonBackground,
                   disabledBackgroundColor: context.colors.disabledBackground,
