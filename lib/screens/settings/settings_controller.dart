@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:get_it/get_it.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../../models/trosko_theme_tag/trosko_theme_tag.dart';
 import '../../services/firebase_service.dart';
@@ -67,7 +66,6 @@ class SettingsController extends ValueNotifier<bool> implements Disposable {
 
       value = await NotificationListenerService.isPermissionGranted();
 
-      await getNotificationPermission();
       await toggleForegroundTask(
         isGranted: value,
       );
@@ -86,18 +84,6 @@ class SettingsController extends ValueNotifier<bool> implements Disposable {
   ///
   /// METHODS
   ///
-
-  /// Check notification permission and request if necessary
-  Future<bool> getNotificationPermission() async {
-    final status = await Permission.notification.status;
-
-    if (status.isDenied) {
-      final newStatus = await Permission.notification.request();
-      return newStatus.isGranted;
-    }
-
-    return status.isGranted;
-  }
 
   /// Start or stop task, depending on passed permission status
   Future<void> toggleForegroundTask({required bool isGranted}) async {
@@ -125,11 +111,6 @@ class SettingsController extends ValueNotifier<bool> implements Disposable {
   /// Shows notification permissions menu
   Future<void> onNotificationButtonPressed() async {
     value = await NotificationListenerService.requestPermission();
-
-    /// Ask for notification permission
-    if (value) {
-      await getNotificationPermission();
-    }
 
     /// Start or stop task, depending on permissions
     await toggleForegroundTask(
