@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:get_it/get_it.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
@@ -88,23 +87,9 @@ class SettingsController extends ValueNotifier<bool> implements Disposable {
   /// Start or stop task, depending on passed permission status
   Future<void> toggleForegroundTask({required bool isGranted}) async {
     if (isGranted) {
-      final result = await startForegroundTask();
-
-      if (result is ServiceRequestFailure) {
-        logger.e('Failed to start Troško notification listener: ${result.error}');
-      }
-
-      return;
-    }
-
-    if (!await isForegroundTaskRunning()) {
-      return;
-    }
-
-    final result = await stopForegroundTask();
-
-    if (result is ServiceRequestFailure) {
-      logger.e('Failed to stop Troško notification listener: ${result.error}');
+      await startForegroundTask();
+    } else {
+      await stopForegroundTask();
     }
   }
 
