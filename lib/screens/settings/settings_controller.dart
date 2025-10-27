@@ -1,15 +1,18 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:notification_listener_service/notification_listener_service.dart';
 
 import '../../models/trosko_theme_tag/trosko_theme_tag.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../util/notification_handler.dart';
 
-class SettingsController implements Disposable {
+class SettingsController extends ValueNotifier<bool> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -22,7 +25,7 @@ class SettingsController implements Disposable {
     required this.logger,
     required this.hive,
     required this.firebase,
-  });
+  }) : super(false);
 
   ///
   /// VARIABLES
@@ -38,7 +41,7 @@ class SettingsController implements Disposable {
   /// INIT
   ///
 
-  void init() {
+  Future<void> init() async {
     final settings = hive.getSettings();
 
     /// Scroll to `primaryColor`
@@ -55,6 +58,17 @@ class SettingsController implements Disposable {
         }
       });
     }
+
+    /// Handle notifications on `Android` accordingly
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      initForegroundTask();
+
+      value = await NotificationListenerService.isPermissionGranted();
+
+      await toggleForegroundTask(
+        isGranted: value,
+      );
+    }
   }
 
   ///
@@ -69,6 +83,25 @@ class SettingsController implements Disposable {
   ///
   /// METHODS
   ///
+
+  /// Start or stop task, depending on passed permission status
+  Future<void> toggleForegroundTask({required bool isGranted}) async {
+    if (isGranted) {
+      await startForegroundTask();
+    } else {
+      await stopForegroundTask();
+    }
+  }
+
+  /// Shows notification permissions menu
+  Future<void> onNotificationButtonPressed() async {
+    value = await NotificationListenerService.requestPermission();
+
+    /// Start or stop task, depending on permissions
+    await toggleForegroundTask(
+      isGranted: value,
+    );
+  }
 
   /// Triggered when the user submits a new `name`
   Future<void> onSubmittedName(String newName) async {

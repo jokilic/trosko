@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -26,6 +27,7 @@ import 'settings_controller.dart';
 import 'widgets/settings_categories.dart';
 import 'widgets/settings_delete_account_modal.dart';
 import 'widgets/settings_languages.dart';
+import 'widgets/settings_list_tile.dart';
 import 'widgets/settings_primary_colors.dart';
 import 'widgets/settings_themes.dart';
 
@@ -64,10 +66,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final settingsController = getIt.get<SettingsController>();
     final hiveService = getIt.get<HiveService>();
+    final settingsController = getIt.get<SettingsController>();
 
     final hive = watchIt<HiveService>();
+    final notificationPermissionGranted = watchIt<SettingsController>().value;
 
     final categories = hive.value.categories;
     final settings = hive.value.settings;
@@ -245,6 +248,89 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
 
           ///
+          /// NOTIFICATIONS TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'settingsNotifications'.tr(),
+                style: context.textStyles.homeTitle,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
+
+          ///
+          /// NOTIFICATIONS LIST TILE
+          ///
+          if (defaultTargetPlatform == TargetPlatform.android) ...[
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: SettingsListTile(
+                  onPressed: () async {
+                    unawaited(
+                      HapticFeedback.lightImpact(),
+                    );
+
+                    await settingsController.onNotificationButtonPressed();
+                  },
+                  title: 'settingsNotificationsTitle'.tr(),
+                  subtitle: 'settingsNotificationsSubtitle'.tr(),
+                  trailingWidget: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: notificationPermissionGranted ? context.colors.buttonPrimary : context.colors.delete,
+                        ),
+                        height: 24,
+                        width: 24,
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        notificationPermissionGranted ? 'settingsNotificationsOn'.tr().toUpperCase() : 'settingsNotificationsOff'.tr().toUpperCase(),
+                        style: context.textStyles.homeTransactionTime,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 12),
+            ),
+
+            ///
+            /// NOTIFICATIONS TEXT
+            ///
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'settingsNotificationsText'.tr(),
+                  style: context.textStyles.homeTransactionNote,
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'settingsNotificationsText2'.tr(),
+                  style: context.textStyles.homeTransactionNote,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 24),
+            ),
+          ],
+
+          ///
           /// ACCOUNT MANAGEMENT TITLE
           ///
           SliverPadding(
@@ -279,7 +365,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
+            child: SizedBox(height: 12),
           ),
 
           ///
@@ -346,7 +432,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
+            child: SizedBox(height: 12),
           ),
 
           ///
@@ -410,7 +496,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
+            child: SizedBox(height: 12),
           ),
 
           ///
@@ -499,7 +585,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
+            child: SizedBox(height: 12),
           ),
 
           ///
