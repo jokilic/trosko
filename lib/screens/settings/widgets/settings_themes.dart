@@ -64,33 +64,6 @@ class SettingsThemes extends StatelessWidget {
             text: 'settingsDark'.tr(),
             circleOpacity: activeTroskoThemeId == TroskoThemeId.dark ? 1 : 0.4,
           ),
-          const SizedBox(width: 16),
-
-          ///
-          /// LIGHT2
-          ///
-          SettingsTheme(
-            onPressed: () => onPressedThemeData(
-              TroskoTheme.light2(primaryColor: primaryColor),
-            ),
-            color: TroskoColors.light2ThemeWhiteScaffold,
-            highlightColor: context.colors.buttonBackground,
-            text: 'settingsLight2'.tr(),
-            circleOpacity: activeTroskoThemeId == TroskoThemeId.light2 ? 1 : 0.4,
-          ),
-
-          ///
-          /// DARK2
-          ///
-          SettingsTheme(
-            onPressed: () => onPressedThemeData(
-              TroskoTheme.dark2(primaryColor: primaryColor),
-            ),
-            color: TroskoColors.dark2ThemeBlackScaffold,
-            highlightColor: context.colors.buttonBackground,
-            text: 'settingsDark2'.tr(),
-            circleOpacity: activeTroskoThemeId == TroskoThemeId.dark2 ? 1 : 0.4,
-          ),
         ],
       ),
     ),

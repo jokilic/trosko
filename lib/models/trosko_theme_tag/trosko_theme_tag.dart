@@ -7,10 +7,6 @@ enum TroskoThemeId {
   light,
   @HiveField(1)
   dark,
-  @HiveField(2)
-  light2,
-  @HiveField(3)
-  dark2,
 }
 
 class TroskoThemeTag extends ThemeExtension<TroskoThemeTag> {

@@ -12,9 +12,9 @@ import 'package:trosko/models/trosko_theme_tag/trosko_theme_tag.dart';
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(ColorAdapter());
+    registerAdapter(TroskoThemeIdAdapter());
     registerAdapter(TransactionAdapter());
     registerAdapter(CategoryAdapter());
     registerAdapter(SettingsAdapter());
-    registerAdapter(TroskoThemeIdAdapter());
   }
 }

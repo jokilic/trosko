@@ -57,7 +57,3 @@ types:
         index: 0
       dark:
         index: 1
-      light2:
-        index: 4
-      dark2:
-        index: 5
