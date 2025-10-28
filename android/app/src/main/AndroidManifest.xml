@@ -9,20 +9,6 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
-          <receiver android:name=".DeviceAdmin" android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data android:name="android.app.device_admin" android:resource="@xml/policies" />
-            <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-            </intent-filter>
-        </receiver>
-
-        <service android:name="slayer.accessibility.service.flutter_accessibility_service.AccessibilityListener" android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-            <meta-data android:name="android.accessibilityservice" android:resource="@xml/accessibilityservice" />
-        </service>
-
         <service android:label="notifications" android:name="notification.listener.service.NotificationListener"
 android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" android:exported="true">
         <intent-filter>

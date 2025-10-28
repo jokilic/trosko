@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 
 import '../services/firebase_service.dart';
 import '../services/hive_service.dart';
 import '../services/logger_service.dart';
+import '../services/notification_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -63,6 +65,18 @@ void initializeServices() {
         auth: FirebaseAuth.instance,
         firestore: FirebaseFirestore.instance,
       ),
+      dependsOn: [LoggerService],
+    )
+    ..registerSingletonAsync(
+      () async {
+        final notification = NotificationService(
+          logger: getIt.get<LoggerService>(),
+        );
+        if (defaultTargetPlatform == TargetPlatform.android) {
+          await notification.init();
+        }
+        return notification;
+      },
       dependsOn: [LoggerService],
     );
 }

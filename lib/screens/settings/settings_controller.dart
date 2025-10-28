@@ -8,6 +8,7 @@ import '../../models/trosko_theme_tag/trosko_theme_tag.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../services/notification_service.dart';
 
 class SettingsController implements Disposable {
   ///
@@ -17,11 +18,13 @@ class SettingsController implements Disposable {
   final LoggerService logger;
   final HiveService hive;
   final FirebaseService firebase;
+  final NotificationService notification;
 
   SettingsController({
     required this.logger,
     required this.hive,
     required this.firebase,
+    required this.notification,
   });
 
   ///
@@ -69,6 +72,11 @@ class SettingsController implements Disposable {
   ///
   /// METHODS
   ///
+
+  /// Triggered when the user presses the notification [ListTile]
+  Future<void> onPressedNotifications() async {
+    await notification.askPermissionStartListening();
+  }
 
   /// Triggered when the user submits a new `name`
   Future<void> onSubmittedName(String newName) async {
