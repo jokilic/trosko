@@ -114,13 +114,15 @@ class TroskoWidget extends WatchingWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
-      home: isLoggedIn
-          ? const HomeScreen(
-              key: ValueKey('home'),
-            )
-          : const LoginScreen(
-              key: ValueKey('login'),
-            ),
+      home: WithForegroundTask(
+        child: isLoggedIn
+            ? const HomeScreen(
+                key: ValueKey('home'),
+              )
+            : const LoginScreen(
+                key: ValueKey('login'),
+              ),
+      ),
       onGenerateTitle: (_) => 'appName'.tr(),
       theme:
           activeTroskoTheme ??

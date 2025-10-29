@@ -1,9 +1,20 @@
 import 'dart:developer';
 
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+void onDidReceiveNotificationResponse(NotificationResponse notificationResponse) {
+  log('[JOSIP] onDidReceiveNotificationResponse(notificationResponse: $notificationResponse)');
+}
+
+@pragma('vm:entry-point')
+void onDidReceiveBackgroundNotificationResponse(NotificationResponse notificationResponse) {
+  log('[JOSIP] onDidReceiveBackgroundNotificationResponse(notificationResponse: $notificationResponse)');
+}
 
 @pragma('vm:entry-point')
 void startCallback() {
+  log('[JOSIP] startCallback');
   FlutterForegroundTask.setTaskHandler(NotificationHandler());
 }
 

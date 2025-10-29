@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
@@ -27,12 +28,16 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
 
   StreamSubscription<ServiceNotificationEvent>? stream;
 
+  FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
+
   ///
   /// INIT
   ///
 
   Future<void> init() async {
     final permissionsGranted = await checkNotificationPermissionAndListener();
+
+    await initializeLocalNotifications();
 
     if (permissionsGranted) {
       initializeForegroundTask();
@@ -69,14 +74,15 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
       listenerGranted: listenerGranted,
     );
 
-    /// Return if all permissions are granted
+    /// Return `true` if all permissions are granted
     return value.notificationGranted && value.listenerGranted;
   }
 
   /// Requests for notification permission & listener
-  Future<void> askNotificationPermissionAndListener() async {
+  Future<bool> askNotificationPermissionAndListener() async {
     /// Request notification permission
-    final notificationPermission = await FlutterForegroundTask.requestNotificationPermission();
+    final notificationPermission =
+        await flutterLocalNotificationsPlugin?.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission() ?? false;
 
     /// Android specific notification permission
     if (defaultTargetPlatform == TargetPlatform.android) {
@@ -96,9 +102,12 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
 
     /// Update state
     value = (
-      notificationGranted: notificationPermission == NotificationPermission.granted,
+      notificationGranted: notificationPermission,
       listenerGranted: listenerGranted,
     );
+
+    /// Return `true` if all permissions are granted
+    return value.notificationGranted && value.listenerGranted;
   }
 
   /// Resets notification listener `stream`
@@ -107,15 +116,28 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     stream = null;
 
     stream = NotificationListenerService.notificationsStream.listen((event) {
-      log('[JOSIP] $event');
+      log('[JOSIP] Listener -> $event');
     });
+  }
+
+  /// Initializes [FlutterLocalNotifications]
+  Future<void> initializeLocalNotifications() async {
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    await flutterLocalNotificationsPlugin?.initialize(
+      const InitializationSettings(
+        android: AndroidInitializationSettings('app_icon'),
+      ),
+      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+      onDidReceiveBackgroundNotificationResponse: onDidReceiveBackgroundNotificationResponse,
+    );
   }
 
   /// Initializes [FlutterForegroundTask]
   void initializeForegroundTask() => FlutterForegroundTask.init(
     androidNotificationOptions: AndroidNotificationOptions(
       channelId: 'trosko_channel_id',
-      channelName: 'Trosko Notification',
+      channelName: 'trosko_channel_name',
       channelDescription: 'Troško notification appears when the foreground service is running.',
     ),
     iosNotificationOptions: const IOSNotificationOptions(),
@@ -149,4 +171,28 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
       );
     }
   }
+
+  /// Shows notification using [FlutterLocalNotifications]
+  void showNotification() => flutterLocalNotificationsPlugin?.show(
+    0,
+    'plain title',
+    'plain body',
+    const NotificationDetails(
+      android: AndroidNotificationDetails(
+        'trosko_channel_id',
+        'trosko_channel_name',
+        actions: [
+          AndroidNotificationAction(
+            'add_expense',
+            'Add expense',
+          ),
+        ],
+        category: AndroidNotificationCategory.service,
+        channelDescription: "Troško notification appears when the it's triggered to show.",
+        importance: Importance.max,
+        priority: Priority.max,
+      ),
+    ),
+    payload: 'item x',
+  );
 }
