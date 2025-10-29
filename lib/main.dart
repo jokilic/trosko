@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:watch_it/watch_it.dart';
 
@@ -22,6 +23,7 @@ import 'util/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterForegroundTask.initCommunicationPort();
 
   /// Make sure the orientation is only `portrait`
   await SystemChrome.setPreferredOrientations(

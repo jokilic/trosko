@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:get_it/get_it.dart';
 import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
+import '../util/notification_handler.dart';
 import 'logger_service.dart';
 
-class NotificationService extends ValueNotifier<bool> implements Disposable {
+class NotificationService extends ValueNotifier<({bool notificationGranted, bool listenerGranted})> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -17,7 +19,7 @@ class NotificationService extends ValueNotifier<bool> implements Disposable {
 
   NotificationService({
     required this.logger,
-  }) : super(false);
+  }) : super((notificationGranted: false, listenerGranted: false));
 
   ///
   /// VARIABLES
@@ -30,7 +32,13 @@ class NotificationService extends ValueNotifier<bool> implements Disposable {
   ///
 
   Future<void> init() async {
-    await checkPermissionStartListening();
+    final permissionsGranted = await checkNotificationPermissionAndListener();
+
+    if (permissionsGranted) {
+      initializeForegroundTask();
+      await startService();
+      await resetNotificationListener();
+    }
   }
 
   ///
@@ -46,28 +54,53 @@ class NotificationService extends ValueNotifier<bool> implements Disposable {
   /// METHODS
   ///
 
-  /// Checks for notification permissions and starts listening if enabled
-  Future<void> checkPermissionStartListening() async {
-    /// Check if notification permission is enabled & store in `state`
-    value = await NotificationListenerService.isPermissionGranted();
+  /// Checks for notification permission & listener
+  Future<bool> checkNotificationPermissionAndListener() async {
+    /// Check if notification permission is enabled
+    final notificationPermission = await FlutterForegroundTask.checkNotificationPermission();
 
-    /// Permission is enabled, start listening for notifications
-    if (value) {
-      await resetNotificationListener();
-    }
+    /// Check if notification listener is enabled
+    final listenerGranted = await NotificationListenerService.isPermissionGranted();
+
+    /// Update state
+    value = (
+      notificationGranted: notificationPermission == NotificationPermission.granted,
+      listenerGranted: listenerGranted,
+    );
+
+    /// Return if all permissions are granted
+    return value.notificationGranted && value.listenerGranted;
   }
 
-  /// Asks for notification permissions and starts listening if enabled
-  Future<void> askPermissionStartListening() async {
+  /// Requests for notification permission & listener
+  Future<void> askNotificationPermissionAndListener() async {
     /// Request notification permission
-    value = await NotificationListenerService.requestPermission();
+    final notificationPermission = await FlutterForegroundTask.requestNotificationPermission();
 
-    /// Permission is enabled, start listening for notifications
-    if (value) {
-      await resetNotificationListener();
+    /// Android specific notification permission
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      /// Ignore battery optimization
+      if (!await FlutterForegroundTask.isIgnoringBatteryOptimizations) {
+        await FlutterForegroundTask.requestIgnoreBatteryOptimization();
+      }
+
+      /// Schedule exact alarms
+      if (!await FlutterForegroundTask.canScheduleExactAlarms) {
+        await FlutterForegroundTask.openAlarmsAndRemindersSettings();
+      }
     }
+
+    /// Request notification listener
+    final listenerGranted = await NotificationListenerService.requestPermission();
+
+    /// Update state
+    value = (
+      notificationGranted: notificationPermission == NotificationPermission.granted,
+      listenerGranted: listenerGranted,
+    );
   }
 
+  /// Resets notification listener `stream`
   Future<void> resetNotificationListener() async {
     await stream?.cancel();
     stream = null;
@@ -75,5 +108,46 @@ class NotificationService extends ValueNotifier<bool> implements Disposable {
     stream = NotificationListenerService.notificationsStream.listen((event) {
       log('[JOSIP] $event');
     });
+  }
+
+  /// Initializes [FlutterForegroundTask]
+  void initializeForegroundTask() {
+    FlutterForegroundTask.init(
+      androidNotificationOptions: AndroidNotificationOptions(
+        channelId: 'trosko_channel_id',
+        channelName: 'Trosko Notification',
+        channelDescription: 'Troško notification appears when the foreground service is running.',
+      ),
+      iosNotificationOptions: const IOSNotificationOptions(),
+      foregroundTaskOptions: ForegroundTaskOptions(
+        eventAction: ForegroundTaskEventAction.nothing(),
+        autoRunOnBoot: true,
+        allowWifiLock: true,
+      ),
+    );
+  }
+
+  /// Starts [FlutterForegroundTask] service
+  Future<ServiceRequestResult> startService() async {
+    if (await FlutterForegroundTask.isRunningService) {
+      return FlutterForegroundTask.restartService();
+    } else {
+      return FlutterForegroundTask.startService(
+        serviceId: 256,
+        notificationTitle: 'Troško foreground service is running',
+        notificationText: 'Troško to return to the app',
+        notificationIcon: const NotificationIcon(
+          metaDataName: 'app_icon',
+        ),
+        notificationButtons: [
+          const NotificationButton(
+            id: 'add_expense',
+            text: 'Add expense',
+          ),
+        ],
+        notificationInitialRoute: '/',
+        callback: startCallback,
+      );
+    }
   }
 }

@@ -75,7 +75,7 @@ class SettingsController implements Disposable {
 
   /// Triggered when the user presses the notification [ListTile]
   Future<void> onPressedNotifications() async {
-    await notification.askPermissionStartListening();
+    await notification.askNotificationPermissionAndListener();
   }
 
   /// Triggered when the user submits a new `name`

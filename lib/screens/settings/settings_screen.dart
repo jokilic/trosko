@@ -72,8 +72,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final hiveService = getIt.get<HiveService>();
 
     final hive = watchIt<HiveService>();
+    final notification = watchIt<NotificationService>().value;
 
-    final notificationPermissionGranted = watchIt<NotificationService>().value;
+    final notificationGranted = notification.notificationGranted;
+    final listenerGranted = notification.listenerGranted;
+
+    final permissionsGranted = notificationGranted && listenerGranted;
 
     final categories = hive.value.categories;
     final settings = hive.value.settings;
@@ -288,14 +292,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: notificationPermissionGranted ? context.colors.buttonPrimary : context.colors.delete,
+                          color: permissionsGranted ? context.colors.buttonPrimary : context.colors.delete,
                         ),
                         height: 24,
                         width: 24,
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        notificationPermissionGranted ? 'settingsNotificationsOn'.tr().toUpperCase() : 'settingsNotificationsOff'.tr().toUpperCase(),
+                        permissionsGranted ? 'settingsNotificationsOn'.tr().toUpperCase() : 'settingsNotificationsOff'.tr().toUpperCase(),
                         style: context.textStyles.homeTransactionTime,
                       ),
                     ],
