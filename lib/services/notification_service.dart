@@ -48,6 +48,7 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
   @override
   void onDispose() {
     stream?.cancel();
+    FlutterForegroundTask.stopService();
   }
 
   ///
@@ -111,21 +112,19 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
   }
 
   /// Initializes [FlutterForegroundTask]
-  void initializeForegroundTask() {
-    FlutterForegroundTask.init(
-      androidNotificationOptions: AndroidNotificationOptions(
-        channelId: 'trosko_channel_id',
-        channelName: 'Trosko Notification',
-        channelDescription: 'Troško notification appears when the foreground service is running.',
-      ),
-      iosNotificationOptions: const IOSNotificationOptions(),
-      foregroundTaskOptions: ForegroundTaskOptions(
-        eventAction: ForegroundTaskEventAction.nothing(),
-        autoRunOnBoot: true,
-        allowWifiLock: true,
-      ),
-    );
-  }
+  void initializeForegroundTask() => FlutterForegroundTask.init(
+    androidNotificationOptions: AndroidNotificationOptions(
+      channelId: 'trosko_channel_id',
+      channelName: 'Trosko Notification',
+      channelDescription: 'Troško notification appears when the foreground service is running.',
+    ),
+    iosNotificationOptions: const IOSNotificationOptions(),
+    foregroundTaskOptions: ForegroundTaskOptions(
+      eventAction: ForegroundTaskEventAction.nothing(),
+      autoRunOnBoot: true,
+      allowWifiLock: true,
+    ),
+  );
 
   /// Starts [FlutterForegroundTask] service
   Future<ServiceRequestResult> startService() async {
@@ -133,7 +132,7 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
       return FlutterForegroundTask.restartService();
     } else {
       return FlutterForegroundTask.startService(
-        serviceId: 256,
+        serviceId: 1,
         notificationTitle: 'Troško foreground service is running',
         notificationText: 'Troško to return to the app',
         notificationIcon: const NotificationIcon(
