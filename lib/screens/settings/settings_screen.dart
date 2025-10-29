@@ -337,34 +337,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ],
 
-          // TODO: Remove
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(
-              child: SettingsListTile(
-                onPressed: () async {
-                  unawaited(
-                    HapticFeedback.lightImpact(),
-                  );
-
-                  getIt.get<NotificationService>().showNotification();
-                },
-                title: 'Show test notification',
-                subtitle: 'settingsNotificationsSubtitle'.tr(),
-                trailingWidget: PhosphorIcon(
-                  PhosphorIcons.notification(
-                    PhosphorIconsStyle.bold,
-                  ),
-                  color: context.colors.text,
-                  size: 28,
-                ),
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 24),
-          ),
-
           ///
           /// ACCOUNT MANAGEMENT TITLE
           ///

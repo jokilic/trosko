@@ -5,7 +5,6 @@ import '../constants/durations.dart';
 Future<T?> pushScreen<T>(
   Widget screen, {
   required BuildContext context,
-  bool isCircularTransition = false,
   Duration? transitionDuration,
   Duration? reverseTransitionDuration,
 }) => Navigator.of(context).push<T>(
@@ -19,7 +18,6 @@ Future<T?> pushScreen<T>(
 Future<T?> removeAllAndPushScreen<T>(
   Widget screen, {
   required BuildContext context,
-  bool isCircularTransition = false,
   Duration? transitionDuration,
   Duration? reverseTransitionDuration,
 }) => Navigator.of(context).pushAndRemoveUntil<T>(

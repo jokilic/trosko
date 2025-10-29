@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -10,6 +9,8 @@ import 'package:notification_listener_service/notification_listener_service.dart
 
 import '../util/notification_handler.dart';
 import 'logger_service.dart';
+
+const promajaPackageName = 'com.josipkilic.promaja';
 
 class NotificationService extends ValueNotifier<({bool notificationGranted, bool listenerGranted})> implements Disposable {
   ///
@@ -115,8 +116,14 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     await stream?.cancel();
     stream = null;
 
-    stream = NotificationListenerService.notificationsStream.listen((event) {
-      log('[JOSIP] Listener -> $event');
+    stream = NotificationListenerService.notificationsStream.listen((notification) {
+      /// Notification from [Promaja] app
+      if (notification.packageName == promajaPackageName) {
+        showNotification(
+          title: notification.title ?? 'Notification from Promaja',
+          body: notification.content ?? '--',
+        );
+      }
     });
   }
 
@@ -138,7 +145,6 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     androidNotificationOptions: AndroidNotificationOptions(
       channelId: 'trosko_channel_id',
       channelName: 'trosko_channel_name',
-      channelDescription: 'Troško notification appears when the foreground service is running.',
     ),
     iosNotificationOptions: const IOSNotificationOptions(),
     foregroundTaskOptions: ForegroundTaskOptions(
@@ -154,45 +160,30 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
       return FlutterForegroundTask.restartService();
     } else {
       return FlutterForegroundTask.startService(
-        serviceId: 1,
         notificationTitle: 'Troško foreground service is running',
-        notificationText: 'Troško to return to the app',
+        notificationText: 'Used to trigger Troško when Promaja sends notification',
         notificationIcon: const NotificationIcon(
           metaDataName: 'app_icon',
         ),
-        notificationButtons: [
-          const NotificationButton(
-            id: 'add_expense',
-            text: 'Add expense',
-          ),
-        ],
-        notificationInitialRoute: '/',
         callback: startCallback,
       );
     }
   }
 
   /// Shows notification using [FlutterLocalNotifications]
-  void showNotification() => flutterLocalNotificationsPlugin?.show(
+  void showNotification({
+    required String title,
+    required String body,
+  }) => flutterLocalNotificationsPlugin?.show(
     0,
-    'plain title',
-    'plain body',
+    title,
+    body,
     const NotificationDetails(
       android: AndroidNotificationDetails(
         'trosko_channel_id',
         'trosko_channel_name',
-        actions: [
-          AndroidNotificationAction(
-            'add_expense',
-            'Add expense',
-          ),
-        ],
         category: AndroidNotificationCategory.service,
-        channelDescription: "Troško notification appears when the it's triggered to show.",
-        importance: Importance.max,
-        priority: Priority.max,
       ),
     ),
-    payload: 'item x',
   );
 }
