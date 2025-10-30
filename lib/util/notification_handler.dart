@@ -116,8 +116,6 @@ class NotificationHandler extends TaskHandler {
   /// Called when the notification button is pressed
   @override
   Future<void> onNotificationButtonPressed(String id) async {
-    // TODO: Check it this is the proper location where `add_expense` button from `backgroundNotificationsPlugin?.show()` gets triggered
-
     // TODO: Show screen properly, check implementation in Wapx
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => troskoNavigatorKey.currentState?.push(
