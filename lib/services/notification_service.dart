@@ -144,17 +144,17 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
   /// Starts [FlutterForegroundTask] service
   Future<ServiceRequestResult> startService() async {
     if (await FlutterForegroundTask.isRunningService) {
-      return FlutterForegroundTask.restartService();
-    } else {
-      return FlutterForegroundTask.startService(
-        notificationTitle: 'Troško foreground service is running',
-        notificationText: 'Used to trigger Troško when Promaja sends notification',
-        notificationIcon: const NotificationIcon(
-          metaDataName: 'app_icon',
-        ),
-        callback: startCallback,
-      );
+      return const ServiceRequestSuccess();
     }
+
+    return FlutterForegroundTask.startService(
+      notificationTitle: 'Troško foreground service is running',
+      notificationText: 'Used to trigger Troško when Promaja sends notification',
+      notificationIcon: const NotificationIcon(
+        metaDataName: 'app_icon',
+      ),
+      callback: startCallback,
+    );
   }
 
   /// Shows notification using [FlutterLocalNotifications]
