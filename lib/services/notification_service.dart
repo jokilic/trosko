@@ -124,8 +124,6 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
       const InitializationSettings(
         android: AndroidInitializationSettings('app_icon'),
       ),
-      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
-      onDidReceiveBackgroundNotificationResponse: onDidReceiveBackgroundNotificationResponse,
     );
   }
 

@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
-import '../services/logger_service.dart';
 import '../services/notification_service.dart';
-import 'dependencies.dart';
 
 const troskoNotificationPayloadTitleKey = 'title';
 const troskoNotificationPayloadBodyKey = 'body';
@@ -16,41 +13,6 @@ const troskoNotificationPayloadShouldShowKey = 'shouldShow';
 
 const defaultNotificationTitle = 'Notification from Promaja';
 const defaultNotificationBody = '--';
-
-void showNotificationFunction({
-  required String title,
-  required String body,
-}) {
-  /// Get [NotificationService] instance and show `notification`
-  registerIfNotInitialized<NotificationService>(
-    () => NotificationService(
-      logger: LoggerService(),
-    ),
-    afterRegister: (controller) => controller.showNotification(
-      title: title,
-      body: body,
-    ),
-  );
-}
-
-void onDidReceiveNotificationResponse(NotificationResponse notificationResponse) {
-  log('Foreground notification');
-
-  showNotificationFunction(
-    title: 'Foreground notification',
-    body: 'Payload -> ${notificationResponse.payload} - ActionId -> ${notificationResponse.actionId}',
-  );
-}
-
-@pragma('vm:entry-point')
-void onDidReceiveBackgroundNotificationResponse(NotificationResponse notificationResponse) {
-  log('Background notification');
-
-  showNotificationFunction(
-    title: 'Background notification',
-    body: 'Payload -> ${notificationResponse.payload} - ActionId -> ${notificationResponse.actionId}',
-  );
-}
 
 @pragma('vm:entry-point')
 void startCallback() {
@@ -63,34 +25,38 @@ class NotificationHandler extends TaskHandler {
   ///
 
   StreamSubscription<ServiceNotificationEvent>? notificationSubscription;
-  final FlutterLocalNotificationsPlugin backgroundNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin? backgroundNotificationsPlugin;
   bool notificationsInitialized = false;
 
   ///
   /// METHODS
   ///
 
+  /// Initializes [FlutterLocalNotificationsPlugin] if not already initialized
   Future<void> ensureNotificationsInitialized() async {
     if (notificationsInitialized) {
       return;
     }
 
-    await backgroundNotificationsPlugin.initialize(
+    backgroundNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    await backgroundNotificationsPlugin?.initialize(
       const InitializationSettings(
         android: AndroidInitializationSettings('app_icon'),
       ),
-      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
-      onDidReceiveBackgroundNotificationResponse: onDidReceiveBackgroundNotificationResponse,
     );
 
     notificationsInitialized = true;
   }
 
+  /// Shows `Troško` notification
   Future<void> handleNotification(ServiceNotificationEvent event) async {
+    /// Run logic only if notification from proper app
     if (event.packageName != promajaPackageName) {
       return;
     }
 
+    /// Run logic only if notification is shown
     if (event.hasRemoved ?? false) {
       return;
     }
@@ -114,7 +80,7 @@ class NotificationHandler extends TaskHandler {
 
     final notificationId = event.id ?? DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
 
-    await backgroundNotificationsPlugin.show(
+    await backgroundNotificationsPlugin?.show(
       notificationId,
       'NotificationHandler -> handleNotification()',
       '$title -> $body',
@@ -137,16 +103,16 @@ class NotificationHandler extends TaskHandler {
     );
   }
 
-  /// Called based on the `eventAction` set in [ForegroundTaskOptions]
-  @override
-  void onRepeatEvent(DateTime timestamp) {}
-
   /// Called when the task is destroyed
   @override
   Future<void> onDestroy(DateTime timestamp, bool isTimeout) async {
     await notificationSubscription?.cancel();
     notificationSubscription = null;
   }
+
+  /// Called based on the `eventAction` set in [ForegroundTaskOptions]
+  @override
+  void onRepeatEvent(DateTime timestamp) {}
 
   /// Called when data is sent using `FlutterForegroundTask.sendDataToTask`.
   @override
