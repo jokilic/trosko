@@ -225,9 +225,15 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      isTextFieldEmpty ? 'searchEmpty'.tr() : 'searchNothingFound'.tr(),
+                      isTextFieldEmpty ? 'searchEmptyTitle'.tr() : 'searchNothingFoundTitle'.tr(),
                       textAlign: TextAlign.center,
                       style: context.textStyles.homeTitle,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      isTextFieldEmpty ? 'searchEmptySubtitle'.tr() : 'searchNothingFoundSubtitle'.tr(),
+                      textAlign: TextAlign.center,
+                      style: context.textStyles.homeTitleEuro,
                     ),
                   ],
                 ),

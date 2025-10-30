@@ -450,9 +450,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'homeNoExpenses'.tr(),
+                      'homeNoExpensesTitle'.tr(),
                       textAlign: TextAlign.center,
                       style: context.textStyles.homeTitle,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'homeNoExpensesSubtitle'.tr(),
+                      textAlign: TextAlign.center,
+                      style: context.textStyles.homeTitleEuro,
                     ),
                   ],
                 ),
