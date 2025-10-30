@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
-import '../screens/transaction/transaction_screen.dart';
+import '../routing.dart';
 import 'navigation.dart';
 import 'notification.dart';
 
@@ -95,7 +94,7 @@ class NotificationHandler extends TaskHandler {
       0,
       // TODO: Localize
       transactionAmount != null ? 'Seems you spent €$transactionAmount' : event.packageName,
-      transactionAmount != null ? 'You can add that expense in Troško' : 'This is just a test, ignore it',
+      transactionAmount != null ? 'You can add that expense in Troško' : 'This is just a test',
       const NotificationDetails(
         android: AndroidNotificationDetails(
           'trosko_channel_id',
@@ -116,19 +115,12 @@ class NotificationHandler extends TaskHandler {
   /// Called when the notification button is pressed
   @override
   Future<void> onNotificationButtonPressed(String id) async {
-    // TODO: Show screen properly, check implementation in Wapx
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => troskoNavigatorKey.currentState?.push(
-        MaterialPageRoute(
-          builder: (context) => TransactionScreen(
-            passedTransaction: null,
-            categories: const [],
-            passedCategory: null,
-            onTransactionUpdated: () {},
-            key: const ValueKey(null),
-          ),
-        ),
-      ),
+    openTransaction(
+      troskoNavigatorKey.currentContext!,
+      passedTransaction: null,
+      categories: [],
+      passedCategory: null,
+      onTransactionUpdated: () {},
     );
   }
 
