@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
@@ -23,19 +22,11 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
   }) : super((notificationGranted: false, listenerGranted: false));
 
   ///
-  /// VARIABLES
-  ///
-
-  FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
-
-  ///
   /// INIT
   ///
 
   Future<void> init() async {
     final permissionsGranted = await checkNotificationPermissionAndListener();
-
-    await initializeLocalNotifications();
 
     if (permissionsGranted) {
       initializeForegroundTask();
@@ -79,8 +70,7 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
   /// Requests for notification permission & listener
   Future<bool> askNotificationPermissionAndListener() async {
     /// Request notification permission
-    final notificationPermission =
-        await flutterLocalNotificationsPlugin?.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission() ?? false;
+    final notificationPermission = await FlutterForegroundTask.requestNotificationPermission();
 
     /// Android specific notification permission
     if (defaultTargetPlatform == TargetPlatform.android) {
@@ -100,23 +90,12 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
 
     /// Update state
     value = (
-      notificationGranted: notificationPermission,
+      notificationGranted: notificationPermission == NotificationPermission.granted,
       listenerGranted: listenerGranted,
     );
 
     /// Return `true` if all permissions are granted
     return value.notificationGranted && value.listenerGranted;
-  }
-
-  /// Initializes [FlutterLocalNotifications]
-  Future<void> initializeLocalNotifications() async {
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-    await flutterLocalNotificationsPlugin?.initialize(
-      const InitializationSettings(
-        android: AndroidInitializationSettings('app_icon'),
-      ),
-    );
   }
 
   /// Initializes [FlutterForegroundTask]
