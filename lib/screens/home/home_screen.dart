@@ -458,7 +458,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       'homeNoExpensesSubtitle'.tr(),
                       textAlign: TextAlign.center,
-                      style: context.textStyles.homeTitleEuro,
+                      style: context.textStyles.homeTitle,
                     ),
                   ],
                 ),

@@ -94,8 +94,8 @@ class NotificationHandler extends TaskHandler {
     await backgroundNotificationsPlugin?.show(
       0,
       // TODO: Localize
-      transactionAmount != null ? 'Seems you spent €$transactionAmount.' : 'Hello from ${event.packageName}.',
-      transactionAmount != null ? 'You can add that expense in Troško.' : "Hope you're feeling well today.",
+      transactionAmount != null ? 'Seems you spent €$transactionAmount' : event.packageName,
+      transactionAmount != null ? 'You can add that expense in Troško' : 'This is just a test, ignore it',
       const NotificationDetails(
         android: AndroidNotificationDetails(
           'trosko_channel_id',
@@ -116,6 +116,9 @@ class NotificationHandler extends TaskHandler {
   /// Called when the notification button is pressed
   @override
   Future<void> onNotificationButtonPressed(String id) async {
+    // TODO: Check it this is the proper location where `add_expense` button from `backgroundNotificationsPlugin?.show()` gets triggered
+
+    // TODO: Show screen properly, check implementation in Wapx
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => troskoNavigatorKey.currentState?.push(
         MaterialPageRoute(

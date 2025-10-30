@@ -20,7 +20,7 @@
     "homeTodayIs": "Today is {}",
     "homeCategories": "Categories",
     "homeCurrency": "€",
-    "homeNoExpensesTitle": "No expenses for chosen month",
+    "homeNoExpensesTitle": "No expenses",
     "homeNoExpensesSubtitle": "Choose a different month or add a new expense",
     "homeAddCategory": "Add",
     "welcomeTitle": "Welcome to Troško",
@@ -100,8 +100,8 @@
     "searchTitle": "Search",
     "searchSubtitle": "Find your expenses",
     "searchTextField": "Search",
-    "searchEmptyTitle": "Type what you're looking for",
-    "searchEmptySubtitle": "Found expenses will be shown here",
+    "searchEmptyTitle": "Find what you want",
+    "searchEmptySubtitle": "Expenses will be shown here",
     "searchNothingFoundTitle": "No expense is found",
     "searchNothingFoundSubtitle": "Try searching for something else"
 }

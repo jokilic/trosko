@@ -4,8 +4,6 @@ const notificationTriggerPackageNames = [
 ];
 
 bool isNotificationFromProperPackageName({required String? packageName}) {
-  return true;
-
   if (packageName?.isEmpty ?? true) {
     return false;
   }

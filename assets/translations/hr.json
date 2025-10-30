@@ -20,7 +20,7 @@
     "homeTodayIs": "Danas je {}",
     "homeCategories": "Kategorije",
     "homeCurrency": "€",
-    "homeNoExpensesTitle": "Nema troškova za odabrani mjesec",
+    "homeNoExpensesTitle": "Nema troškova",
     "homeNoExpensesSubtitle": "Odaberi drugi mjesec ili dodaj novi trošak",
     "homeAddCategory": "Dodaj",
     "welcomeTitle": "Dobrodošli u Troško",
@@ -100,8 +100,8 @@
     "searchTitle": "Pretraga",
     "searchSubtitle": "Pronađi svoje troškove",
     "searchTextField": "Pretraži",
-    "searchEmptyTitle": "Napiši ono što tražiš",
-    "searchEmptySubtitle": "Pronađeni troškovi će se ovdje prikazati",
+    "searchEmptyTitle": "Pronađi ono što te zanima",
+    "searchEmptySubtitle": "Troškovi će se ovdje prikazati",
     "searchNothingFoundTitle": "Nije nađen niti jedan trošak",
     "searchNothingFoundSubtitle": "Probaj tražiti nešto drugo"
 }

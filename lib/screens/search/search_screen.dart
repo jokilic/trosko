@@ -233,7 +233,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     Text(
                       isTextFieldEmpty ? 'searchEmptySubtitle'.tr() : 'searchNothingFoundSubtitle'.tr(),
                       textAlign: TextAlign.center,
-                      style: context.textStyles.homeTitleEuro,
+                      style: context.textStyles.homeTitle,
                     ),
                   ],
                 ),
