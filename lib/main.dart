@@ -20,6 +20,7 @@ import 'util/dependencies.dart';
 import 'util/display_mode.dart';
 import 'util/navigation.dart';
 import 'util/theme.dart';
+import 'widgets/notification_action_listener.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -109,50 +110,52 @@ class TroskoWidget extends WatchingWidget {
       primaryColor: settings?.primaryColor ?? context.colors.buttonPrimary,
     );
 
-    return MaterialApp(
-      navigatorKey: troskoNavigatorKey,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      debugShowCheckedModeBanner: false,
-      home: isLoggedIn
-          ? const HomeScreen(
-              key: ValueKey('home'),
-            )
-          : const LoginScreen(
-              key: ValueKey('login'),
-            ),
-      onGenerateTitle: (_) => 'appName'.tr(),
-      theme:
-          activeTroskoTheme ??
-          TroskoTheme.light(
-            primaryColor: settings?.primaryColor,
-          ),
-      darkTheme:
-          activeTroskoTheme ??
-          TroskoTheme.dark(
-            primaryColor: settings?.primaryColor,
-          ),
-      themeMode: activeTroskoTheme == null ? ThemeMode.system : null,
-      themeAnimationDuration: TroskoDurations.animation,
-      themeAnimationCurve: Curves.easeIn,
-      builder: (_, child) {
-        final appWidget =
-            child ??
-            const Scaffold(
-              body: SizedBox.shrink(),
-            );
-
-        return kDebugMode
-            ? Banner(
-                message: '',
-                color: context.colors.buttonPrimary,
-                location: BannerLocation.topEnd,
-                layoutDirection: TextDirection.ltr,
-                child: appWidget,
+    return NotificationActionListener(
+      child: MaterialApp(
+        navigatorKey: troskoNavigatorKey,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        debugShowCheckedModeBanner: false,
+        home: isLoggedIn
+            ? const HomeScreen(
+                key: ValueKey('home'),
               )
-            : appWidget;
-      },
+            : const LoginScreen(
+                key: ValueKey('login'),
+              ),
+        onGenerateTitle: (_) => 'appName'.tr(),
+        theme:
+            activeTroskoTheme ??
+            TroskoTheme.light(
+              primaryColor: settings?.primaryColor,
+            ),
+        darkTheme:
+            activeTroskoTheme ??
+            TroskoTheme.dark(
+              primaryColor: settings?.primaryColor,
+            ),
+        themeMode: activeTroskoTheme == null ? ThemeMode.system : null,
+        themeAnimationDuration: TroskoDurations.animation,
+        themeAnimationCurve: Curves.easeIn,
+        builder: (_, child) {
+          final appWidget =
+              child ??
+              const Scaffold(
+                body: SizedBox.shrink(),
+              );
+
+          return kDebugMode
+              ? Banner(
+                  message: '',
+                  color: context.colors.buttonPrimary,
+                  location: BannerLocation.topEnd,
+                  layoutDirection: TextDirection.ltr,
+                  child: appWidget,
+                )
+              : appWidget;
+        },
+      ),
     );
   }
 }

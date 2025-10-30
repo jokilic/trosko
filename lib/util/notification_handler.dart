@@ -5,8 +5,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
-import '../routing.dart';
-import 'navigation.dart';
 import 'notification.dart';
 
 @pragma('vm:entry-point')
@@ -55,12 +53,7 @@ class NotificationHandler extends TaskHandler {
     }
 
     backgroundNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-    await backgroundNotificationsPlugin?.initialize(
-      const InitializationSettings(
-        android: AndroidInitializationSettings('app_icon'),
-      ),
-    );
+    await initializeNotificationPlugin(backgroundNotificationsPlugin!);
   }
 
   /// Shows `Troško` notification
@@ -102,27 +95,13 @@ class NotificationHandler extends TaskHandler {
           category: AndroidNotificationCategory.service,
           actions: [
             AndroidNotificationAction(
-              'add_expense',
+              addExpenseActionId,
               // TODO: Localize
               'Add expense',
+              showsUserInterface: true,
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  /// Called when the notification button is pressed
-  @override
-  Future<void> onNotificationButtonPressed(String id) async {
-    await Future.delayed(
-      const Duration(seconds: 2),
-      () => openTransaction(
-        troskoNavigatorKey.currentContext!,
-        passedTransaction: null,
-        categories: [],
-        passedCategory: null,
-        onTransactionUpdated: () {},
       ),
     );
   }
