@@ -7,8 +7,8 @@ import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
 import '../screens/transaction/transaction_screen.dart';
-import '../services/notification_service.dart';
 import 'navigation.dart';
+import 'notification.dart';
 
 @pragma('vm:entry-point')
 void startCallback() {
@@ -72,19 +72,30 @@ class NotificationHandler extends TaskHandler {
     }
 
     /// Run logic only if notification from proper app
-    if (event.packageName != promajaPackageName) {
+    final shouldShowTroskoNotification = isNotificationFromProperPackageName(
+      packageName: event.packageName,
+    );
+
+    /// Don't show notification if not necessary
+    if (!shouldShowTroskoNotification) {
       return;
     }
 
-    /// Initialize notifications if not already done
+    /// Try to get `transactionAmount` from the notification
+    final transactionAmount = getTransactionAmountFromNotification(
+      title: event.title,
+      content: event.content,
+    );
+
+    /// Initialize `notifications` if not already done
     await initializeBackgroundLocalNotifications();
 
-    /// Show notification
+    /// Show `notification`
     await backgroundNotificationsPlugin?.show(
       0,
       // TODO: Localize
-      'Notification from ${event.packageName}',
-      'You can add a new expense',
+      transactionAmount != null ? 'Seems you spent €$transactionAmount.' : 'Hello from ${event.packageName}.',
+      transactionAmount != null ? 'You can add that expense in Troško.' : "Hope you're feeling well today.",
       const NotificationDetails(
         android: AndroidNotificationDetails(
           'trosko_channel_id',
@@ -94,7 +105,7 @@ class NotificationHandler extends TaskHandler {
             AndroidNotificationAction(
               'add_expense',
               // TODO: Localize
-              'TransactionScreen',
+              'Add expense',
             ),
           ],
         ),
@@ -105,19 +116,19 @@ class NotificationHandler extends TaskHandler {
   /// Called when the notification button is pressed
   @override
   Future<void> onNotificationButtonPressed(String id) async {
-    // if (id == 'add_expense') {
-    await troskoNavigatorKey.currentState?.push(
-      fadePageTransition(
-        TransactionScreen(
-          passedTransaction: null,
-          categories: const [],
-          passedCategory: null,
-          onTransactionUpdated: () {},
-          key: const ValueKey(null),
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => troskoNavigatorKey.currentState?.push(
+        MaterialPageRoute(
+          builder: (context) => TransactionScreen(
+            passedTransaction: null,
+            categories: const [],
+            passedCategory: null,
+            onTransactionUpdated: () {},
+            key: const ValueKey(null),
+          ),
         ),
       ),
     );
-    // }
   }
 
   /// Called based on the `eventAction` set in [ForegroundTaskOptions]

@@ -8,8 +8,6 @@ import 'package:notification_listener_service/notification_listener_service.dart
 import '../util/notification_handler.dart';
 import 'logger_service.dart';
 
-const promajaPackageName = 'com.josipkilic.promaja';
-
 class NotificationService extends ValueNotifier<({bool notificationGranted, bool listenerGranted})> implements Disposable {
   ///
   /// CONSTRUCTOR
