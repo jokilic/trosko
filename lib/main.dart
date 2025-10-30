@@ -19,6 +19,7 @@ import 'theme/extensions.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
 import 'util/display_mode.dart';
+import 'util/navigation.dart';
 import 'util/theme.dart';
 
 Future<void> main() async {
@@ -110,6 +111,7 @@ class TroskoWidget extends WatchingWidget {
     );
 
     return MaterialApp(
+      navigatorKey: troskoNavigatorKey,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,

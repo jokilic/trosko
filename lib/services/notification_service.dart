@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -28,7 +27,6 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
   ///
 
   FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
-  var taskDataCallbackRegistered = false;
 
   ///
   /// INIT
@@ -42,7 +40,6 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     if (permissionsGranted) {
       initializeForegroundTask();
       await startService();
-      resetNotificationListener();
     }
   }
 
@@ -52,11 +49,6 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
 
   @override
   Future<void> onDispose() async {
-    if (taskDataCallbackRegistered) {
-      FlutterForegroundTask.removeTaskDataCallback(handleTaskData);
-      taskDataCallbackRegistered = false;
-    }
-
     if (await FlutterForegroundTask.isRunningService) {
       await FlutterForegroundTask.stopService();
     }
@@ -154,60 +146,6 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
         metaDataName: 'app_icon',
       ),
       callback: startCallback,
-    );
-  }
-
-  /// Shows notification using [FlutterLocalNotifications]
-  void showNotification({
-    required String title,
-    required String body,
-  }) => flutterLocalNotificationsPlugin?.show(
-    0,
-    title,
-    body,
-    const NotificationDetails(
-      android: AndroidNotificationDetails(
-        'trosko_channel_id',
-        'trosko_channel_name',
-        category: AndroidNotificationCategory.service,
-      ),
-    ),
-  );
-
-  /// Ensures the communication callback is registered so background events reach the UI isolate
-  void resetNotificationListener() {
-    registerTaskDataCallback();
-  }
-
-  /// Registers communication callback
-  void registerTaskDataCallback() {
-    if (taskDataCallbackRegistered) {
-      FlutterForegroundTask.removeTaskDataCallback(handleTaskData);
-    }
-
-    FlutterForegroundTask.addTaskDataCallback(handleTaskData);
-    taskDataCallbackRegistered = true;
-  }
-
-  /// Handler for incoming notifications
-  void handleTaskData(Object? data) {
-    log('handleTaskData -> $data');
-
-    if (data is! Map) {
-      return;
-    }
-
-    final shouldShow = data[troskoNotificationPayloadShouldShowKey] == true;
-    if (!shouldShow) {
-      return;
-    }
-
-    final title = data[troskoNotificationPayloadTitleKey] as String? ?? defaultNotificationTitle;
-    final body = data[troskoNotificationPayloadBodyKey] as String? ?? defaultNotificationBody;
-
-    showNotification(
-      title: 'NotificationService -> handleTaskData()',
-      body: '$title -> $body',
     );
   }
 }

@@ -1,11 +1,14 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
+import '../screens/transaction/transaction_screen.dart';
 import '../services/notification_service.dart';
+import 'navigation.dart';
 
 const troskoNotificationPayloadTitleKey = 'title';
 const troskoNotificationPayloadBodyKey = 'body';
@@ -24,16 +27,17 @@ class NotificationHandler extends TaskHandler {
   /// VARIABLES
   ///
 
+  var notificationsInitialized = false;
+
   StreamSubscription<ServiceNotificationEvent>? notificationSubscription;
   FlutterLocalNotificationsPlugin? backgroundNotificationsPlugin;
-  bool notificationsInitialized = false;
 
   ///
   /// METHODS
   ///
 
   /// Initializes [FlutterLocalNotificationsPlugin] if not already initialized
-  Future<void> ensureNotificationsInitialized() async {
+  Future<void> initializeBackgroundLocalNotifications() async {
     if (notificationsInitialized) {
       return;
     }
@@ -76,19 +80,25 @@ class NotificationHandler extends TaskHandler {
       return;
     }
 
-    await ensureNotificationsInitialized();
+    await initializeBackgroundLocalNotifications();
 
     final notificationId = event.id ?? DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
 
     await backgroundNotificationsPlugin?.show(
       notificationId,
-      'NotificationHandler -> handleNotification()',
+      'NotificationHandler',
       '$title -> $body',
       const NotificationDetails(
         android: AndroidNotificationDetails(
           'trosko_channel_id',
           'trosko_channel_name',
           category: AndroidNotificationCategory.service,
+          actions: [
+            AndroidNotificationAction(
+              'add_expense',
+              'Add expensse',
+            ),
+          ],
         ),
       ),
     );
@@ -120,7 +130,23 @@ class NotificationHandler extends TaskHandler {
 
   /// Called when the notification button is pressed
   @override
-  void onNotificationButtonPressed(String id) {}
+  void onNotificationButtonPressed(String id) {
+    if (id == 'add_expense') {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => troskoNavigatorKey.currentState?.push(
+          fadePageTransition(
+            TransactionScreen(
+              passedTransaction: null,
+              categories: const [],
+              passedCategory: null,
+              onTransactionUpdated: () {},
+              key: const ValueKey(null),
+            ),
+          ),
+        ),
+      );
+    }
+  }
 
   /// Called when the notification itself is pressed
   @override

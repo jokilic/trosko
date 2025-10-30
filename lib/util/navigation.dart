@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../constants/durations.dart';
 
+final troskoNavigatorKey = GlobalKey<NavigatorState>();
+
 Future<T?> pushScreen<T>(
   Widget screen, {
   required BuildContext context,
