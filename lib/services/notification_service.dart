@@ -1,10 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
-import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
 import '../util/notification_handler.dart';
@@ -27,9 +27,8 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
   /// VARIABLES
   ///
 
-  StreamSubscription<ServiceNotificationEvent>? stream;
-
   FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
+  var taskDataCallbackRegistered = false;
 
   ///
   /// INIT
@@ -43,7 +42,7 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     if (permissionsGranted) {
       initializeForegroundTask();
       await startService();
-      await resetNotificationListener();
+      resetNotificationListener();
     }
   }
 
@@ -52,9 +51,15 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
   ///
 
   @override
-  void onDispose() {
-    stream?.cancel();
-    FlutterForegroundTask.stopService();
+  Future<void> onDispose() async {
+    if (taskDataCallbackRegistered) {
+      FlutterForegroundTask.removeTaskDataCallback(handleTaskData);
+      taskDataCallbackRegistered = false;
+    }
+
+    if (await FlutterForegroundTask.isRunningService) {
+      await FlutterForegroundTask.stopService();
+    }
   }
 
   ///
@@ -109,22 +114,6 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
 
     /// Return `true` if all permissions are granted
     return value.notificationGranted && value.listenerGranted;
-  }
-
-  /// Resets notification listener `stream`
-  Future<void> resetNotificationListener() async {
-    await stream?.cancel();
-    stream = null;
-
-    stream = NotificationListenerService.notificationsStream.listen((notification) {
-      /// Notification from [Promaja] app
-      if (notification.packageName == promajaPackageName) {
-        showNotification(
-          title: notification.title ?? 'Notification from Promaja',
-          body: notification.content ?? '--',
-        );
-      }
-    });
   }
 
   /// Initializes [FlutterLocalNotifications]
@@ -186,4 +175,41 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
       ),
     ),
   );
+
+  /// Ensures the communication callback is registered so background events reach the UI isolate
+  void resetNotificationListener() {
+    registerTaskDataCallback();
+  }
+
+  /// Registers communication callback
+  void registerTaskDataCallback() {
+    if (taskDataCallbackRegistered) {
+      FlutterForegroundTask.removeTaskDataCallback(handleTaskData);
+    }
+
+    FlutterForegroundTask.addTaskDataCallback(handleTaskData);
+    taskDataCallbackRegistered = true;
+  }
+
+  /// Handler for incoming notifications
+  void handleTaskData(Object? data) {
+    log('handleTaskData -> $data');
+
+    if (data is! Map) {
+      return;
+    }
+
+    final shouldShow = data[troskoNotificationPayloadShouldShowKey] == true;
+    if (!shouldShow) {
+      return;
+    }
+
+    final title = data[troskoNotificationPayloadTitleKey] as String? ?? defaultNotificationTitle;
+    final body = data[troskoNotificationPayloadBodyKey] as String? ?? defaultNotificationBody;
+
+    showNotification(
+      title: 'NotificationService -> handleTaskData()',
+      body: '$title -> $body',
+    );
+  }
 }

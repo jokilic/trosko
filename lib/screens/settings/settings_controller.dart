@@ -82,7 +82,7 @@ class SettingsController implements Disposable {
     if (permissionsGranted) {
       notification.initializeForegroundTask();
       await notification.startService();
-      await notification.resetNotificationListener();
+      notification.resetNotificationListener();
     }
   }
 
