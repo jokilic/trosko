@@ -103,5 +103,10 @@
     "searchEmptyTitle": "Pronađi ono što te zanima",
     "searchEmptySubtitle": "Troškovi će se ovdje prikazati",
     "searchNothingFoundTitle": "Nije nađen niti jedan trošak",
-    "searchNothingFoundSubtitle": "Probaj tražiti nešto drugo"
+    "searchNothingFoundSubtitle": "Probaj tražiti nešto drugo",
+    "foregroundTaskNotificationTitle": "Troško je upaljen",
+    "foregroundTaskNotificationText": "Koristi se za prikaz obavijesti",
+    "expenseNotificationTitle": "Izgleda da si potrošio €{} u {}.",
+    "expenseNotificationText": "Možeš dodati taj trošak u Troško.",
+    "expenseNotificationButton": "Dodaj trošak"
 }

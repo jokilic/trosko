@@ -72,12 +72,13 @@ void openTransaction(
   required List<Category> categories,
   required Category? passedCategory,
   required Function() onTransactionUpdated,
-}) => pushScreen(
+}) => removeAllAndPushScreen(
   TransactionScreen(
     passedTransaction: passedTransaction,
     categories: categories,
     passedCategory: passedCategory,
     onTransactionUpdated: onTransactionUpdated,
+    showBackButton: false,
     key: ValueKey(passedTransaction?.id),
   ),
   context: context,

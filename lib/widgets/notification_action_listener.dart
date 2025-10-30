@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../util/notification.dart';
+import '../util/notification/notification_functions.dart';
 
 class NotificationActionListener extends StatefulWidget {
   final Widget child;
@@ -24,7 +24,7 @@ class _NotificationActionListenerState extends State<NotificationActionListener>
 
     subscription = addExpenseStream.listen(
       (_) => WidgetsBinding.instance.addPostFrameCallback(
-        (_) => openAddExpenseFromNotification(),
+        (_) => openTransactionFromNotification(),
       ),
     );
   }

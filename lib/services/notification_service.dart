@@ -1,13 +1,14 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
-import '../util/notification.dart';
-import '../util/notification_handler.dart';
+import '../util/notification/notification_functions.dart';
+import '../util/notification/notification_handler.dart';
 import 'logger_service.dart';
 
 class NotificationService extends ValueNotifier<({bool notificationGranted, bool listenerGranted})> implements Disposable {
@@ -137,10 +138,8 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     }
 
     return FlutterForegroundTask.startService(
-      // TODO: Localize
-      notificationTitle: 'Troško is running',
-      // TODO: Localize
-      notificationText: 'Used to show notifications',
+      notificationTitle: 'foregroundTaskNotificationTitle'.tr(),
+      notificationText: 'foregroundTaskNotificationText'.tr(),
       notificationIcon: const NotificationIcon(
         metaDataName: 'app_icon',
       ),

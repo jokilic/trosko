@@ -1,11 +1,23 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
-import 'notification.dart';
+import 'notification_functions.dart';
+import 'notification_helpers.dart';
+
+@pragma('vm:entry-point')
+void onDidReceiveNotificationResponse(NotificationResponse notificationResponse) => openTransactionFromNotification();
+
+@pragma('vm:entry-point')
+void onDidReceiveBackgroundNotificationResponse(NotificationResponse notificationResponse) {
+  WidgetsFlutterBinding.ensureInitialized();
+  openTransactionFromNotification();
+}
 
 @pragma('vm:entry-point')
 void startCallback() {
@@ -75,7 +87,6 @@ class NotificationHandler extends TaskHandler {
 
     /// Try to get `transactionAmount` from the notification
     final transactionAmount = getTransactionAmountFromNotification(
-      title: event.title,
       content: event.content,
     );
 
@@ -85,10 +96,16 @@ class NotificationHandler extends TaskHandler {
     /// Show `notification`
     await backgroundNotificationsPlugin?.show(
       0,
-      // TODO: Localize
-      transactionAmount != null ? 'Seems you spent €$transactionAmount' : event.packageName,
-      transactionAmount != null ? 'You can add that expense in Troško' : 'This is just a test',
-      const NotificationDetails(
+      transactionAmount != null
+          ? 'expenseNotificationTitle'.tr(
+              args: [
+                transactionAmount,
+                event.title ?? '',
+              ],
+            )
+          : event.packageName,
+      transactionAmount != null ? 'expenseNotificationText'.tr() : 'This is just a test.',
+      NotificationDetails(
         android: AndroidNotificationDetails(
           'trosko_channel_id',
           'trosko_channel_name',
@@ -96,8 +113,7 @@ class NotificationHandler extends TaskHandler {
           actions: [
             AndroidNotificationAction(
               addExpenseActionId,
-              // TODO: Localize
-              'Add expense',
+              'expenseNotificationButton'.tr(),
               showsUserInterface: true,
             ),
           ],

@@ -70,15 +70,9 @@ void initializeServices() {
       dependsOn: [LoggerService],
     )
     ..registerSingletonAsync(
-      () async {
-        final notification = NotificationService(
-          logger: getIt.get<LoggerService>(),
-        );
-        if (defaultTargetPlatform == TargetPlatform.android) {
-          await notification.init();
-        }
-        return notification;
-      },
+      () async => NotificationService(
+        logger: getIt.get<LoggerService>(),
+      ),
       dependsOn: [LoggerService],
     );
 }

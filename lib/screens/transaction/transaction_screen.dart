@@ -29,6 +29,7 @@ class TransactionScreen extends WatchingStatefulWidget {
   final List<Category> categories;
   final Category? passedCategory;
   final Function() onTransactionUpdated;
+  final bool showBackButton;
 
   const TransactionScreen({
     required this.passedTransaction,
@@ -36,6 +37,7 @@ class TransactionScreen extends WatchingStatefulWidget {
     required this.passedCategory,
     required this.onTransactionUpdated,
     required super.key,
+    this.showBackButton = true,
   });
 
   @override
@@ -97,23 +99,25 @@ class _TransactionScreenState extends State<TransactionScreen> {
           /// APP BAR
           ///
           TroskoAppBar(
-            leadingWidget: IconButton(
-              onPressed: () {
-                HapticFeedback.lightImpact();
-                Navigator.of(context).pop();
-              },
-              style: IconButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                highlightColor: context.colors.buttonBackground,
-              ),
-              icon: PhosphorIcon(
-                PhosphorIcons.arrowLeft(
-                  PhosphorIconsStyle.bold,
-                ),
-                color: context.colors.text,
-                size: 28,
-              ),
-            ),
+            leadingWidget: widget.showBackButton
+                ? IconButton(
+                    onPressed: () {
+                      HapticFeedback.lightImpact();
+                      Navigator.of(context).pop();
+                    },
+                    style: IconButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      highlightColor: context.colors.buttonBackground,
+                    ),
+                    icon: PhosphorIcon(
+                      PhosphorIcons.arrowLeft(
+                        PhosphorIconsStyle.bold,
+                      ),
+                      color: context.colors.text,
+                      size: 28,
+                    ),
+                  )
+                : null,
             actionWidgets: [
               if (widget.passedTransaction != null)
                 IconButton(

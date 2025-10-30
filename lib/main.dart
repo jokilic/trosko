@@ -11,9 +11,11 @@ import 'package:watch_it/watch_it.dart';
 
 import 'constants/durations.dart';
 import 'firebase_options.dart';
+import 'generated/codegen_loader.g.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'services/hive_service.dart';
+import 'services/notification_service.dart';
 import 'theme/extensions.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
@@ -80,7 +82,6 @@ class TroskoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => EasyLocalization(
-    // TODO: Probably will need to generate localizations because of notifications, check implementation in Promaja
     useOnlyLangCode: true,
     supportedLocales: const [
       Locale('en'),
@@ -88,18 +89,33 @@ class TroskoApp extends StatelessWidget {
     ],
     fallbackLocale: const Locale('hr'),
     path: 'assets/translations',
+    assetLoader: const CodegenLoader(),
     child: TroskoWidget(
       isLoggedIn: isLoggedIn,
     ),
   );
 }
 
-class TroskoWidget extends WatchingWidget {
+class TroskoWidget extends WatchingStatefulWidget {
   final bool isLoggedIn;
 
   const TroskoWidget({
     required this.isLoggedIn,
   });
+
+  @override
+  State<TroskoWidget> createState() => _TroskoWidgetState();
+}
+
+class _TroskoWidgetState extends State<TroskoWidget> {
+  @override
+  void initState() {
+    super.initState();
+
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      getIt.get<NotificationService>().init();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +133,7 @@ class TroskoWidget extends WatchingWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,
-        home: isLoggedIn
+        home: widget.isLoggedIn
             ? const HomeScreen(
                 key: ValueKey('home'),
               )

@@ -103,5 +103,10 @@
     "searchEmptyTitle": "Find what you want",
     "searchEmptySubtitle": "Expenses will be shown here",
     "searchNothingFoundTitle": "No expense is found",
-    "searchNothingFoundSubtitle": "Try searching for something else"
+    "searchNothingFoundSubtitle": "Try searching for something else",
+    "foregroundTaskNotificationTitle": "Troško is running",
+    "foregroundTaskNotificationText": "Used to show notifications",
+    "expenseNotificationTitle": "Seems you spent €{} at {}.",
+    "expenseNotificationText": "You can add that expense in Troško.",
+    "expenseNotificationButton": "Add expense"
 }
