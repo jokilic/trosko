@@ -115,12 +115,15 @@ class NotificationHandler extends TaskHandler {
   /// Called when the notification button is pressed
   @override
   Future<void> onNotificationButtonPressed(String id) async {
-    openTransaction(
-      troskoNavigatorKey.currentContext!,
-      passedTransaction: null,
-      categories: [],
-      passedCategory: null,
-      onTransactionUpdated: () {},
+    await Future.delayed(
+      const Duration(seconds: 2),
+      () => openTransaction(
+        troskoNavigatorKey.currentContext!,
+        passedTransaction: null,
+        categories: [],
+        passedCategory: null,
+        onTransactionUpdated: () {},
+      ),
     );
   }
 

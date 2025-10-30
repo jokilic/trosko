@@ -120,7 +120,7 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
       // TODO: Localize
       notificationTitle: 'Troško is running',
       // TODO: Localize
-      notificationText: 'Used to show notification when necessary',
+      notificationText: 'Used to show notifications',
       notificationIcon: const NotificationIcon(
         metaDataName: 'app_icon',
       ),

@@ -1,9 +1,16 @@
+import 'package:flutter/foundation.dart';
+
 const notificationTriggerPackageNames = [
   'com.josipkilic.promaja',
   'com.google.android.apps.wallet',
 ];
 
 bool isNotificationFromProperPackageName({required String? packageName}) {
+  // TODO: Remove this
+  if (kDebugMode) {
+    return packageName != 'com.josipkilic.trosko';
+  }
+
   if (packageName?.isEmpty ?? true) {
     return false;
   }
@@ -17,7 +24,7 @@ bool isNotificationFromProperPackageName({required String? packageName}) {
   return false;
 }
 
-double? getTransactionAmountFromNotification({
+String? getTransactionAmountFromNotification({
   required String? title,
   required String? content,
 }) {
@@ -30,5 +37,11 @@ double? getTransactionAmountFromNotification({
 
   final raw = match.group(0)!.trim().replaceAll(',', '.');
 
-  return double.tryParse(raw);
+  final value = double.tryParse(raw);
+
+  if (value == null) {
+    return null;
+  }
+
+  return value.toStringAsFixed(2);
 }
