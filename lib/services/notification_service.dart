@@ -119,7 +119,9 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     }
 
     return FlutterForegroundTask.startService(
+      // TODO: Localize
       notificationTitle: 'Troško foreground service is running',
+      // TODO: Localize
       notificationText: 'Used to trigger Troško when Promaja sends notification',
       notificationIcon: const NotificationIcon(
         metaDataName: 'app_icon',

@@ -10,13 +10,6 @@ import '../screens/transaction/transaction_screen.dart';
 import '../services/notification_service.dart';
 import 'navigation.dart';
 
-const troskoNotificationPayloadTitleKey = 'title';
-const troskoNotificationPayloadBodyKey = 'body';
-const troskoNotificationPayloadShouldShowKey = 'shouldShow';
-
-const defaultNotificationTitle = 'Notification from Promaja';
-const defaultNotificationBody = '--';
-
 @pragma('vm:entry-point')
 void startCallback() {
   FlutterForegroundTask.setTaskHandler(NotificationHandler());
@@ -27,10 +20,30 @@ class NotificationHandler extends TaskHandler {
   /// VARIABLES
   ///
 
-  var notificationsInitialized = false;
-
   StreamSubscription<ServiceNotificationEvent>? notificationSubscription;
   FlutterLocalNotificationsPlugin? backgroundNotificationsPlugin;
+
+  ///
+  /// INIT
+  ///
+
+  @override
+  Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
+    await notificationSubscription?.cancel();
+    notificationSubscription = NotificationListenerService.notificationsStream.listen(
+      handleNotification,
+    );
+  }
+
+  ///
+  /// DISPOSE
+  ///
+
+  @override
+  Future<void> onDestroy(DateTime timestamp, bool isTimeout) async {
+    await notificationSubscription?.cancel();
+    notificationSubscription = null;
+  }
 
   ///
   /// METHODS
@@ -38,7 +51,7 @@ class NotificationHandler extends TaskHandler {
 
   /// Initializes [FlutterLocalNotificationsPlugin] if not already initialized
   Future<void> initializeBackgroundLocalNotifications() async {
-    if (notificationsInitialized) {
+    if (backgroundNotificationsPlugin != null) {
       return;
     }
 
@@ -49,45 +62,29 @@ class NotificationHandler extends TaskHandler {
         android: AndroidInitializationSettings('app_icon'),
       ),
     );
-
-    notificationsInitialized = true;
   }
 
   /// Shows `Troško` notification
   Future<void> handleNotification(ServiceNotificationEvent event) async {
-    /// Run logic only if notification from proper app
-    if (event.packageName != promajaPackageName) {
-      return;
-    }
-
     /// Run logic only if notification is shown
     if (event.hasRemoved ?? false) {
       return;
     }
 
-    final title = event.title?.trim() ?? defaultNotificationTitle;
-    final body = event.content?.trim() ?? defaultNotificationBody;
-
-    final isAppInForeground = await FlutterForegroundTask.isAppOnForeground;
-
-    FlutterForegroundTask.sendDataToMain({
-      troskoNotificationPayloadTitleKey: title,
-      troskoNotificationPayloadBodyKey: body,
-      troskoNotificationPayloadShouldShowKey: isAppInForeground,
-    });
-
-    if (isAppInForeground) {
+    /// Run logic only if notification from proper app
+    if (event.packageName != promajaPackageName) {
       return;
     }
 
+    /// Initialize notifications if not already done
     await initializeBackgroundLocalNotifications();
 
-    final notificationId = event.id ?? DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
-
+    /// Show notification
     await backgroundNotificationsPlugin?.show(
-      notificationId,
-      'NotificationHandler',
-      '$title -> $body',
+      0,
+      // TODO: Localize
+      'Notification from ${event.packageName}',
+      'You can add a new expense',
       const NotificationDetails(
         android: AndroidNotificationDetails(
           'trosko_channel_id',
@@ -96,7 +93,8 @@ class NotificationHandler extends TaskHandler {
           actions: [
             AndroidNotificationAction(
               'add_expense',
-              'Add expensse',
+              // TODO: Localize
+              'TransactionScreen',
             ),
           ],
         ),
@@ -104,55 +102,25 @@ class NotificationHandler extends TaskHandler {
     );
   }
 
-  /// Called when the task is started
+  /// Called when the notification button is pressed
   @override
-  Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
-    await notificationSubscription?.cancel();
-    notificationSubscription = NotificationListenerService.notificationsStream.listen(
-      handleNotification,
+  Future<void> onNotificationButtonPressed(String id) async {
+    // if (id == 'add_expense') {
+    await troskoNavigatorKey.currentState?.push(
+      fadePageTransition(
+        TransactionScreen(
+          passedTransaction: null,
+          categories: const [],
+          passedCategory: null,
+          onTransactionUpdated: () {},
+          key: const ValueKey(null),
+        ),
+      ),
     );
-  }
-
-  /// Called when the task is destroyed
-  @override
-  Future<void> onDestroy(DateTime timestamp, bool isTimeout) async {
-    await notificationSubscription?.cancel();
-    notificationSubscription = null;
+    // }
   }
 
   /// Called based on the `eventAction` set in [ForegroundTaskOptions]
   @override
   void onRepeatEvent(DateTime timestamp) {}
-
-  /// Called when data is sent using `FlutterForegroundTask.sendDataToTask`.
-  @override
-  void onReceiveData(Object data) {}
-
-  /// Called when the notification button is pressed
-  @override
-  void onNotificationButtonPressed(String id) {
-    if (id == 'add_expense') {
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) => troskoNavigatorKey.currentState?.push(
-          fadePageTransition(
-            TransactionScreen(
-              passedTransaction: null,
-              categories: const [],
-              passedCategory: null,
-              onTransactionUpdated: () {},
-              key: const ValueKey(null),
-            ),
-          ),
-        ),
-      );
-    }
-  }
-
-  /// Called when the notification itself is pressed
-  @override
-  void onNotificationPressed() {}
-
-  /// Called when the notification itself is dismissed
-  @override
-  void onNotificationDismissed() {}
 }
