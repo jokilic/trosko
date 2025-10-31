@@ -6,7 +6,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:watch_it/watch_it.dart';
 
 import 'constants/durations.dart';
@@ -20,6 +19,7 @@ import 'theme/extensions.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
 import 'util/display_mode.dart';
+import 'util/localization.dart';
 import 'util/navigation.dart';
 import 'util/theme.dart';
 
@@ -59,16 +59,12 @@ Future<void> initializeBeforeAppStart() async {
   await setDisplayMode();
 
   /// Initialize [EasyLocalization]
-  await EasyLocalization.ensureInitialized();
+  await initializeLocalization();
 
   /// Initialize [Firebase]
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  /// Initialize dates
-  await initializeDateFormatting('en');
-  await initializeDateFormatting('hr');
 
   /// Initialize services
   initializeServices();

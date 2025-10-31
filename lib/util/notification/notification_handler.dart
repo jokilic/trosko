@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
 import '../../main.dart';
+import '../localization.dart';
 import 'notification_helpers.dart';
 
 /// Triggered when the user taps the notification
@@ -101,6 +104,12 @@ class NotificationHandler extends TaskHandler {
       return;
     }
 
+    /// Initialize Flutter related tasks
+    WidgetsFlutterBinding.ensureInitialized();
+
+    /// Initialize [EasyLocalization]
+    await initializeLocalization();
+
     /// Try to get `transactionAmount` from the notification
     final transactionAmount = getTransactionAmountFromNotification(
       content: event.content,
@@ -109,30 +118,37 @@ class NotificationHandler extends TaskHandler {
     /// Initialize `notifications` if not already done
     await initializeBackgroundLocalNotifications();
 
+    /// Generate `title` for the notification
+    final title = transactionAmount != null
+        ? 'expenseNotificationTitle'.tr(
+            args: [
+              transactionAmount.toStringAsFixed(2),
+              event.title ?? '',
+            ],
+          )
+        : event.packageName;
+
+    /// Generate `body` for the notification
+    final body = transactionAmount != null ? 'expenseNotificationText'.tr() : 'This is just a test.';
+
+    /// Generate `addExpense` for the notification
+    final addExpenseAction = AndroidNotificationAction(
+      'add_expense',
+      'expenseNotificationButton'.tr(),
+      showsUserInterface: true,
+    );
+
     /// Show `notification`
     await backgroundNotificationsPlugin?.show(
       0,
-      transactionAmount != null
-          ? 'expenseNotificationTitle'.tr(
-              args: [
-                transactionAmount.toStringAsFixed(2),
-                event.title ?? '',
-              ],
-            )
-          : event.packageName,
-      transactionAmount != null ? 'expenseNotificationText'.tr() : 'This is just a test.',
+      title,
+      body,
       NotificationDetails(
         android: AndroidNotificationDetails(
           'trosko_channel_id',
           'trosko_channel_name',
           category: AndroidNotificationCategory.service,
-          actions: [
-            AndroidNotificationAction(
-              'add_expense',
-              'expenseNotificationButton'.tr(),
-              showsUserInterface: true,
-            ),
-          ],
+          actions: [addExpenseAction],
         ),
       ),
       payload: '$transactionAmount',

@@ -8,6 +8,11 @@
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
 		<string>Troško</string>
+		<key>CFBundleLocalizations</key>
+		<array>
+			<string>en</string>
+			<string>hr</string>
+		</array>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
