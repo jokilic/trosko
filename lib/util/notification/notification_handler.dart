@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -13,18 +12,18 @@ import 'notification_helpers.dart';
 /// Triggered when the user taps the notification
 @pragma('vm:entry-point')
 Future<void> onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async {
-  log('Hello foreground');
-
-  await handlePressedNotification(
-    payload: notificationResponse.payload,
-  );
+  try {
+    await handlePressedNotification(
+      payload: notificationResponse.payload,
+    );
+  } catch (e) {
+    return;
+  }
 }
 
 /// Triggered when a notification is received while the app is terminated
 @pragma('vm:entry-point')
 Future<void> onDidReceiveBackgroundNotificationResponse(NotificationResponse notificationResponse) async {
-  log('Hello background');
-
   try {
     await initializeBeforeAppStart();
 
@@ -107,8 +106,6 @@ class NotificationHandler extends TaskHandler {
       content: event.content,
     );
 
-    log('TransactionAmount -> $transactionAmount');
-
     /// Initialize `notifications` if not already done
     await initializeBackgroundLocalNotifications();
 
@@ -118,7 +115,7 @@ class NotificationHandler extends TaskHandler {
       transactionAmount != null
           ? 'expenseNotificationTitle'.tr(
               args: [
-                transactionAmount,
+                transactionAmount.toStringAsFixed(2),
                 event.title ?? '',
               ],
             )
@@ -138,7 +135,7 @@ class NotificationHandler extends TaskHandler {
           ],
         ),
       ),
-      payload: transactionAmount,
+      payload: '$transactionAmount',
     );
   }
 

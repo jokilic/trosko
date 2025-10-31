@@ -1,5 +1,6 @@
-import 'dart:developer';
+import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -29,55 +30,54 @@ Future<bool> initializeNotificationPlugin(FlutterLocalNotificationsPlugin plugin
 }
 
 Future<void> handlePressedNotification({required String? payload}) async {
+  if (payload?.isEmpty ?? true) {
+    return;
+  }
+
   try {
-    final context = troskoNavigatorKey.currentState?.context;
+    final context = await getNavigatorContext();
 
-    if (payload != null && context != null) {
-      /// Navigate to base route
-      Navigator.of(context).popUntil(
-        (route) => route.isFirst,
-      );
-
-      /// Get `amountCents` from the value in notification `payload`
-      final amountCents = formatCurrencyToCents(payload);
-
-      log('amountCents -> $amountCents');
-
-      /// Get `categories` from [Hive]
-      final categories = getIt.get<HiveService>().value.categories;
-
-      /// Navigate to [TransactionScreen]
-      openTransaction(
-        context,
-        passedTransaction: null,
-        categories: categories,
-        passedCategory: null,
-        passedAmountCents: amountCents,
-        onTransactionUpdated: SystemNavigator.pop,
-      );
+    if (context == null) {
+      return;
     }
+
+    /// Navigate to base route
+    Navigator.of(context).popUntil((route) => route.isFirst);
+
+    /// Get `amountCents` from the value in notification `payload`
+    final amountCents = formatCurrencyToCents(payload!);
+
+    /// Get `categories` from [Hive]
+    final categories = getIt.get<HiveService>().value.categories;
+
+    /// Navigate to [TransactionScreen]
+    openTransaction(
+      context,
+      passedTransaction: null,
+      categories: categories,
+      passedCategory: null,
+      passedAmountCents: amountCents,
+      onTransactionUpdated: SystemNavigator.pop,
+    );
   } catch (e) {
     return;
   }
 }
 
 bool isNotificationFromProperPackageName({required String? packageName}) {
-  return packageName != 'com.josipkilic.trosko';
+  // TODO: Remove this
+  if (kDebugMode) {
+    return packageName != 'com.josipkilic.trosko';
+  }
 
   if (packageName?.isEmpty ?? true) {
     return false;
   }
 
-  for (final name in notificationTriggerPackageNames) {
-    if (packageName!.contains(name)) {
-      return true;
-    }
-  }
-
-  return false;
+  return notificationTriggerPackageNames.any(packageName!.contains);
 }
 
-String? getTransactionAmountFromNotification({required String? content}) {
+double? getTransactionAmountFromNotification({required String? content}) {
   if (content?.isEmpty ?? true) {
     return null;
   }
@@ -90,11 +90,22 @@ String? getTransactionAmountFromNotification({required String? content}) {
 
   final raw = match.group(0)!.trim().replaceAll(',', '.');
 
-  final value = double.tryParse(raw);
+  return double.tryParse(raw);
+}
 
-  if (value == null) {
-    return null;
+Future<BuildContext?> getNavigatorContext() async {
+  for (var attempt = 0; attempt < 20; attempt++) {
+    final navigatorState = troskoNavigatorKey.currentState;
+
+    if (navigatorState != null) {
+      await WidgetsBinding.instance.endOfFrame;
+      return navigatorState.context;
+    }
+
+    await Future.delayed(
+      const Duration(milliseconds: 150),
+    );
   }
 
-  return value.toStringAsFixed(2);
+  return null;
 }
