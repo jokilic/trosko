@@ -1,22 +1,39 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
-import 'notification_functions.dart';
+import '../../main.dart';
 import 'notification_helpers.dart';
 
+/// Triggered when the user taps the notification
 @pragma('vm:entry-point')
-void onDidReceiveNotificationResponse(NotificationResponse notificationResponse) => openTransactionFromNotification();
+Future<void> onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async {
+  log('Hello foreground');
 
+  await handlePressedNotification(
+    payload: notificationResponse.payload,
+  );
+}
+
+/// Triggered when a notification is received while the app is terminated
 @pragma('vm:entry-point')
-void onDidReceiveBackgroundNotificationResponse(NotificationResponse notificationResponse) {
-  WidgetsFlutterBinding.ensureInitialized();
-  openTransactionFromNotification();
+Future<void> onDidReceiveBackgroundNotificationResponse(NotificationResponse notificationResponse) async {
+  log('Hello background');
+
+  try {
+    await initializeBeforeAppStart();
+
+    await handlePressedNotification(
+      payload: notificationResponse.payload,
+    );
+  } catch (e) {
+    return;
+  }
 }
 
 @pragma('vm:entry-point')
@@ -90,6 +107,8 @@ class NotificationHandler extends TaskHandler {
       content: event.content,
     );
 
+    log('TransactionAmount -> $transactionAmount');
+
     /// Initialize `notifications` if not already done
     await initializeBackgroundLocalNotifications();
 
@@ -112,13 +131,14 @@ class NotificationHandler extends TaskHandler {
           category: AndroidNotificationCategory.service,
           actions: [
             AndroidNotificationAction(
-              addExpenseActionId,
+              'add_expense',
               'expenseNotificationButton'.tr(),
               showsUserInterface: true,
             ),
           ],
         ),
       ),
+      payload: transactionAmount,
     );
   }
 

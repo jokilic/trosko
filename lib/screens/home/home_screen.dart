@@ -163,6 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
           passedTransaction: null,
           categories: categories,
           passedCategory: activeCategory,
+          passedAmountCents: null,
           onTransactionUpdated: () => homeController.updateState(
             locale: context.locale.languageCode,
           ),
@@ -417,6 +418,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       passedTransaction: item,
                       categories: categories,
                       passedCategory: activeCategory,
+                      passedAmountCents: null,
                       onTransactionUpdated: () => homeController.updateState(
                         locale: context.locale.languageCode,
                       ),

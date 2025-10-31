@@ -28,16 +28,16 @@ class TransactionScreen extends WatchingStatefulWidget {
   final Transaction? passedTransaction;
   final List<Category> categories;
   final Category? passedCategory;
+  final int? passedAmountCents;
   final Function() onTransactionUpdated;
-  final bool showBackButton;
 
   const TransactionScreen({
     required this.passedTransaction,
     required this.categories,
     required this.passedCategory,
+    required this.passedAmountCents,
     required this.onTransactionUpdated,
     required super.key,
-    this.showBackButton = true,
   });
 
   @override
@@ -57,6 +57,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         passedTransaction: widget.passedTransaction,
         categories: widget.categories,
         passedCategory: widget.passedCategory,
+        passedAmountCents: widget.passedAmountCents,
       ),
       instanceName: widget.passedTransaction?.id,
       afterRegister: (controller) => controller.init(),
@@ -99,25 +100,23 @@ class _TransactionScreenState extends State<TransactionScreen> {
           /// APP BAR
           ///
           TroskoAppBar(
-            leadingWidget: widget.showBackButton
-                ? IconButton(
-                    onPressed: () {
-                      HapticFeedback.lightImpact();
-                      Navigator.of(context).pop();
-                    },
-                    style: IconButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      highlightColor: context.colors.buttonBackground,
-                    ),
-                    icon: PhosphorIcon(
-                      PhosphorIcons.arrowLeft(
-                        PhosphorIconsStyle.bold,
-                      ),
-                      color: context.colors.text,
-                      size: 28,
-                    ),
-                  )
-                : null,
+            leadingWidget: IconButton(
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                Navigator.of(context).pop();
+              },
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                highlightColor: context.colors.buttonBackground,
+              ),
+              icon: PhosphorIcon(
+                PhosphorIcons.arrowLeft(
+                  PhosphorIconsStyle.bold,
+                ),
+                color: context.colors.text,
+                size: 28,
+              ),
+            ),
             actionWidgets: [
               if (widget.passedTransaction != null)
                 IconButton(

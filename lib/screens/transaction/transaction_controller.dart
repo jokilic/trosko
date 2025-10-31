@@ -26,6 +26,7 @@ class TransactionController
   final Transaction? passedTransaction;
   final List<Category> categories;
   final Category? passedCategory;
+  final int? passedAmountCents;
 
   TransactionController({
     required this.logger,
@@ -34,6 +35,7 @@ class TransactionController
     required this.passedTransaction,
     required this.categories,
     required this.passedCategory,
+    required this.passedAmountCents,
   }) : super((
          category: null,
          amountCents: null,
@@ -78,11 +80,11 @@ class TransactionController
 
     updateState(
       category: category,
-      amountCents: passedTransaction?.amountCents,
+      amountCents: passedTransaction?.amountCents ?? passedAmountCents,
       transactionDate: transactionDateTime,
       transactionTime: transactionDateTime,
       nameValid: passedTransaction?.name.isNotEmpty ?? false,
-      amountValid: (passedTransaction?.amountCents ?? 0) > 0,
+      amountValid: (passedTransaction?.amountCents ?? 0) > 0 || (passedAmountCents ?? 0) > 0,
       categoryValid: category != null,
       dateEditMode: false,
       timeEditMode: false,

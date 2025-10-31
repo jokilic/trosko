@@ -186,6 +186,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       passedTransaction: item,
                       categories: widget.categories,
                       passedCategory: null,
+                      passedAmountCents: null,
                       onTransactionUpdated: () {
                         searchController.updateState(
                           locale: context.locale.languageCode,
