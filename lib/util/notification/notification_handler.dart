@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -115,21 +114,24 @@ class NotificationHandler extends TaskHandler {
       content: event.content,
     );
 
+    /// Don't show notification if `transactionAmount` doesn't exist
+    if (transactionAmount == null) {
+      return;
+    }
+
     /// Initialize `notifications` if not already done
     await initializeBackgroundLocalNotifications();
 
     /// Generate `title` for the notification
-    final title = transactionAmount != null
-        ? 'expenseNotificationTitle'.tr(
-            args: [
-              transactionAmount.toStringAsFixed(2),
-              event.title ?? '',
-            ],
-          )
-        : event.packageName;
+    final title = 'expenseNotificationTitle'.tr(
+      args: [
+        transactionAmount.toStringAsFixed(2),
+        event.title ?? '',
+      ],
+    );
 
     /// Generate `body` for the notification
-    final body = transactionAmount != null ? 'expenseNotificationText'.tr() : 'This is just a test.';
+    final body = 'expenseNotificationText'.tr();
 
     /// Generate `addExpense` for the notification
     final addExpenseAction = AndroidNotificationAction(

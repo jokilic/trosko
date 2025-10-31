@@ -27,6 +27,7 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
   ///
 
   FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
+  var initialNotificationHandled = false;
 
   ///
   /// INIT
@@ -36,6 +37,7 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     final permissionsGranted = await checkNotificationPermissionAndListener();
 
     await initializeLocalNotifications();
+    await handleNotificationAppLaunch();
 
     if (permissionsGranted) {
       initializeForegroundTask();
@@ -84,6 +86,26 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
 
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     await initializeNotificationPlugin(flutterLocalNotificationsPlugin!);
+  }
+
+  /// Handles launching application if opened through notification
+  Future<void> handleNotificationAppLaunch() async {
+    if (initialNotificationHandled || flutterLocalNotificationsPlugin == null) {
+      return;
+    }
+
+    final launchDetails = await flutterLocalNotificationsPlugin!.getNotificationAppLaunchDetails();
+    final notificationResponse = launchDetails?.notificationResponse;
+
+    if (!(launchDetails?.didNotificationLaunchApp ?? true) || notificationResponse == null) {
+      return;
+    }
+
+    initialNotificationHandled = true;
+
+    await handlePressedNotification(
+      payload: notificationResponse.payload,
+    );
   }
 
   /// Requests for notification permission & listener

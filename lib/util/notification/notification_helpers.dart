@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -65,11 +64,6 @@ Future<void> handlePressedNotification({required String? payload}) async {
 }
 
 bool isNotificationFromProperPackageName({required String? packageName}) {
-  // TODO: Remove this
-  if (kDebugMode) {
-    return packageName != 'com.josipkilic.trosko';
-  }
-
   if (packageName?.isEmpty ?? true) {
     return false;
   }
