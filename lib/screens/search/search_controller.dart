@@ -7,6 +7,7 @@ import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../util/currency.dart';
 import '../../util/group_transactions.dart';
 import '../../util/search.dart';
 
@@ -113,7 +114,15 @@ class SearchController extends ValueNotifier<({List<dynamic> datesAndTransaction
 
       return items
           .where(
-            (t) => normalizeString(t.name).contains(nq) || (t.note != null && normalizeString(t.note!).contains(nq)),
+            (t) =>
+                normalizeString(t.name).contains(nq) ||
+                (t.note != null && normalizeString(t.note!).contains(nq)) ||
+                normalizeString(
+                  formatCentsToCurrency(
+                    t.amountCents,
+                    locale: locale,
+                  ),
+                ).contains(nq),
           )
           .toList();
     }
@@ -121,7 +130,14 @@ class SearchController extends ValueNotifier<({List<dynamic> datesAndTransaction
     final scored = <({Transaction t, int score})>[];
 
     for (final t in items) {
-      final fields = [t.name, if ((t.note ?? '').isNotEmpty) t.note!];
+      final fields = [
+        t.name,
+        if ((t.note ?? '').isNotEmpty) t.note!,
+        formatCentsToCurrency(
+          t.amountCents,
+          locale: locale,
+        ),
+      ];
 
       /// Require trigram overlap with at least one field unless literal contains
       final passesGuard = fields.any((f) {

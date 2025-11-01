@@ -142,9 +142,12 @@ class NotificationHandler extends TaskHandler {
       showsUserInterface: true,
     );
 
+    /// Get current [DateTime]
+    final now = DateTime.now();
+
     /// Show `notification`
     await backgroundNotificationsPlugin?.show(
-      0,
+      now.millisecondsSinceEpoch,
       title,
       body,
       NotificationDetails(
@@ -160,7 +163,7 @@ class NotificationHandler extends TaskHandler {
         amountCents: formatCurrencyToCents(
           '$transactionAmount',
         ),
-        createdAt: DateTime.now(),
+        createdAt: now,
       ).toJson(),
     );
   }
