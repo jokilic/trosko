@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'models/category/category.dart';
 import 'models/month/month.dart';
+import 'models/notification_payload/notification_payload.dart';
 import 'models/transaction/transaction.dart';
 import 'screens/category/category_screen.dart';
 import 'screens/home/home_screen.dart';
@@ -71,14 +72,14 @@ void openTransaction(
   required Transaction? passedTransaction,
   required List<Category> categories,
   required Category? passedCategory,
-  required int? passedAmountCents,
+  required NotificationPayload? passedNotificationPayload,
   required Function() onTransactionUpdated,
 }) => pushScreen(
   TransactionScreen(
     passedTransaction: passedTransaction,
     categories: categories,
     passedCategory: passedCategory,
-    passedAmountCents: passedAmountCents,
+    passedNotificationPayload: passedNotificationPayload,
     onTransactionUpdated: onTransactionUpdated,
     key: ValueKey(passedTransaction?.id),
   ),

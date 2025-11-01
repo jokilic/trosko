@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../models/category/category.dart';
+import '../../models/notification_payload/notification_payload.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
@@ -26,7 +27,7 @@ class TransactionController
   final Transaction? passedTransaction;
   final List<Category> categories;
   final Category? passedCategory;
-  final int? passedAmountCents;
+  final NotificationPayload? passedNotificationPayload;
 
   TransactionController({
     required this.logger,
@@ -35,7 +36,7 @@ class TransactionController
     required this.passedTransaction,
     required this.categories,
     required this.passedCategory,
-    required this.passedAmountCents,
+    required this.passedNotificationPayload,
   }) : super((
          category: null,
          amountCents: null,
@@ -52,7 +53,7 @@ class TransactionController
   ///
 
   late final nameTextEditingController = TextEditingController(
-    text: passedTransaction?.name,
+    text: passedTransaction?.name ?? passedNotificationPayload?.name,
   );
   late final noteTextEditingController = TextEditingController(
     text: passedTransaction?.note,
@@ -76,15 +77,15 @@ class TransactionController
 
     final category = categoryFromPassedTransaction ?? passedCategory ?? (categories.length == 1 ? categories.firstOrNull : null);
 
-    final transactionDateTime = passedTransaction?.createdAt ?? now;
+    final transactionDateTime = passedTransaction?.createdAt ?? passedNotificationPayload?.createdAt ?? now;
 
     updateState(
       category: category,
-      amountCents: passedTransaction?.amountCents ?? passedAmountCents,
+      amountCents: passedTransaction?.amountCents ?? passedNotificationPayload?.amountCents,
       transactionDate: transactionDateTime,
       transactionTime: transactionDateTime,
-      nameValid: passedTransaction?.name.isNotEmpty ?? false,
-      amountValid: (passedTransaction?.amountCents ?? 0) > 0 || (passedAmountCents ?? 0) > 0,
+      nameValid: passedTransaction?.name.isNotEmpty ?? passedNotificationPayload?.name?.isNotEmpty ?? false,
+      amountValid: (passedTransaction?.amountCents ?? 0) > 0 || (passedNotificationPayload?.amountCents ?? 0) > 0,
       categoryValid: category != null,
       dateEditMode: false,
       timeEditMode: false,

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import '../../models/notification_payload/notification_payload.dart';
 import '../../routing.dart';
 import '../../services/hive_service.dart';
-import '../currency.dart';
 import '../dependencies.dart';
 import '../navigation.dart';
 import 'notification_handler.dart';
@@ -43,9 +43,6 @@ Future<void> handlePressedNotification({required String? payload}) async {
     /// Navigate to base route
     Navigator.of(context).popUntil((route) => route.isFirst);
 
-    /// Get `amountCents` from the value in notification `payload`
-    final amountCents = formatCurrencyToCents(payload!);
-
     /// Get `categories` from [Hive]
     final categories = getIt.get<HiveService>().value.categories;
 
@@ -55,7 +52,7 @@ Future<void> handlePressedNotification({required String? payload}) async {
       passedTransaction: null,
       categories: categories,
       passedCategory: null,
-      passedAmountCents: amountCents,
+      passedNotificationPayload: payload != null ? NotificationPayload.fromJson(payload) : null,
       onTransactionUpdated: SystemNavigator.pop,
     );
   } catch (e) {

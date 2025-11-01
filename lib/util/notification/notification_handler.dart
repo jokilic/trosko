@@ -8,6 +8,8 @@ import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
 import '../../main.dart';
+import '../../models/notification_payload/notification_payload.dart';
+import '../currency.dart';
 import '../localization.dart';
 import 'notification_helpers.dart';
 
@@ -153,7 +155,13 @@ class NotificationHandler extends TaskHandler {
           actions: [addExpenseAction],
         ),
       ),
-      payload: '$transactionAmount',
+      payload: NotificationPayload(
+        name: event.title,
+        amountCents: formatCurrencyToCents(
+          '$transactionAmount',
+        ),
+        createdAt: DateTime.now(),
+      ).toJson(),
     );
   }
 

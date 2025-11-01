@@ -9,6 +9,7 @@ import 'package:scroll_datetime_picker/scroll_datetime_picker.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../models/category/category.dart';
+import '../../models/notification_payload/notification_payload.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
@@ -28,14 +29,14 @@ class TransactionScreen extends WatchingStatefulWidget {
   final Transaction? passedTransaction;
   final List<Category> categories;
   final Category? passedCategory;
-  final int? passedAmountCents;
+  final NotificationPayload? passedNotificationPayload;
   final Function() onTransactionUpdated;
 
   const TransactionScreen({
     required this.passedTransaction,
     required this.categories,
     required this.passedCategory,
-    required this.passedAmountCents,
+    required this.passedNotificationPayload,
     required this.onTransactionUpdated,
     required super.key,
   });
@@ -57,7 +58,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         passedTransaction: widget.passedTransaction,
         categories: widget.categories,
         passedCategory: widget.passedCategory,
-        passedAmountCents: widget.passedAmountCents,
+        passedNotificationPayload: widget.passedNotificationPayload,
       ),
       instanceName: widget.passedTransaction?.id,
       afterRegister: (controller) => controller.init(),
@@ -275,7 +276,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TransactionAmountWidget(
                     onValueChanged: transactionController.transactionAmountChanged,
-                    initialCents: widget.passedTransaction?.amountCents ?? 0,
+                    initialCents: widget.passedTransaction?.amountCents ?? widget.passedNotificationPayload?.amountCents ?? 0,
                     languageCode: context.locale.languageCode,
                   ),
                 ),
