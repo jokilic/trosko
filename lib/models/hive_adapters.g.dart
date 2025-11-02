@@ -149,19 +149,22 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       isLoggedIn: fields[0] as bool,
       troskoThemeId: fields[4] as TroskoThemeId?,
       primaryColor: fields[2] as Color?,
+      useNotificationListener: fields[5] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.isLoggedIn)
       ..writeByte(2)
       ..write(obj.primaryColor)
       ..writeByte(4)
-      ..write(obj.troskoThemeId);
+      ..write(obj.troskoThemeId)
+      ..writeByte(5)
+      ..write(obj.useNotificationListener);
   }
 
   @override

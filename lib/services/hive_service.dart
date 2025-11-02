@@ -34,6 +34,7 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     isLoggedIn: false,
     troskoThemeId: null,
     primaryColor: TroskoColors.green,
+    useNotificationListener: false,
   );
 
   ///

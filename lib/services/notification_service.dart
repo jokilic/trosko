@@ -9,18 +9,25 @@ import 'package:notification_listener_service/notification_listener_service.dart
 
 import '../util/notification/notification_handler.dart';
 import '../util/notification/notification_helpers.dart';
+import 'hive_service.dart';
 import 'logger_service.dart';
 
-class NotificationService extends ValueNotifier<({bool notificationGranted, bool listenerGranted})> implements Disposable {
+class NotificationService extends ValueNotifier<({bool notificationGranted, bool listenerGranted, bool useNotificationListener})> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
 
   final LoggerService logger;
+  final HiveService hive;
 
   NotificationService({
     required this.logger,
-  }) : super((notificationGranted: false, listenerGranted: false));
+    required this.hive,
+  }) : super((
+         notificationGranted: false,
+         listenerGranted: false,
+         useNotificationListener: false,
+       ));
 
   ///
   /// VARIABLES
@@ -42,6 +49,8 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     if (permissionsGranted) {
       initializeForegroundTask();
       await startService();
+    } else {
+      await stopListener();
     }
   }
 
@@ -51,9 +60,7 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
 
   @override
   Future<void> onDispose() async {
-    if (await FlutterForegroundTask.isRunningService) {
-      await FlutterForegroundTask.stopService();
-    }
+    await stopListener();
   }
 
   ///
@@ -69,13 +76,14 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     final listenerGranted = await NotificationListenerService.isPermissionGranted();
 
     /// Update state
-    value = (
+    updateState(
       notificationGranted: notificationPermission == NotificationPermission.granted,
       listenerGranted: listenerGranted,
+      useNotificationListener: hive.getSettings().useNotificationListener ?? false,
     );
 
     /// Return `true` if all permissions are granted
-    return value.notificationGranted && value.listenerGranted;
+    return value.notificationGranted && value.listenerGranted && value.useNotificationListener;
   }
 
   /// Initializes [FlutterLocalNotificationsPlugin]
@@ -127,16 +135,20 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     }
 
     /// Request notification listener
-    final listenerGranted = await NotificationListenerService.requestPermission();
+    if (!value.listenerGranted) {
+      final listenerGranted = await NotificationListenerService.requestPermission();
+      updateState(
+        listenerGranted: listenerGranted,
+      );
+    }
 
     /// Update state
-    value = (
+    updateState(
       notificationGranted: notificationPermission == NotificationPermission.granted,
-      listenerGranted: listenerGranted,
     );
 
     /// Return `true` if all permissions are granted
-    return value.notificationGranted && value.listenerGranted;
+    return value.notificationGranted && value.listenerGranted && value.useNotificationListener;
   }
 
   /// Initializes [FlutterForegroundTask]
@@ -168,4 +180,39 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
       callback: startCallback,
     );
   }
+
+  /// Stops notification listener
+  Future<void> stopListener() async {
+    if (await FlutterForegroundTask.isRunningService) {
+      await FlutterForegroundTask.stopService();
+    }
+  }
+
+  /// Toggles `useNotificationListener`
+  Future<void> toggleUseNotificationListener() async {
+    final newUseNotificationListener = !value.useNotificationListener;
+
+    /// Update state
+    updateState(
+      useNotificationListener: newUseNotificationListener,
+    );
+
+    /// Store `value` into [Hive]
+    await hive.writeSettings(
+      hive.getSettings().copyWith(
+        useNotificationListener: newUseNotificationListener,
+      ),
+    );
+  }
+
+  /// Updates `state`
+  void updateState({
+    bool? notificationGranted,
+    bool? listenerGranted,
+    bool? useNotificationListener,
+  }) => value = (
+    notificationGranted: notificationGranted ?? value.notificationGranted,
+    listenerGranted: listenerGranted ?? value.listenerGranted,
+    useNotificationListener: useNotificationListener ?? value.useNotificationListener,
+  );
 }

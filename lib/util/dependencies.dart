@@ -20,12 +20,8 @@ T registerIfNotInitialized<T extends Object>(
     getIt.registerLazySingleton<T>(
       factoryFunc,
       instanceName: instanceName,
+      onCreated: afterRegister != null ? (instance) => afterRegister(instance) : null,
     );
-
-    if (afterRegister != null) {
-      final instance = getIt.get<T>(instanceName: instanceName);
-      afterRegister(instance);
-    }
   }
 
   return getIt.get<T>(instanceName: instanceName);
@@ -71,7 +67,8 @@ void initializeServices() {
     ..registerSingletonAsync(
       () async => NotificationService(
         logger: getIt.get<LoggerService>(),
+        hive: getIt.get<HiveService>(),
       ),
-      dependsOn: [LoggerService],
+      dependsOn: [LoggerService, HiveService],
     );
 }

@@ -75,6 +75,8 @@ class SettingsController implements Disposable {
 
   /// Triggered when the user presses the notification [ListTile]
   Future<void> onPressedNotifications() async {
+    await notification.toggleUseNotificationListener();
+
     final permissionsGranted = await notification.askNotificationPermissionAndListener();
 
     await notification.initializeLocalNotifications();
@@ -83,6 +85,8 @@ class SettingsController implements Disposable {
     if (permissionsGranted) {
       notification.initializeForegroundTask();
       await notification.startService();
+    } else {
+      await notification.stopListener();
     }
   }
 

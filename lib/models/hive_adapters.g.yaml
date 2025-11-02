@@ -41,7 +41,7 @@ types:
         index: 4
   Settings:
     typeId: 3
-    nextIndex: 5
+    nextIndex: 6
     fields:
       isLoggedIn:
         index: 0
@@ -49,6 +49,8 @@ types:
         index: 2
       troskoThemeId:
         index: 4
+      useNotificationListener:
+        index: 5
   TroskoThemeId:
     typeId: 4
     nextIndex: 6
