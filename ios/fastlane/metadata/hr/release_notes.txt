@@ -1,12 +1,3 @@
-* Fancy animations when switching screens
-* Search transactions
-* Calendar instead of date picker
-* Theme updates
-* Localization updates
-* High refresh rate
-* Refresh icons and splash screen
-* Update status bar and navigation bar colors
-* Autofill when logging in or registering
-* Having a category filtered and adding a new transaction will have the relevant category enabled
-* Auto-scroll to active category and color in Settings
-* Reorder categories in Settings
+* Refactor themes
+* Include amount in search results
+* Trigger Login & Register by pressing Enter
