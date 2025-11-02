@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,6 +34,34 @@ class LoginScreen extends WatchingStatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  Future<void> handleLogin({
+    required BuildContext context,
+    required Future<({User? user, String? error})> Function() onLoginPressed,
+  }) async {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+    unawaited(
+      HapticFeedback.lightImpact(),
+    );
+
+    final loginResult = await onLoginPressed();
+
+    /// Successful login
+    if (loginResult.user != null && loginResult.error == null) {
+      openHome(context);
+      return;
+    }
+
+    /// Non-successful login
+    showSnackbar(
+      context,
+      text: loginResult.error ?? 'errorUnknown'.tr(),
+      icon: PhosphorIcons.warningCircle(
+        PhosphorIconsStyle.bold,
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -127,6 +156,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                   controller: loginController.passwordTextEditingController,
                   labelText: 'password'.tr(),
+                  onSubmitted: (_) {
+                    if (!validated || isLoading) {
+                      return;
+                    }
+
+                    unawaited(
+                      handleLogin(
+                        context: context,
+                        onLoginPressed: loginController.loginPressed,
+                      ),
+                    );
+                  },
                   autofillHints: const [AutofillHints.password],
                   keyboardType: TextInputType.visiblePassword,
                   textAlign: TextAlign.left,
@@ -199,30 +240,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   child: FilledButton(
                     onPressed: validated
-                        ? () async {
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
-                            unawaited(
-                              HapticFeedback.lightImpact(),
-                            );
-
-                            final loginResult = await loginController.loginPressed();
-
-                            /// Successful login
-                            if (loginResult.user != null && loginResult.error == null) {
-                              openHome(context);
-                              return;
-                            }
-
-                            /// Non-successful login
-                            showSnackbar(
-                              context,
-                              text: loginResult.error ?? 'errorUnknown'.tr(),
-                              icon: PhosphorIcons.warningCircle(
-                                PhosphorIconsStyle.bold,
-                              ),
-                            );
-                          }
+                        ? () => handleLogin(
+                            context: context,
+                            onLoginPressed: loginController.loginPressed,
+                          )
                         : null,
                     style: FilledButton.styleFrom(
                       padding: EdgeInsets.fromLTRB(

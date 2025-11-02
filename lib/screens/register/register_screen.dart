@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,6 +34,34 @@ class RegisterScreen extends WatchingStatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  Future<void> handleRegister({
+    required BuildContext context,
+    required Future<({User? user, String? error})> Function() onRegisterPressed,
+  }) async {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+    unawaited(
+      HapticFeedback.lightImpact(),
+    );
+
+    final registerResult = await onRegisterPressed();
+
+    /// Successful register
+    if (registerResult.user != null && registerResult.error == null) {
+      openHome(context);
+      return;
+    }
+
+    /// Non-successful register
+    showSnackbar(
+      context,
+      text: registerResult.error ?? 'errorUnknown'.tr(),
+      icon: PhosphorIcons.warningCircle(
+        PhosphorIconsStyle.bold,
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -150,6 +179,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   labelText: 'name'.tr(),
                   autofillHints: const [AutofillHints.name],
                   keyboardType: TextInputType.name,
+                  onSubmitted: (_) {
+                    if (!validated || isLoading) {
+                      return;
+                    }
+
+                    unawaited(
+                      handleRegister(
+                        context: context,
+                        onRegisterPressed: registerController.registerPressed,
+                      ),
+                    );
+                  },
                   textAlign: TextAlign.left,
                   textCapitalization: TextCapitalization.words,
                   textInputAction: TextInputAction.go,
@@ -220,30 +261,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   width: double.infinity,
                   child: FilledButton(
                     onPressed: validated
-                        ? () async {
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
-                            unawaited(
-                              HapticFeedback.lightImpact(),
-                            );
-
-                            final registerResult = await registerController.registerPressed();
-
-                            /// Successful register
-                            if (registerResult.user != null && registerResult.error == null) {
-                              openHome(context);
-                              return;
-                            }
-
-                            /// Non-successful register
-                            showSnackbar(
-                              context,
-                              text: registerResult.error ?? 'errorUnknown'.tr(),
-                              icon: PhosphorIcons.warningCircle(
-                                PhosphorIconsStyle.bold,
-                              ),
-                            );
-                          }
+                        ? () => handleRegister(
+                            context: context,
+                            onRegisterPressed: registerController.registerPressed,
+                          )
                         : null,
                     style: FilledButton.styleFrom(
                       padding: EdgeInsets.fromLTRB(
