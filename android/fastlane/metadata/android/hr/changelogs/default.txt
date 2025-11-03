@@ -2,3 +2,4 @@
 * Include amount in search results
 * Trigger Login & Register by pressing Enter
 * Notification listener if user wants
+* Upgrade dependencies
