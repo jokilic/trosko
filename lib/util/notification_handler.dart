@@ -18,7 +18,6 @@ import 'localization.dart';
 import 'navigation.dart';
 
 const notificationTriggerPackageNames = [
-  'com.josipkilic.promaja',
   'com.revolut.revolut',
 ];
 
