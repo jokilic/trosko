@@ -2,16 +2,25 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:notification_listener_service/notification_event.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
-import '../../main.dart';
-import '../../models/notification_payload/notification_payload.dart';
-import '../currency.dart';
-import '../localization.dart';
-import 'notification_helpers.dart';
+import '../main.dart';
+import '../models/notification_payload/notification_payload.dart';
+import '../routing.dart';
+import '../services/hive_service.dart';
+import 'currency.dart';
+import 'dependencies.dart';
+import 'localization.dart';
+import 'navigation.dart';
+
+const notificationTriggerPackageNames = [
+  'com.josipkilic.promaja',
+  'com.revolut.revolut',
+];
 
 /// Triggered when the user taps the notification
 @pragma('vm:entry-point')
@@ -42,6 +51,67 @@ Future<void> onDidReceiveBackgroundNotificationResponse(NotificationResponse not
 @pragma('vm:entry-point')
 void startCallback() {
   FlutterForegroundTask.setTaskHandler(NotificationHandler());
+}
+
+Future<bool> initializeNotificationPlugin(FlutterLocalNotificationsPlugin plugin) async {
+  final initialized = await plugin.initialize(
+    const InitializationSettings(
+      android: AndroidInitializationSettings('app_icon'),
+    ),
+    onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+    onDidReceiveBackgroundNotificationResponse: onDidReceiveBackgroundNotificationResponse,
+  );
+
+  return initialized ?? false;
+}
+
+Future<void> handlePressedNotification({required String? payload}) async {
+  if (payload?.isEmpty ?? true) {
+    return;
+  }
+
+  try {
+    final context = await getNavigatorContext();
+
+    if (context == null) {
+      return;
+    }
+
+    /// Navigate to base route
+    Navigator.of(context).popUntil((route) => route.isFirst);
+
+    /// Get `categories` from [Hive]
+    final categories = getIt.get<HiveService>().value.categories;
+
+    /// Navigate to [TransactionScreen]
+    openTransaction(
+      context,
+      passedTransaction: null,
+      categories: categories,
+      passedCategory: null,
+      passedNotificationPayload: payload != null ? NotificationPayload.fromJson(payload) : null,
+      onTransactionUpdated: SystemNavigator.pop,
+    );
+  } catch (e) {
+    return;
+  }
+}
+
+Future<BuildContext?> getNavigatorContext() async {
+  for (var attempt = 0; attempt < 20; attempt++) {
+    final navigatorState = troskoNavigatorKey.currentState;
+
+    if (navigatorState != null) {
+      await WidgetsBinding.instance.endOfFrame;
+      return navigatorState.context;
+    }
+
+    await Future.delayed(
+      const Duration(milliseconds: 150),
+    );
+  }
+
+  return null;
 }
 
 class NotificationHandler extends TaskHandler {
@@ -125,15 +195,15 @@ class NotificationHandler extends TaskHandler {
     await initializeBackgroundLocalNotifications();
 
     /// Generate `title` for the notification
-    final title = 'expenseNotificationTitle'.tr(
-      args: [
-        transactionAmount.toStringAsFixed(2),
-        event.title ?? '',
-      ],
-    );
+    final title = 'expenseNotificationTitle'.tr();
 
     /// Generate `body` for the notification
-    final body = 'expenseNotificationText'.tr();
+    final body = 'expenseNotificationText'.tr(
+      args: [
+        '<b>${transactionAmount.toStringAsFixed(2)}</b>',
+        '<b>${event.title}</b>',
+      ],
+    );
 
     /// Generate `addExpense` for the notification
     final addExpenseAction = AndroidNotificationAction(
@@ -147,15 +217,25 @@ class NotificationHandler extends TaskHandler {
 
     /// Show `notification`
     await backgroundNotificationsPlugin?.show(
-      now.millisecondsSinceEpoch,
+      event.id ?? 0,
       title,
       body,
       NotificationDetails(
         android: AndroidNotificationDetails(
           'trosko_channel_id',
-          'trosko_channel_name',
-          category: AndroidNotificationCategory.service,
+          'Troško notifications',
+          channelDescription: 'Notifications shown by the Troško app',
           actions: [addExpenseAction],
+          styleInformation: BigTextStyleInformation(
+            body,
+            contentTitle: title,
+            htmlFormatBigText: true,
+            htmlFormatContent: true,
+          ),
+          category: AndroidNotificationCategory.service,
+          importance: Importance.max,
+          priority: Priority.high,
+          ticker: 'ticker',
         ),
       ),
       payload: NotificationPayload(
@@ -166,6 +246,30 @@ class NotificationHandler extends TaskHandler {
         createdAt: now,
       ).toJson(),
     );
+  }
+
+  bool isNotificationFromProperPackageName({required String? packageName}) {
+    if (packageName?.isEmpty ?? true) {
+      return false;
+    }
+
+    return notificationTriggerPackageNames.any(packageName!.contains);
+  }
+
+  double? getTransactionAmountFromNotification({required String? content}) {
+    if (content?.isEmpty ?? true) {
+      return null;
+    }
+
+    final match = RegExp(r'(\d+(?:[.,]\d+)+|\d+)').firstMatch(content!);
+
+    if (match == null) {
+      return null;
+    }
+
+    final raw = match.group(0)!.trim().replaceAll(',', '.');
+
+    return double.tryParse(raw);
   }
 
   /// Called based on the `eventAction` set in [ForegroundTaskOptions]

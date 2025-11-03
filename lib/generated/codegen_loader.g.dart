@@ -122,8 +122,8 @@ class CodegenLoader extends AssetLoader{
   "searchNothingFoundSubtitle": "Try searching for something else",
   "foregroundTaskNotificationTitle": "Troško is running",
   "foregroundTaskNotificationText": "Used to show notifications",
-  "expenseNotificationTitle": "Seems you spent €{} at {}.",
-  "expenseNotificationText": "You can add that expense in Troško.",
+  "expenseNotificationTitle": "New expense 💸",
+  "expenseNotificationText": "You spent €{} at {}.",
   "expenseNotificationButton": "Add expense"
 };
 static const Map<String,dynamic> _hr = {
@@ -234,8 +234,8 @@ static const Map<String,dynamic> _hr = {
   "searchNothingFoundSubtitle": "Probaj tražiti nešto drugo",
   "foregroundTaskNotificationTitle": "Troško je upaljen",
   "foregroundTaskNotificationText": "Koristi se za prikaz obavijesti",
-  "expenseNotificationTitle": "Izgleda da si potrošio €{} u {}.",
-  "expenseNotificationText": "Možeš dodati taj trošak u Troško.",
+  "expenseNotificationTitle": "Novi trošak 💸",
+  "expenseNotificationText": "Potrošio si €{} u {}.",
   "expenseNotificationButton": "Dodaj trošak"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "hr": _hr};

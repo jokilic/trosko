@@ -7,8 +7,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 
-import '../util/notification/notification_handler.dart';
-import '../util/notification/notification_helpers.dart';
+import '../util/notification_handler.dart';
 import 'hive_service.dart';
 import 'logger_service.dart';
 

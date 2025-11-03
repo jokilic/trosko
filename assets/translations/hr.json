@@ -106,7 +106,7 @@
     "searchNothingFoundSubtitle": "Probaj tražiti nešto drugo",
     "foregroundTaskNotificationTitle": "Troško je upaljen",
     "foregroundTaskNotificationText": "Koristi se za prikaz obavijesti",
-    "expenseNotificationTitle": "Izgleda da si potrošio €{} u {}.",
-    "expenseNotificationText": "Možeš dodati taj trošak u Troško.",
+    "expenseNotificationTitle": "Novi trošak 💸",
+    "expenseNotificationText": "Potrošio si €{} u {}.",
     "expenseNotificationButton": "Dodaj trošak"
 }

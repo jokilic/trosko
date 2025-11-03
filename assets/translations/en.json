@@ -106,7 +106,7 @@
     "searchNothingFoundSubtitle": "Try searching for something else",
     "foregroundTaskNotificationTitle": "Troško is running",
     "foregroundTaskNotificationText": "Used to show notifications",
-    "expenseNotificationTitle": "Seems you spent €{} at {}.",
-    "expenseNotificationText": "You can add that expense in Troško.",
+    "expenseNotificationTitle": "New expense 💸",
+    "expenseNotificationText": "You spent €{} at {}.",
     "expenseNotificationButton": "Add expense"
 }
