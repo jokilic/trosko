@@ -240,7 +240,7 @@ class NotificationHandler extends TaskHandler {
       payload: NotificationPayload(
         name: event.title,
         amountCents: formatCurrencyToCents(
-          '$transactionAmount',
+          transactionAmount,
         ),
         createdAt: now,
       ).toJson(),
