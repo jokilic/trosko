@@ -44,6 +44,7 @@ Future<void> main() async {
   );
 }
 
+/// Initialize all functionality before starting app
 Future<void> initializeBeforeAppStart() async {
   WidgetsFlutterBinding.ensureInitialized();
 
