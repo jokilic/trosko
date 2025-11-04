@@ -183,7 +183,7 @@ class NotificationHandler extends TaskHandler {
     /// Try to get `transactionAmount` from the notification
     final transactionAmount = getTransactionAmountFromNotification(
       content: event.content,
-    );
+    )?.toStringAsFixed(2);
 
     /// Don't show notification if `transactionAmount` doesn't exist
     if (transactionAmount == null) {
@@ -199,7 +199,7 @@ class NotificationHandler extends TaskHandler {
     /// Generate `body` for the notification
     final body = 'expenseNotificationText'.tr(
       args: [
-        '<b>${transactionAmount.toStringAsFixed(2)}</b>',
+        '<b>$transactionAmount</b>',
         '<b>${event.title}</b>',
       ],
     );
