@@ -215,7 +215,7 @@ class NotificationHandler extends TaskHandler {
     final now = DateTime.now();
 
     /// Generate notification `id`
-    final id = now.year + now.month + now.day + now.hour + now.minute + now.second;
+    final id = now.millisecondsSinceEpoch % 1000000000;
 
     /// Show `notification`
     await backgroundNotificationsPlugin?.show(
