@@ -44,7 +44,10 @@ class CategoryColor extends StatelessWidget {
               ),
               size: 28,
             )
-          : const SizedBox.shrink(),
+          : const SizedBox(
+              height: 28,
+              width: 28,
+            ),
     ),
   );
 }

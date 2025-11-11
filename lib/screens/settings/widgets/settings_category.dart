@@ -50,7 +50,10 @@ class SettingsCategory extends StatelessWidget {
                     ),
                     size: 36,
                   )
-                : const SizedBox.shrink(),
+                : const SizedBox(
+                    height: 36,
+                    width: 36,
+                  ),
           ),
         ),
         const SizedBox(height: 6),
