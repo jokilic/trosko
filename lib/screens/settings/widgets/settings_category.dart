@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../theme/colors.dart';
 import '../../../theme/extensions.dart';
@@ -39,15 +40,17 @@ class SettingsCategory extends StatelessWidget {
               highlightColor: highlightColor,
               alignment: Alignment.center,
             ),
-            icon: Icon(
-              icon,
-              color: getWhiteOrBlackColor(
-                backgroundColor: color,
-                whiteColor: TroskoColors.lightThemeWhiteBackground,
-                blackColor: TroskoColors.lightThemeBlackText,
-              ),
-              size: 36,
-            ),
+            icon: icon != null
+                ? PhosphorIcon(
+                    icon!,
+                    color: getWhiteOrBlackColor(
+                      backgroundColor: color,
+                      whiteColor: TroskoColors.lightThemeWhiteBackground,
+                      blackColor: TroskoColors.lightThemeBlackText,
+                    ),
+                    size: 36,
+                  )
+                : const SizedBox.shrink(),
           ),
         ),
         const SizedBox(height: 6),

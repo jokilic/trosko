@@ -157,15 +157,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           width: 1.5,
                         ),
                       ),
-                      child: Icon(
-                        categoryIcon?.value,
-                        color: getWhiteOrBlackColor(
-                          backgroundColor: categoryColor ?? context.colors.scaffoldBackground,
-                          whiteColor: TroskoColors.lightThemeWhiteBackground,
-                          blackColor: TroskoColors.lightThemeBlackText,
-                        ),
-                        size: 56,
-                      ),
+                      child: categoryIcon != null
+                          ? PhosphorIcon(
+                              categoryIcon.value,
+                              color: getWhiteOrBlackColor(
+                                backgroundColor: categoryColor ?? context.colors.scaffoldBackground,
+                                whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                blackColor: TroskoColors.lightThemeBlackText,
+                              ),
+                              size: 56,
+                            )
+                          : null,
                     ),
                     const SizedBox(height: 8),
                     Text(

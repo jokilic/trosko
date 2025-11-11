@@ -39,7 +39,7 @@ class CategoryIconListTile extends StatelessWidget {
               ///
               /// LEADING
               ///
-              Icon(
+              PhosphorIcon(
                 icon.value,
                 color: isActive
                     ? getWhiteOrBlackColor(

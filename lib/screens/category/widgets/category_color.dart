@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../theme/colors.dart';
 import '../../../util/color.dart';
@@ -33,15 +34,17 @@ class CategoryColor extends StatelessWidget {
         highlightColor: highlightColor,
         alignment: Alignment.center,
       ),
-      icon: Icon(
-        icon,
-        color: getWhiteOrBlackColor(
-          backgroundColor: color,
-          whiteColor: TroskoColors.lightThemeWhiteBackground,
-          blackColor: TroskoColors.lightThemeBlackText,
-        ),
-        size: 28,
-      ),
+      icon: icon != null
+          ? PhosphorIcon(
+              icon!,
+              color: getWhiteOrBlackColor(
+                backgroundColor: color,
+                whiteColor: TroskoColors.lightThemeWhiteBackground,
+                blackColor: TroskoColors.lightThemeBlackText,
+              ),
+              size: 28,
+            )
+          : const SizedBox.shrink(),
     ),
   );
 }
