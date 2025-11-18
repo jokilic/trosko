@@ -107,6 +107,7 @@ class _SearchScreenState extends State<SearchScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
               child: TroskoTextField(
+                autofocus: true,
                 controller: searchController.searchTextEditingController,
                 labelText: 'searchTextField'.tr(),
                 keyboardType: TextInputType.text,
