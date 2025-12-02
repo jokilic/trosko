@@ -1,5 +1,1 @@
-* More proper handling of notification listener
-* Open keyboard when opening SearchScreen
-* Use proper icons everywhere
-* Small code refactors
-* Upgrade dependencies
+* Fix going to TransactionScreen when opening from notification

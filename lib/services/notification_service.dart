@@ -43,7 +43,9 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     final permissionsGranted = await checkNotificationPermissionAndListener();
 
     await initializeLocalNotifications();
-    await handleNotificationAppLaunch();
+    unawaited(
+      handleNotificationAppLaunch(),
+    );
 
     if (permissionsGranted) {
       initializeForegroundTask();
