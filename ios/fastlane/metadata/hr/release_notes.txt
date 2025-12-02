@@ -1,4 +1,5 @@
-* Refactor themes
-* Include amount in search results
-* Trigger Login & Register by pressing Enter
+* More proper handling of notification listener
+* Open keyboard when opening SearchScreen
+* Use proper icons everywhere
+* Small code refactors
 * Upgrade dependencies
