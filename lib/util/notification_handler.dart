@@ -224,7 +224,7 @@ class NotificationHandler extends TaskHandler {
       body,
       NotificationDetails(
         android: AndroidNotificationDetails(
-          'trosko_channel_id',
+          'trosko_notification_channel_id',
           'Troško notifications',
           channelDescription: 'Notifications shown by the Troško app',
           actions: [addExpenseAction],
@@ -236,7 +236,7 @@ class NotificationHandler extends TaskHandler {
           ),
           category: AndroidNotificationCategory.service,
           importance: Importance.max,
-          priority: Priority.high,
+          priority: Priority.max,
           ticker: 'ticker',
         ),
       ),

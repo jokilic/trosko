@@ -153,8 +153,11 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
   /// Initializes [FlutterForegroundTask]
   void initializeForegroundTask() => FlutterForegroundTask.init(
     androidNotificationOptions: AndroidNotificationOptions(
-      channelId: 'trosko_channel_id',
-      channelName: 'trosko_channel_name',
+      channelId: 'trosko_listener_channel_id',
+      channelName: 'Troško listener',
+      channelDescription: 'Listener shown by the Troško app',
+      channelImportance: NotificationChannelImportance.MAX,
+      priority: NotificationPriority.MAX,
     ),
     iosNotificationOptions: const IOSNotificationOptions(),
     foregroundTaskOptions: ForegroundTaskOptions(
