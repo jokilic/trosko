@@ -14,7 +14,6 @@ import 'generated/codegen_loader.g.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'services/hive_service.dart';
-import 'services/notification_service.dart';
 import 'theme/extensions.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
@@ -97,26 +96,12 @@ class TroskoApp extends StatelessWidget {
   );
 }
 
-class TroskoWidget extends WatchingStatefulWidget {
+class TroskoWidget extends WatchingWidget {
   final bool isLoggedIn;
 
   const TroskoWidget({
     required this.isLoggedIn,
   });
-
-  @override
-  State<TroskoWidget> createState() => _TroskoWidgetState();
-}
-
-class _TroskoWidgetState extends State<TroskoWidget> {
-  @override
-  void initState() {
-    super.initState();
-
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      getIt.get<NotificationService>().init();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +118,7 @@ class _TroskoWidgetState extends State<TroskoWidget> {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
-      home: widget.isLoggedIn
+      home: isLoggedIn
           ? const HomeScreen(
               key: ValueKey('home'),
             )

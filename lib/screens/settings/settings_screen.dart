@@ -11,6 +11,7 @@ import '../../constants/colors.dart';
 import '../../constants/icons.dart';
 import '../../models/trosko_theme_tag/trosko_theme_tag.dart';
 import '../../routing.dart';
+import '../../services/background_fetch_service.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
@@ -55,6 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         hive: getIt.get<HiveService>(),
         firebase: getIt.get<FirebaseService>(),
         notification: getIt.get<NotificationService>(),
+        backgroundFetch: getIt.get<BackgroundFetchService>(),
       ),
       afterRegister: (controller) => controller.init(),
     );
