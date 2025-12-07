@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:background_fetch/background_fetch.dart';
@@ -35,10 +34,8 @@ class BackgroundFetchService {
   /// Toggle task, depending on notifications being active
   Future<void> toggleTask({required bool notificationsEnabled}) async {
     if (notificationsEnabled) {
-      log('Starting task');
       await startTask();
     } else {
-      log('Stopping task');
       await stopTask();
     }
   }
