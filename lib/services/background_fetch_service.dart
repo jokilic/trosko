@@ -3,9 +3,12 @@ import 'dart:ui';
 
 import 'package:background_fetch/background_fetch.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../main.dart';
+import '../util/dependencies.dart';
 import 'logger_service.dart';
+import 'notification_service.dart';
 
 class BackgroundFetchService {
   final LoggerService logger;
@@ -71,6 +74,9 @@ class BackgroundFetchService {
         /// Initialize all functionality
         await initializeBeforeAppStart();
 
+        /// Show notification after work is done
+        await showBackgroundTaskDoneNotification();
+
         /// Finish task
         await BackgroundFetch.finish(taskId);
       },
@@ -105,6 +111,41 @@ Future<void> backgroundFetchHeadlessTask(HeadlessTask task) async {
   /// Initialize all functionality
   await initializeBeforeAppStart();
 
+  /// Show notification after work is done
+  await showBackgroundTaskDoneNotification();
+
   /// Finish task
   await BackgroundFetch.finish(taskId);
+}
+
+/// Shows notification when background task is done
+Future<void> showBackgroundTaskDoneNotification() async {
+  try {
+    final notificationService = getIt.get<NotificationService>();
+
+    final canShowNotification = notificationService.value.notificationGranted && notificationService.value.listenerGranted && notificationService.value.useNotificationListener;
+
+    if (!canShowNotification) {
+      return;
+    }
+
+    await notificationService.initializeLocalNotifications();
+
+    final plugin = notificationService.flutterLocalNotificationsPlugin;
+
+    await plugin?.show(
+      0,
+      'Background task is done',
+      null,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'trosko_background_task_channel_id',
+          'Troško background task notifications',
+          channelDescription: 'Background task notifications shown by the Troško app',
+          importance: Importance.max,
+          priority: Priority.high,
+        ),
+      ),
+    );
+  } catch (_) {}
 }
