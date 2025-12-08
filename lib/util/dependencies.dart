@@ -44,11 +44,14 @@ void unRegisterIfNotDisposed<T extends Object>({
 }
 
 void initializeServices() {
-  getIt
-    ..registerSingletonAsync(
+  if (!getIt.isRegistered<LoggerService>()) {
+    getIt.registerSingletonAsync(
       () async => LoggerService(),
-    )
-    ..registerSingletonAsync(
+    );
+  }
+
+  if (!getIt.isRegistered<HiveService>()) {
+    getIt.registerSingletonAsync(
       () async {
         final hive = HiveService(
           logger: getIt.get<LoggerService>(),
@@ -57,16 +60,22 @@ void initializeServices() {
         return hive;
       },
       dependsOn: [LoggerService],
-    )
-    ..registerSingletonAsync(
+    );
+  }
+
+  if (!getIt.isRegistered<FirebaseService>()) {
+    getIt.registerSingletonAsync(
       () async => FirebaseService(
         logger: getIt.get<LoggerService>(),
         auth: FirebaseAuth.instance,
         firestore: FirebaseFirestore.instance,
       ),
       dependsOn: [LoggerService],
-    )
-    ..registerSingletonAsync(
+    );
+  }
+
+  if (!getIt.isRegistered<NotificationService>()) {
+    getIt.registerSingletonAsync(
       () async {
         final notification = NotificationService(
           logger: getIt.get<LoggerService>(),
@@ -78,8 +87,11 @@ void initializeServices() {
         return notification;
       },
       dependsOn: [LoggerService, HiveService],
-    )
-    ..registerSingletonAsync(
+    );
+  }
+
+  if (!getIt.isRegistered<BackgroundFetchService>()) {
+    getIt.registerSingletonAsync(
       () async {
         final notificationValue = getIt.get<NotificationService>().value;
         final notificationsEnabled = notificationValue.notificationGranted && notificationValue.listenerGranted && notificationValue.useNotificationListener;
@@ -93,4 +105,5 @@ void initializeServices() {
       },
       dependsOn: [LoggerService, NotificationService],
     );
+  }
 }
