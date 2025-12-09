@@ -3,11 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 
-import '../services/background_fetch_service.dart';
 import '../services/firebase_service.dart';
 import '../services/hive_service.dart';
 import '../services/logger_service.dart';
 import '../services/notification_service.dart';
+import '../services/work_manager_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -90,18 +90,20 @@ void initializeServices() {
     );
   }
 
-  if (!getIt.isRegistered<BackgroundFetchService>()) {
+  if (!getIt.isRegistered<WorkManagerService>()) {
     getIt.registerSingletonAsync(
       () async {
         final notificationValue = getIt.get<NotificationService>().value;
         final notificationsEnabled = notificationValue.notificationGranted && notificationValue.listenerGranted && notificationValue.useNotificationListener;
 
-        final backgroundFetch = BackgroundFetchService(
+        final workManager = WorkManagerService(
           logger: getIt.get<LoggerService>(),
           notificationsEnabled: notificationsEnabled,
         );
-        await backgroundFetch.init();
-        return backgroundFetch;
+        if (defaultTargetPlatform == TargetPlatform.android) {
+          await workManager.init();
+        }
+        return workManager;
       },
       dependsOn: [LoggerService, NotificationService],
     );

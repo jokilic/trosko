@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../models/trosko_theme_tag/trosko_theme_tag.dart';
-import '../../services/background_fetch_service.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/notification_service.dart';
+import '../../services/work_manager_service.dart';
 
 class SettingsController implements Disposable {
   ///
@@ -20,14 +20,14 @@ class SettingsController implements Disposable {
   final HiveService hive;
   final FirebaseService firebase;
   final NotificationService notification;
-  final BackgroundFetchService backgroundFetch;
+  final WorkManagerService workManager;
 
   SettingsController({
     required this.logger,
     required this.hive,
     required this.firebase,
     required this.notification,
-    required this.backgroundFetch,
+    required this.workManager,
   });
 
   ///
@@ -92,7 +92,7 @@ class SettingsController implements Disposable {
       await notification.stopListener();
     }
 
-    await backgroundFetch.toggleTask(
+    await workManager.toggleTask(
       notificationsEnabled: permissionsGranted,
     );
   }
