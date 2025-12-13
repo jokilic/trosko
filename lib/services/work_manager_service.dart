@@ -120,8 +120,10 @@ Future<void> showBackgroundTaskDoneNotification() async {
           'trosko_background_task_channel_id',
           'Troško background task notifications',
           channelDescription: 'Background task notifications shown by the Troško app',
+          category: AndroidNotificationCategory.service,
           importance: Importance.max,
-          priority: Priority.high,
+          priority: Priority.max,
+          ticker: 'ticker',
         ),
       ),
     );
