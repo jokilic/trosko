@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:workmanager/workmanager.dart';
 
-import '../main.dart';
 import '../util/dependencies.dart';
 import 'logger_service.dart';
 import 'notification_service.dart';
@@ -81,16 +80,14 @@ void callbackDispatcher() => Workmanager().executeTask(
       WidgetsFlutterBinding.ensureInitialized();
       DartPluginRegistrant.ensureInitialized();
 
-      /// Initialize all functionality
-      await initializeBeforeAppStart();
+      /// Initialize only what's needed for background task
+      await initializeForBackgroundTask();
 
       /// Show notification after work is done
       await showBackgroundTaskDoneNotification();
 
       return Future.value(true);
-    }
-    /// Log error if possible
-    catch (e) {
+    } catch (_) {
       return Future.value(false);
     }
   },
