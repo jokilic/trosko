@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -45,7 +43,7 @@ void unRegisterIfNotDisposed<T extends Object>({
   }
 }
 
-void initializeServices() {
+Future<void> initializeServices() async {
   if (!getIt.isRegistered<LoggerService>()) {
     getIt.registerSingletonAsync(
       () async => LoggerService(),
@@ -110,54 +108,53 @@ void initializeServices() {
       dependsOn: [LoggerService, NotificationService],
     );
   }
+
+  /// Wait for initialization to finish
+  await getIt.allReady();
 }
 
 /// Initializes only the services needed for background task
-Future<bool> initializeForBackgroundTask() async {
-  log('[TROSKOO] initializeForBackgroundTask called');
-
-  try {
-    if (!getIt.isRegistered<LoggerService>()) {
-      getIt.registerSingletonAsync<LoggerService>(
-        () async => LoggerService(),
-      );
-    }
-
-    if (!getIt.isRegistered<HiveService>()) {
-      getIt.registerSingletonAsync<HiveService>(
-        () async {
-          final hive = HiveService(
-            logger: getIt.get<LoggerService>(),
-          );
-          await hive.init();
-          return hive;
-        },
-        dependsOn: [LoggerService],
-      );
-    }
-
-    if (!getIt.isRegistered<NotificationService>()) {
-      getIt.registerSingletonAsync<NotificationService>(
-        () async {
-          final notification = NotificationService(
-            logger: getIt.get<LoggerService>(),
-            hive: getIt.get<HiveService>(),
-          );
-          if (defaultTargetPlatform == TargetPlatform.android) {
-            await notification.init();
-          }
-          return notification;
-        },
-        dependsOn: [LoggerService, HiveService],
-      );
-    }
-
-    await getIt.allReady();
-
-    log('[TROSKOO] initializeForBackgroundTask finished successfully');
-    return true;
-  } catch (e) {
-    log('[TROSKOO] initializeForBackgroundTask finished with an error: $e');
-    return false;
+Future<void> initializeForBackgroundTask() async {
+  if (!getIt.isRegistered<LoggerService>()) {
+    getIt.registerSingletonAsync<LoggerService>(
+      () async => LoggerService(),
+    );
   }
+
+  if (!getIt.isRegistered<HiveService>()) {
+    getIt.registerSingletonAsync<HiveService>(
+      () async {
+        final hive = HiveService(
+          logger: getIt.get<LoggerService>(),
+        );
+        await hive.init();
+        return hive;
+      },
+      dependsOn: [LoggerService],
+    );
+  }
+
+  if (!getIt.isRegistered<NotificationService>()) {
+    getIt.registerSingletonAsync<NotificationService>(
+      () async {
+        final notification = NotificationService(
+          logger: getIt.get<LoggerService>(),
+          hive: getIt.get<HiveService>(),
+        );
+
+        final settings = notification.hive.getSettings();
+        notification.updateState(
+          useNotificationListener: settings.useNotificationListener ?? false,
+          notificationGranted: settings.useNotificationListener ?? false,
+          listenerGranted: settings.useNotificationListener ?? false,
+        );
+
+        return notification;
+      },
+      dependsOn: [LoggerService, HiveService],
+    );
+  }
+
+  /// Wait for initialization to finish
+  await getIt.allReady();
 }

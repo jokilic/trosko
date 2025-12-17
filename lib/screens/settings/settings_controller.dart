@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/trosko_theme_tag/trosko_theme_tag.dart';
 import '../../services/firebase_service.dart';
@@ -11,7 +10,6 @@ import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/notification_service.dart';
 import '../../services/work_manager_service.dart';
-import '../../util/snackbars.dart';
 
 class SettingsController implements Disposable {
   ///
@@ -96,21 +94,6 @@ class SettingsController implements Disposable {
 
     await workManager.toggleTask(
       notificationsEnabled: permissionsGranted,
-    );
-  }
-
-  // TODO: Remove
-  /// Triggered when the user presses the test-task button
-  Future<void> onPressedTestTask(BuildContext context) async {
-    final taskRegistered = await workManager.startTestTask();
-
-    /// Show info snackbar
-    showSnackbar(
-      context,
-      text: taskRegistered ? 'Test-task is registered' : 'Test-task registration failed',
-      icon: PhosphorIcons.testTube(
-        PhosphorIconsStyle.bold,
-      ),
     );
   }
 

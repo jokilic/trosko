@@ -67,10 +67,7 @@ Future<void> initializeBeforeAppStart() async {
   );
 
   /// Initialize services
-  initializeServices();
-
-  /// Wait for initialization to finish
-  await getIt.allReady();
+  await initializeServices();
 }
 
 class TroskoApp extends StatelessWidget {

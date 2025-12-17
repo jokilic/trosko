@@ -338,62 +338,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             const SliverToBoxAdapter(
               child: SizedBox(height: 24),
             ),
-
-            // TODO: Remove
-
-            ///
-            /// TEST TASK BUTTON
-            ///
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverToBoxAdapter(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: FilledButton(
-                    onPressed: () async {
-                      unawaited(
-                        HapticFeedback.lightImpact(),
-                      );
-
-                      await settingsController.onPressedTestTask(context);
-                    },
-                    style: FilledButton.styleFrom(
-                      backgroundColor: context.colors.buttonPrimary,
-                      foregroundColor: getWhiteOrBlackColor(
-                        backgroundColor: context.colors.buttonPrimary,
-                        whiteColor: TroskoColors.lightThemeWhiteBackground,
-                        blackColor: TroskoColors.lightThemeBlackText,
-                      ),
-                      overlayColor: context.colors.buttonBackground,
-                      disabledBackgroundColor: context.colors.disabledBackground,
-                      disabledForegroundColor: context.colors.disabledText,
-                    ),
-                    child: Text(
-                      'Test-task'.tr().toUpperCase(),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 8),
-            ),
-
-            ///
-            /// TEST TASK TEXT
-            ///
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 28),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'Pressing this button will register a test-task.',
-                  style: context.textStyles.homeTransactionNote,
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 24),
-            ),
           ],
 
           ///
