@@ -124,9 +124,7 @@ Future<void> initializeForBackgroundTask() async {
         final hive = HiveService(
           logger: getIt.get<LoggerService>(),
         );
-
         await hive.init();
-
         return hive;
       },
       dependsOn: [LoggerService],
@@ -140,9 +138,9 @@ Future<void> initializeForBackgroundTask() async {
           logger: getIt.get<LoggerService>(),
           hive: getIt.get<HiveService>(),
         );
-
-        await notification.init();
-
+        if (defaultTargetPlatform == TargetPlatform.android) {
+          await notification.init();
+        }
         return notification;
       },
       dependsOn: [LoggerService, HiveService],

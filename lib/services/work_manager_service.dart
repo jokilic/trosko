@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -73,25 +74,33 @@ class WorkManagerService {
 }
 
 @pragma('vm:entry-point')
-void callbackDispatcher() => Workmanager().executeTask(
-  (task, inputData) async {
-    try {
-      /// Initialize Flutter related tasks
-      WidgetsFlutterBinding.ensureInitialized();
-      DartPluginRegistrant.ensureInitialized();
+Future<void> callbackDispatcher() async {
+  log('callbackDispatcher called');
 
-      /// Initialize only what's needed for background task
-      await initializeForBackgroundTask();
+  Workmanager().executeTask(
+    (task, inputData) async {
+      log('callbackDispatcher called with task: $task');
 
-      /// Show notification after work is done
-      await showBackgroundTaskDoneNotification();
+      try {
+        /// Initialize Flutter related tasks
+        WidgetsFlutterBinding.ensureInitialized();
+        DartPluginRegistrant.ensureInitialized();
 
-      return Future.value(true);
-    } catch (_) {
-      return Future.value(false);
-    }
-  },
-);
+        /// Initialize only what's needed for background task
+        await initializeForBackgroundTask();
+
+        /// Show notification after work is done
+        await showBackgroundTaskDoneNotification();
+
+        log('$task finished successfully');
+        return Future.value(true);
+      } catch (e) {
+        log('$task finished with an error: $e');
+        return Future.value(false);
+      }
+    },
+  );
+}
 
 /// Shows notification when background task is done
 Future<void> showBackgroundTaskDoneNotification() async {
