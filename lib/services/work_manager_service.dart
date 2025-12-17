@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:workmanager/workmanager.dart';
@@ -25,6 +26,10 @@ class WorkManagerService {
 
   static const String taskName = 'trosko_background_task';
   static const String taskTag = 'trosko_periodic_sync';
+
+  // TODO: Remove
+  static const String testTaskName = 'trosko_test_task';
+  static const String testTaskTag = 'trosko_test_sync';
 
   ///
   /// INIT
@@ -56,30 +61,84 @@ class WorkManagerService {
   }
 
   /// Registers [WorkManager] periodic task
-  Future<void> startTask() async => Workmanager().registerPeriodicTask(
-    taskName,
-    taskTag,
-    frequency: const Duration(minutes: 30),
-    constraints: Constraints(
-      networkType: NetworkType.notRequired,
-      requiresBatteryNotLow: false,
-      requiresCharging: false,
-      requiresDeviceIdle: false,
-      requiresStorageNotLow: false,
-    ),
-  );
+  Future<bool> startTask() async {
+    log('[TROSKOO] Registering periodic task');
+
+    try {
+      await Workmanager().registerPeriodicTask(
+        taskName,
+        taskTag,
+        frequency: const Duration(minutes: 30),
+        constraints: Constraints(
+          networkType: NetworkType.notRequired,
+          requiresBatteryNotLow: false,
+          requiresCharging: false,
+          requiresDeviceIdle: false,
+          requiresStorageNotLow: false,
+        ),
+      );
+
+      log('[TROSKOO] Periodic task registered');
+
+      return true;
+    } catch (e) {
+      log('[TROSKOO] Periodic task registration failed: $e');
+      return false;
+    }
+  }
 
   /// Stops [WorkManager] tasks
-  Future<void> stopTask() async => Workmanager().cancelAll();
+  Future<bool> stopTask() async {
+    log('[TROSKOO] Stopping all tasks');
+
+    try {
+      await Workmanager().cancelAll();
+
+      log('[TROSKOO] All tasks stopped');
+
+      return true;
+    } catch (e) {
+      log('[TROSKOO] All tasks stopping failed: $e');
+      return false;
+    }
+  }
+
+  // TODO: Remove
+  /// Registers a one-off task for testing purposes
+  Future<bool> startTestTask() async {
+    log('[TROSKOO] Registering one-off test task');
+
+    try {
+      await Workmanager().registerOneOffTask(
+        testTaskName,
+        testTaskTag,
+        initialDelay: Duration.zero,
+        constraints: Constraints(
+          networkType: NetworkType.notRequired,
+          requiresBatteryNotLow: false,
+          requiresCharging: false,
+          requiresDeviceIdle: false,
+          requiresStorageNotLow: false,
+        ),
+      );
+
+      log('[TROSKOO] One-off test task registered');
+
+      return true;
+    } catch (e) {
+      log('[TROSKOO] One-off test task registration failed: $e');
+      return false;
+    }
+  }
 }
 
 @pragma('vm:entry-point')
 Future<void> callbackDispatcher() async {
-  log('callbackDispatcher called');
+  log('[TROSKOO] callbackDispatcher called');
 
   Workmanager().executeTask(
     (task, inputData) async {
-      log('callbackDispatcher called with task: $task');
+      log('[TROSKOO] callbackDispatcher -> executeTask -> $task');
 
       try {
         /// Initialize Flutter related tasks
@@ -87,15 +146,20 @@ Future<void> callbackDispatcher() async {
         DartPluginRegistrant.ensureInitialized();
 
         /// Initialize only what's needed for background task
-        await initializeForBackgroundTask();
+        final initialized = await initializeForBackgroundTask();
 
         /// Show notification after work is done
-        await showBackgroundTaskDoneNotification();
+        final showedNotification = await showBackgroundTaskDoneNotification();
 
-        log('$task finished successfully');
-        return Future.value(true);
+        if (initialized && showedNotification) {
+          log('[TROSKOO] $task finished successfully');
+          return Future.value(true);
+        } else {
+          log('[TROSKOO] $task finished with an error: initialized: $initialized, showedNotification: $showedNotification');
+          return Future.value(false);
+        }
       } catch (e) {
-        log('$task finished with an error: $e');
+        log('[TROSKOO] $task finished with an error: $e');
         return Future.value(false);
       }
     },
@@ -103,14 +167,17 @@ Future<void> callbackDispatcher() async {
 }
 
 /// Shows notification when background task is done
-Future<void> showBackgroundTaskDoneNotification() async {
+Future<bool> showBackgroundTaskDoneNotification() async {
+  log('[TROSKOO] showBackgroundTaskDoneNotification called');
+
   try {
     final notificationService = getIt.get<NotificationService>();
 
     final canShowNotification = notificationService.value.notificationGranted && notificationService.value.listenerGranted && notificationService.value.useNotificationListener;
 
     if (!canShowNotification) {
-      return;
+      log('[TROSKOO] showBackgroundTaskDoneNotification -> !canShowNotification');
+      return false;
     }
 
     await notificationService.initializeLocalNotifications();
@@ -120,7 +187,7 @@ Future<void> showBackgroundTaskDoneNotification() async {
     await plugin?.show(
       0,
       'Background task is done',
-      null,
+      DateFormat('HH:mm').format(DateTime.now()),
       const NotificationDetails(
         android: AndroidNotificationDetails(
           'trosko_background_task_channel_id',
@@ -133,5 +200,12 @@ Future<void> showBackgroundTaskDoneNotification() async {
         ),
       ),
     );
-  } catch (_) {}
+
+    log('[TROSKOO] showBackgroundTaskDoneNotification finished successfully');
+
+    return true;
+  } catch (e) {
+    log('[TROSKOO] showBackgroundTaskDoneNotification finished with an error: $e');
+    return false;
+  }
 }

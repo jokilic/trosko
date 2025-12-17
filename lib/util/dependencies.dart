@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -111,41 +113,51 @@ void initializeServices() {
 }
 
 /// Initializes only the services needed for background task
-Future<void> initializeForBackgroundTask() async {
-  if (!getIt.isRegistered<LoggerService>()) {
-    getIt.registerSingletonAsync<LoggerService>(
-      () async => LoggerService(),
-    );
-  }
+Future<bool> initializeForBackgroundTask() async {
+  log('[TROSKOO] initializeForBackgroundTask called');
 
-  if (!getIt.isRegistered<HiveService>()) {
-    getIt.registerSingletonAsync<HiveService>(
-      () async {
-        final hive = HiveService(
-          logger: getIt.get<LoggerService>(),
-        );
-        await hive.init();
-        return hive;
-      },
-      dependsOn: [LoggerService],
-    );
-  }
+  try {
+    if (!getIt.isRegistered<LoggerService>()) {
+      getIt.registerSingletonAsync<LoggerService>(
+        () async => LoggerService(),
+      );
+    }
 
-  if (!getIt.isRegistered<NotificationService>()) {
-    getIt.registerSingletonAsync<NotificationService>(
-      () async {
-        final notification = NotificationService(
-          logger: getIt.get<LoggerService>(),
-          hive: getIt.get<HiveService>(),
-        );
-        if (defaultTargetPlatform == TargetPlatform.android) {
-          await notification.init();
-        }
-        return notification;
-      },
-      dependsOn: [LoggerService, HiveService],
-    );
-  }
+    if (!getIt.isRegistered<HiveService>()) {
+      getIt.registerSingletonAsync<HiveService>(
+        () async {
+          final hive = HiveService(
+            logger: getIt.get<LoggerService>(),
+          );
+          await hive.init();
+          return hive;
+        },
+        dependsOn: [LoggerService],
+      );
+    }
 
-  await getIt.allReady();
+    if (!getIt.isRegistered<NotificationService>()) {
+      getIt.registerSingletonAsync<NotificationService>(
+        () async {
+          final notification = NotificationService(
+            logger: getIt.get<LoggerService>(),
+            hive: getIt.get<HiveService>(),
+          );
+          if (defaultTargetPlatform == TargetPlatform.android) {
+            await notification.init();
+          }
+          return notification;
+        },
+        dependsOn: [LoggerService, HiveService],
+      );
+    }
+
+    await getIt.allReady();
+
+    log('[TROSKOO] initializeForBackgroundTask finished successfully');
+    return true;
+  } catch (e) {
+    log('[TROSKOO] initializeForBackgroundTask finished with an error: $e');
+    return false;
+  }
 }
