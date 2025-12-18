@@ -1,1 +1,3 @@
-* Fix going to TransactionScreen when opening from notification
+* Add location to your transactions
+* Filter multiple months & categories
+* Migrate to workmanager for background tasks

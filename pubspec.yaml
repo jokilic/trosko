@@ -1,7 +1,7 @@
 name: trosko
 description: 'Budget tracking application in Flutter.'
 publish_to: 'none'
-version: 1.4.8+148
+version: 1.5.0+150
 
 #
 # DEPLOYING APP
@@ -43,7 +43,7 @@ dependencies:
   flutter_swipe_action_cell: 3.1.6
   fuzzywuzzy: 1.2.0
   get_it: 9.2.0
-  hive_ce: 2.15.1
+  hive_ce: 2.16.0
   hive_ce_flutter: 2.3.3
   intl: 0.20.2
   just_audio: 0.10.5
@@ -61,7 +61,7 @@ dev_dependencies:
   build_runner: 2.10.4
   flutter_launcher_icons: 0.14.4
   flutter_native_splash: 2.4.7
-  hive_ce_generator: 1.10.1
+  hive_ce_generator: 1.11.0
 
 flutter:
   uses-material-design: true
