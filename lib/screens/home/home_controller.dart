@@ -12,7 +12,7 @@ import '../../services/logger_service.dart';
 import '../../util/date_time.dart';
 import '../../util/group_transactions.dart';
 
-class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions, Month? activeMonth, Category? activeCategory})> implements Disposable {
+class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions, List<Month>? activeMonths, List<Category>? activeCategories})> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -27,8 +27,8 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
     required this.firebase,
   }) : super((
          datesAndTransactions: [],
-         activeMonth: null,
-         activeCategory: null,
+         activeMonths: null,
+         activeCategories: null,
        ));
 
   ///
@@ -60,6 +60,76 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
   /// METHODS
   ///
 
+  /// Triggered when the user presses some [Month] chip
+  void onMonthChipPressed({
+    required Month? month,
+    required List<Month>? activeMonths,
+    required String languageCode,
+  }) {
+    var newMonths = <Month>[];
+
+    /// Some month is pressed
+    if (month != null && !month.isAll) {
+      /// There were no filtered months, add the pressed month to the list
+      if (activeMonths == null || activeMonths.isEmpty) {
+        newMonths = [month];
+      }
+      /// There were filtered months, handle pressed month
+      else {
+        newMonths = List.from(activeMonths);
+
+        /// Remove pressed month
+        if (newMonths.contains(month)) {
+          newMonths.remove(month);
+        }
+        /// Add pressed month
+        else {
+          newMonths.add(month);
+        }
+      }
+    }
+
+    updateState(
+      newMonths: newMonths,
+      locale: languageCode,
+    );
+  }
+
+  /// Triggered when the user presses some [Category]
+  void onCategoryPressed({
+    required Category? category,
+    required List<Category>? activeCategories,
+    required String languageCode,
+  }) {
+    var newCategories = <Category>[];
+
+    /// Some category is pressed
+    if (category != null) {
+      /// There were no filtered categories, add the pressed category to the list
+      if (activeCategories == null || activeCategories.isEmpty) {
+        newCategories = [category];
+      }
+      /// There were filtered categories, handle pressed category
+      else {
+        newCategories = List.from(activeCategories);
+
+        /// Remove pressed category
+        if (newCategories.contains(category)) {
+          newCategories.remove(category);
+        }
+        /// Add pressed category
+        else {
+          newCategories.add(category);
+        }
+      }
+    }
+
+    updateState(
+      newCategories: newCategories,
+      locale: languageCode,
+    );
+  }
+
   List<Transaction> getAllTransactionsFromMonth(Month month) {
     final all = hive.getTransactions();
 
@@ -79,48 +149,59 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
     shakeFabController?.forward();
   }
 
-  /// Updates `state`, depending on passed [Month] or [Category]
+  /// Updates `state`, depending on passed [List<Month>] or [List<Category>]
   void updateState({
     required String locale,
-    Month? newMonth,
-    Category? newCategory,
+    List<Month>? newMonths,
+    List<Category>? newCategories,
   }) {
     final all = hive.getTransactions();
 
     /// Month filter
-    Month? targetMonth;
-    if (newMonth != null) {
-      /// Clear month filter
-      if (newMonth.isAll) {
-        targetMonth = null;
-      }
-      /// Enable month filter
-      else {
-        targetMonth = (value.activeMonth != null && isSameMonth(newMonth.date, value.activeMonth!.date)) ? null : newMonth;
+    List<Month>? targetMonths;
+
+    /// `newMonths` is passed, handle logic
+    if (newMonths != null) {
+      /// `All` is selected or list is empty, treat as showing all (`null`)
+      if (newMonths.any((month) => month.isAll) || newMonths.isEmpty) {
+        targetMonths = null;
+      } else {
+        targetMonths = newMonths;
       }
     }
-    /// Keep old filter
+    /// `newMonths` is not passed, keep old filter
     else {
-      targetMonth = value.activeMonth;
+      targetMonths = value.activeMonths;
     }
 
     /// Category filter
-    Category? targetCategory;
+    List<Category>? targetCategories;
 
-    /// Enable category filter
-    if (newCategory != null) {
-      targetCategory = (value.activeCategory != null && value.activeCategory!.id == newCategory.id) ? null : newCategory;
+    /// `newCategories` is passed, handle logic
+    if (newCategories != null) {
+      targetCategories = newCategories;
     }
-    /// Keep old filter
+    /// `newCategories` is not passed, keep old filter
     else {
-      targetCategory = value.activeCategory;
+      targetCategories = value.activeCategories;
     }
 
     /// Apply filters and sort
     final filtered =
         all.where((t) {
-          final monthOk = targetMonth == null || isSameMonth(t.createdAt, targetMonth.date);
-          final categoryOk = targetCategory == null || t.categoryId == targetCategory.id;
+          final monthOk =
+              targetMonths == null ||
+              targetMonths.isEmpty ||
+              targetMonths.any(
+                (m) => isSameMonth(t.createdAt, m.date),
+              );
+
+          final categoryOk =
+              targetCategories == null ||
+              targetCategories.isEmpty ||
+              targetCategories.any(
+                (c) => t.categoryId == c.id,
+              );
 
           return monthOk && categoryOk;
         }).toList()..sort(
@@ -133,8 +214,8 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
         filtered,
         locale: locale,
       ),
-      activeMonth: targetMonth,
-      activeCategory: targetCategory,
+      activeMonths: targetMonths,
+      activeCategories: targetCategories,
     );
   }
 

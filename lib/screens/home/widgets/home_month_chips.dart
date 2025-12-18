@@ -11,13 +11,13 @@ import '../../../util/string.dart';
 
 class HomeMonthChips extends StatelessWidget {
   final List<Month> months;
-  final Month? activeMonth;
+  final List<Month>? activeMonths;
   final Function(Month? newMonth) onChipPressed;
   final Function(Month? newMonth)? onLongPressed;
 
   const HomeMonthChips({
     required this.months,
-    required this.activeMonth,
+    required this.activeMonths,
     required this.onChipPressed,
     this.onLongPressed,
   });
@@ -53,7 +53,7 @@ class HomeMonthChips extends StatelessWidget {
               closedBuilder: (context, openContainer) => Theme(
                 data: Theme.of(context).copyWith(
                   splashColor: Colors.transparent,
-                  highlightColor: activeMonth == null ? context.colors.buttonBackground : context.colors.listTileBackground,
+                  highlightColor: (activeMonths?.isEmpty ?? true) ? context.colors.buttonBackground : context.colors.listTileBackground,
                 ),
                 child: InkWell(
                   onLongPress: openContainer,
@@ -66,7 +66,7 @@ class HomeMonthChips extends StatelessWidget {
                       child: Text(
                         'monthAll'.tr(),
                         style: context.textStyles.homeMonthChip.copyWith(
-                          color: activeMonth == null
+                          color: (activeMonths?.isEmpty ?? true)
                               ? getWhiteOrBlackColor(
                                   backgroundColor: context.colors.buttonPrimary,
                                   whiteColor: TroskoColors.lightThemeWhiteBackground,
@@ -77,7 +77,7 @@ class HomeMonthChips extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    selected: activeMonth == null,
+                    selected: activeMonths?.isEmpty ?? true,
                     onSelected: (_) => onChipPressed(Month.all()),
                   ),
                 ),
@@ -108,7 +108,7 @@ class HomeMonthChips extends StatelessWidget {
               closedBuilder: (context, openContainer) => Theme(
                 data: Theme.of(context).copyWith(
                   splashColor: Colors.transparent,
-                  highlightColor: activeMonth == month ? context.colors.buttonBackground : context.colors.listTileBackground,
+                  highlightColor: activeMonths?.contains(month) ?? false ? context.colors.buttonBackground : context.colors.listTileBackground,
                 ),
                 child: InkWell(
                   onLongPress: openContainer,
@@ -121,7 +121,7 @@ class HomeMonthChips extends StatelessWidget {
                       child: Text(
                         capitalize(month.label),
                         style: context.textStyles.homeMonthChip.copyWith(
-                          color: activeMonth == month
+                          color: activeMonths?.contains(month) ?? false
                               ? getWhiteOrBlackColor(
                                   backgroundColor: context.colors.buttonPrimary,
                                   whiteColor: TroskoColors.lightThemeWhiteBackground,
@@ -132,7 +132,7 @@ class HomeMonthChips extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    selected: activeMonth == month,
+                    selected: activeMonths?.contains(month) ?? false,
                     onSelected: (_) => onChipPressed(month),
                   ),
                 ),

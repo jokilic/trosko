@@ -9,13 +9,13 @@ import 'home_category.dart';
 
 class HomeCategories extends StatelessWidget {
   final List<Category> categories;
-  final Category? activeCategory;
+  final List<Category>? activeCategories;
   final void Function(List<Category> newOrder) onReorderCategories;
   final void Function(Category category) onPressedCategory;
 
   const HomeCategories({
     required this.categories,
-    required this.activeCategory,
+    required this.activeCategories,
     required this.onReorderCategories,
     required this.onPressedCategory,
   });
@@ -40,11 +40,9 @@ class HomeCategories extends StatelessWidget {
               category: category,
               onPressed: () => onPressedCategory(category),
               color: category.color.withValues(
-                alpha: activeCategory == category || activeCategory == null ? 1 : 0.2,
+                alpha: (activeCategories?.isEmpty ?? true) || (activeCategories?.contains(category) ?? false) ? 1 : 0.2,
               ),
-              highlightColor: category.color.withValues(
-                alpha: activeCategory == category || activeCategory == null ? 1 : 0.2,
-              ),
+              highlightColor: category.color.withValues(alpha: 0.2),
               icon: getRegularIconFromName(category.iconName)?.value,
               text: category.name,
             );

@@ -80,8 +80,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final items = state.datesAndTransactions;
 
-    final activeMonth = state.activeMonth;
-    final activeCategory = state.activeCategory;
+    final activeMonths = state.activeMonths;
+    final activeCategories = state.activeCategories;
 
     final now = DateTime.now();
     final greeting = getGreeting(now);
@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
         openBuilder: (context, _) => TransactionScreen(
           passedTransaction: null,
           categories: categories,
-          passedCategory: activeCategory,
+          passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
           passedNotificationPayload: null,
           onTransactionUpdated: () => homeController.updateState(
             locale: context.locale.languageCode,
@@ -292,12 +292,14 @@ class _HomeScreenState extends State<HomeScreen> {
               transactions: allTransactions,
               locale: context.locale.languageCode,
             ),
-            activeMonth: activeMonth,
+            activeMonths: activeMonths,
             onChipPressed: (month) {
               HapticFeedback.lightImpact();
-              homeController.updateState(
-                newMonth: month,
-                locale: context.locale.languageCode,
+
+              homeController.onMonthChipPressed(
+                month: month,
+                activeMonths: activeMonths,
+                languageCode: context.locale.languageCode,
               );
             },
             onLongPressed: (month) {
@@ -341,13 +343,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ///
           HomeCategories(
             categories: categories,
-            activeCategory: activeCategory,
+            activeCategories: activeCategories,
             onReorderCategories: hive.updateCategoriesOrder,
             onPressedCategory: (category) {
               HapticFeedback.lightImpact();
-              homeController.updateState(
-                newCategory: category,
-                locale: context.locale.languageCode,
+
+              homeController.onCategoryPressed(
+                category: category,
+                activeCategories: activeCategories,
+                languageCode: context.locale.languageCode,
               );
             },
           ),
@@ -417,7 +421,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onLongPressed: () => TransactionScreen(
                       passedTransaction: item,
                       categories: categories,
-                      passedCategory: activeCategory,
+                      passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
                       passedNotificationPayload: null,
                       onTransactionUpdated: () => homeController.updateState(
                         locale: context.locale.languageCode,
