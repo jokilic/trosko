@@ -149,6 +149,7 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
       username: username,
       transactions: transactions ?? [],
       categories: categories ?? [],
+      locations: [],
     );
   }
 

@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-import '../models/trosko_theme_tag/trosko_theme_tag.dart';
-
 part of 'hive_adapters.dart';
 
 // **************************************************************************
@@ -57,13 +55,14 @@ class TransactionAdapter extends TypeAdapter<Transaction> {
       categoryId: fields[3] as String,
       createdAt: fields[5] as DateTime,
       note: fields[4] as String?,
+      locationId: fields[6] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Transaction obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -75,7 +74,9 @@ class TransactionAdapter extends TypeAdapter<Transaction> {
       ..writeByte(4)
       ..write(obj.note)
       ..writeByte(5)
-      ..write(obj.createdAt);
+      ..write(obj.createdAt)
+      ..writeByte(6)
+      ..write(obj.locationId);
   }
 
   @override
@@ -211,6 +212,55 @@ class TroskoThemeIdAdapter extends TypeAdapter<TroskoThemeId> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is TroskoThemeIdAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class LocationAdapter extends TypeAdapter<Location> {
+  @override
+  final typeId = 5;
+
+  @override
+  Location read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return Location(
+      id: fields[0] as String,
+      name: fields[1] as String,
+      address: fields[2] as String?,
+      latitude: (fields[3] as num).toDouble(),
+      longitude: (fields[4] as num).toDouble(),
+      createdAt: fields[5] as DateTime,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Location obj) {
+    writer
+      ..writeByte(6)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.address)
+      ..writeByte(3)
+      ..write(obj.latitude)
+      ..writeByte(4)
+      ..write(obj.longitude)
+      ..writeByte(5)
+      ..write(obj.createdAt);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LocationAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

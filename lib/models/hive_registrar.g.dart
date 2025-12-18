@@ -2,9 +2,10 @@
 // Do not modify
 // Check in to version control
 
-import 'package:hive_ce/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:trosko/models/category/category.dart';
 import 'package:trosko/models/hive_adapters.dart';
+import 'package:trosko/models/location/location.dart';
 import 'package:trosko/models/settings/settings.dart';
 import 'package:trosko/models/transaction/transaction.dart';
 import 'package:trosko/models/trosko_theme_tag/trosko_theme_tag.dart';
@@ -12,9 +13,10 @@ import 'package:trosko/models/trosko_theme_tag/trosko_theme_tag.dart';
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(ColorAdapter());
-    registerAdapter(TransactionAdapter());
-    registerAdapter(CategoryAdapter());
-    registerAdapter(SettingsAdapter());
     registerAdapter(TroskoThemeIdAdapter());
+    registerAdapter(SettingsAdapter());
+    registerAdapter(CategoryAdapter());
+    registerAdapter(LocationAdapter());
+    registerAdapter(TransactionAdapter());
   }
 }

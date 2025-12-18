@@ -21,6 +21,9 @@ class Transaction {
   @HiveField(6)
   final DateTime createdAt;
 
+  @HiveField(7)
+  final String? locationId;
+
   Transaction({
     required this.id,
     required this.name,
@@ -28,6 +31,7 @@ class Transaction {
     required this.categoryId,
     required this.createdAt,
     this.note,
+    this.locationId,
   });
 
   factory Transaction.fromFirestore(DocumentSnapshot doc) {
@@ -42,6 +46,7 @@ class Transaction {
     categoryId: map['categoryId'] as String,
     note: map['note'] != null ? map['note'] as String : null,
     createdAt: (map['createdAt'] as Timestamp).toDate(),
+    locationId: map['locationId'] as String?,
   );
 
   Map<String, dynamic> toMap() => <String, dynamic>{
@@ -51,10 +56,11 @@ class Transaction {
     'categoryId': categoryId,
     'note': note,
     'createdAt': Timestamp.fromDate(createdAt),
+    'locationId': locationId,
   };
 
   @override
-  String toString() => 'Transaction(id: $id, name: $name, amountCents: $amountCents, categoryId: $categoryId, note: $note, createdAt: $createdAt)';
+  String toString() => 'Transaction(id: $id, name: $name, amountCents: $amountCents, categoryId: $categoryId, note: $note, createdAt: $createdAt, locationId: $locationId)';
 
   @override
   bool operator ==(covariant Transaction other) {
@@ -62,9 +68,15 @@ class Transaction {
       return true;
     }
 
-    return other.id == id && other.name == name && other.amountCents == amountCents && other.categoryId == categoryId && other.note == note && other.createdAt == createdAt;
+    return other.id == id &&
+        other.name == name &&
+        other.amountCents == amountCents &&
+        other.categoryId == categoryId &&
+        other.note == note &&
+        other.createdAt == createdAt &&
+        other.locationId == locationId;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ amountCents.hashCode ^ categoryId.hashCode ^ note.hashCode ^ createdAt.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode ^ amountCents.hashCode ^ categoryId.hashCode ^ note.hashCode ^ createdAt.hashCode ^ locationId.hashCode;
 }

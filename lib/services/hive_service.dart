@@ -4,13 +4,15 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 
 import '../models/category/category.dart';
 import '../models/hive_registrar.g.dart';
+import '../models/location/location.dart';
 import '../models/settings/settings.dart';
 import '../models/transaction/transaction.dart';
 import '../theme/colors.dart';
 import '../util/path.dart';
 import 'logger_service.dart';
 
-class HiveService extends ValueNotifier<({Settings? settings, String? username, List<Transaction> transactions, List<Category> categories})> implements Disposable {
+class HiveService extends ValueNotifier<({Settings? settings, String? username, List<Transaction> transactions, List<Category> categories, List<Location> locations})>
+    implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -19,7 +21,15 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
 
   HiveService({
     required this.logger,
-  }) : super((settings: null, username: '', transactions: [], categories: []));
+  }) : super(
+         (
+           settings: null,
+           username: '',
+           transactions: [],
+           categories: [],
+           locations: [],
+         ),
+       );
 
   ///
   /// VARIABLES
@@ -29,6 +39,7 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
   late final Box<String> username;
   late final Box<Transaction> transactions;
   late final Box<Category> categories;
+  late final Box<Location> locations;
 
   final defaultSettings = Settings(
     isLoggedIn: false,
@@ -52,6 +63,7 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     username = await Hive.openBox<String>('usernameBox');
     transactions = await Hive.openBox<Transaction>('transactionsBox');
     categories = await Hive.openBox<Category>('categoriesBox');
+    locations = await Hive.openBox<Location>('locationsBox');
 
     updateState();
   }
@@ -66,6 +78,8 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     await username.close();
     await transactions.close();
     await categories.close();
+    await locations.close();
+
     await Hive.close();
   }
 
@@ -78,12 +92,14 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     required String? username,
     required List<Transaction> transactions,
     required List<Category> categories,
+    required List<Location> locations,
   }) async {
     if (username?.isNotEmpty ?? false) {
       await writeUsername(username!);
     }
     await writeListTransactions(transactions);
     await writeListCategories(categories);
+    await writeListLocations(locations);
 
     updateState();
   }
@@ -109,6 +125,7 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     await username.clear();
     await transactions.clear();
     await categories.clear();
+    await locations.clear();
   }
 
   /// Updates `state`
@@ -117,10 +134,12 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     String? newUsername,
     List<Transaction>? newTransactions,
     List<Category>? newCategories,
+    List<Location>? newLocations,
   }) => value = (
     username: newUsername ?? getUsername(),
     transactions: newTransactions ?? getTransactions(),
     categories: newCategories ?? getCategories(),
+    locations: newLocations ?? getLocations(),
     settings: newSettings ?? getSettings(),
   );
 
@@ -135,6 +154,9 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
 
   /// Called to get `categories` from [Hive]
   List<Category> getCategories() => categories.values.toList();
+
+  /// Called to get `locations` from [Hive]
+  List<Location> getLocations() => locations.values.toList();
 
   /// Stores new `settings` in [Hive]
   Future<void> writeSettings(Settings newSettings) async {
@@ -162,6 +184,12 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     await categories.addAll(newCategories);
   }
 
+  /// Clears old list and stores a new `List<Location>` in [Hive]
+  Future<void> writeListLocations(List<Location> newLocations) async {
+    await locations.clear();
+    await locations.addAll(newLocations);
+  }
+
   /// Stores a new `transaction` in [Hive]
   Future<void> writeTransaction({required Transaction newTransaction}) async {
     await transactions.add(newTransaction);
@@ -171,6 +199,12 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
   /// Stores a new `category` in [Hive]
   Future<void> writeCategory({required Category newCategory}) async {
     await categories.add(newCategory);
+    updateState();
+  }
+
+  /// Stores a new `location` in [Hive]
+  Future<void> writeLocation({required Location newLocation}) async {
+    await locations.add(newLocation);
     updateState();
   }
 
@@ -200,6 +234,19 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     updateState();
   }
 
+  /// Deletes a `location` in [Hive]
+  Future<void> deleteLocation({required Location location}) async {
+    final i = getLocations().indexWhere((l) => l.id == location.id);
+
+    if (i == -1) {
+      return;
+    }
+
+    final key = locations.keyAt(i);
+    await locations.delete(key);
+    updateState();
+  }
+
   /// Updates a `transaction` in [Hive]
   Future<void> updateTransaction({required Transaction newTransaction}) async {
     final i = getTransactions().indexWhere((t) => t.id == newTransaction.id);
@@ -223,6 +270,19 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
 
     final key = categories.keyAt(i);
     await categories.put(key, newCategory);
+    updateState();
+  }
+
+  /// Updates a `location` in [Hive]
+  Future<void> updateLocation({required Location newLocation}) async {
+    final i = getLocations().indexWhere((l) => l.id == newLocation.id);
+
+    if (i == -1) {
+      return;
+    }
+
+    final key = locations.keyAt(i);
+    await locations.put(key, newLocation);
     updateState();
   }
 }

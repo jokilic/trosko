@@ -130,11 +130,13 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
     final username = await firebase.getUsername();
     final transactions = await firebase.getTransactions();
     final categories = await firebase.getCategories();
+    final locations = await firebase.getLocations();
 
     await hive.storeDataFromFirebase(
       username: username,
       transactions: transactions ?? [],
       categories: categories ?? [],
+      locations: locations,
     );
   }
 

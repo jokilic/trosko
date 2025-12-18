@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/category/category.dart';
+import '../models/location/location.dart';
 import '../models/transaction/transaction.dart';
 import 'logger_service.dart';
 
@@ -367,7 +368,48 @@ class FirebaseService {
   }
 
   /// Deletes `Category` from [Firebase]
-  Future<bool> deleteCategory({required Category category}) async {
+  Future<void> deleteCategory({required Category category}) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+
+    if (uid == null) {
+      return;
+    }
+
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(uid).collection('categories').doc(category.id).delete();
+    } catch (e) {
+      logger.e(e.toString());
+    }
+  }
+
+  ///
+  /// LOCATIONS
+  ///
+
+  /// Fetches `Locations` from [Firebase]
+  Future<List<Location>?> getLocations() async {
+    try {
+      final user = auth.currentUser;
+
+      if (user == null) {
+        return null;
+      }
+
+      Query<Map<String, dynamic>> query = firestore.collection('users').doc(user.uid).collection('locations');
+
+      query = query.orderBy('createdAt', descending: true);
+
+      final snapshot = await query.get();
+
+      return snapshot.docs.map(Location.fromFirestore).toList();
+    } catch (e) {
+      logger.e('FirebaseService -> getLocations() -> $e');
+      return null;
+    }
+  }
+
+  /// Adds new `Location` into [Firebase]
+  Future<bool> writeLocation({required Location newLocation}) async {
     try {
       final user = auth.currentUser;
 
@@ -375,13 +417,53 @@ class FirebaseService {
         return false;
       }
 
-      final collection = firestore.collection('users').doc(user.uid).collection('categories');
+      final collection = firestore.collection('users').doc(user.uid).collection('locations');
 
-      await collection.doc(category.id).delete();
+      await collection.doc(newLocation.id).set(newLocation.toMap());
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> deleteCategory() -> $e');
+      logger.e('FirebaseService -> writeLocation() -> $e');
+      return false;
+    }
+  }
+
+  /// Updates `Location` in [Firebase]
+  Future<bool> updateLocation({required Location newLocation}) async {
+    try {
+      final user = auth.currentUser;
+
+      if (user == null) {
+        return false;
+      }
+
+      final collection = firestore.collection('users').doc(user.uid).collection('locations');
+
+      await collection.doc(newLocation.id).set(newLocation.toMap());
+
+      return true;
+    } catch (e) {
+      logger.e('FirebaseService -> updateLocation() -> $e');
+      return false;
+    }
+  }
+
+  /// Deletes `Location` from [Firebase]
+  Future<bool> deleteLocation({required Location location}) async {
+    try {
+      final user = auth.currentUser;
+
+      if (user == null) {
+        return false;
+      }
+
+      final collection = firestore.collection('users').doc(user.uid).collection('locations');
+
+      await collection.doc(location.id).delete();
+
+      return true;
+    } catch (e) {
+      logger.e('FirebaseService -> deleteLocation() -> $e');
       return false;
     }
   }
