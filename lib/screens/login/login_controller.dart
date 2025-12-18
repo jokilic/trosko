@@ -136,7 +136,7 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
       username: username,
       transactions: transactions ?? [],
       categories: categories ?? [],
-      locations: locations,
+      locations: locations ?? [],
     );
   }
 

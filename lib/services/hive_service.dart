@@ -90,16 +90,25 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
   /// Stores all data into [Hive]
   Future<void> storeDataFromFirebase({
     required String? username,
-    required List<Transaction> transactions,
-    required List<Category> categories,
-    required List<Location> locations,
+    required List<Transaction>? transactions,
+    required List<Category>? categories,
+    required List<Location>? locations,
   }) async {
     if (username?.isNotEmpty ?? false) {
       await writeUsername(username!);
     }
-    await writeListTransactions(transactions);
-    await writeListCategories(categories);
-    await writeListLocations(locations);
+
+    if (transactions?.isNotEmpty ?? false) {
+      await writeListTransactions(transactions!);
+    }
+
+    if (categories?.isNotEmpty ?? false) {
+      await writeListCategories(categories!);
+    }
+
+    if (locations?.isNotEmpty ?? false) {
+      await writeListLocations(locations!);
+    }
 
     updateState();
   }
