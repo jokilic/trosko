@@ -12,7 +12,8 @@ import '../../services/logger_service.dart';
 import '../../util/date_time.dart';
 import '../../util/group_transactions.dart';
 
-class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions, List<Month>? activeMonths, List<Category>? activeCategories})> implements Disposable {
+class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions, List<Month>? activeMonths, List<Category>? activeCategories, bool expandedCategories})>
+    implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -29,6 +30,7 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
          datesAndTransactions: [],
          activeMonths: null,
          activeCategories: null,
+         expandedCategories: false,
        ));
 
   ///

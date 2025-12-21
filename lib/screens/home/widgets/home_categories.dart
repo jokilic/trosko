@@ -21,46 +21,44 @@ class HomeCategories extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => SliverToBoxAdapter(
-    child: SizedBox(
-      height: 104,
-      child: ListView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemCount: categories.length + 1,
-        itemBuilder: (_, index) {
-          ///
-          /// CATEGORY
-          ///
-          if (index < categories.length) {
-            final category = categories[index];
+  Widget build(BuildContext context) => SizedBox(
+    height: 104,
+    child: ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      itemCount: categories.length + 1,
+      itemBuilder: (_, index) {
+        ///
+        /// CATEGORY
+        ///
+        if (index < categories.length) {
+          final category = categories[index];
 
-            return HomeCategory(
-              category: category,
-              onPressed: () => onPressedCategory(category),
-              color: category.color.withValues(
-                alpha: (activeCategories?.isEmpty ?? true) || (activeCategories?.contains(category) ?? false) ? 1 : 0.2,
-              ),
-              highlightColor: category.color.withValues(alpha: 0.2),
-              icon: getRegularIconFromName(category.iconName)?.value,
-              text: category.name,
-            );
-          }
-
-          ///
-          /// ADD CATEGORY
-          ///
           return HomeCategory(
-            category: null,
-            color: context.colors.buttonBackground,
-            highlightColor: context.colors.listTileBackground,
-            icon: PhosphorIcons.plus(),
-            text: 'homeAddCategory'.tr(),
-            hasBorder: false,
+            category: category,
+            onPressed: () => onPressedCategory(category),
+            color: category.color.withValues(
+              alpha: (activeCategories?.isEmpty ?? true) || (activeCategories?.contains(category) ?? false) ? 1 : 0.2,
+            ),
+            highlightColor: category.color.withValues(alpha: 0.2),
+            icon: getRegularIconFromName(category.iconName)?.value,
+            text: category.name,
           );
-        },
-      ),
+        }
+
+        ///
+        /// ADD CATEGORY
+        ///
+        return HomeCategory(
+          category: null,
+          color: context.colors.buttonBackground,
+          highlightColor: context.colors.listTileBackground,
+          icon: PhosphorIcons.plus(),
+          text: 'homeAddCategory'.tr(),
+          hasBorder: false,
+        );
+      },
     ),
   );
 }

@@ -56,7 +56,7 @@ class WorkManagerService {
   Future<void> startTask() async => Workmanager().registerPeriodicTask(
     uniqueName,
     taskName,
-    frequency: const Duration(minutes: 45),
+    frequency: const Duration(minutes: 30),
     constraints: Constraints(
       networkType: NetworkType.notRequired,
       requiresBatteryNotLow: false,

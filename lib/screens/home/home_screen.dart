@@ -40,6 +40,12 @@ class HomeScreen extends WatchingStatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var expanded = false;
+
+  void toggleExpanded() => setState(
+    () => expanded = !expanded,
+  );
+
   @override
   void initState() {
     super.initState();
@@ -318,19 +324,56 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
           ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
-          ),
 
           ///
           /// CATEGORIES TITLE
           ///
           SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
-              child: Text(
-                'homeCategories'.tr(),
-                style: context.textStyles.homeTitle,
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Material(
+                      color: context.colors.scaffoldBackground,
+                      borderRadius: BorderRadius.circular(8),
+                      child: InkWell(
+                        onTap: toggleExpanded,
+                        highlightColor: context.colors.buttonBackground,
+                        borderRadius: BorderRadius.circular(8),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 12,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  'homeCategories'.tr(),
+                                  style: context.textStyles.homeTitle,
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              PhosphorIcon(
+                                expanded
+                                    ? PhosphorIcons.caretUp(
+                                        PhosphorIconsStyle.bold,
+                                      )
+                                    : PhosphorIcons.caretDown(
+                                        PhosphorIconsStyle.bold,
+                                      ),
+                                color: context.colors.text,
+                                size: 16,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -341,19 +384,29 @@ class _HomeScreenState extends State<HomeScreen> {
           ///
           /// CATEGORIES
           ///
-          HomeCategories(
-            categories: categories,
-            activeCategories: activeCategories,
-            onReorderCategories: hive.updateCategoriesOrder,
-            onPressedCategory: (category) {
-              HapticFeedback.lightImpact();
-
-              homeController.onCategoryPressed(
-                category: category,
+          SliverToBoxAdapter(
+            child: AnimatedCrossFade(
+              duration: TroskoDurations.animation,
+              firstCurve: Curves.easeIn,
+              secondCurve: Curves.easeIn,
+              sizeCurve: Curves.easeIn,
+              crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+              firstChild: const SizedBox.shrink(),
+              secondChild: HomeCategories(
+                categories: categories,
                 activeCategories: activeCategories,
-                languageCode: context.locale.languageCode,
-              );
-            },
+                onReorderCategories: hive.updateCategoriesOrder,
+                onPressedCategory: (category) {
+                  HapticFeedback.lightImpact();
+
+                  homeController.onCategoryPressed(
+                    category: category,
+                    activeCategories: activeCategories,
+                    languageCode: context.locale.languageCode,
+                  );
+                },
+              ),
+            ),
           ),
 
           ///

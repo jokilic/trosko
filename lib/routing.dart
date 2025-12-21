@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'models/category/category.dart';
+import 'models/location/location.dart';
 import 'models/month/month.dart';
 import 'models/notification_payload/notification_payload.dart';
 import 'models/transaction/transaction.dart';
 import 'screens/category/category_screen.dart';
 import 'screens/home/home_screen.dart';
+import 'screens/location/location_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'screens/register/register_screen.dart';
 import 'screens/search/search_screen.dart';
@@ -94,6 +96,18 @@ void openCategory(
   CategoryScreen(
     passedCategory: passedCategory,
     key: ValueKey(passedCategory?.id),
+  ),
+  context: context,
+);
+
+/// Opens [LocationScreen]
+void openLocation(
+  BuildContext context, {
+  required Location? passedLocation,
+}) => pushScreen(
+  LocationScreen(
+    passedLocation: passedLocation,
+    key: ValueKey(passedLocation?.id),
   ),
   context: context,
 );
