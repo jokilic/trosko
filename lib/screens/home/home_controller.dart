@@ -48,9 +48,11 @@ class HomeController
   void init({required String locale}) {
     updateState(
       locale: locale,
-      // TODO: Bottom values should be read from Hive
-      newExpandedCategories: false,
-      newExpandedLocations: false,
+    );
+
+    updateExpandedValues(
+      newExpandedCategories: hive.getExpandedCategories(),
+      newExpandedLocations: hive.getExpandedLocations(),
     );
   }
 
@@ -161,8 +163,6 @@ class HomeController
     required String locale,
     List<Month>? newMonths,
     List<Category>? newCategories,
-    bool? newExpandedCategories,
-    bool? newExpandedLocations,
   }) {
     final all = hive.getTransactions();
 
@@ -225,12 +225,50 @@ class HomeController
       ),
       activeMonths: targetMonths,
       activeCategories: targetCategories,
-      expandedCategories: newExpandedCategories ?? value.expandedCategories,
-      expandedLocations: newExpandedLocations ?? value.expandedLocations,
+      expandedCategories: value.expandedCategories,
+      expandedLocations: value.expandedLocations,
     );
   }
 
-  /// Triggered when the user deletes transaction
+  /// Updates `expandedCategories` and `expandedLocations` values
+  void updateExpandedValues({
+    bool? newExpandedCategories,
+    bool? newExpandedLocations,
+  }) => value = (
+    datesAndTransactions: value.datesAndTransactions,
+    activeMonths: value.activeMonths,
+    activeCategories: value.activeCategories,
+    expandedCategories: newExpandedCategories ?? value.expandedCategories,
+    expandedLocations: newExpandedLocations ?? value.expandedLocations,
+  );
+
+  /// Triggered when the user toogles categories
+  Future<void> toggleCategories() async {
+    final newValue = !value.expandedCategories;
+
+    unawaited(
+      hive.writeExpandedCategories(newValue),
+    );
+
+    updateExpandedValues(
+      newExpandedCategories: newValue,
+    );
+  }
+
+  /// Triggered when the user toogles locations
+  Future<void> toggleLocations() async {
+    final newValue = !value.expandedLocations;
+
+    unawaited(
+      hive.writeExpandedLocations(newValue),
+    );
+
+    updateExpandedValues(
+      newExpandedLocations: newValue,
+    );
+  }
+
+  // Triggered when the user deletes transaction
   Future<void> deleteTransaction({
     required Transaction transaction,
     required String locale,

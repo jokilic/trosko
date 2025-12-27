@@ -37,6 +37,10 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
 
   late final Box<Settings> settings;
   late final Box<String> username;
+
+  late final Box<bool> expandedCategories;
+  late final Box<bool> expandedLocations;
+
   late final Box<Transaction> transactions;
   late final Box<Category> categories;
   late final Box<Location> locations;
@@ -61,6 +65,10 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
 
     settings = await Hive.openBox<Settings>('settingsBox');
     username = await Hive.openBox<String>('usernameBox');
+
+    expandedCategories = await Hive.openBox<bool>('expandedCategoriesBox');
+    expandedLocations = await Hive.openBox<bool>('expandedLocationsBox');
+
     transactions = await Hive.openBox<Transaction>('transactionsBox');
     categories = await Hive.openBox<Category>('categoriesBox');
     locations = await Hive.openBox<Location>('locationsBox');
@@ -76,6 +84,10 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
   Future<void> onDispose() async {
     await settings.close();
     await username.close();
+
+    await expandedCategories.close();
+    await expandedLocations.close();
+
     await transactions.close();
     await categories.close();
     await locations.close();
@@ -158,6 +170,12 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
   /// Called to get `username` from [Hive]
   String? getUsername() => username.values.toList().firstOrNull;
 
+  /// Called to get `expandedCategories` from [Hive]
+  bool getExpandedCategories() => expandedCategories.values.toList().firstOrNull ?? false;
+
+  /// Called to get `expandedLocations` from [Hive]
+  bool getExpandedLocations() => expandedLocations.values.toList().firstOrNull ?? false;
+
   /// Called to get `transactions` from [Hive]
   List<Transaction> getTransactions() => transactions.values.toList();
 
@@ -179,6 +197,18 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     await username.clear();
     await username.add(newUsername);
     updateState();
+  }
+
+  /// Stores a new `expandedCategories` in [Hive]
+  Future<void> writeExpandedCategories(bool newExpandedCategories) async {
+    await expandedCategories.clear();
+    await expandedCategories.add(newExpandedCategories);
+  }
+
+  /// Stores a new `expandedLocations` in [Hive]
+  Future<void> writeExpandedLocations(bool newExpandedLocations) async {
+    await expandedLocations.clear();
+    await expandedLocations.add(newExpandedLocations);
   }
 
   /// Clears old list and stores a new `List<Transaction>` in [Hive]

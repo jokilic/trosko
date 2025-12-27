@@ -40,12 +40,6 @@ class HomeScreen extends WatchingStatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var expanded = false;
-
-  void toggleExpanded() => setState(
-    () => expanded = !expanded,
-  );
-
   @override
   void initState() {
     super.initState();
@@ -88,6 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final activeMonths = state.activeMonths;
     final activeCategories = state.activeCategories;
+
+    final expandedCategories = state.expandedCategories;
+    final expandedLocations = state.expandedLocations;
 
     final now = DateTime.now();
     final greeting = getGreeting(now);
@@ -338,7 +335,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: context.colors.scaffoldBackground,
                       borderRadius: BorderRadius.circular(8),
                       child: InkWell(
-                        onTap: toggleExpanded,
+                        onTap: homeController.toggleCategories,
                         highlightColor: context.colors.buttonBackground,
                         borderRadius: BorderRadius.circular(8),
                         child: Padding(
@@ -357,7 +354,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               const SizedBox(width: 4),
                               PhosphorIcon(
-                                expanded
+                                expandedCategories
                                     ? PhosphorIcons.caretUp(
                                         PhosphorIconsStyle.bold,
                                       )
@@ -390,7 +387,7 @@ class _HomeScreenState extends State<HomeScreen> {
               firstCurve: Curves.easeIn,
               secondCurve: Curves.easeIn,
               sizeCurve: Curves.easeIn,
-              crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+              crossFadeState: expandedCategories ? CrossFadeState.showSecond : CrossFadeState.showFirst,
               firstChild: const SizedBox.shrink(),
               secondChild: HomeCategories(
                 categories: categories,
