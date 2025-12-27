@@ -229,10 +229,10 @@ class LocationAdapter extends TypeAdapter<Location> {
     return Location(
       id: fields[0] as String,
       name: fields[1] as String,
-      address: fields[2] as String?,
       latitude: (fields[3] as num).toDouble(),
       longitude: (fields[4] as num).toDouble(),
       createdAt: fields[5] as DateTime,
+      address: fields[2] as String?,
     );
   }
 

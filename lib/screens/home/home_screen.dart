@@ -353,16 +353,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               const SizedBox(width: 4),
-                              PhosphorIcon(
-                                expandedCategories
-                                    ? PhosphorIcons.caretUp(
-                                        PhosphorIconsStyle.bold,
-                                      )
-                                    : PhosphorIcons.caretDown(
-                                        PhosphorIconsStyle.bold,
-                                      ),
-                                color: context.colors.text,
-                                size: 16,
+                              AnimatedSwitcher(
+                                duration: TroskoDurations.switchAnimation,
+                                switchInCurve: Curves.easeIn,
+                                switchOutCurve: Curves.easeIn,
+                                child: PhosphorIcon(
+                                  key: ValueKey(expandedCategories),
+                                  expandedCategories
+                                      ? PhosphorIcons.caretUp(
+                                          PhosphorIconsStyle.bold,
+                                        )
+                                      : PhosphorIcons.caretDown(
+                                          PhosphorIconsStyle.bold,
+                                        ),
+                                  color: context.colors.text,
+                                  size: 16,
+                                ),
                               ),
                             ],
                           ),
@@ -383,13 +389,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ///
           SliverToBoxAdapter(
             child: AnimatedCrossFade(
-              duration: TroskoDurations.animation,
+              duration: TroskoDurations.switchAnimation,
               firstCurve: Curves.easeIn,
               secondCurve: Curves.easeIn,
               sizeCurve: Curves.easeIn,
               crossFadeState: expandedCategories ? CrossFadeState.showSecond : CrossFadeState.showFirst,
               firstChild: const SizedBox.shrink(),
               secondChild: HomeCategories(
+                isExpanded: expandedCategories,
                 categories: categories,
                 activeCategories: activeCategories,
                 onReorderCategories: hive.updateCategoriesOrder,
