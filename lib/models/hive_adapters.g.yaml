@@ -63,7 +63,7 @@ types:
         index: 1
   Location:
     typeId: 5
-    nextIndex: 6
+    nextIndex: 7
     fields:
       id:
         index: 0
@@ -77,3 +77,5 @@ types:
         index: 4
       createdAt:
         index: 5
+      note:
+        index: 6

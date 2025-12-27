@@ -68,7 +68,7 @@ class HomeCategories extends StatelessWidget {
           color: context.colors.buttonBackground,
           highlightColor: context.colors.listTileBackground,
           icon: PhosphorIcons.plus(),
-          text: 'homeAddCategory'.tr(),
+          text: 'homeAdd'.tr(),
           hasBorder: false,
         );
       },

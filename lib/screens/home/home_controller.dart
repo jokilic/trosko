@@ -31,8 +31,8 @@ class HomeController
          datesAndTransactions: [],
          activeMonths: null,
          activeCategories: null,
-         expandedCategories: false,
-         expandedLocations: false,
+         expandedCategories: hive.getExpandedCategories(),
+         expandedLocations: hive.getExpandedLocations(),
        ));
 
   ///
@@ -48,11 +48,6 @@ class HomeController
   void init({required String locale}) {
     updateState(
       locale: locale,
-    );
-
-    updateExpandedValues(
-      newExpandedCategories: hive.getExpandedCategories(),
-      newExpandedLocations: hive.getExpandedLocations(),
     );
   }
 

@@ -414,6 +414,98 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           ///
+          /// LOCATIONS TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Material(
+                      color: context.colors.scaffoldBackground,
+                      borderRadius: BorderRadius.circular(8),
+                      child: InkWell(
+                        onTap: homeController.toggleLocations,
+                        highlightColor: context.colors.buttonBackground,
+                        borderRadius: BorderRadius.circular(8),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 12,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  // TODO: Localize
+                                  'Locations',
+                                  style: context.textStyles.homeTitle,
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              AnimatedSwitcher(
+                                duration: TroskoDurations.switchAnimation,
+                                switchInCurve: Curves.easeIn,
+                                switchOutCurve: Curves.easeIn,
+                                child: PhosphorIcon(
+                                  key: ValueKey(expandedLocations),
+                                  expandedLocations
+                                      ? PhosphorIcons.caretUp(
+                                          PhosphorIconsStyle.bold,
+                                        )
+                                      : PhosphorIcons.caretDown(
+                                          PhosphorIconsStyle.bold,
+                                        ),
+                                  color: context.colors.text,
+                                  size: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
+
+          ///
+          /// LOCATIONS
+          ///
+          SliverToBoxAdapter(
+            child: AnimatedCrossFade(
+              duration: TroskoDurations.switchAnimation,
+              firstCurve: Curves.easeIn,
+              secondCurve: Curves.easeIn,
+              sizeCurve: Curves.easeIn,
+              crossFadeState: expandedLocations ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+              firstChild: const SizedBox.shrink(),
+              secondChild: HomeCategories(
+                isExpanded: expandedLocations,
+                categories: categories,
+                activeCategories: activeCategories,
+                onReorderCategories: hive.updateCategoriesOrder,
+                onPressedCategory: (category) {
+                  HapticFeedback.lightImpact();
+
+                  homeController.onCategoryPressed(
+                    category: category,
+                    activeCategories: activeCategories,
+                    languageCode: context.locale.languageCode,
+                  );
+                },
+              ),
+            ),
+          ),
+
+          ///
           /// TRANSACTIONS
           ///
           if (items.isNotEmpty)
