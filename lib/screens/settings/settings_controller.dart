@@ -9,7 +9,6 @@ import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/notification_service.dart';
-import '../../services/work_manager_service.dart';
 
 class SettingsController implements Disposable {
   ///
@@ -20,14 +19,12 @@ class SettingsController implements Disposable {
   final HiveService hive;
   final FirebaseService firebase;
   final NotificationService notification;
-  final WorkManagerService workManager;
 
   SettingsController({
     required this.logger,
     required this.hive,
     required this.firebase,
     required this.notification,
-    required this.workManager,
   });
 
   ///
@@ -91,10 +88,6 @@ class SettingsController implements Disposable {
     } else {
       await notification.stopListener();
     }
-
-    await workManager.toggleTask(
-      notificationsEnabled: permissionsGranted,
-    );
   }
 
   /// Triggered when the user submits a new `name`

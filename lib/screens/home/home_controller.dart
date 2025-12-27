@@ -12,7 +12,8 @@ import '../../services/logger_service.dart';
 import '../../util/date_time.dart';
 import '../../util/group_transactions.dart';
 
-class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions, List<Month>? activeMonths, List<Category>? activeCategories, bool expandedCategories})>
+class HomeController
+    extends ValueNotifier<({List<dynamic> datesAndTransactions, List<Month>? activeMonths, List<Category>? activeCategories, bool expandedCategories, bool expandedLocations})>
     implements Disposable {
   ///
   /// CONSTRUCTOR
@@ -31,6 +32,7 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
          activeMonths: null,
          activeCategories: null,
          expandedCategories: false,
+         expandedLocations: false,
        ));
 
   ///
@@ -46,6 +48,9 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
   void init({required String locale}) {
     updateState(
       locale: locale,
+      // TODO: Bottom values should be read from Hive
+      newExpandedCategories: false,
+      newExpandedLocations: false,
     );
   }
 
@@ -156,6 +161,8 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
     required String locale,
     List<Month>? newMonths,
     List<Category>? newCategories,
+    bool? newExpandedCategories,
+    bool? newExpandedLocations,
   }) {
     final all = hive.getTransactions();
 
@@ -218,6 +225,8 @@ class HomeController extends ValueNotifier<({List<dynamic> datesAndTransactions,
       ),
       activeMonths: targetMonths,
       activeCategories: targetCategories,
+      expandedCategories: newExpandedCategories ?? value.expandedCategories,
+      expandedLocations: newExpandedLocations ?? value.expandedLocations,
     );
   }
 

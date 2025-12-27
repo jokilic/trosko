@@ -182,6 +182,9 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
         metaDataName: 'app_icon',
       ),
       callback: startCallback,
+      serviceTypes: [
+        ForegroundServiceTypes.dataSync,
+      ],
     );
   }
 

@@ -23,6 +23,9 @@ import 'util/navigation.dart';
 import 'util/theme.dart';
 
 Future<void> main() async {
+  /// Initialize Flutter related tasks
+  WidgetsFlutterBinding.ensureInitialized();
+
   /// Initialize everything before starting app
   await initializeBeforeAppStart();
 
@@ -45,8 +48,6 @@ Future<void> main() async {
 
 /// Initialize all functionality before starting app
 Future<void> initializeBeforeAppStart() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
   /// Make sure the orientation is only `portrait`
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
