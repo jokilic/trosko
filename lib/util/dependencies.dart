@@ -119,46 +119,54 @@ Future<void> initializeServices() async {
 
 /// Initializes only the services needed for background task
 Future<void> initializeForBackgroundTask() async {
-  if (!getIt.isRegistered<LoggerService>()) {
-    getIt.registerSingletonAsync<LoggerService>(
-      () async => LoggerService(),
+  try {
+    if (!getIt.isRegistered<LoggerService>()) {
+      getIt.registerSingletonAsync<LoggerService>(
+        () async => LoggerService(),
+      );
+    }
+
+    if (!getIt.isRegistered<HiveService>()) {
+      getIt.registerSingletonAsync<HiveService>(
+        () async {
+          final hive = HiveService(
+            logger: getIt.get<LoggerService>(),
+          );
+          await hive.init();
+          return hive;
+        },
+        dependsOn: [LoggerService],
+      );
+    }
+
+    if (!getIt.isRegistered<NotificationService>()) {
+      getIt.registerSingletonAsync<NotificationService>(
+        () async {
+          final notification = NotificationService(
+            logger: getIt.get<LoggerService>(),
+            hive: getIt.get<HiveService>(),
+          );
+
+          final settings = notification.hive.getSettings();
+          notification.updateState(
+            useNotificationListener: settings.useNotificationListener ?? false,
+            notificationGranted: settings.useNotificationListener ?? false,
+            listenerGranted: settings.useNotificationListener ?? false,
+          );
+
+          return notification;
+        },
+        dependsOn: [LoggerService, HiveService],
+      );
+    }
+
+    /// Wait for initialization to finish
+    await getIt.allReady();
+  } catch (e) {
+    /// Show failure notification
+    await showBackgroundTaskNotification(
+      title: 'initializeForBackgroundTask()',
+      body: '$e',
     );
   }
-
-  if (!getIt.isRegistered<HiveService>()) {
-    getIt.registerSingletonAsync<HiveService>(
-      () async {
-        final hive = HiveService(
-          logger: getIt.get<LoggerService>(),
-        );
-        await hive.init();
-        return hive;
-      },
-      dependsOn: [LoggerService],
-    );
-  }
-
-  if (!getIt.isRegistered<NotificationService>()) {
-    getIt.registerSingletonAsync<NotificationService>(
-      () async {
-        final notification = NotificationService(
-          logger: getIt.get<LoggerService>(),
-          hive: getIt.get<HiveService>(),
-        );
-
-        final settings = notification.hive.getSettings();
-        notification.updateState(
-          useNotificationListener: settings.useNotificationListener ?? false,
-          notificationGranted: settings.useNotificationListener ?? false,
-          listenerGranted: settings.useNotificationListener ?? false,
-        );
-
-        return notification;
-      },
-      dependsOn: [LoggerService, HiveService],
-    );
-  }
-
-  /// Wait for initialization to finish
-  await getIt.allReady();
 }

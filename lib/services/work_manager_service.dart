@@ -75,7 +75,7 @@ class WorkManagerService {
 
 @pragma('vm:entry-point')
 void callbackDispatcher() => Workmanager().executeTask(
-  (_, __) async {
+  (taskName, _) async {
     try {
       /// Initialize Flutter related tasks
       WidgetsFlutterBinding.ensureInitialized();
@@ -84,17 +84,11 @@ void callbackDispatcher() => Workmanager().executeTask(
       /// Initialize only what's needed for background task
       await initializeForBackgroundTask();
 
-      /// Show notification
-      await showBackgroundTaskNotification(
-        title: 'Background task is done',
-        body: DateFormat('HH:mm').format(DateTime.now()),
-      );
-
       return Future.value(true);
     } catch (e) {
       /// Show failure notification
       await showBackgroundTaskNotification(
-        title: 'Background task failed',
+        title: 'callbackDispatcher() -> $taskName',
         body: '$e',
       );
 
