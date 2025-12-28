@@ -28,6 +28,7 @@ import '../stats/stats_screen.dart';
 import '../transaction/transaction_screen.dart';
 import 'home_controller.dart';
 import 'widgets/home_categories.dart';
+import 'widgets/home_locations.dart';
 import 'widgets/home_month_chips.dart';
 
 class HomeScreen extends WatchingStatefulWidget {
@@ -73,7 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final hive = watchIt<HiveService>();
 
     final allTransactions = hive.value.transactions;
+
     final categories = hive.value.categories;
+    final locations = hive.value.locations;
+
     final name = hive.value.username;
 
     final state = watchIt<HomeController>().value;
@@ -82,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final activeMonths = state.activeMonths;
     final activeCategories = state.activeCategories;
+    final activeLocations = state.activeLocations;
 
     final expandedCategories = state.expandedCategories;
     final expandedLocations = state.expandedLocations;
@@ -487,17 +492,17 @@ class _HomeScreenState extends State<HomeScreen> {
               sizeCurve: Curves.easeIn,
               crossFadeState: expandedLocations ? CrossFadeState.showSecond : CrossFadeState.showFirst,
               firstChild: const SizedBox.shrink(),
-              secondChild: HomeCategories(
+              secondChild: HomeLocations(
                 isExpanded: expandedLocations,
-                categories: categories,
-                activeCategories: activeCategories,
-                onReorderCategories: hive.updateCategoriesOrder,
-                onPressedCategory: (category) {
+                locations: locations,
+                activeLocations: activeLocations,
+                onReorderLocations: hive.updateLocationsOrder,
+                onPressedLocation: (location) {
                   HapticFeedback.lightImpact();
 
-                  homeController.onCategoryPressed(
-                    category: category,
-                    activeCategories: activeCategories,
+                  homeController.onLocationPressed(
+                    location: location,
+                    activeLocations: activeLocations,
                     languageCode: context.locale.languageCode,
                   );
                 },

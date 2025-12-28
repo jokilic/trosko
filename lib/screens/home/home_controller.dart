@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../models/category/category.dart';
+import '../../models/location/location.dart';
 import '../../models/month/month.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
@@ -13,7 +14,17 @@ import '../../util/date_time.dart';
 import '../../util/group_transactions.dart';
 
 class HomeController
-    extends ValueNotifier<({List<dynamic> datesAndTransactions, List<Month>? activeMonths, List<Category>? activeCategories, bool expandedCategories, bool expandedLocations})>
+    extends
+        ValueNotifier<
+          ({
+            List<dynamic> datesAndTransactions,
+            List<Month>? activeMonths,
+            List<Category>? activeCategories,
+            List<Location>? activeLocations,
+            bool expandedCategories,
+            bool expandedLocations,
+          })
+        >
     implements Disposable {
   ///
   /// CONSTRUCTOR
@@ -31,6 +42,7 @@ class HomeController
          datesAndTransactions: [],
          activeMonths: null,
          activeCategories: null,
+         activeLocations: null,
          expandedCategories: hive.getExpandedCategories(),
          expandedLocations: hive.getExpandedLocations(),
        ));
@@ -134,6 +146,15 @@ class HomeController
     );
   }
 
+  /// Triggered when the user presses some [Location]
+  void onLocationPressed({
+    required Location? location,
+    required List<Location>? activeLocations,
+    required String languageCode,
+  }) {
+    // TODO: Update this method so it handles location pressing, logic is similar to `onCategoryPressed`
+  }
+
   List<Transaction> getAllTransactionsFromMonth(Month month) {
     final all = hive.getTransactions();
 
@@ -153,11 +174,13 @@ class HomeController
     shakeFabController?.forward();
   }
 
+  // TODO: Update code so it also handles `newLocations` and updates `state -> activeLocations` with properly calculated `targetLocations`
   /// Updates `state`, depending on passed [List<Month>] or [List<Category>]
   void updateState({
     required String locale,
     List<Month>? newMonths,
     List<Category>? newCategories,
+    List<Location>? newLocations,
   }) {
     final all = hive.getTransactions();
 
@@ -220,6 +243,7 @@ class HomeController
       ),
       activeMonths: targetMonths,
       activeCategories: targetCategories,
+      activeLocations: targetLocations,
       expandedCategories: value.expandedCategories,
       expandedLocations: value.expandedLocations,
     );
@@ -233,6 +257,7 @@ class HomeController
     datesAndTransactions: value.datesAndTransactions,
     activeMonths: value.activeMonths,
     activeCategories: value.activeCategories,
+    activeLocations: value.activeLocations,
     expandedCategories: newExpandedCategories ?? value.expandedCategories,
     expandedLocations: newExpandedLocations ?? value.expandedLocations,
   );

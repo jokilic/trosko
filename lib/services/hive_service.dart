@@ -135,6 +135,16 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     await writeListCategories(reorderedCategories);
   }
 
+  /// Updates `List<Location>` ordering
+  Future<void> updateLocationsOrder(
+    List<Location> reorderedLocations,
+  ) async {
+    updateState(
+      newLocations: reorderedLocations,
+    );
+    await writeListLocations(reorderedLocations);
+  }
+
   /// Clears everything from [Hive] & updates `isLoggedIn`
   Future<void> clearEverything() async {
     await writeSettings(
