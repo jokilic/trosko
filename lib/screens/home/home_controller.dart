@@ -152,7 +152,33 @@ class HomeController
     required List<Location>? activeLocations,
     required String languageCode,
   }) {
-    // TODO: Update this method so it handles location pressing, logic is similar to `onCategoryPressed`
+    var newLocations = <Location>[];
+
+    /// Some location is pressed
+    if (location != null) {
+      /// There were no filtered locations, add the pressed location to the list
+      if (activeLocations == null || activeLocations.isEmpty) {
+        newLocations = [location];
+      }
+      /// There were filtered locations, handle pressed location
+      else {
+        newLocations = List.from(activeLocations);
+
+        /// Remove pressed location
+        if (newLocations.contains(location)) {
+          newLocations.remove(location);
+        }
+        /// Add pressed location
+        else {
+          newLocations.add(location);
+        }
+      }
+    }
+
+    updateState(
+      newLocations: newLocations,
+      locale: languageCode,
+    );
   }
 
   List<Transaction> getAllTransactionsFromMonth(Month month) {
@@ -174,8 +200,7 @@ class HomeController
     shakeFabController?.forward();
   }
 
-  // TODO: Update code so it also handles `newLocations` and updates `state -> activeLocations` with properly calculated `targetLocations`
-  /// Updates `state`, depending on passed [List<Month>] or [List<Category>]
+  /// Updates `state`, depending on passed [List<Month>], [List<Category>], or [List<Location>]
   void updateState({
     required String locale,
     List<Month>? newMonths,
@@ -206,11 +231,23 @@ class HomeController
 
     /// `newCategories` is passed, handle logic
     if (newCategories != null) {
-      targetCategories = newCategories;
+      targetCategories = newCategories.isEmpty ? null : newCategories;
     }
     /// `newCategories` is not passed, keep old filter
     else {
       targetCategories = value.activeCategories;
+    }
+
+    /// Location filter
+    List<Location>? targetLocations;
+
+    /// `newLocations` is passed, handle logic
+    if (newLocations != null) {
+      targetLocations = newLocations.isEmpty ? null : newLocations;
+    }
+    /// `newLocations` is not passed, keep old filter
+    else {
+      targetLocations = value.activeLocations;
     }
 
     /// Apply filters and sort
@@ -230,7 +267,14 @@ class HomeController
                 (c) => t.categoryId == c.id,
               );
 
-          return monthOk && categoryOk;
+          final locationOk =
+              targetLocations == null ||
+              targetLocations.isEmpty ||
+              targetLocations.any(
+                (l) => t.locationId == l.id,
+              );
+
+          return monthOk && categoryOk && locationOk;
         }).toList()..sort(
           (a, b) => b.createdAt.compareTo(a.createdAt),
         );
