@@ -7,6 +7,7 @@ import '../services/firebase_service.dart';
 import '../services/hive_service.dart';
 import '../services/logger_service.dart';
 import '../services/notification_service.dart';
+import '../services/work_manager_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -73,20 +74,43 @@ Future<void> initializeServices() async {
     );
   }
 
-  if (!getIt.isRegistered<NotificationService>()) {
-    getIt.registerSingletonAsync(
-      () async {
-        final notification = NotificationService(
-          logger: getIt.get<LoggerService>(),
-          hive: getIt.get<HiveService>(),
-        );
-        if (defaultTargetPlatform == TargetPlatform.android) {
+  ///
+  /// ANDROID SPECIFIC SERVICES
+  ///
+
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    if (!getIt.isRegistered<NotificationService>()) {
+      getIt.registerSingletonAsync(
+        () async {
+          final notification = NotificationService(
+            logger: getIt.get<LoggerService>(),
+            hive: getIt.get<HiveService>(),
+          );
           await notification.init();
-        }
-        return notification;
-      },
-      dependsOn: [LoggerService, HiveService],
-    );
+          return notification;
+        },
+        dependsOn: [LoggerService, HiveService],
+      );
+    }
+
+    if (!getIt.isRegistered<WorkManagerService>()) {
+      getIt.registerSingletonAsync(
+        () async {
+          final notificationValue = getIt.get<NotificationService>().value;
+          final notificationsEnabled = notificationValue.notificationGranted && notificationValue.listenerGranted && notificationValue.useNotificationListener;
+
+          final workManager = WorkManagerService(
+            logger: getIt.get<LoggerService>(),
+            notificationsEnabled: notificationsEnabled,
+          );
+
+          await workManager.init();
+
+          return workManager;
+        },
+        dependsOn: [LoggerService, NotificationService],
+      );
+    }
   }
 
   /// Wait for initialization to finish

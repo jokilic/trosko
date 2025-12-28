@@ -15,6 +15,7 @@ import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/notification_service.dart';
+import '../../services/work_manager_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/app_version.dart';
@@ -55,6 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         hive: getIt.get<HiveService>(),
         firebase: getIt.get<FirebaseService>(),
         notification: getIt.get<NotificationService>(),
+        workManager: getIt.get<WorkManagerService>(),
       ),
       afterRegister: (controller) => controller.init(),
     );
