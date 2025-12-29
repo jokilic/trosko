@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart' hide Location;
 import 'package:get_it/get_it.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../models/location/location.dart';
@@ -52,7 +53,7 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
   /// INIT
   ///
 
-  void init() {
+  Future<void> init({required String locale}) async {
     updateState(
       locationName: passedLocation?.name,
       nameValid: passedLocation?.name.isNotEmpty ?? false,
@@ -71,6 +72,8 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
         );
       },
     );
+
+    await setLocaleIdentifier(locale);
   }
 
   ///
@@ -87,6 +90,14 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
   ///
   /// METHODS
   ///
+
+  /// Triggered when the user moves the map
+  Future<void> onMapMove(LatLng coordinates) async {
+    updateState(
+      latitude: coordinates.latitude,
+      longitude: coordinates.longitude,
+    );
+  }
 
   /// Triggered when the user submits the value in the `Address` [TextField]
   Future<void> onAddressSubmitted(String address) async {
@@ -126,8 +137,8 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
       id: passedLocation?.id ?? const Uuid().v1(),
       name: name,
       address: address,
-      latitude: value.latitude!,
-      longitude: value.longitude!,
+      latitude: address.isNotEmpty ? value.latitude : null,
+      longitude: address.isNotEmpty ? value.longitude : null,
       note: note,
       createdAt: passedLocation?.createdAt ?? DateTime.now(),
     );

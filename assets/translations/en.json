@@ -18,6 +18,7 @@
     "categoryTitle": "Title",
     "categoryColor": "Color",
     "categoryIcon": "Icon",
+    "locationTitleNote": "Title & note",
     "locationTitle": "Title",
     "locationNote": "Note (not necessary)",
     "locationAddress": "Address",

@@ -18,6 +18,7 @@
     "categoryTitle": "Naziv",
     "categoryColor": "Boja",
     "categoryIcon": "Ikona",
+    "locationTitleNote": "Naziv i bilješka",
     "locationTitle": "Naziv",
     "locationNote": "Bilješka (nije obavezno)",
     "locationAddress": "Adresa",

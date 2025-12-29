@@ -46,7 +46,7 @@ class Transaction {
     categoryId: map['categoryId'] as String,
     note: map['note'] != null ? map['note'] as String : null,
     createdAt: (map['createdAt'] as Timestamp).toDate(),
-    locationId: map['locationId'] as String?,
+    locationId: map['locationId'] != null ? map['locationId'] as String : null,
   );
 
   Map<String, dynamic> toMap() => <String, dynamic>{

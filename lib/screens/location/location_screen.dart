@@ -45,7 +45,11 @@ class _LocationScreenState extends State<LocationScreen> {
         passedLocation: widget.passedLocation,
       ),
       instanceName: widget.passedLocation?.id,
-      afterRegister: (controller) => controller.init(),
+      afterRegister: (controller) => WidgetsBinding.instance.addPostFrameCallback(
+        (_) => controller.init(
+          locale: context.locale.languageCode,
+        ),
+      ),
     );
   }
 
@@ -78,7 +82,7 @@ class _LocationScreenState extends State<LocationScreen> {
           )
         : null;
 
-    final validated = state.nameValid && locationCoordinates != null;
+    final validated = state.nameValid;
 
     return Scaffold(
       body: CustomScrollView(
@@ -162,7 +166,11 @@ class _LocationScreenState extends State<LocationScreen> {
                           ? LocationMap(
                               coordinates: locationCoordinates,
                             )
-                          : null,
+                          : PhosphorIcon(
+                              PhosphorIcons.globeHemisphereWest(),
+                              color: context.colors.buttonPrimary,
+                              size: 104,
+                            ),
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -177,12 +185,12 @@ class _LocationScreenState extends State<LocationScreen> {
                 const SizedBox(height: 20),
 
                 ///
-                /// LOCATION TITLE
+                /// LOCATION TITLE & NOTE
                 ///
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'locationTitle'.tr(),
+                    'locationTitleNote'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),

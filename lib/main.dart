@@ -22,8 +22,6 @@ import 'util/localization.dart';
 import 'util/navigation.dart';
 import 'util/theme.dart';
 
-// TODO: Refresh localization
-
 Future<void> main() async {
   /// Initialize Flutter related tasks
   WidgetsFlutterBinding.ensureInitialized();

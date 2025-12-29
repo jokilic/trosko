@@ -13,10 +13,10 @@ class Location {
   final String? address;
 
   @HiveField(4)
-  final double latitude;
+  final double? latitude;
 
   @HiveField(5)
-  final double longitude;
+  final double? longitude;
 
   @HiveField(6)
   final DateTime createdAt;
@@ -27,9 +27,9 @@ class Location {
   Location({
     required this.id,
     required this.name,
-    required this.latitude,
-    required this.longitude,
     required this.createdAt,
+    this.longitude,
+    this.latitude,
     this.address,
     this.note,
   });
@@ -42,9 +42,9 @@ class Location {
   factory Location.fromMap(Map<String, dynamic> map) => Location(
     id: map['id'] as String,
     name: map['name'] as String,
-    address: map['address'] as String?,
-    latitude: (map['latitude'] as num).toDouble(),
-    longitude: (map['longitude'] as num).toDouble(),
+    address: map['address'] != null ? map['address'] as String : null,
+    latitude: map['latitude'] != null ? (map['latitude'] as num).toDouble() : null,
+    longitude: map['longitude'] != null ? (map['longitude'] as num).toDouble() : null,
     createdAt: (map['createdAt'] as Timestamp).toDate(),
     note: map['note'] != null ? map['note'] as String : null,
   );
