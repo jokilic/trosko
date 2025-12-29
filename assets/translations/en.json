@@ -24,6 +24,7 @@
     "locationAddress": "Address",
     "categoryUpdateButton": "Update category",
     "categoryAddButton": "Add category",
+    "locationAddressText": "Type a new address and press Enter on your keyboard.",
     "locationUpdateButton": "Update location",
     "locationAddButton": "Add location",
     "homeAddExpense": "Add expense",

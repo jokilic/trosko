@@ -264,6 +264,14 @@ class _LocationScreenState extends State<LocationScreen> {
                     textInputAction: TextInputAction.done,
                   ),
                 ),
+                const SizedBox(height: 6),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'locationAddressText'.tr(),
+                    style: context.textStyles.homeTransactionNote,
+                  ),
+                ),
                 const SizedBox(height: 28),
               ],
             ),

@@ -96,15 +96,10 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
   ///
 
   /// Triggered when the user moves the map
-  Future<void> onMapEvent(MapEvent event) async {
-    updateState(
-      latitude: event.camera.center.latitude,
-      longitude: event.camera.center.longitude,
-    );
-
-    // TODO: Remove this
-    logger.d('LocationController -> onMapEvent() -> $event');
-  }
+  void onMapEvent(MapEvent event) => updateState(
+    latitude: event.camera.center.latitude,
+    longitude: event.camera.center.longitude,
+  );
 
   /// Triggered when the user submits the value in the `Address` [TextField]
   Future<void> onAddressSubmitted(String address) async {

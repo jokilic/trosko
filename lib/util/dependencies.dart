@@ -84,43 +84,39 @@ Future<void> initializeServices() async {
     );
   }
 
-  ///
-  /// ANDROID SPECIFIC SERVICES
-  ///
-
-  if (defaultTargetPlatform == TargetPlatform.android) {
-    if (!getIt.isRegistered<NotificationService>()) {
-      getIt.registerSingletonAsync(
-        () async {
-          final notification = NotificationService(
-            logger: getIt.get<LoggerService>(),
-            hive: getIt.get<HiveService>(),
-          );
+  if (!getIt.isRegistered<NotificationService>()) {
+    getIt.registerSingletonAsync(
+      () async {
+        final notification = NotificationService(
+          logger: getIt.get<LoggerService>(),
+          hive: getIt.get<HiveService>(),
+        );
+        if (defaultTargetPlatform == TargetPlatform.android) {
           await notification.init();
-          return notification;
-        },
-        dependsOn: [LoggerService, HiveService],
-      );
-    }
+        }
+        return notification;
+      },
+      dependsOn: [LoggerService, HiveService],
+    );
+  }
 
-    if (!getIt.isRegistered<WorkManagerService>()) {
-      getIt.registerSingletonAsync(
-        () async {
-          final notificationValue = getIt.get<NotificationService>().value;
-          final notificationsEnabled = notificationValue.notificationGranted && notificationValue.listenerGranted && notificationValue.useNotificationListener;
+  if (!getIt.isRegistered<WorkManagerService>()) {
+    getIt.registerSingletonAsync(
+      () async {
+        final notificationValue = getIt.get<NotificationService>().value;
+        final notificationsEnabled = notificationValue.notificationGranted && notificationValue.listenerGranted && notificationValue.useNotificationListener;
 
-          final workManager = WorkManagerService(
-            logger: getIt.get<LoggerService>(),
-            notificationsEnabled: notificationsEnabled,
-          );
-
+        final workManager = WorkManagerService(
+          logger: getIt.get<LoggerService>(),
+          notificationsEnabled: notificationsEnabled,
+        );
+        if (defaultTargetPlatform == TargetPlatform.android) {
           await workManager.init();
-
-          return workManager;
-        },
-        dependsOn: [LoggerService, NotificationService],
-      );
-    }
+        }
+        return workManager;
+      },
+      dependsOn: [LoggerService, NotificationService],
+    );
   }
 
   /// Wait for initialization to finish
