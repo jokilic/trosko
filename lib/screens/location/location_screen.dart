@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
@@ -44,7 +45,7 @@ class _LocationScreenState extends State<LocationScreen> {
         passedLocation: widget.passedLocation,
       ),
       instanceName: widget.passedLocation?.id,
-      // afterRegister: (controller) => controller.init(),
+      afterRegister: (controller) => controller.init(),
     );
   }
 
@@ -66,13 +67,18 @@ class _LocationScreenState extends State<LocationScreen> {
       instanceName: widget.passedLocation?.id,
     ).value;
 
-    final categoryName = state.categoryName;
-    final categoryColor = state.categoryColor;
-    final categoryIcon = state.categoryIcon;
+    final locationName = state.locationName;
+    final locationLatitude = state.latitude;
+    final locationLongitude = state.longitude;
 
-    final searchedIcons = state.searchedIcons;
+    final locationCoordinates = locationLongitude != null && locationLatitude != null
+        ? LatLng(
+            locationLatitude,
+            locationLongitude,
+          )
+        : null;
 
-    final validated = state.nameValid && state.categoryColor != null && state.categoryIcon != null;
+    final validated = state.nameValid && locationCoordinates != null;
 
     return Scaffold(
       body: CustomScrollView(
@@ -107,7 +113,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     unawaited(
                       HapticFeedback.lightImpact(),
                     );
-                    // await locationController.deleteCategory();
+                    await locationController.deleteLocation();
                     Navigator.of(context).pop();
                   },
                   style: IconButton.styleFrom(
@@ -123,10 +129,9 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                 ),
             ],
-            // TODO: Localize
-            smallTitle: widget.passedLocation != null ? 'Update location' : 'New location',
-            bigTitle: widget.passedLocation != null ? 'Update location' : 'New location',
-            bigSubtitle: widget.passedLocation != null ? 'Edit details of an existing location' : 'Create a location to track your expenses',
+            smallTitle: widget.passedLocation != null ? 'locationUpdateTitle'.tr() : 'locationNewTitle'.tr(),
+            bigTitle: widget.passedLocation != null ? 'locationUpdateTitle'.tr() : 'locationNewTitle'.tr(),
+            bigSubtitle: widget.passedLocation != null ? 'locationUpdateSubtitle'.tr() : 'locationNewSubtitle'.tr(),
           ),
 
           ///
@@ -143,20 +148,30 @@ class _LocationScreenState extends State<LocationScreen> {
                 Column(
                   children: [
                     Container(
-                      height: 200,
-                      width: 200,
+                      height: 280,
+                      width: 280,
                       margin: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.yellow,
                         border: Border.all(
                           color: context.colors.text,
                           width: 1.5,
                         ),
                       ),
-                      child: LocationMap(),
+                      child: locationCoordinates != null
+                          ? LocationMap(
+                              coordinates: locationCoordinates,
+                            )
+                          : null,
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 8),
+                    Text(
+                      locationName ?? '',
+                      style: context.textStyles.categoryName,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 20),
@@ -167,8 +182,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    // TODO: Localize
-                    'Title',
+                    'locationTitle'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -181,8 +195,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     controller: locationController.nameTextEditingController,
-                    // TODO: Localize
-                    labelText: 'Title',
+                    labelText: 'locationTitle'.tr(),
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
                     textCapitalization: TextCapitalization.sentences,
@@ -198,8 +211,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     controller: locationController.noteTextEditingController,
-                    // TODO: Localize
-                    labelText: 'transactionNote'.tr(),
+                    labelText: 'locationNote'.tr(),
                     keyboardType: TextInputType.multiline,
                     minLines: null,
                     maxLines: 3,
@@ -216,8 +228,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    // TODO: Localize
-                    'Address',
+                    'locationAddress'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -231,8 +242,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   child: TroskoTextField(
                     onSubmitted: locationController.onAddressSubmitted,
                     controller: locationController.addressTextEditingController,
-                    // TODO: Localize
-                    labelText: 'Address',
+                    labelText: 'locationAddress'.tr(),
                     keyboardType: TextInputType.streetAddress,
                     textAlign: TextAlign.left,
                     textCapitalization: TextCapitalization.sentences,
@@ -257,7 +267,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     unawaited(
                       HapticFeedback.lightImpact(),
                     );
-                    await locationController.addCategory();
+                    await locationController.addLocation();
                     Navigator.of(context).pop();
                   }
                 : null,
@@ -279,7 +289,7 @@ class _LocationScreenState extends State<LocationScreen> {
               disabledForegroundColor: context.colors.disabledText,
             ),
             child: Text(
-              widget.passedLocation != null ? 'categoryUpdateButton'.tr().toUpperCase() : 'categoryAddButton'.tr().toUpperCase(),
+              widget.passedLocation != null ? 'locationUpdateButton'.tr().toUpperCase() : 'locationAddButton'.tr().toUpperCase(),
             ),
           ),
         ),

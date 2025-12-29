@@ -444,8 +444,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Flexible(
                                 child: Text(
-                                  // TODO: Localize
-                                  'Locations',
+                                  'homeLocations'.tr(),
                                   style: context.textStyles.homeTitle,
                                 ),
                               ),

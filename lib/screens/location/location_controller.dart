@@ -1,22 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart' hide Location;
 import 'package:get_it/get_it.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../models/category/category.dart';
 import '../../models/location/location.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-class LocationController
-    extends
-        ValueNotifier<
-          ({String? categoryName, Color? categoryColor, bool nameValid, MapEntry<String, PhosphorIconData>? categoryIcon, List<MapEntry<String, PhosphorIconData>>? searchedIcons})
-        >
-    implements Disposable {
+class LocationController extends ValueNotifier<({String? locationName, bool nameValid, double? latitude, double? longitude})> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -32,11 +26,10 @@ class LocationController
     required this.firebase,
     required this.passedLocation,
   }) : super((
-         categoryName: null,
-         categoryColor: null,
+         locationName: null,
          nameValid: false,
-         categoryIcon: null,
-         searchedIcons: null,
+         latitude: null,
+         longitude: null,
        ));
 
   ///
@@ -55,48 +48,30 @@ class LocationController
     text: passedLocation?.note,
   );
 
-  // late final iconTextEditingController = TextEditingController(
-  //   text: passedLocation?.iconName,
-  // );
-
   ///
   /// INIT
   ///
 
-  // void init() {
-  //   updateState(
-  //     categoryName: passedLocation?.name,
-  //     categoryColor: passedLocation?.color,
-  //     nameValid: passedLocation?.name.isNotEmpty ?? false,
-  //     categoryIcon: getRegularIconFromName(
-  //       passedLocation?.iconName,
-  //     ),
-  //     searchedIcons: getRegularIconsFromName(
-  //       iconTextEditingController.text.trim().toLowerCase(),
-  //     ),
-  //   );
+  void init() {
+    updateState(
+      locationName: passedLocation?.name,
+      nameValid: passedLocation?.name.isNotEmpty ?? false,
+      latitude: passedLocation?.latitude,
+      longitude: passedLocation?.longitude,
+    );
 
-  //   /// Validation
-  //   nameTextEditingController.addListener(
-  //     () {
-  //       final name = nameTextEditingController.text.trim();
+    /// Validation
+    nameTextEditingController.addListener(
+      () {
+        final name = nameTextEditingController.text.trim();
 
-  //       updateState(
-  //         categoryName: name,
-  //         nameValid: name.isNotEmpty,
-  //       );
-  //     },
-  //   );
-
-  //   /// Icon search
-  //   iconTextEditingController.addListener(
-  //     () => updateState(
-  //       searchedIcons: getRegularIconsFromName(
-  //         iconTextEditingController.text.trim(),
-  //       ),
-  //     ),
-  //   );
-  // }
+        updateState(
+          locationName: name,
+          nameValid: name.isNotEmpty,
+        );
+      },
+    );
+  }
 
   ///
   /// DISPOSE
@@ -113,90 +88,101 @@ class LocationController
   /// METHODS
   ///
 
-  /// Triggered when the user presses a [Color]
-  void colorChanged(Color newColor) => updateState(
-    categoryColor: newColor,
-  );
-
-  /// Triggered when the user presses an [Icon]
-  void iconChanged(MapEntry<String, PhosphorIconData> newIcon) => updateState(
-    categoryIcon: newIcon,
-  );
-
   /// Triggered when the user submits the value in the `Address` [TextField]
   Future<void> onAddressSubmitted(String address) async {
-    // TODO: Take `address.trim()` and search using `geocoding` package
+    final trimmedAddress = address.trim();
+
+    if (trimmedAddress.isEmpty) {
+      return;
+    }
+
+    try {
+      /// Search for location using `trimmedAddress`
+      final locations = await locationFromAddress(trimmedAddress);
+
+      /// Location found, update `state`
+      if (locations.firstOrNull != null) {
+        updateState(
+          latitude: locations.first.latitude,
+          longitude: locations.first.longitude,
+        );
+      } else {
+        logger.d('LocationController -> onAddressSubmitted() -> No location found');
+      }
+    } catch (e) {
+      logger.e('LocationController -> onAddressSubmitted() -> $e');
+    }
   }
 
-  /// Triggered when the user adds category
-  Future<void> addCategory() async {
+  /// Triggered when the user adds location
+  Future<void> addLocation() async {
     /// Get [TextField] values
     final name = nameTextEditingController.text.trim();
     final address = addressTextEditingController.text.trim();
     final note = noteTextEditingController.text.trim();
 
-    /// Create [Category]
-    final newCategory = Category(
+    /// Create [Location]
+    final newLocation = Location(
       id: passedLocation?.id ?? const Uuid().v1(),
       name: name,
-      iconName: value.categoryIcon!.key,
-      color: value.categoryColor!,
+      address: address,
+      latitude: value.latitude!,
+      longitude: value.longitude!,
+      note: note,
       createdAt: passedLocation?.createdAt ?? DateTime.now(),
     );
 
-    /// User modified category
+    /// User modified location
     if (passedLocation != null) {
-      await hive.updateCategory(
-        newCategory: newCategory,
+      await hive.updateLocation(
+        newLocation: newLocation,
       );
 
       unawaited(
-        firebase.updateCategory(
-          newCategory: newCategory,
+        firebase.updateLocation(
+          newLocation: newLocation,
         ),
       );
     }
-    /// User created new category
+    /// User created new location
     else {
-      await hive.writeCategory(
-        newCategory: newCategory,
+      await hive.writeLocation(
+        newLocation: newLocation,
       );
 
       unawaited(
-        firebase.writeCategory(
-          newCategory: newCategory,
+        firebase.writeLocation(
+          newLocation: newLocation,
         ),
       );
     }
   }
 
-  /// Triggered when the user deletes category
-  // Future<void> deleteCategory() async {
-  //   if (passedLocation != null) {
-  //     await hive.deleteCategory(
-  //       category: passedLocation!,
-  //     );
+  /// Triggered when the user deletes location
+  Future<void> deleteLocation() async {
+    if (passedLocation != null) {
+      await hive.deleteLocation(
+        location: passedLocation!,
+      );
 
-  //     unawaited(
-  //       firebase.deleteCategory(
-  //         category: passedLocation!,
-  //       ),
-  //     );
-  //   }
-  // }
+      unawaited(
+        firebase.deleteLocation(
+          location: passedLocation!,
+        ),
+      );
+    }
+  }
 
   /// Updates `state`
   void updateState({
-    String? categoryName,
-    Color? categoryColor,
+    String? locationName,
     bool? nameValid,
-    MapEntry<String, PhosphorIconData>? categoryIcon,
-    List<MapEntry<String, PhosphorIconData>>? searchedIcons,
+    double? latitude,
+    double? longitude,
   }) => value = (
-    categoryName: categoryName ?? value.categoryName,
-    categoryColor: categoryColor ?? value.categoryColor,
+    locationName: locationName ?? value.locationName,
     nameValid: nameValid ?? value.nameValid,
-    categoryIcon: categoryIcon ?? value.categoryIcon,
-    searchedIcons: searchedIcons ?? value.searchedIcons,
+    latitude: latitude ?? value.latitude,
+    longitude: longitude ?? value.longitude,
   );
 }

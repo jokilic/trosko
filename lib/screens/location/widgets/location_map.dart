@@ -3,15 +3,19 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class LocationMap extends StatelessWidget {
+  final LatLng coordinates;
+
+  const LocationMap({
+    required this.coordinates,
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context) => ClipOval(
     child: FlutterMap(
-      options: const MapOptions(
-        initialCenter: LatLng(
-          51.509364,
-          -0.128928,
-        ),
-        initialZoom: 9.2,
+      options: MapOptions(
+        initialCenter: coordinates,
+        initialZoom: 12,
       ),
       children: [
         TileLayer(
