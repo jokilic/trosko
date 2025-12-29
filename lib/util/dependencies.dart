@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import '../services/firebase_service.dart';
 import '../services/hive_service.dart';
 import '../services/logger_service.dart';
+import '../services/map_service.dart';
 import '../services/notification_service.dart';
 import '../services/work_manager_service.dart';
 
@@ -69,6 +70,15 @@ Future<void> initializeServices() async {
         logger: getIt.get<LoggerService>(),
         auth: FirebaseAuth.instance,
         firestore: FirebaseFirestore.instance,
+      ),
+      dependsOn: [LoggerService],
+    );
+  }
+
+  if (!getIt.isRegistered<MapService>()) {
+    getIt.registerSingletonAsync(
+      () async => MapService(
+        logger: getIt.get<LoggerService>(),
       ),
       dependsOn: [LoggerService],
     );

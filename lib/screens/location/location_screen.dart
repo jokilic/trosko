@@ -11,6 +11,7 @@ import '../../models/location/location.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../services/map_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
@@ -71,7 +72,10 @@ class _LocationScreenState extends State<LocationScreen> {
       instanceName: widget.passedLocation?.id,
     ).value;
 
+    final mapState = watchIt<MapService>().value;
+
     final locationName = state.locationName;
+
     final locationLatitude = state.latitude;
     final locationLongitude = state.longitude;
 
@@ -164,7 +168,10 @@ class _LocationScreenState extends State<LocationScreen> {
                       ),
                       child: locationCoordinates != null
                           ? LocationMap(
+                              mapController: locationController.mapController,
                               coordinates: locationCoordinates,
+                              onMapEvent: locationController.onMapEvent,
+                              mapStyle: mapState,
                             )
                           : PhosphorIcon(
                               PhosphorIcons.globeHemisphereWest(),

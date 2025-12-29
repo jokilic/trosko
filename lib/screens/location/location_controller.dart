@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart' hide Location;
 import 'package:get_it/get_it.dart';
 import 'package:latlong2/latlong.dart';
@@ -49,6 +50,8 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
     text: passedLocation?.note,
   );
 
+  late final mapController = MapController();
+
   ///
   /// INIT
   ///
@@ -85,6 +88,7 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
     nameTextEditingController.dispose();
     addressTextEditingController.dispose();
     noteTextEditingController.dispose();
+    mapController.dispose();
   }
 
   ///
@@ -92,11 +96,14 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
   ///
 
   /// Triggered when the user moves the map
-  Future<void> onMapMove(LatLng coordinates) async {
+  Future<void> onMapEvent(MapEvent event) async {
     updateState(
-      latitude: coordinates.latitude,
-      longitude: coordinates.longitude,
+      latitude: event.camera.center.latitude,
+      longitude: event.camera.center.longitude,
     );
+
+    // TODO: Remove this
+    logger.d('LocationController -> onMapEvent() -> $event');
   }
 
   /// Triggered when the user submits the value in the `Address` [TextField]
@@ -111,11 +118,23 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
       /// Search for location using `trimmedAddress`
       final locations = await locationFromAddress(trimmedAddress);
 
-      /// Location found, update `state`
+      /// Location found
       if (locations.firstOrNull != null) {
+        final coordinates = LatLng(
+          locations.first.latitude,
+          locations.first.longitude,
+        );
+
+        /// Update `state`
         updateState(
-          latitude: locations.first.latitude,
-          longitude: locations.first.longitude,
+          latitude: coordinates.latitude,
+          longitude: coordinates.longitude,
+        );
+
+        /// Move map
+        mapController.move(
+          coordinates,
+          mapController.camera.zoom,
         );
       } else {
         logger.d('LocationController -> onAddressSubmitted() -> No location found');
