@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:workmanager/workmanager.dart';
@@ -75,7 +75,7 @@ class WorkManagerService {
 
 @pragma('vm:entry-point')
 void callbackDispatcher() => Workmanager().executeTask(
-  (taskName, _) async {
+  (_, __) async {
     try {
       /// Initialize Flutter related tasks
       WidgetsFlutterBinding.ensureInitialized();
@@ -88,7 +88,7 @@ void callbackDispatcher() => Workmanager().executeTask(
     } catch (e) {
       /// Show failure notification
       await showBackgroundTaskNotification(
-        title: 'callbackDispatcher() -> $taskName',
+        title: '❌ callbackDispatcher()',
         body: '$e',
       );
 
@@ -114,8 +114,10 @@ Future<void> showBackgroundTaskNotification({
 
   final plugin = notificationService.flutterLocalNotificationsPlugin;
 
+  final id = Random().nextInt(1000);
+
   await plugin?.show(
-    0,
+    id,
     title,
     body,
     const NotificationDetails(

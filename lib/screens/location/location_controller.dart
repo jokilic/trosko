@@ -47,6 +47,14 @@ class LocationController
     text: passedLocation?.name,
   );
 
+  late final addressTextEditingController = TextEditingController(
+    text: passedLocation?.address,
+  );
+
+  late final noteTextEditingController = TextEditingController(
+    text: passedLocation?.note,
+  );
+
   // late final iconTextEditingController = TextEditingController(
   //   text: passedLocation?.iconName,
   // );
@@ -97,7 +105,8 @@ class LocationController
   @override
   void onDispose() {
     nameTextEditingController.dispose();
-    // iconTextEditingController.dispose();
+    addressTextEditingController.dispose();
+    noteTextEditingController.dispose();
   }
 
   ///
@@ -114,10 +123,17 @@ class LocationController
     categoryIcon: newIcon,
   );
 
+  /// Triggered when the user submits the value in the `Address` [TextField]
+  Future<void> onAddressSubmitted(String address) async {
+    // TODO: Take `address.trim()` and search using `geocoding` package
+  }
+
   /// Triggered when the user adds category
   Future<void> addCategory() async {
     /// Get [TextField] values
     final name = nameTextEditingController.text.trim();
+    final address = addressTextEditingController.text.trim();
+    final note = noteTextEditingController.text.trim();
 
     /// Create [Category]
     final newCategory = Category(

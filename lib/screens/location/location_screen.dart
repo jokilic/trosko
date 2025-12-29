@@ -17,6 +17,7 @@ import '../../util/dependencies.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'location_controller.dart';
+import 'widgets/location_map.dart';
 
 class LocationScreen extends WatchingStatefulWidget {
   final Location? passedLocation;
@@ -122,9 +123,10 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                 ),
             ],
-            smallTitle: widget.passedLocation != null ? 'categoryUpdateTitle'.tr() : 'categoryNewTitle'.tr(),
-            bigTitle: widget.passedLocation != null ? 'categoryUpdateTitle'.tr() : 'categoryNewTitle'.tr(),
-            bigSubtitle: widget.passedLocation != null ? 'categoryUpdateSubtitle'.tr() : 'categoryNewSubtitle'.tr(),
+            // TODO: Localize
+            smallTitle: widget.passedLocation != null ? 'Update location' : 'New location',
+            bigTitle: widget.passedLocation != null ? 'Update location' : 'New location',
+            bigSubtitle: widget.passedLocation != null ? 'Edit details of an existing location' : 'Create a location to track your expenses',
           ),
 
           ///
@@ -136,54 +138,37 @@ class _LocationScreenState extends State<LocationScreen> {
                 const SizedBox(height: 8),
 
                 ///
-                /// CATEGORY
+                /// LOCATION
                 ///
                 Column(
                   children: [
                     Container(
-                      height: 104,
-                      width: 104,
+                      height: 200,
+                      width: 200,
                       margin: const EdgeInsets.symmetric(horizontal: 16),
-                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: categoryColor,
+                        color: Colors.yellow,
                         border: Border.all(
-                          color: categoryColor ?? context.colors.text,
+                          color: context.colors.text,
                           width: 1.5,
                         ),
                       ),
-                      child: categoryIcon != null
-                          ? PhosphorIcon(
-                              categoryIcon.value,
-                              color: getWhiteOrBlackColor(
-                                backgroundColor: categoryColor ?? context.colors.scaffoldBackground,
-                                whiteColor: TroskoColors.lightThemeWhiteBackground,
-                                blackColor: TroskoColors.lightThemeBlackText,
-                              ),
-                              size: 56,
-                            )
-                          : null,
+                      child: LocationMap(),
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      categoryName ?? '',
-                      style: context.textStyles.categoryName,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                    ),
+                    const SizedBox(height: 32),
                   ],
                 ),
                 const SizedBox(height: 20),
 
                 ///
-                /// CATEGORY TITLE
+                /// LOCATION TITLE
                 ///
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'categoryTitle'.tr(),
+                    // TODO: Localize
+                    'Title',
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -196,131 +181,64 @@ class _LocationScreenState extends State<LocationScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     controller: locationController.nameTextEditingController,
-                    labelText: 'categoryTitle'.tr(),
+                    // TODO: Localize
+                    labelText: 'Title',
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
                     textCapitalization: TextCapitalization.sentences,
-                    textInputAction: TextInputAction.done,
+                    textInputAction: TextInputAction.next,
                   ),
                 ),
                 const SizedBox(height: 28),
 
                 ///
-                /// COLOR TITLE
-                ///
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 28),
-                  child: Text(
-                    'categoryColor'.tr(),
-                    style: context.textStyles.homeTitle,
-                  ),
-                ),
-                const SizedBox(height: 12),
-
-                ///
-                /// CATEGORY COLORS
-                ///
-                // CategoryColors(
-                //   colors: categoryColors,
-                //   activeColor: categoryColor,
-                //   onPressedColor: (color) {
-                //     HapticFeedback.lightImpact();
-                //     locationController.colorChanged(color);
-                //   },
-                //   onPressedAdd: () async {
-                //     unawaited(
-                //       HapticFeedback.lightImpact(),
-                //     );
-
-                //     /// Show [CategoryCustomColorModal]
-                //     final color = await showModalBottomSheet<Color>(
-                //       context: context,
-                //       backgroundColor: context.colors.scaffoldBackground,
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(8),
-                //       ),
-                //       builder: (context) => CategoryCustomColorModal(
-                //         startingColor: context.colors.buttonPrimary,
-                //         key: const ValueKey('custom-color-modal'),
-                //       ),
-                //     );
-
-                //     /// `color` exists
-                //     if (color != null) {
-                //       locationController.colorChanged(color);
-                //     }
-                //   },
-                // ),
-                const SizedBox(height: 28),
-
-                ///
-                /// ICON TITLE
-                ///
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 28),
-                  child: Text(
-                    'categoryIcon'.tr(),
-                    style: context.textStyles.homeTitle,
-                  ),
-                ),
-                const SizedBox(height: 12),
-
-                ///
-                /// CATEGORY ICON TEXT FIELD
+                /// NOTE TEXT FIELD
                 ///
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
-                    controller: TextEditingController(),
-                    // controller: locationController.iconTextEditingController,
-                    labelText: 'categoryIcon'.tr(),
-                    keyboardType: TextInputType.text,
+                    controller: locationController.noteTextEditingController,
+                    // TODO: Localize
+                    labelText: 'transactionNote'.tr(),
+                    keyboardType: TextInputType.multiline,
+                    minLines: null,
+                    maxLines: 3,
+                    textAlign: TextAlign.left,
+                    textCapitalization: TextCapitalization.sentences,
+                    textInputAction: TextInputAction.newline,
+                  ),
+                ),
+                const SizedBox(height: 28),
+
+                ///
+                /// LOCATION ADDRESS
+                ///
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    // TODO: Localize
+                    'Address',
+                    style: context.textStyles.homeTitle,
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                ///
+                /// ADDRESS TEXT FIELD
+                ///
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TroskoTextField(
+                    onSubmitted: locationController.onAddressSubmitted,
+                    controller: locationController.addressTextEditingController,
+                    // TODO: Localize
+                    labelText: 'Address',
+                    keyboardType: TextInputType.streetAddress,
                     textAlign: TextAlign.left,
                     textCapitalization: TextCapitalization.sentences,
                     textInputAction: TextInputAction.done,
                   ),
                 ),
-                const SizedBox(height: 20),
-
-                ///
-                /// CATEGORY ICONS
-                ///
-                if (searchedIcons?.isNotEmpty ?? false)
-                  Container(
-                    height: 200,
-                    margin: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: context.colors.listTileBackground,
-                      border: Border.all(
-                        color: context.colors.text,
-                        width: 1.5,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: searchedIcons?.length,
-                      itemBuilder: (_, index) {
-                        final icon = searchedIcons![index];
-
-                        return Container(
-                          height: 40,
-                          width: 40,
-                          color: Colors.green,
-                        );
-
-                        // return CategoryIconListTile(
-                        //   isActive: categoryIcon?.key == icon.key,
-                        //   onPressed: () {
-                        //     HapticFeedback.lightImpact();
-                        //     locationController.iconChanged(icon);
-                        //   },
-                        //   icon: icon,
-                        // );
-                      },
-                    ),
-                  ),
                 const SizedBox(height: 28),
               ],
             ),
