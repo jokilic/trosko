@@ -15,12 +15,12 @@ import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
+import '../../widgets/icon_list_tile.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'category_controller.dart';
 import 'widgets/category_colors.dart';
 import 'widgets/category_custom_color_modal.dart';
-import 'widgets/category_icon_list_tile.dart';
 
 class CategoryScreen extends WatchingStatefulWidget {
   final Category? passedCategory;
@@ -263,7 +263,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'categoryIcon'.tr(),
+                    'categoryLocationIcon'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -276,7 +276,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     controller: categoryController.iconTextEditingController,
-                    labelText: 'categoryIcon'.tr(),
+                    labelText: 'categoryLocationIcon'.tr(),
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
                     textCapitalization: TextCapitalization.sentences,
@@ -307,7 +307,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       itemBuilder: (_, index) {
                         final icon = searchedIcons![index];
 
-                        return CategoryIconListTile(
+                        return IconListTile(
                           isActive: categoryIcon?.key == icon.key,
                           onPressed: () {
                             HapticFeedback.lightImpact();

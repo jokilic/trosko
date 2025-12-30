@@ -5,14 +5,36 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart' hide Location;
 import 'package:get_it/get_it.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../models/location/location.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../util/icons.dart';
 
-class LocationController extends ValueNotifier<({String? locationName, bool nameValid, double? latitude, double? longitude, bool mapEditMode})> implements Disposable {
+/// Class to distinguish `no argument passed` from `explicitly passed null`
+class LocationStateNoChange {
+  const LocationStateNoChange();
+}
+
+const locationStateNoChange = LocationStateNoChange();
+
+class LocationController
+    extends
+        ValueNotifier<
+          ({
+            String? locationName,
+            bool nameValid,
+            double? latitude,
+            double? longitude,
+            bool mapEditMode,
+            MapEntry<String, PhosphorIconData>? locationIcon,
+            List<MapEntry<String, PhosphorIconData>>? searchedIcons,
+          })
+        >
+    implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -33,6 +55,8 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
          latitude: null,
          longitude: null,
          mapEditMode: false,
+         locationIcon: null,
+         searchedIcons: null,
        ));
 
   ///
@@ -53,6 +77,10 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
     text: passedLocation?.note,
   );
 
+  late final iconTextEditingController = TextEditingController(
+    text: passedLocation?.iconName,
+  );
+
   late final mapController = MapController();
 
   ///
@@ -66,6 +94,12 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
       latitude: passedLocation?.latitude,
       longitude: passedLocation?.longitude,
       mapEditMode: false,
+      locationIcon: getRegularIconFromName(
+        passedLocation?.iconName,
+      ),
+      searchedIcons: getRegularIconsFromName(
+        iconTextEditingController.text.trim().toLowerCase(),
+      ),
     );
 
     /// Validation
@@ -92,12 +126,18 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
     nameTextEditingController.dispose();
     addressTextEditingController.dispose();
     noteTextEditingController.dispose();
+    iconTextEditingController.dispose();
     mapController.dispose();
   }
 
   ///
   /// METHODS
   ///
+
+  /// Triggered when the user presses an [Icon]
+  void iconChanged(MapEntry<String, PhosphorIconData> newIcon) => updateState(
+    locationIcon: value.locationIcon?.key == newIcon.key ? null : newIcon,
+  );
 
   /// Triggered when the user enables map edit mode
   void mapEditModeChanged() => updateState(mapEditMode: true);
@@ -164,6 +204,7 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
       longitude: address.isNotEmpty ? value.longitude : null,
       note: note,
       createdAt: passedLocation?.createdAt ?? DateTime.now(),
+      iconName: value.locationIcon?.key,
     );
 
     /// User modified location
@@ -214,11 +255,16 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
     double? latitude,
     double? longitude,
     bool? mapEditMode,
+    Object? locationIcon = locationStateNoChange,
+    // MapEntry<String, PhosphorIconData>? locationIcon,
+    List<MapEntry<String, PhosphorIconData>>? searchedIcons,
   }) => value = (
     locationName: locationName ?? value.locationName,
     nameValid: nameValid ?? value.nameValid,
     latitude: latitude ?? value.latitude,
     longitude: longitude ?? value.longitude,
     mapEditMode: mapEditMode ?? value.mapEditMode,
+    locationIcon: identical(locationIcon, locationStateNoChange) ? value.locationIcon : locationIcon as MapEntry<String, PhosphorIconData>?,
+    searchedIcons: searchedIcons ?? value.searchedIcons,
   );
 }

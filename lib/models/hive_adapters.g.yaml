@@ -65,7 +65,7 @@ types:
         index: 1
   Location:
     typeId: 5
-    nextIndex: 7
+    nextIndex: 8
     fields:
       id:
         index: 0
@@ -81,3 +81,5 @@ types:
         index: 5
       note:
         index: 6
+      iconName:
+        index: 7

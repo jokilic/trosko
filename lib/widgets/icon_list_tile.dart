@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../theme/colors.dart';
-import '../../../theme/extensions.dart';
-import '../../../util/color.dart';
+import '../theme/colors.dart';
+import '../theme/extensions.dart';
+import '../util/color.dart';
 
-class CategoryIconListTile extends StatelessWidget {
+class IconListTile extends StatelessWidget {
   final bool isActive;
   final Function() onPressed;
   final MapEntry<String, PhosphorIconData> icon;
 
-  const CategoryIconListTile({
+  const IconListTile({
     required this.isActive,
     required this.onPressed,
     required this.icon,

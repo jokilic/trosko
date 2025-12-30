@@ -24,6 +24,9 @@ class Location {
   @HiveField(7)
   final String? note;
 
+  @HiveField(8)
+  final String? iconName;
+
   Location({
     required this.id,
     required this.name,
@@ -32,6 +35,7 @@ class Location {
     this.latitude,
     this.address,
     this.note,
+    this.iconName,
   });
 
   factory Location.fromFirestore(DocumentSnapshot doc) {
@@ -47,6 +51,7 @@ class Location {
     longitude: map['longitude'] != null ? (map['longitude'] as num).toDouble() : null,
     createdAt: (map['createdAt'] as Timestamp).toDate(),
     note: map['note'] != null ? map['note'] as String : null,
+    iconName: map['iconName'] != null ? map['iconName'] as String : null,
   );
 
   Map<String, dynamic> toMap() => <String, dynamic>{
@@ -57,10 +62,11 @@ class Location {
     'longitude': longitude,
     'createdAt': Timestamp.fromDate(createdAt),
     'note': note,
+    'iconName': iconName,
   };
 
   @override
-  String toString() => 'Location(id: $id, name: $name, address: $address, latitude: $latitude, longitude: $longitude, createdAt: $createdAt, note: $note)';
+  String toString() => 'Location(id: $id, name: $name, address: $address, latitude: $latitude, longitude: $longitude, createdAt: $createdAt, note: $note, iconName: $iconName)';
 
   @override
   bool operator ==(covariant Location other) {
@@ -74,9 +80,10 @@ class Location {
         other.latitude == latitude &&
         other.longitude == longitude &&
         other.createdAt == createdAt &&
-        other.note == note;
+        other.note == note &&
+        other.iconName == iconName;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ address.hashCode ^ latitude.hashCode ^ longitude.hashCode ^ createdAt.hashCode ^ note.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode ^ address.hashCode ^ latitude.hashCode ^ longitude.hashCode ^ createdAt.hashCode ^ note.hashCode ^ iconName.hashCode;
 }

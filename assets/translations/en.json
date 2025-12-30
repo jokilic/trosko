@@ -17,7 +17,7 @@
     "locationNewSubtitle": "Create a location to track your expenses",
     "categoryTitle": "Title",
     "categoryColor": "Color",
-    "categoryIcon": "Icon",
+    "categoryLocationIcon": "Icon",
     "locationTitleNote": "Title & note",
     "locationTitle": "Title",
     "locationNote": "Note (not necessary)",

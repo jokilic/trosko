@@ -191,7 +191,7 @@ class TransactionController
 
   /// Triggered when the user presses a [Location]
   void locationChanged(Location newLocation) => updateState(
-    location: value.location == newLocation ? null : newLocation,
+    location: value.location?.id == newLocation.id ? null : newLocation,
   );
 
   /// Triggered when the user enables date edit mode

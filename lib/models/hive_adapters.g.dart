@@ -237,13 +237,14 @@ class LocationAdapter extends TypeAdapter<Location> {
       latitude: (fields[3] as num?)?.toDouble(),
       address: fields[2] as String?,
       note: fields[6] as String?,
+      iconName: fields[7] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Location obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -257,7 +258,9 @@ class LocationAdapter extends TypeAdapter<Location> {
       ..writeByte(5)
       ..write(obj.createdAt)
       ..writeByte(6)
-      ..write(obj.note);
+      ..write(obj.note)
+      ..writeByte(7)
+      ..write(obj.iconName);
   }
 
   @override

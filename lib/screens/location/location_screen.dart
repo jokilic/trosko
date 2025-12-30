@@ -16,6 +16,7 @@ import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
+import '../../widgets/icon_list_tile.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'location_controller.dart';
@@ -80,6 +81,10 @@ class _LocationScreenState extends State<LocationScreen> {
 
     final locationLatitude = state.latitude;
     final locationLongitude = state.longitude;
+
+    final locationIcon = state.locationIcon;
+
+    final searchedIcons = state.searchedIcons;
 
     final locationCoordinates = locationLatitude != null && locationLongitude != null
         ? LatLng(
@@ -192,13 +197,13 @@ class _LocationScreenState extends State<LocationScreen> {
                                       onMapReady: () => locationController.mapReady = true,
                                     ),
                                   )
-                                : PhosphorIcon(
-                                    PhosphorIcons.mapTrifold(
-                                      PhosphorIconsStyle.thin,
-                                    ),
+                                : locationIcon == null
+                                ? PhosphorIcon(
+                                    locationIcon!.value,
                                     color: context.colors.text,
                                     size: 104,
-                                  ),
+                                  )
+                                : null,
                           ),
 
                           ///
@@ -325,6 +330,70 @@ class _LocationScreenState extends State<LocationScreen> {
                     style: context.textStyles.homeTransactionNote,
                   ),
                 ),
+                const SizedBox(height: 28),
+
+                ///
+                /// ICON TITLE
+                ///
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'categoryLocationIcon'.tr(),
+                    style: context.textStyles.homeTitle,
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                ///
+                /// LOCATION ICON TEXT FIELD
+                ///
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TroskoTextField(
+                    controller: locationController.iconTextEditingController,
+                    labelText: 'categoryLocationIcon'.tr(),
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.left,
+                    textCapitalization: TextCapitalization.sentences,
+                    textInputAction: TextInputAction.done,
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                ///
+                /// LOCATION ICONS
+                ///
+                if (searchedIcons?.isNotEmpty ?? false)
+                  Container(
+                    height: 200,
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: context.colors.listTileBackground,
+                      border: Border.all(
+                        color: context.colors.text,
+                        width: 1.5,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: searchedIcons?.length,
+                      itemBuilder: (_, index) {
+                        final icon = searchedIcons![index];
+
+                        return IconListTile(
+                          isActive: locationIcon?.key == icon.key,
+                          onPressed: () {
+                            HapticFeedback.lightImpact();
+                            locationController.iconChanged(icon);
+                          },
+                          icon: icon,
+                        );
+                      },
+                    ),
+                  ),
+
                 const SizedBox(height: 28),
               ],
             ),
