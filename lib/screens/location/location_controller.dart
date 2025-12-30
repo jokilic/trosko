@@ -12,7 +12,7 @@ import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-class LocationController extends ValueNotifier<({String? locationName, bool nameValid, double? latitude, double? longitude})> implements Disposable {
+class LocationController extends ValueNotifier<({String? locationName, bool nameValid, double? latitude, double? longitude, bool mapEditMode})> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -32,11 +32,14 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
          nameValid: false,
          latitude: null,
          longitude: null,
+         mapEditMode: false,
        ));
 
   ///
   /// VARIABLES
   ///
+
+  var mapReady = false;
 
   late final nameTextEditingController = TextEditingController(
     text: passedLocation?.name,
@@ -62,6 +65,7 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
       nameValid: passedLocation?.name.isNotEmpty ?? false,
       latitude: passedLocation?.latitude,
       longitude: passedLocation?.longitude,
+      mapEditMode: false,
     );
 
     /// Validation
@@ -95,6 +99,9 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
   /// METHODS
   ///
 
+  /// Triggered when the user enables map edit mode
+  void mapEditModeChanged() => updateState(mapEditMode: true);
+
   /// Triggered when the user moves the map
   void onMapEvent(MapEvent event) => updateState(
     latitude: event.camera.center.latitude,
@@ -127,10 +134,12 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
         );
 
         /// Move map
-        mapController.move(
-          coordinates,
-          mapController.camera.zoom,
-        );
+        if (mapReady) {
+          mapController.move(
+            coordinates,
+            mapController.camera.zoom,
+          );
+        }
       } else {
         logger.d('LocationController -> onAddressSubmitted() -> No location found');
       }
@@ -204,10 +213,12 @@ class LocationController extends ValueNotifier<({String? locationName, bool name
     bool? nameValid,
     double? latitude,
     double? longitude,
+    bool? mapEditMode,
   }) => value = (
     locationName: locationName ?? value.locationName,
     nameValid: nameValid ?? value.nameValid,
     latitude: latitude ?? value.latitude,
     longitude: longitude ?? value.longitude,
+    mapEditMode: mapEditMode ?? value.mapEditMode,
   );
 }

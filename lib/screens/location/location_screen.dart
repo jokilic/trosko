@@ -86,6 +86,8 @@ class _LocationScreenState extends State<LocationScreen> {
           )
         : null;
 
+    final mapEditMode = state.mapEditMode;
+
     final validated = state.nameValid;
 
     return Scaffold(
@@ -155,29 +157,63 @@ class _LocationScreenState extends State<LocationScreen> {
                 ///
                 Column(
                   children: [
-                    Container(
-                      height: 280,
-                      width: 280,
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: context.colors.text,
-                          width: 1.5,
-                        ),
-                      ),
-                      child: locationCoordinates != null
-                          ? LocationMap(
-                              mapController: locationController.mapController,
-                              coordinates: locationCoordinates,
-                              onMapEvent: locationController.onMapEvent,
-                              mapStyle: mapState,
-                            )
-                          : PhosphorIcon(
-                              PhosphorIcons.globeHemisphereWest(),
-                              color: context.colors.buttonPrimary,
-                              size: 104,
+                    GestureDetector(
+                      onTap: () {
+                        HapticFeedback.lightImpact();
+                        locationController.mapEditModeChanged();
+                      },
+                      child: Stack(
+                        children: [
+                          ///
+                          /// MAP
+                          ///
+                          Container(
+                            height: 280,
+                            width: 280,
+                            margin: const EdgeInsets.symmetric(horizontal: 16),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: context.colors.text,
+                                width: 1.5,
+                              ),
                             ),
+                            child: locationCoordinates != null
+                                ? IgnorePointer(
+                                    ignoring: !mapEditMode,
+                                    child: LocationMap(
+                                      mapController: locationController.mapController,
+                                      coordinates: locationCoordinates,
+                                      onMapEvent: locationController.onMapEvent,
+                                      onMapReady: () => locationController.mapReady = true,
+                                      mapStyle: mapState,
+                                    ),
+                                  )
+                                : PhosphorIcon(
+                                    PhosphorIcons.mapTrifold(
+                                      PhosphorIconsStyle.thin,
+                                    ),
+                                    color: context.colors.text,
+                                    size: 104,
+                                  ),
+                          ),
+
+                          ///
+                          /// EDIT MODE
+                          ///
+                          if (mapEditMode)
+                            Positioned(
+                              bottom: 12,
+                              left: 0,
+                              right: 0,
+                              child: PhosphorIcon(
+                                PhosphorIcons.arrowsOutCardinal(),
+                                color: context.colors.text,
+                                size: 24,
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Text(

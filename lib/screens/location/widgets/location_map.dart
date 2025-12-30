@@ -10,13 +10,15 @@ import '../../../theme/extensions.dart';
 class LocationMap extends StatelessWidget {
   final MapController mapController;
   final LatLng coordinates;
-  final Function(MapEvent event)? onMapEvent;
+  final Function(MapEvent event) onMapEvent;
+  final Function() onMapReady;
   final Style? mapStyle;
 
   const LocationMap({
     required this.mapController,
     required this.coordinates,
     required this.onMapEvent,
+    required this.onMapReady,
     required this.mapStyle,
   });
 
@@ -25,6 +27,7 @@ class LocationMap extends StatelessWidget {
     child: FlutterMap(
       mapController: mapController,
       options: MapOptions(
+        onMapReady: onMapReady,
         maxZoom: 21,
         interactionOptions: const InteractionOptions(
           flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
@@ -67,7 +70,7 @@ class LocationMap extends StatelessWidget {
                 PhosphorIcons.xCircle(
                   PhosphorIconsStyle.bold,
                 ),
-                color: context.colors.delete,
+                color: context.colors.buttonPrimary,
                 size: 26,
               ),
             ),
