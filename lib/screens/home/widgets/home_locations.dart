@@ -66,9 +66,12 @@ class HomeLocations extends StatelessWidget {
               mapStyle: mapStyle,
               useVectorMaps: useVectorMaps,
               onPressed: () => onPressedLocation(location),
-              opacity: (activeLocations?.contains(location) ?? false) ? 1 : 0.4,
+              opacity: (activeLocations?.contains(location) ?? false) ? 1 : 0.5,
               color: context.colors.buttonBackground,
               highlightColor: context.colors.listTileBackground,
+              icon: PhosphorIcons.mapTrifold(
+                PhosphorIconsStyle.thin,
+              ),
               text: location.name,
             ),
           );

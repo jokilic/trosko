@@ -144,37 +144,46 @@ class HomeLocation extends StatelessWidget {
                         ),
                       ),
                     )
-                  : IconButton(
-                      onPressed: () {
-                        if (onPressed != null) {
-                          onPressed!();
-                        } else {
-                          HapticFeedback.lightImpact();
-                          openContainer();
-                        }
-                      },
-                      onLongPress: onPressed != null ? openContainer : null,
-                      style: IconButton.styleFrom(
-                        padding: const EdgeInsets.all(12),
-                        backgroundColor: color,
-                        disabledBackgroundColor: color,
-                        highlightColor: highlightColor,
-                        alignment: Alignment.center,
+                  : Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: location != null ? context.colors.text : color,
+                          width: 1.5,
+                        ),
                       ),
-                      icon: icon != null
-                          ? PhosphorIcon(
-                              icon!,
-                              color: getWhiteOrBlackColor(
-                                backgroundColor: color,
-                                whiteColor: TroskoColors.lightThemeWhiteBackground,
-                                blackColor: TroskoColors.lightThemeBlackText,
+                      child: IconButton(
+                        onPressed: () {
+                          if (onPressed != null) {
+                            onPressed!();
+                          } else {
+                            HapticFeedback.lightImpact();
+                            openContainer();
+                          }
+                        },
+                        onLongPress: onPressed != null ? openContainer : null,
+                        style: IconButton.styleFrom(
+                          padding: const EdgeInsets.all(12),
+                          backgroundColor: color,
+                          disabledBackgroundColor: color,
+                          highlightColor: highlightColor,
+                          alignment: Alignment.center,
+                        ),
+                        icon: icon != null
+                            ? PhosphorIcon(
+                                icon!,
+                                color: getWhiteOrBlackColor(
+                                  backgroundColor: color,
+                                  whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                  blackColor: TroskoColors.lightThemeBlackText,
+                                ),
+                                size: 64,
+                              )
+                            : const SizedBox(
+                                height: 64,
+                                width: 64,
                               ),
-                              size: 64,
-                            )
-                          : const SizedBox(
-                              height: 64,
-                              width: 64,
-                            ),
+                      ),
                     ),
             ),
           ),

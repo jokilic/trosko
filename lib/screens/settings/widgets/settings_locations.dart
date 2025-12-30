@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:vector_map_tiles/vector_map_tiles.dart';
 
 import '../../../models/location/location.dart';
@@ -70,6 +71,9 @@ class SettingsLocations extends StatelessWidget {
               color: context.colors.buttonBackground,
               highlightColor: context.colors.listTileBackground,
               text: location.name,
+              icon: PhosphorIcons.mapTrifold(
+                PhosphorIconsStyle.thin,
+              ),
             ),
           );
         },
