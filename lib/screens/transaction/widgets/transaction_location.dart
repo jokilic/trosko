@@ -16,141 +16,136 @@ class TransactionLocation extends StatelessWidget {
   final Location location;
   final LatLng? coordinates;
   final Color color;
-  final Color highlightColor;
   final IconData? icon;
+  final bool useMap;
   final Style? mapStyle;
   final bool useVectorMaps;
-  final double opacity;
 
   const TransactionLocation({
     required this.onPressed,
     required this.location,
     required this.color,
-    required this.highlightColor,
+    required this.useMap,
     required this.useVectorMaps,
     required super.key,
     this.coordinates,
     this.icon,
     this.mapStyle,
-    this.opacity = 1,
   });
 
   @override
   Widget build(BuildContext context) => SizedBox(
-    width: 112,
+    width: 104,
     child: Column(
       children: [
-        AnimatedOpacity(
-          opacity: opacity,
-          duration: TroskoDurations.animation,
-          curve: Curves.easeIn,
+        Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: color,
+              width: 1.5,
+            ),
+          ),
           child: Container(
+            height: 80,
+            width: 80,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: color,
+                color: context.colors.text,
                 width: 1.5,
               ),
             ),
-            child: coordinates != null
-                ? Container(
-                    height: 88,
-                    width: 88,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: context.colors.text,
-                        width: 1.5,
-                      ),
-                    ),
-                    child: ClipOval(
-                      child: FlutterMap(
-                        options: MapOptions(
-                          onTap: (_, __) => onPressed(location),
-                          maxZoom: 21,
-                          interactionOptions: const InteractionOptions(
-                            flags: InteractiveFlag.none,
-                          ),
-                          initialCenter: coordinates!,
-                          initialZoom: 16,
+            child: ClipOval(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ///
+                  /// MAP
+                  ///
+                  if (useMap)
+                    FlutterMap(
+                      options: MapOptions(
+                        onTap: (_, __) => onPressed(location),
+                        maxZoom: 21,
+                        interactionOptions: const InteractionOptions(
+                          flags: InteractiveFlag.none,
                         ),
-                        children: [
-                          ///
-                          /// MAP VECTOR
-                          ///
-                          if (mapStyle != null && useVectorMaps)
-                            VectorTileLayer(
-                              tileProviders: mapStyle!.providers,
-                              theme: mapStyle!.theme,
-                              tileOffset: TileOffset.mapbox,
-                            )
-                          ///
-                          /// FALLBACK MAP
-                          ///
-                          else
-                            TileLayer(
-                              urlTemplate: openStreetMapUri,
-                              maxZoom: 21,
-                              maxNativeZoom: 21,
-                              userAgentPackageName: 'com.josipkilic.trosko',
-                            ),
-
-                          ///
-                          /// MARKER
-                          ///
-                          MarkerLayer(
-                            markers: [
-                              Marker(
-                                point: coordinates!,
-                                width: 20,
-                                height: 20,
-                                child: PhosphorIcon(
-                                  PhosphorIcons.xCircle(
-                                    PhosphorIconsStyle.bold,
-                                  ),
-                                  color: context.colors.buttonPrimary,
-                                  size: 20,
-                                ),
-                              ),
-                            ],
+                        initialCenter: coordinates!,
+                        initialZoom: 16,
+                      ),
+                      children: [
+                        ///
+                        /// MAP VECTOR
+                        ///
+                        if (mapStyle != null && useVectorMaps)
+                          VectorTileLayer(
+                            tileProviders: mapStyle!.providers,
+                            theme: mapStyle!.theme,
+                            tileOffset: TileOffset.mapbox,
+                          )
+                        ///
+                        /// FALLBACK MAP
+                        ///
+                        else
+                          TileLayer(
+                            urlTemplate: openStreetMapUri,
+                            maxZoom: 21,
+                            maxNativeZoom: 21,
+                            userAgentPackageName: 'com.josipkilic.trosko',
                           ),
-                        ],
-                      ),
-                    ),
-                  )
-                : Container(
-                    height: 88,
-                    width: 88,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: context.colors.text,
-                        width: 1.5,
-                      ),
-                    ),
-                    child: IconButton(
-                      onPressed: () => onPressed(location),
-                      style: IconButton.styleFrom(
-                        backgroundColor: color,
-                        highlightColor: highlightColor,
-                        alignment: Alignment.center,
-                      ),
-                      icon: icon != null
-                          ? PhosphorIcon(
-                              icon!,
-                              color: getWhiteOrBlackColor(
-                                backgroundColor: color,
-                                whiteColor: TroskoColors.lightThemeWhiteBackground,
-                                blackColor: TroskoColors.lightThemeBlackText,
+
+                        ///
+                        /// MARKER
+                        ///
+                        MarkerLayer(
+                          markers: [
+                            Marker(
+                              point: coordinates!,
+                              width: 20,
+                              height: 20,
+                              child: PhosphorIcon(
+                                PhosphorIcons.xCircle(
+                                  PhosphorIconsStyle.bold,
+                                ),
+                                color: context.colors.buttonPrimary,
+                                size: 20,
                               ),
-                              size: 48,
-                            )
-                          : const SizedBox(
-                              height: 48,
-                              width: 48,
                             ),
+                          ],
+                        ),
+                      ],
                     ),
+
+                  ///
+                  /// BUTTON
+                  ///
+                  IconButton(
+                    onPressed: () => onPressed(location),
+                    style: IconButton.styleFrom(
+                      padding: const EdgeInsets.all(18),
+                      backgroundColor: useMap ? null : color,
+                      disabledBackgroundColor: useMap ? null : color,
+                      alignment: Alignment.center,
+                    ),
+                    icon: icon != null && !useMap
+                        ? PhosphorIcon(
+                            icon!,
+                            color: getWhiteOrBlackColor(
+                              backgroundColor: color,
+                              whiteColor: TroskoColors.lightThemeWhiteBackground,
+                              blackColor: TroskoColors.lightThemeBlackText,
+                            ),
+                            size: 40,
+                          )
+                        : const SizedBox(
+                            height: 40,
+                            width: 40,
+                          ),
                   ),
+                ],
+              ),
+            ),
           ),
         ),
         const SizedBox(height: 6),

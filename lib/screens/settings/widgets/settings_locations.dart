@@ -67,6 +67,7 @@ class SettingsLocations extends StatelessWidget {
             index: index,
             child: SettingsLocation(
               coordinates: locationCoordinates,
+              useMap: locationCoordinates != null,
               mapStyle: mapStyle,
               useVectorMaps: useVectorMaps,
               color: context.colors.buttonBackground,

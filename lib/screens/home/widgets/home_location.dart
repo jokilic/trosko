@@ -18,9 +18,7 @@ class HomeLocation extends StatelessWidget {
   final Location? location;
   final LatLng? coordinates;
   final Function()? onPressed;
-  final double opacity;
   final Color color;
-  final Color highlightColor;
   final IconData? icon;
   final String text;
   final bool useMap;
@@ -30,7 +28,6 @@ class HomeLocation extends StatelessWidget {
   const HomeLocation({
     required this.location,
     required this.color,
-    required this.highlightColor,
     required this.text,
     required this.useMap,
     required this.useVectorMaps,
@@ -38,7 +35,6 @@ class HomeLocation extends StatelessWidget {
     this.icon,
     this.onPressed,
     this.mapStyle,
-    this.opacity = 1,
   });
 
   @override
@@ -57,128 +53,122 @@ class HomeLocation extends StatelessWidget {
       borderRadius: BorderRadius.circular(16),
     ),
     closedBuilder: (context, openContainer) => SizedBox(
-      width: 112,
+      width: 104,
       child: Column(
         children: [
-          AnimatedOpacity(
-            opacity: opacity,
-            duration: TroskoDurations.animation,
-            curve: Curves.easeIn,
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: color,
+                width: 1.5,
+              ),
+            ),
             child: Container(
+              height: 80,
+              width: 80,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: color,
+                  color: context.colors.text,
                   width: 1.5,
                 ),
               ),
-              child: Container(
-                height: 88,
-                width: 88,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: context.colors.text,
-                    width: 1.5,
-                  ),
-                ),
-                child: ClipOval(
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      ///
-                      /// MAP
-                      ///
-                      if (useMap)
-                        FlutterMap(
-                          options: MapOptions(
-                            maxZoom: 21,
-                            interactionOptions: const InteractionOptions(
-                              flags: InteractiveFlag.none,
-                            ),
-                            initialCenter: coordinates!,
-                            initialZoom: 16,
+              child: ClipOval(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    ///
+                    /// MAP
+                    ///
+                    if (useMap)
+                      FlutterMap(
+                        options: MapOptions(
+                          maxZoom: 21,
+                          interactionOptions: const InteractionOptions(
+                            flags: InteractiveFlag.none,
                           ),
-                          children: [
-                            ///
-                            /// MAP VECTOR
-                            ///
-                            if (mapStyle != null && useVectorMaps)
-                              VectorTileLayer(
-                                tileProviders: mapStyle!.providers,
-                                theme: mapStyle!.theme,
-                                tileOffset: TileOffset.mapbox,
-                              )
-                            ///
-                            /// FALLBACK MAP
-                            ///
-                            else
-                              TileLayer(
-                                urlTemplate: openStreetMapUri,
-                                maxZoom: 21,
-                                maxNativeZoom: 21,
-                                userAgentPackageName: 'com.josipkilic.trosko',
-                              ),
-
-                            ///
-                            /// MARKER
-                            ///
-                            MarkerLayer(
-                              markers: [
-                                Marker(
-                                  point: coordinates!,
-                                  width: 20,
-                                  height: 20,
-                                  child: PhosphorIcon(
-                                    PhosphorIcons.xCircle(
-                                      PhosphorIconsStyle.bold,
-                                    ),
-                                    color: context.colors.buttonPrimary,
-                                    size: 20,
-                                  ),
-                                ),
-                              ],
+                          initialCenter: coordinates!,
+                          initialZoom: 16,
+                        ),
+                        children: [
+                          ///
+                          /// MAP VECTOR
+                          ///
+                          if (mapStyle != null && useVectorMaps)
+                            VectorTileLayer(
+                              tileProviders: mapStyle!.providers,
+                              theme: mapStyle!.theme,
+                              tileOffset: TileOffset.mapbox,
+                            )
+                          ///
+                          /// FALLBACK MAP
+                          ///
+                          else
+                            TileLayer(
+                              urlTemplate: openStreetMapUri,
+                              maxZoom: 21,
+                              maxNativeZoom: 21,
+                              userAgentPackageName: 'com.josipkilic.trosko',
                             ),
-                          ],
-                        ),
 
-                      ///
-                      /// BUTTON
-                      ///
-                      IconButton(
-                        onPressed: () {
-                          if (onPressed != null) {
-                            onPressed!();
-                          } else {
-                            HapticFeedback.lightImpact();
-                            openContainer();
-                          }
-                        },
-                        onLongPress: onPressed != null ? openContainer : null,
-                        style: IconButton.styleFrom(
-                          // backgroundColor: useMap ? Colors.transparent : color,
-                          backgroundColor: useMap ? Colors.transparent : color,
-                          disabledBackgroundColor: useMap ? Colors.transparent : color,
-                          highlightColor: useMap ? Colors.transparent : highlightColor,
-                          alignment: Alignment.center,
-                        ),
-                        icon: icon != null && !useMap
-                            ? PhosphorIcon(
-                                icon!,
-                                color: getWhiteOrBlackColor(
-                                  backgroundColor: color,
-                                  whiteColor: TroskoColors.lightThemeWhiteBackground,
-                                  blackColor: TroskoColors.lightThemeBlackText,
+                          ///
+                          /// MARKER
+                          ///
+                          MarkerLayer(
+                            markers: [
+                              Marker(
+                                point: coordinates!,
+                                width: 20,
+                                height: 20,
+                                child: PhosphorIcon(
+                                  PhosphorIcons.xCircle(
+                                    PhosphorIconsStyle.bold,
+                                  ),
+                                  color: context.colors.buttonPrimary,
+                                  size: 20,
                                 ),
-                                size: 48,
-                              )
-                            : const SizedBox(
-                                height: 48,
-                                width: 48,
                               ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+
+                    ///
+                    /// BUTTON
+                    ///
+                    IconButton(
+                      onPressed: () {
+                        if (onPressed != null) {
+                          onPressed!();
+                        } else {
+                          HapticFeedback.lightImpact();
+                          openContainer();
+                        }
+                      },
+                      onLongPress: onPressed != null ? openContainer : null,
+                      style: IconButton.styleFrom(
+                        padding: const EdgeInsets.all(18),
+                        backgroundColor: useMap ? null : color,
+                        disabledBackgroundColor: useMap ? null : color,
+                        alignment: Alignment.center,
+                      ),
+                      icon: icon != null && !useMap
+                          ? PhosphorIcon(
+                              icon!,
+                              color: getWhiteOrBlackColor(
+                                backgroundColor: color,
+                                whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                blackColor: TroskoColors.lightThemeBlackText,
+                              ),
+                              size: 40,
+                            )
+                          : const SizedBox(
+                              height: 40,
+                              width: 40,
+                            ),
+                    ),
+                  ],
                 ),
               ),
             ),

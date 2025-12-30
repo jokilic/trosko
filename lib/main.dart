@@ -22,6 +22,8 @@ import 'util/localization.dart';
 import 'util/navigation.dart';
 import 'util/theme.dart';
 
+// TODO: Think about using different OpenStreetMap styles
+
 Future<void> main() async {
   /// Initialize Flutter related tasks
   WidgetsFlutterBinding.ensureInitialized();

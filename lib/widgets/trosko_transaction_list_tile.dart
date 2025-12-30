@@ -41,6 +41,8 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Include location
+
     final boldIcon = getBoldIconFromName(
       widget.category?.iconName,
     );

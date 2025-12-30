@@ -12,8 +12,8 @@ import '../../../util/color.dart';
 class SettingsLocation extends StatelessWidget {
   final LatLng? coordinates;
   final Color color;
-  final Color highlightColor;
   final IconData? icon;
+  final bool useMap;
   final Style? mapStyle;
   final bool useVectorMaps;
   final String text;
@@ -21,8 +21,8 @@ class SettingsLocation extends StatelessWidget {
   const SettingsLocation({
     required this.useVectorMaps,
     required this.color,
-    required this.highlightColor,
     required this.text,
+    required this.useMap,
     this.coordinates,
     this.icon,
     this.mapStyle,
@@ -30,7 +30,7 @@ class SettingsLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-    width: 112,
+    width: 104,
     child: Column(
       children: [
         Container(
@@ -41,20 +41,26 @@ class SettingsLocation extends StatelessWidget {
               width: 1.5,
             ),
           ),
-          child: coordinates != null
-              ? Container(
-                  height: 88,
-                  width: 88,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: context.colors.text,
-                      width: 1.5,
-                    ),
-                  ),
-                  child: ClipOval(
-                    child: IgnorePointer(
-                      child: FlutterMap(
+          child: Container(
+            height: 80,
+            width: 80,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: context.colors.text,
+                width: 1.5,
+              ),
+            ),
+            child: ClipOval(
+              child: IgnorePointer(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    ///
+                    /// MAP
+                    ///
+                    if (useMap)
+                      FlutterMap(
                         options: MapOptions(
                           maxZoom: 21,
                           interactionOptions: const InteractionOptions(
@@ -105,43 +111,38 @@ class SettingsLocation extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                )
-              : Container(
-                  height: 88,
-                  width: 88,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: context.colors.text,
-                      width: 1.5,
-                    ),
-                  ),
-                  child: IconButton(
-                    onPressed: null,
-                    style: IconButton.styleFrom(
-                      backgroundColor: color,
-                      disabledBackgroundColor: color,
-                      highlightColor: highlightColor,
-                      alignment: Alignment.center,
-                    ),
-                    icon: icon != null
-                        ? PhosphorIcon(
-                            icon!,
-                            color: getWhiteOrBlackColor(
-                              backgroundColor: color,
-                              whiteColor: TroskoColors.lightThemeWhiteBackground,
-                              blackColor: TroskoColors.lightThemeBlackText,
+
+                    ///
+                    /// BUTTON
+                    ///
+                    IconButton(
+                      onPressed: null,
+                      style: IconButton.styleFrom(
+                        padding: const EdgeInsets.all(18),
+                        backgroundColor: useMap ? null : color,
+                        disabledBackgroundColor: useMap ? null : color,
+                        alignment: Alignment.center,
+                      ),
+                      icon: icon != null && !useMap
+                          ? PhosphorIcon(
+                              icon!,
+                              color: getWhiteOrBlackColor(
+                                backgroundColor: color,
+                                whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                blackColor: TroskoColors.lightThemeBlackText,
+                              ),
+                              size: 40,
+                            )
+                          : const SizedBox(
+                              height: 40,
+                              width: 40,
                             ),
-                            size: 48,
-                          )
-                        : const SizedBox(
-                            height: 48,
-                            width: 48,
-                          ),
-                  ),
+                    ),
+                  ],
                 ),
+              ),
+            ),
+          ),
         ),
         const SizedBox(height: 6),
         Text(

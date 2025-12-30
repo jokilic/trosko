@@ -52,6 +52,8 @@ class HomeLocations extends StatelessWidget {
                 )
               : null;
 
+          final isActive = activeLocations?.contains(location) ?? false;
+
           return Animate(
             key: ValueKey(isExpanded),
             effects: [
@@ -68,9 +70,7 @@ class HomeLocations extends StatelessWidget {
               useMap: locationCoordinates != null,
               useVectorMaps: useVectorMaps,
               onPressed: () => onPressedLocation(location),
-              opacity: (activeLocations?.contains(location) ?? false) ? 1 : 0.5,
-              color: context.colors.buttonBackground,
-              highlightColor: context.colors.listTileBackground,
+              color: isActive ? context.colors.buttonPrimary : Colors.red,
               icon: getRegularIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
               text: location.name,
             ),
@@ -94,7 +94,6 @@ class HomeLocations extends StatelessWidget {
             useVectorMaps: useVectorMaps,
             location: null,
             color: context.colors.buttonBackground,
-            highlightColor: context.colors.listTileBackground,
             icon: PhosphorIcons.plus(),
             text: 'homeAdd'.tr(),
           ),

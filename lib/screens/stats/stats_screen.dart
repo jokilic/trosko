@@ -24,6 +24,8 @@ class StatsScreen extends StatelessWidget {
     required super.key,
   });
 
+  // TODO: Include location
+
   @override
   Widget build(BuildContext context) => Scaffold(
     body: CustomScrollView(
