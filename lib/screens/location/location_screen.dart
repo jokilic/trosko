@@ -79,7 +79,7 @@ class _LocationScreenState extends State<LocationScreen> {
     final locationLatitude = state.latitude;
     final locationLongitude = state.longitude;
 
-    final locationCoordinates = locationLongitude != null && locationLatitude != null
+    final locationCoordinates = locationLatitude != null && locationLongitude != null
         ? LatLng(
             locationLatitude,
             locationLongitude,
@@ -182,11 +182,11 @@ class _LocationScreenState extends State<LocationScreen> {
                                 ? IgnorePointer(
                                     ignoring: !mapEditMode,
                                     child: LocationMap(
+                                      mapStyle: mapState,
                                       mapController: locationController.mapController,
                                       coordinates: locationCoordinates,
                                       onMapEvent: locationController.onMapEvent,
                                       onMapReady: () => locationController.mapReady = true,
-                                      mapStyle: mapState,
                                     ),
                                   )
                                 : PhosphorIcon(

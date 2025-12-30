@@ -17,7 +17,6 @@ class HomeCategory extends StatelessWidget {
   final Color highlightColor;
   final IconData? icon;
   final String text;
-  final bool hasBorder;
 
   const HomeCategory({
     required this.category,
@@ -26,7 +25,6 @@ class HomeCategory extends StatelessWidget {
     required this.text,
     this.icon,
     this.onPressed,
-    this.hasBorder = true,
   });
 
   @override

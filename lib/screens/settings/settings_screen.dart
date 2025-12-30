@@ -257,88 +257,77 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: SizedBox(height: 16),
           ),
 
-          if (defaultTargetPlatform == TargetPlatform.android) ...[
-            ///
-            /// NOTIFICATIONS TITLE
-            ///
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 28),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'settingsNotifications'.tr(),
-                  style: context.textStyles.homeTitle,
-                ),
+          ///
+          /// NOTIFICATIONS TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'settingsNotifications'.tr(),
+                style: context.textStyles.homeTitle,
               ),
             ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 12),
-            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
 
-            ///
-            /// NOTIFICATIONS LIST TILE
-            ///
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverToBoxAdapter(
-                child: SettingsListTile(
-                  onPressed: () async {
-                    unawaited(
-                      HapticFeedback.lightImpact(),
-                    );
+          ///
+          /// NOTIFICATIONS LIST TILE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: SettingsListTile(
+                onPressed: () async {
+                  unawaited(
+                    HapticFeedback.lightImpact(),
+                  );
 
-                    await settingsController.onPressedNotifications();
-                  },
-                  title: 'settingsNotificationsTitle'.tr(),
-                  subtitle: 'settingsNotificationsSubtitle'.tr(),
-                  trailingWidget: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: permissionsGranted ? context.colors.buttonPrimary : context.colors.delete,
-                        ),
-                        height: 24,
-                        width: 24,
+                  await settingsController.onPressedNotifications();
+                },
+                title: 'settingsNotificationsTitle'.tr(),
+                subtitle: 'settingsNotificationsSubtitle'.tr(),
+                trailingWidget: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: permissionsGranted ? context.colors.buttonPrimary : context.colors.delete,
                       ),
-                      const SizedBox(height: 6),
-                      Text(
-                        permissionsGranted ? 'settingsNotificationsOn'.tr().toUpperCase() : 'settingsNotificationsOff'.tr().toUpperCase(),
-                        style: context.textStyles.homeTransactionTime,
-                      ),
-                    ],
-                  ),
+                      height: 24,
+                      width: 24,
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      permissionsGranted ? 'settingsNotificationsOn'.tr().toUpperCase() : 'settingsNotificationsOff'.tr().toUpperCase(),
+                      style: context.textStyles.homeTransactionTime,
+                    ),
+                  ],
                 ),
               ),
             ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 12),
-            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
 
-            ///
-            /// NOTIFICATIONS TEXT
-            ///
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 28),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'settingsNotificationsText'.tr(),
-                  style: context.textStyles.homeTransactionNote,
-                ),
+          ///
+          /// NOTIFICATIONS TEXT
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                defaultTargetPlatform == TargetPlatform.android ? 'settingsNotificationsAndroidText'.tr() : 'settingsNotificationsiOSText'.tr(),
+                style: context.textStyles.homeTransactionNote,
               ),
             ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 28),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'settingsNotificationsText2'.tr(),
-                  style: context.textStyles.homeTransactionNote,
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 24),
-            ),
-          ],
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 24),
+          ),
 
           ///
           /// ACCOUNT MANAGEMENT TITLE

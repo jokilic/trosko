@@ -12,6 +12,7 @@ import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../services/map_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
@@ -81,6 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
     final name = hive.value.username;
 
     final state = watchIt<HomeController>().value;
+
+    final mapState = watchIt<MapService>().value;
 
     final items = state.datesAndTransactions;
 
@@ -478,7 +481,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 12),
+            child: SizedBox(height: 8),
           ),
 
           ///
@@ -493,6 +496,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossFadeState: expandedLocations ? CrossFadeState.showSecond : CrossFadeState.showFirst,
               firstChild: const SizedBox.shrink(),
               secondChild: HomeLocations(
+                mapStyle: mapState,
                 isExpanded: expandedLocations,
                 locations: locations,
                 activeLocations: activeLocations,
