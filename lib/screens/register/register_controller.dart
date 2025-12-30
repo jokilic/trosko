@@ -144,12 +144,13 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
     final username = await firebase.getUsername();
     final transactions = await firebase.getTransactions();
     final categories = await firebase.getCategories();
+    final locations = await firebase.getLocations();
 
     await hive.storeDataFromFirebase(
       username: username,
       transactions: transactions ?? [],
       categories: categories ?? [],
-      locations: [],
+      locations: locations ?? [],
     );
   }
 

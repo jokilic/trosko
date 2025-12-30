@@ -131,6 +131,11 @@ class FirebaseService {
         userDoc.collection('categories'),
       );
 
+      /// Delete all `Locations`
+      await deleteCollectionPaged(
+        userDoc.collection('locations'),
+      );
+
       /// Delete `user` document
       await userDoc.delete();
 

@@ -14,6 +14,7 @@ import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../services/map_service.dart';
 import '../../services/notification_service.dart';
 import '../../services/work_manager_service.dart';
 import '../../theme/colors.dart';
@@ -30,6 +31,7 @@ import 'widgets/settings_categories.dart';
 import 'widgets/settings_delete_account_modal.dart';
 import 'widgets/settings_languages.dart';
 import 'widgets/settings_list_tile.dart';
+import 'widgets/settings_locations.dart';
 import 'widgets/settings_primary_colors.dart';
 import 'widgets/settings_themes.dart';
 
@@ -75,6 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     final hiveState = watchIt<HiveService>().value;
     final notificationState = watchIt<NotificationService>().value;
+    final mapState = watchIt<MapService>().value;
 
     final notificationGranted = notificationState.notificationGranted;
     final listenerGranted = notificationState.listenerGranted;
@@ -83,6 +86,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final permissionsGranted = notificationGranted && listenerGranted && useNotificationListener;
 
     final categories = hiveState.categories;
+    final locations = hiveState.locations;
+
     final settings = hiveState.settings;
 
     final primaryColor = settings?.primaryColor ?? context.colors.buttonPrimary;
@@ -231,7 +236,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             },
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 24),
+            child: SizedBox(height: 20),
           ),
 
           ///
@@ -258,7 +263,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onReorderCategories: hive.updateCategoriesOrder,
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 16),
+            child: SizedBox(height: 10),
+          ),
+
+          ///
+          /// LOCATIONS TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'settingsLocationPosition'.tr(),
+                style: context.textStyles.homeTitle,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 14),
+          ),
+
+          ///
+          /// LOCATIONS
+          ///
+          SettingsLocations(
+            locations: locations,
+            onReorderLocations: hive.updateLocationsOrder,
+            useVectorMaps: useVectorMaps,
+            mapStyle: mapState,
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 10),
           ),
 
           ///
