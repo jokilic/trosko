@@ -70,7 +70,7 @@ class HomeLocations extends StatelessWidget {
               useMap: locationCoordinates != null,
               useVectorMaps: useVectorMaps,
               onPressed: () => onPressedLocation(location),
-              color: isActive ? context.colors.buttonPrimary : Colors.red,
+              color: isActive ? context.colors.buttonPrimary : context.colors.buttonBackground,
               icon: getRegularIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
               text: location.name,
             ),

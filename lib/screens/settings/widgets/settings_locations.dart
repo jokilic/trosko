@@ -71,7 +71,6 @@ class SettingsLocations extends StatelessWidget {
               mapStyle: mapStyle,
               useVectorMaps: useVectorMaps,
               color: context.colors.buttonBackground,
-              highlightColor: context.colors.listTileBackground,
               text: location.name,
               icon: getRegularIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
             ),

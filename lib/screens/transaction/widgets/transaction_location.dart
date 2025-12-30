@@ -4,7 +4,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:vector_map_tiles/vector_map_tiles.dart';
 
-import '../../../constants/durations.dart';
 import '../../../models/location/location.dart';
 import '../../../services/map_service.dart';
 import '../../../theme/colors.dart';
@@ -52,7 +51,7 @@ class TransactionLocation extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: context.colors.text,
+                color: color,
                 width: 1.5,
               ),
             ),

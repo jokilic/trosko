@@ -202,6 +202,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             GlobalKey.new,
                           );
 
+                          final isActive = activeCategory == category;
+
                           return TransactionCategory(
                             key: key,
                             onPressed: (category) {
@@ -210,10 +212,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             },
                             category: category,
                             color: category.color.withValues(
-                              alpha: activeCategory == category ? 1 : 0.2,
+                              alpha: isActive ? 1 : 0.2,
                             ),
                             highlightColor: category.color.withValues(
-                              alpha: activeCategory == category ? 1 : 0.2,
+                              alpha: isActive ? 1 : 0.2,
                             ),
                             icon: getRegularIconFromName(
                               category.iconName,
@@ -264,6 +266,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                 )
                               : null;
 
+                          final isActive = activeLocation == location;
+
                           return TransactionLocation(
                             key: key,
                             onPressed: (location) {
@@ -275,9 +279,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             useMap: locationCoordinates != null,
                             useVectorMaps: useVectorMaps,
                             mapStyle: mapState,
-                            opacity: activeLocation == location ? 1 : 0.5,
-                            color: context.colors.buttonBackground,
-                            highlightColor: context.colors.listTileBackground,
+                            color: isActive ? context.colors.buttonPrimary : context.colors.buttonBackground,
                             icon: getRegularIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
                           );
                         },

@@ -70,7 +70,7 @@ class HomeLocation extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: context.colors.text,
+                  color: color,
                   width: 1.5,
                 ),
               ),
