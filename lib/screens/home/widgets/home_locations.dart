@@ -40,11 +40,12 @@ class HomeLocations extends StatelessWidget {
 
           return Animate(
             key: ValueKey(isExpanded),
-            effects: const [
-              ScaleEffect(
-                curve: Curves.easeIn,
-                duration: TroskoDurations.animation,
-              ),
+            effects: [
+              if (isExpanded)
+                const ScaleEffect(
+                  curve: Curves.easeIn,
+                  duration: TroskoDurations.animation,
+                ),
             ],
             child: HomeLocation(
               location: location,
@@ -65,13 +66,23 @@ class HomeLocations extends StatelessWidget {
         ///
         /// ADD LOCATION
         ///
-        return HomeLocation(
-          location: null,
-          color: context.colors.buttonBackground,
-          highlightColor: context.colors.listTileBackground,
-          icon: PhosphorIcons.plus(),
-          text: 'homeAdd'.tr(),
-          hasBorder: false,
+        return Animate(
+          key: ValueKey(isExpanded),
+          effects: [
+            if (isExpanded)
+              const ScaleEffect(
+                curve: Curves.easeIn,
+                duration: TroskoDurations.animation,
+              ),
+          ],
+          child: HomeLocation(
+            location: null,
+            color: context.colors.buttonBackground,
+            highlightColor: context.colors.listTileBackground,
+            icon: PhosphorIcons.plus(),
+            text: 'homeAdd'.tr(),
+            hasBorder: false,
+          ),
         );
       },
     ),

@@ -41,11 +41,12 @@ class HomeCategories extends StatelessWidget {
 
           return Animate(
             key: ValueKey(isExpanded),
-            effects: const [
-              ScaleEffect(
-                curve: Curves.easeIn,
-                duration: TroskoDurations.animation,
-              ),
+            effects: [
+              if (isExpanded)
+                const ScaleEffect(
+                  curve: Curves.easeIn,
+                  duration: TroskoDurations.animation,
+                ),
             ],
             child: HomeCategory(
               category: category,
@@ -63,13 +64,23 @@ class HomeCategories extends StatelessWidget {
         ///
         /// ADD CATEGORY
         ///
-        return HomeCategory(
-          category: null,
-          color: context.colors.buttonBackground,
-          highlightColor: context.colors.listTileBackground,
-          icon: PhosphorIcons.plus(),
-          text: 'homeAdd'.tr(),
-          hasBorder: false,
+        return Animate(
+          key: ValueKey(isExpanded),
+          effects: [
+            if (isExpanded)
+              const ScaleEffect(
+                curve: Curves.easeIn,
+                duration: TroskoDurations.animation,
+              ),
+          ],
+          child: HomeCategory(
+            category: null,
+            color: context.colors.buttonBackground,
+            highlightColor: context.colors.listTileBackground,
+            icon: PhosphorIcons.plus(),
+            text: 'homeAdd'.tr(),
+            hasBorder: false,
+          ),
         );
       },
     ),
