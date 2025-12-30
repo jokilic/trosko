@@ -29,6 +29,7 @@ class LocationMap extends StatelessWidget {
     child: FlutterMap(
       mapController: mapController,
       options: MapOptions(
+        backgroundColor: context.colors.buttonBackground,
         onMapReady: onMapReady,
         maxZoom: 21,
         interactionOptions: const InteractionOptions(

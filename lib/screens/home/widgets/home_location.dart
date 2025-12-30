@@ -84,6 +84,7 @@ class HomeLocation extends StatelessWidget {
                     if (useMap)
                       FlutterMap(
                         options: MapOptions(
+                          backgroundColor: context.colors.buttonBackground,
                           maxZoom: 21,
                           interactionOptions: const InteractionOptions(
                             flags: InteractiveFlag.none,

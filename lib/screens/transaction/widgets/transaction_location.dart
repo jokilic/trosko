@@ -65,6 +65,7 @@ class TransactionLocation extends StatelessWidget {
                   if (useMap)
                     FlutterMap(
                       options: MapOptions(
+                        backgroundColor: context.colors.buttonBackground,
                         onTap: (_, __) => onPressed(location),
                         maxZoom: 21,
                         interactionOptions: const InteractionOptions(
