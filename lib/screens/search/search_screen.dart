@@ -184,6 +184,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ///
                 if (item is Transaction) {
                   final category = widget.categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
+                  final location = widget.locations.where((location) => location.id == item.locationId).toList().firstOrNull;
 
                   return TroskoTransactionListTile(
                     onLongPressed: () => TransactionScreen(
@@ -211,6 +212,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     },
                     transaction: item,
                     category: category,
+                    location: location,
                   );
                 }
 

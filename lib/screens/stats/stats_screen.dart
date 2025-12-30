@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/category/category.dart';
+import '../../models/location/location.dart';
 import '../../models/month/month.dart';
 import '../../models/transaction/transaction.dart';
 import '../../theme/extensions.dart';
@@ -16,15 +17,15 @@ class StatsScreen extends StatelessWidget {
   final Month month;
   final List<Transaction> transactions;
   final List<Category> categories;
+  final List<Location> locations;
 
   const StatsScreen({
     required this.month,
     required this.transactions,
     required this.categories,
+    required this.locations,
     required super.key,
   });
-
-  // TODO: Include location
 
   @override
   Widget build(BuildContext context) => Scaffold(

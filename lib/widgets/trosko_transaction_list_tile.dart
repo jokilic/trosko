@@ -8,6 +8,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../constants/durations.dart';
 import '../models/category/category.dart';
+import '../models/location/location.dart';
 import '../models/transaction/transaction.dart';
 import '../theme/colors.dart';
 import '../theme/extensions.dart';
@@ -20,12 +21,14 @@ class TroskoTransactionListTile extends StatefulWidget {
   final Function() onDeletePressed;
   final Transaction transaction;
   final Category? category;
+  final Location? location;
 
   const TroskoTransactionListTile({
     required this.onLongPressed,
     required this.onDeletePressed,
     required this.transaction,
     required this.category,
+    required this.location,
   });
 
   @override
@@ -41,8 +44,6 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Include location
-
     final boldIcon = getBoldIconFromName(
       widget.category?.iconName,
     );
@@ -212,7 +213,7 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                               /// NOTE
                               ///
                               if (widget.transaction.note?.isNotEmpty ?? false) ...[
-                                const SizedBox(height: 4),
+                                const SizedBox(height: 2),
                                 AnimatedCrossFade(
                                   duration: TroskoDurations.animation,
                                   firstCurve: Curves.easeIn,
@@ -228,6 +229,54 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                                   secondChild: Text(
                                     widget.transaction.note!,
                                     style: context.textStyles.homeTransactionNote,
+                                  ),
+                                ),
+                              ],
+
+                              ///
+                              /// LOCATION
+                              ///
+                              if (widget.location != null) ...[
+                                const SizedBox(height: 2),
+                                AnimatedCrossFade(
+                                  duration: TroskoDurations.animation,
+                                  firstCurve: Curves.easeIn,
+                                  secondCurve: Curves.easeIn,
+                                  sizeCurve: Curves.easeIn,
+                                  crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                                  firstChild: Row(
+                                    children: [
+                                      PhosphorIcon(
+                                        getRegularIconFromName(widget.location?.iconName)?.value ?? PhosphorIcons.mapTrifold(),
+                                        color: context.colors.text,
+                                        size: 20,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Expanded(
+                                        child: Text(
+                                          widget.location!.name,
+                                          style: context.textStyles.homeTransactionTime,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  secondChild: Row(
+                                    children: [
+                                      PhosphorIcon(
+                                        getRegularIconFromName(widget.location?.iconName)?.value ?? PhosphorIcons.mapTrifold(),
+                                        color: context.colors.text,
+                                        size: 20,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Expanded(
+                                        child: Text(
+                                          widget.location!.name,
+                                          style: context.textStyles.homeTransactionTime,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],

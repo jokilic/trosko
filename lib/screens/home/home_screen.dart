@@ -581,6 +581,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ///
                 if (item is Transaction) {
                   final category = categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
+                  final location = locations.where((location) => location.id == item.locationId).toList().firstOrNull;
 
                   return TroskoTransactionListTile(
                     onLongPressed: () => TransactionScreen(
@@ -604,6 +605,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     transaction: item,
                     category: category,
+                    location: location,
                   );
                 }
 
