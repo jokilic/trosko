@@ -77,9 +77,13 @@ Future<void> initializeServices() async {
 
   if (!getIt.isRegistered<MapService>()) {
     getIt.registerSingletonAsync(
-      () async => MapService(
-        logger: getIt.get<LoggerService>(),
-      ),
+      () async {
+        final map = MapService(
+          logger: getIt.get<LoggerService>(),
+        );
+        await map.init();
+        return map;
+      },
       dependsOn: [LoggerService],
     );
   }

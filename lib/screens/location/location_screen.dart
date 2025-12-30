@@ -268,7 +268,21 @@ class _LocationScreenState extends State<LocationScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'locationAddressText'.tr(),
+                    'locationAddressText1'.tr(),
+                    style: context.textStyles.homeTransactionNote,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'locationAddressText2'.tr(),
+                    style: context.textStyles.homeTransactionNote,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'locationAddressText3'.tr(),
                     style: context.textStyles.homeTransactionNote,
                   ),
                 ),

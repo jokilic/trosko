@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:vector_map_tiles/vector_map_tiles.dart';
+
+import '../../../services/map_service.dart';
+import '../../../theme/extensions.dart';
 
 class LocationMap extends StatelessWidget {
   final MapController mapController;
@@ -27,8 +31,7 @@ class LocationMap extends StatelessWidget {
         ),
         onMapEvent: onMapEvent,
         initialCenter: coordinates,
-        // TODO: Tweak this
-        initialZoom: 12,
+        initialZoom: 16,
       ),
       children: [
         ///
@@ -45,9 +48,9 @@ class LocationMap extends StatelessWidget {
         ///
         else
           TileLayer(
-            // TODO: Tweak this
-            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            urlTemplate: openStreetMapUri,
             maxZoom: 21,
+            maxNativeZoom: 21,
             userAgentPackageName: 'com.josipkilic.trosko',
           ),
 
@@ -56,15 +59,16 @@ class LocationMap extends StatelessWidget {
         ///
         MarkerLayer(
           markers: [
-            // TODO: Tweak this
             Marker(
               point: coordinates,
-              width: 20,
-              height: 20,
-              child: Container(
-                height: 24,
-                width: 24,
-                color: Colors.green,
+              width: 26,
+              height: 26,
+              child: PhosphorIcon(
+                PhosphorIcons.xCircle(
+                  PhosphorIconsStyle.bold,
+                ),
+                color: context.colors.delete,
+                size: 26,
               ),
             ),
           ],

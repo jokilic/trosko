@@ -6,6 +6,9 @@ import 'package:vector_tile_renderer/vector_tile_renderer.dart';
 
 import 'logger_service.dart';
 
+const openStreetMapVectorUri = 'https://tiles.openfreemap.org/styles/bright';
+const openStreetMapUri = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+
 class MapService extends ValueNotifier<Style?> {
   ///
   /// CONSTRUCTOR
@@ -16,12 +19,6 @@ class MapService extends ValueNotifier<Style?> {
   MapService({
     required this.logger,
   }) : super(null);
-
-  ///
-  /// VARIABLES
-  ///
-
-  final openFreeMapBrightVectorUri = 'https://tiles.openfreemap.org/styles/bright';
 
   ///
   /// INIT
@@ -39,7 +36,7 @@ class MapService extends ValueNotifier<Style?> {
   Future<void> loadVectorMapsStyle() async {
     try {
       final style = await StyleReader(
-        uri: openFreeMapBrightVectorUri,
+        uri: openStreetMapVectorUri,
         logger: const Logger.console(),
       ).read();
 
