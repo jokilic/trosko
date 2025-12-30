@@ -71,15 +71,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final homeController = getIt.get<HomeController>();
+    final hive = getIt.get<HiveService>();
 
-    final hive = watchIt<HiveService>();
+    final hiveState = watchIt<HiveService>().value;
 
-    final allTransactions = hive.value.transactions;
+    final allTransactions = hiveState.transactions;
 
-    final categories = hive.value.categories;
-    final locations = hive.value.locations;
+    final categories = hiveState.categories;
+    final locations = hiveState.locations;
 
-    final name = hive.value.username;
+    final name = hiveState.username;
+
+    final useVectorMaps = hiveState.settings?.useVectorMaps ?? false;
 
     final state = watchIt<HomeController>().value;
 
@@ -497,6 +500,7 @@ class _HomeScreenState extends State<HomeScreen> {
               firstChild: const SizedBox.shrink(),
               secondChild: HomeLocations(
                 mapStyle: mapState,
+                useVectorMaps: useVectorMaps,
                 isExpanded: expandedLocations,
                 locations: locations,
                 activeLocations: activeLocations,

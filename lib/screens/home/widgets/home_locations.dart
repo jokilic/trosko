@@ -17,6 +17,7 @@ class HomeLocations extends StatelessWidget {
   final void Function(List<Location> newOrder) onReorderLocations;
   final void Function(Location location) onPressedLocation;
   final Style? mapStyle;
+  final bool useVectorMaps;
 
   const HomeLocations({
     required this.isExpanded,
@@ -24,6 +25,7 @@ class HomeLocations extends StatelessWidget {
     required this.activeLocations,
     required this.onReorderLocations,
     required this.onPressedLocation,
+    required this.useVectorMaps,
     this.mapStyle,
   });
 
@@ -62,6 +64,7 @@ class HomeLocations extends StatelessWidget {
               location: location,
               coordinates: locationCoordinates,
               mapStyle: mapStyle,
+              useVectorMaps: useVectorMaps,
               onPressed: () => onPressedLocation(location),
               opacity: (activeLocations?.contains(location) ?? false) ? 1 : 0.4,
               color: context.colors.buttonBackground,
@@ -84,6 +87,7 @@ class HomeLocations extends StatelessWidget {
               ),
           ],
           child: HomeLocation(
+            useVectorMaps: useVectorMaps,
             location: null,
             color: context.colors.buttonBackground,
             highlightColor: context.colors.listTileBackground,

@@ -24,12 +24,14 @@ class HomeLocation extends StatelessWidget {
   final IconData? icon;
   final String text;
   final Style? mapStyle;
+  final bool useVectorMaps;
 
   const HomeLocation({
     required this.location,
     required this.color,
     required this.highlightColor,
     required this.text,
+    required this.useVectorMaps,
     this.coordinates,
     this.icon,
     this.onPressed,
@@ -102,7 +104,7 @@ class HomeLocation extends StatelessWidget {
                             ///
                             /// MAP VECTOR
                             ///
-                            if (mapStyle != null)
+                            if (mapStyle != null && useVectorMaps)
                               VectorTileLayer(
                                 tileProviders: mapStyle!.providers,
                                 theme: mapStyle!.theme,

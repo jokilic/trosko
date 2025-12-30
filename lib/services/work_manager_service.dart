@@ -96,17 +96,17 @@ Future<void> showBackgroundTaskNotification({
   required String title,
   required String body,
 }) async {
-  final notificationService = getIt.get<NotificationService>();
+  final notification = getIt.get<NotificationService>();
 
-  final canShowNotification = notificationService.value.notificationGranted && notificationService.value.listenerGranted && notificationService.value.useNotificationListener;
+  final canShowNotification = notification.value.notificationGranted && notification.value.listenerGranted && notification.value.useNotificationListener;
 
   if (!canShowNotification) {
     return;
   }
 
-  await notificationService.initializeLocalNotifications();
+  await notification.initializeLocalNotifications();
 
-  final plugin = notificationService.flutterLocalNotificationsPlugin;
+  final plugin = notification.flutterLocalNotificationsPlugin;
 
   final id = Random().nextInt(1000);
 

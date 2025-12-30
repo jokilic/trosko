@@ -23,7 +23,7 @@ class SettingsPrimaryColors extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SliverToBoxAdapter(
     child: SizedBox(
-      height: 88,
+      height: 72,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         physics: const BouncingScrollPhysics(),

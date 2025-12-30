@@ -71,19 +71,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final settingsController = getIt.get<SettingsController>();
-    final hiveService = getIt.get<HiveService>();
+    final hive = getIt.get<HiveService>();
 
-    final hive = watchIt<HiveService>().value;
-    final notification = watchIt<NotificationService>().value;
+    final hiveState = watchIt<HiveService>().value;
+    final notificationState = watchIt<NotificationService>().value;
 
-    final notificationGranted = notification.notificationGranted;
-    final listenerGranted = notification.listenerGranted;
-    final useNotificationListener = notification.useNotificationListener;
+    final notificationGranted = notificationState.notificationGranted;
+    final listenerGranted = notificationState.listenerGranted;
+    final useNotificationListener = notificationState.useNotificationListener;
 
     final permissionsGranted = notificationGranted && listenerGranted && useNotificationListener;
 
-    final categories = hive.categories;
-    final settings = hive.settings;
+    final categories = hiveState.categories;
+    final settings = hiveState.settings;
 
     final primaryColor = settings?.primaryColor ?? context.colors.buttonPrimary;
 
@@ -91,6 +91,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       id: settings?.troskoThemeId,
       primaryColor: primaryColor,
     )?.extension<TroskoThemeTag>()?.id;
+
+    final useVectorMaps = settings?.useVectorMaps ?? false;
 
     final isAndroid = defaultTargetPlatform == TargetPlatform.android;
 
@@ -174,7 +176,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 12),
+            child: SizedBox(height: 6),
           ),
 
           ///
@@ -206,7 +208,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 12),
+            child: SizedBox(height: 14),
           ),
 
           ///
@@ -245,7 +247,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 12),
+            child: SizedBox(height: 14),
           ),
 
           ///
@@ -253,7 +255,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ///
           SettingsCategories(
             categories: categories,
-            onReorderCategories: hiveService.updateCategoriesOrder,
+            onReorderCategories: hive.updateCategoriesOrder,
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 16),
@@ -336,8 +338,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                // TODO
-                'Karte',
+                'settingsMaps'.tr(),
                 style: context.textStyles.homeTitle,
               ),
             ),
@@ -353,27 +354,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
               child: SettingsListTile(
-                onPressed: () async {
-                  unawaited(
-                    HapticFeedback.lightImpact(),
-                  );
-
-                  await settingsController.onPressedVectorMaps();
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  settingsController.onPressedVectorMaps();
                 },
-                // TODO
-                title: 'Vektorske karte',
-                // TODO
-                subtitle: 'Moderniji način prikaza karata',
+                title: 'settingsMapsTitle'.tr(),
+                subtitle: 'settingsMapsSubtitle'.tr(),
                 trailingWidget: Switch.adaptive(
                   activeThumbColor: context.colors.buttonPrimary,
-                  // TODO
-                  value: false,
-                  onChanged: (_) async {
-                    unawaited(
-                      HapticFeedback.lightImpact(),
-                    );
-
-                    await settingsController.onPressedVectorMaps();
+                  value: useVectorMaps,
+                  onChanged: (_) {
+                    HapticFeedback.lightImpact();
+                    settingsController.onPressedVectorMaps();
                   },
                 ),
               ),
@@ -390,8 +382,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                // TODO
-                'Vektorske karte su kvalitetnije, ali grafički kompleksnije za prikaz.',
+                'settingsMapsText'.tr(),
                 style: context.textStyles.homeTransactionNote,
               ),
             ),

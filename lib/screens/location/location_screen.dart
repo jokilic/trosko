@@ -74,6 +74,8 @@ class _LocationScreenState extends State<LocationScreen> {
 
     final mapState = watchIt<MapService>().value;
 
+    final useVectorMaps = watchIt<HiveService>().value.settings?.useVectorMaps ?? false;
+
     final locationName = state.locationName;
 
     final locationLatitude = state.latitude;
@@ -183,6 +185,7 @@ class _LocationScreenState extends State<LocationScreen> {
                                     ignoring: !mapEditMode,
                                     child: LocationMap(
                                       mapStyle: mapState,
+                                      useVectorMaps: useVectorMaps,
                                       mapController: locationController.mapController,
                                       coordinates: locationCoordinates,
                                       onMapEvent: locationController.onMapEvent,

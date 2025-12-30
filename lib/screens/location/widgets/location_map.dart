@@ -13,6 +13,7 @@ class LocationMap extends StatelessWidget {
   final Function(MapEvent event) onMapEvent;
   final Function() onMapReady;
   final Style? mapStyle;
+  final bool useVectorMaps;
 
   const LocationMap({
     required this.mapController,
@@ -20,6 +21,7 @@ class LocationMap extends StatelessWidget {
     required this.onMapEvent,
     required this.onMapReady,
     required this.mapStyle,
+    required this.useVectorMaps,
   });
 
   @override
@@ -40,7 +42,7 @@ class LocationMap extends StatelessWidget {
         ///
         /// MAP VECTOR
         ///
-        if (mapStyle != null)
+        if (mapStyle != null && useVectorMaps)
           VectorTileLayer(
             tileProviders: mapStyle!.providers,
             theme: mapStyle!.theme,
