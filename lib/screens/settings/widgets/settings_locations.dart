@@ -5,6 +5,7 @@ import 'package:vector_map_tiles/vector_map_tiles.dart';
 
 import '../../../models/location/location.dart';
 import '../../../theme/extensions.dart';
+import '../../../util/icons.dart';
 import 'settings_location.dart';
 
 class SettingsLocations extends StatelessWidget {
@@ -71,9 +72,7 @@ class SettingsLocations extends StatelessWidget {
               color: context.colors.buttonBackground,
               highlightColor: context.colors.listTileBackground,
               text: location.name,
-              icon: PhosphorIcons.mapTrifold(
-                PhosphorIconsStyle.thin,
-              ),
+              icon: getThinIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
             ),
           );
         },

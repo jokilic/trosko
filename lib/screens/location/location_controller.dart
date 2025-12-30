@@ -114,6 +114,15 @@ class LocationController
       },
     );
 
+    /// Icon search
+    iconTextEditingController.addListener(
+      () => updateState(
+        searchedIcons: getRegularIconsFromName(
+          iconTextEditingController.text.trim(),
+        ),
+      ),
+    );
+
     await setLocaleIdentifier(locale);
   }
 

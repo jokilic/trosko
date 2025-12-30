@@ -109,6 +109,8 @@ class SettingsLocation extends StatelessWidget {
                   ),
                 )
               : Container(
+                  height: 88,
+                  width: 88,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
@@ -119,7 +121,6 @@ class SettingsLocation extends StatelessWidget {
                   child: IconButton(
                     onPressed: null,
                     style: IconButton.styleFrom(
-                      padding: const EdgeInsets.all(12),
                       backgroundColor: color,
                       disabledBackgroundColor: color,
                       highlightColor: highlightColor,
@@ -133,11 +134,11 @@ class SettingsLocation extends StatelessWidget {
                               whiteColor: TroskoColors.lightThemeWhiteBackground,
                               blackColor: TroskoColors.lightThemeBlackText,
                             ),
-                            size: 64,
+                            size: 48,
                           )
                         : const SizedBox(
-                            height: 64,
-                            width: 64,
+                            height: 48,
+                            width: 48,
                           ),
                   ),
                 ),

@@ -8,6 +8,7 @@ import 'package:vector_map_tiles/vector_map_tiles.dart';
 import '../../../constants/durations.dart';
 import '../../../models/location/location.dart';
 import '../../../theme/extensions.dart';
+import '../../../util/icons.dart';
 import 'home_location.dart';
 
 class HomeLocations extends StatelessWidget {
@@ -69,9 +70,7 @@ class HomeLocations extends StatelessWidget {
               opacity: (activeLocations?.contains(location) ?? false) ? 1 : 0.5,
               color: context.colors.buttonBackground,
               highlightColor: context.colors.listTileBackground,
-              icon: PhosphorIcons.mapTrifold(
-                PhosphorIconsStyle.thin,
-              ),
+              icon: getThinIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
               text: location.name,
             ),
           );

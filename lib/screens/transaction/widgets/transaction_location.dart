@@ -119,6 +119,8 @@ class TransactionLocation extends StatelessWidget {
                     ),
                   )
                 : Container(
+                    height: 88,
+                    width: 88,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
@@ -129,7 +131,6 @@ class TransactionLocation extends StatelessWidget {
                     child: IconButton(
                       onPressed: () => onPressed(location),
                       style: IconButton.styleFrom(
-                        padding: const EdgeInsets.all(12),
                         backgroundColor: color,
                         highlightColor: highlightColor,
                         alignment: Alignment.center,
@@ -142,11 +143,11 @@ class TransactionLocation extends StatelessWidget {
                                 whiteColor: TroskoColors.lightThemeWhiteBackground,
                                 blackColor: TroskoColors.lightThemeBlackText,
                               ),
-                              size: 64,
+                              size: 48,
                             )
                           : const SizedBox(
-                              height: 64,
-                              width: 64,
+                              height: 48,
+                              width: 48,
                             ),
                     ),
                   ),

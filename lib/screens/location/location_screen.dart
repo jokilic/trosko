@@ -197,9 +197,9 @@ class _LocationScreenState extends State<LocationScreen> {
                                       onMapReady: () => locationController.mapReady = true,
                                     ),
                                   )
-                                : locationIcon == null
+                                : locationIcon != null
                                 ? PhosphorIcon(
-                                    locationIcon!.value,
+                                    locationIcon.value,
                                     color: context.colors.text,
                                     size: 104,
                                   )
