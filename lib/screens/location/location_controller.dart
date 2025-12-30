@@ -208,10 +208,10 @@ class LocationController
     final newLocation = Location(
       id: passedLocation?.id ?? const Uuid().v1(),
       name: name,
-      address: address,
+      address: address.isNotEmpty ? address : null,
       latitude: address.isNotEmpty ? value.latitude : null,
       longitude: address.isNotEmpty ? value.longitude : null,
-      note: note,
+      note: note.isNotEmpty ? note : null,
       createdAt: passedLocation?.createdAt ?? DateTime.now(),
       iconName: value.locationIcon?.key,
     );

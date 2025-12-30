@@ -65,12 +65,13 @@ class HomeLocations extends StatelessWidget {
               location: location,
               coordinates: locationCoordinates,
               mapStyle: mapStyle,
+              useMap: locationCoordinates != null,
               useVectorMaps: useVectorMaps,
               onPressed: () => onPressedLocation(location),
               opacity: (activeLocations?.contains(location) ?? false) ? 1 : 0.5,
               color: context.colors.buttonBackground,
               highlightColor: context.colors.listTileBackground,
-              icon: getThinIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
+              icon: getRegularIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
               text: location.name,
             ),
           );
@@ -89,13 +90,12 @@ class HomeLocations extends StatelessWidget {
               ),
           ],
           child: HomeLocation(
+            useMap: false,
             useVectorMaps: useVectorMaps,
             location: null,
             color: context.colors.buttonBackground,
             highlightColor: context.colors.listTileBackground,
-            icon: PhosphorIcons.plus(
-              PhosphorIconsStyle.light,
-            ),
+            icon: PhosphorIcons.plus(),
             text: 'homeAdd'.tr(),
           ),
         );

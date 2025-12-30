@@ -277,7 +277,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             opacity: activeLocation == location ? 1 : 0.5,
                             color: context.colors.buttonBackground,
                             highlightColor: context.colors.listTileBackground,
-                            icon: getThinIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
+                            icon: getRegularIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
                           );
                         },
                       ),

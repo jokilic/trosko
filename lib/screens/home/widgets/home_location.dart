@@ -23,6 +23,7 @@ class HomeLocation extends StatelessWidget {
   final Color highlightColor;
   final IconData? icon;
   final String text;
+  final bool useMap;
   final Style? mapStyle;
   final bool useVectorMaps;
 
@@ -31,6 +32,7 @@ class HomeLocation extends StatelessWidget {
     required this.color,
     required this.highlightColor,
     required this.text,
+    required this.useMap,
     required this.useVectorMaps,
     this.coordinates,
     this.icon,
@@ -70,29 +72,26 @@ class HomeLocation extends StatelessWidget {
                   width: 1.5,
                 ),
               ),
-              child: location != null && coordinates != null
-                  ? Container(
-                      height: 88,
-                      width: 88,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: context.colors.text,
-                          width: 1.5,
-                        ),
-                      ),
-                      child: ClipOval(
-                        child: FlutterMap(
+              child: Container(
+                height: 88,
+                width: 88,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: context.colors.text,
+                    width: 1.5,
+                  ),
+                ),
+                child: ClipOval(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      ///
+                      /// MAP
+                      ///
+                      if (useMap)
+                        FlutterMap(
                           options: MapOptions(
-                            onTap: (_, __) {
-                              if (onPressed != null) {
-                                onPressed!();
-                              } else {
-                                HapticFeedback.lightImpact();
-                                openContainer();
-                              }
-                            },
-                            onLongPress: onPressed != null ? (_, __) => openContainer() : null,
                             maxZoom: 21,
                             interactionOptions: const InteractionOptions(
                               flags: InteractiveFlag.none,
@@ -142,19 +141,11 @@ class HomeLocation extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                    )
-                  : Container(
-                      height: 88,
-                      width: 88,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: location != null ? context.colors.text : color,
-                          width: 1.5,
-                        ),
-                      ),
-                      child: IconButton(
+
+                      ///
+                      /// BUTTON
+                      ///
+                      IconButton(
                         onPressed: () {
                           if (onPressed != null) {
                             onPressed!();
@@ -165,12 +156,13 @@ class HomeLocation extends StatelessWidget {
                         },
                         onLongPress: onPressed != null ? openContainer : null,
                         style: IconButton.styleFrom(
-                          backgroundColor: color,
-                          disabledBackgroundColor: color,
-                          highlightColor: highlightColor,
+                          // backgroundColor: useMap ? Colors.transparent : color,
+                          backgroundColor: useMap ? Colors.transparent : color,
+                          disabledBackgroundColor: useMap ? Colors.transparent : color,
+                          highlightColor: useMap ? Colors.transparent : highlightColor,
                           alignment: Alignment.center,
                         ),
-                        icon: icon != null
+                        icon: icon != null && !useMap
                             ? PhosphorIcon(
                                 icon!,
                                 color: getWhiteOrBlackColor(
@@ -185,7 +177,10 @@ class HomeLocation extends StatelessWidget {
                                 width: 48,
                               ),
                       ),
-                    ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 6),

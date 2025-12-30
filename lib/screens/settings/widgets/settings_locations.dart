@@ -72,7 +72,7 @@ class SettingsLocations extends StatelessWidget {
               color: context.colors.buttonBackground,
               highlightColor: context.colors.listTileBackground,
               text: location.name,
-              icon: getThinIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
+              icon: getRegularIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
             ),
           );
         },
