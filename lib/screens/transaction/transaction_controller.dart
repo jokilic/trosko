@@ -12,6 +12,13 @@ import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
+/// Class to distinguish `no argument passed` from `explicitly passed null`
+class TransactionStateNoChange {
+  const TransactionStateNoChange();
+}
+
+const transactionStateNoChange = TransactionStateNoChange();
+
 class TransactionController
     extends
         ValueNotifier<
@@ -258,10 +265,9 @@ class TransactionController
   }
 
   /// Updates `state`
-  // TODO: All other values are okay, except `location` which is nullable, but there's a possibility to call updateState with explicit location == null. If it's null, then it should not take the old value.location, it should be null
   void updateState({
     Category? category,
-    Location? location,
+    Object? location = transactionStateNoChange,
     int? amountCents,
     DateTime? transactionDate,
     DateTime? transactionTime,
@@ -272,7 +278,7 @@ class TransactionController
     bool? timeEditMode,
   }) => value = (
     category: category ?? value.category,
-    location: location ?? value.location,
+    location: identical(location, transactionStateNoChange) ? value.location : location as Location?,
     amountCents: amountCents ?? value.amountCents,
     transactionDateTime: getTransactionDateTime(
       transactionDate: transactionDate,
