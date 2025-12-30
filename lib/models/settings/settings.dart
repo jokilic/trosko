@@ -17,6 +17,8 @@ class Settings {
   @HiveField(4)
   final bool? useNotificationListener;
 
+  // TODO: Add `useVectorMaps` field
+
   Settings({
     required this.isLoggedIn,
     required this.troskoThemeId,

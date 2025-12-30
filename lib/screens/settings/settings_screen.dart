@@ -73,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final settingsController = getIt.get<SettingsController>();
     final hiveService = getIt.get<HiveService>();
 
-    final hive = watchIt<HiveService>();
+    final hive = watchIt<HiveService>().value;
     final notification = watchIt<NotificationService>().value;
 
     final notificationGranted = notification.notificationGranted;
@@ -82,8 +82,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     final permissionsGranted = notificationGranted && listenerGranted && useNotificationListener;
 
-    final categories = hive.value.categories;
-    final settings = hive.value.settings;
+    final categories = hive.categories;
+    final settings = hive.settings;
 
     final primaryColor = settings?.primaryColor ?? context.colors.buttonPrimary;
 
@@ -321,6 +321,77 @@ class _SettingsScreenState extends State<SettingsScreen> {
             sliver: SliverToBoxAdapter(
               child: Text(
                 isAndroid ? 'settingsNotificationsAndroidText'.tr() : 'settingsNotificationsiOSText'.tr(),
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 24),
+          ),
+
+          ///
+          /// MAPS TITLE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                // TODO
+                'Karte',
+                style: context.textStyles.homeTitle,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 12),
+          ),
+
+          ///
+          /// MAPS LIST TILE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: SettingsListTile(
+                onPressed: () async {
+                  unawaited(
+                    HapticFeedback.lightImpact(),
+                  );
+
+                  await settingsController.onPressedVectorMaps();
+                },
+                // TODO
+                title: 'Vektorske karte',
+                // TODO
+                subtitle: 'Moderniji način prikaza karata',
+                trailingWidget: Switch.adaptive(
+                  activeThumbColor: context.colors.buttonPrimary,
+                  // TODO
+                  value: false,
+                  onChanged: (_) async {
+                    unawaited(
+                      HapticFeedback.lightImpact(),
+                    );
+
+                    await settingsController.onPressedVectorMaps();
+                  },
+                ),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 10),
+          ),
+
+          ///
+          /// MAPS TEXT
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                // TODO
+                'Vektorske karte su kvalitetnije, ali grafički kompleksnije za prikaz.',
                 style: context.textStyles.homeTransactionNote,
               ),
             ),

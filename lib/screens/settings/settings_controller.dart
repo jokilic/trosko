@@ -97,6 +97,11 @@ class SettingsController implements Disposable {
     );
   }
 
+  /// Triggered when the user presses the vector [ListTile]
+  Future<void> onPressedVectorMaps() async {
+    // TODO: Update state and Hive
+  }
+
   /// Triggered when the user submits a new `name`
   Future<void> onSubmittedName(String newName) async {
     await hive.writeUsername(
