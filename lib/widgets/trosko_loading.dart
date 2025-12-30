@@ -24,37 +24,37 @@ class TroskoLoading extends StatefulWidget {
 }
 
 class _TroskoLoadingState extends State<TroskoLoading> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation1;
-  late Animation<double> _animation2;
-  late Animation<double> _animation3;
+  late AnimationController controller;
+  late Animation<double> animation1;
+  late Animation<double> animation2;
+  late Animation<double> animation3;
 
   @override
   void initState() {
     super.initState();
 
-    _controller = (widget.controller ?? AnimationController(vsync: this, duration: widget.duration))
+    controller = (widget.controller ?? AnimationController(vsync: this, duration: widget.duration))
       ..addListener(() {
         if (mounted) {
           setState(() {});
         }
       })
       ..repeat();
-    _animation1 = Tween(begin: 0.0, end: 1.0).animate(
+    animation1 = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
-        parent: _controller,
+        parent: controller,
         curve: const Interval(0.0, 1.0),
       ),
     );
-    _animation2 = Tween(begin: -2 / 3, end: 1 / 2).animate(
+    animation2 = Tween(begin: -2 / 3, end: 1 / 2).animate(
       CurvedAnimation(
-        parent: _controller,
+        parent: controller,
         curve: const Interval(0.5, 1.0),
       ),
     );
-    _animation3 = Tween(begin: 0.25, end: 5 / 6).animate(
+    animation3 = Tween(begin: 0.25, end: 5 / 6).animate(
       CurvedAnimation(
-        parent: _controller,
+        parent: controller,
         curve: const Interval(
           0.0,
           1.0,
@@ -67,14 +67,14 @@ class _TroskoLoadingState extends State<TroskoLoading> with SingleTickerProvider
   @override
   void dispose() {
     if (widget.controller == null) {
-      _controller.dispose();
+      controller.dispose();
     }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) => Transform(
-    transform: Matrix4.identity()..rotateZ((_animation1.value) * 5 * pi / 6),
+    transform: Matrix4.identity()..rotateZ((animation1.value) * 5 * pi / 6),
     alignment: FractionalOffset.center,
     child: SizedBox.fromSize(
       size: Size.square(widget.size),
@@ -82,8 +82,8 @@ class _TroskoLoadingState extends State<TroskoLoading> with SingleTickerProvider
         foregroundPainter: RingPainter(
           paintWidth: widget.lineWidth,
           trackColor: widget.color,
-          progressPercent: _animation3.value,
-          startAngle: pi * _animation2.value,
+          progressPercent: animation3.value,
+          startAngle: pi * animation2.value,
         ),
       ),
     ),

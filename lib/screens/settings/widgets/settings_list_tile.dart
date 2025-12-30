@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../theme/extensions.dart';
 
 class SettingsListTile extends StatelessWidget {
-  final Function() onPressed;
+  final Function()? onPressed;
   final String title;
   final String subtitle;
   final Widget trailingWidget;
@@ -19,7 +19,7 @@ class SettingsListTile extends StatelessWidget {
   Widget build(BuildContext context) => ClipRRect(
     borderRadius: BorderRadius.circular(8),
     child: Material(
-      color: context.colors.listTileBackground,
+      color: onPressed != null ? context.colors.listTileBackground : context.colors.disabledBackground,
       borderRadius: BorderRadius.circular(8),
       child: InkWell(
         onTap: onPressed,

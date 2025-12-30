@@ -92,6 +92,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       primaryColor: primaryColor,
     )?.extension<TroskoThemeTag>()?.id;
 
+    final isAndroid = defaultTargetPlatform == TargetPlatform.android;
+
     return Scaffold(
       body: CustomScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -280,37 +282,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
               child: SettingsListTile(
-                onPressed: () async {
-                  unawaited(
-                    HapticFeedback.lightImpact(),
-                  );
+                onPressed: isAndroid
+                    ? () async {
+                        unawaited(
+                          HapticFeedback.lightImpact(),
+                        );
 
-                  await settingsController.onPressedNotifications();
-                },
+                        await settingsController.onPressedNotifications();
+                      }
+                    : null,
                 title: 'settingsNotificationsTitle'.tr(),
                 subtitle: 'settingsNotificationsSubtitle'.tr(),
-                trailingWidget: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: permissionsGranted ? context.colors.buttonPrimary : context.colors.delete,
-                      ),
-                      height: 24,
-                      width: 24,
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      permissionsGranted ? 'settingsNotificationsOn'.tr().toUpperCase() : 'settingsNotificationsOff'.tr().toUpperCase(),
-                      style: context.textStyles.homeTransactionTime,
-                    ),
-                  ],
+                trailingWidget: Switch.adaptive(
+                  activeThumbColor: context.colors.buttonPrimary,
+                  value: permissionsGranted,
+                  onChanged: isAndroid
+                      ? (_) async {
+                          unawaited(
+                            HapticFeedback.lightImpact(),
+                          );
+
+                          await settingsController.onPressedNotifications();
+                        }
+                      : null,
                 ),
               ),
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 12),
+            child: SizedBox(height: 10),
           ),
 
           ///
@@ -320,7 +320,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                defaultTargetPlatform == TargetPlatform.android ? 'settingsNotificationsAndroidText'.tr() : 'settingsNotificationsiOSText'.tr(),
+                isAndroid ? 'settingsNotificationsAndroidText'.tr() : 'settingsNotificationsiOSText'.tr(),
                 style: context.textStyles.homeTransactionNote,
               ),
             ),

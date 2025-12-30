@@ -69,8 +69,6 @@
     "settingsNotifications": "Obavijesti",
     "settingsNotificationsTitle": "Usluga obavijesti",
     "settingsNotificationsSubtitle": "Otvori izbornike dopuštenja obavijesti",
-    "settingsNotificationsOn": "On",
-    "settingsNotificationsOff": "Off",
     "settingsNotificationsAndroidText": "Kad je usluga obavijesti omogućena, Troško se aktivira ako primiš obavijest od bankarskih aplikacija.",
     "settingsNotificationsiOSText": "Zbog ograničenja operativnog sustava, usluga obavijesti nije moguća na iOS uređajima.",
     "settingsAccountManagement": "Upravljanje računom",

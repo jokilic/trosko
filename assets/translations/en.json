@@ -69,8 +69,6 @@
     "settingsNotifications": "Notifications",
     "settingsNotificationsTitle": "Notification service",
     "settingsNotificationsSubtitle": "Open notification permission menus",
-    "settingsNotificationsOn": "On",
-    "settingsNotificationsOff": "Off",
     "settingsNotificationsAndroidText": "When notification service is enabled, Troško will trigger when you receive a notification from banking apps.",
     "settingsNotificationsiOSText": "Due to limitations in the operating system, the notification service is not available on iOS devices.",
     "settingsAccountManagement": "Account management",
