@@ -64,58 +64,57 @@ class TransactionLocation extends StatelessWidget {
                       ),
                     ),
                     child: ClipOval(
-                      child: IgnorePointer(
-                        child: FlutterMap(
-                          options: MapOptions(
-                            maxZoom: 21,
-                            interactionOptions: const InteractionOptions(
-                              flags: InteractiveFlag.none,
-                            ),
-                            initialCenter: coordinates!,
-                            initialZoom: 16,
+                      child: FlutterMap(
+                        options: MapOptions(
+                          onTap: (_, __) => onPressed(location),
+                          maxZoom: 21,
+                          interactionOptions: const InteractionOptions(
+                            flags: InteractiveFlag.none,
                           ),
-                          children: [
-                            ///
-                            /// MAP VECTOR
-                            ///
-                            if (mapStyle != null && useVectorMaps)
-                              VectorTileLayer(
-                                tileProviders: mapStyle!.providers,
-                                theme: mapStyle!.theme,
-                                tileOffset: TileOffset.mapbox,
-                              )
-                            ///
-                            /// FALLBACK MAP
-                            ///
-                            else
-                              TileLayer(
-                                urlTemplate: openStreetMapUri,
-                                maxZoom: 21,
-                                maxNativeZoom: 21,
-                                userAgentPackageName: 'com.josipkilic.trosko',
-                              ),
-
-                            ///
-                            /// MARKER
-                            ///
-                            MarkerLayer(
-                              markers: [
-                                Marker(
-                                  point: coordinates!,
-                                  width: 20,
-                                  height: 20,
-                                  child: PhosphorIcon(
-                                    PhosphorIcons.xCircle(
-                                      PhosphorIconsStyle.bold,
-                                    ),
-                                    color: context.colors.buttonPrimary,
-                                    size: 20,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                          initialCenter: coordinates!,
+                          initialZoom: 16,
                         ),
+                        children: [
+                          ///
+                          /// MAP VECTOR
+                          ///
+                          if (mapStyle != null && useVectorMaps)
+                            VectorTileLayer(
+                              tileProviders: mapStyle!.providers,
+                              theme: mapStyle!.theme,
+                              tileOffset: TileOffset.mapbox,
+                            )
+                          ///
+                          /// FALLBACK MAP
+                          ///
+                          else
+                            TileLayer(
+                              urlTemplate: openStreetMapUri,
+                              maxZoom: 21,
+                              maxNativeZoom: 21,
+                              userAgentPackageName: 'com.josipkilic.trosko',
+                            ),
+
+                          ///
+                          /// MARKER
+                          ///
+                          MarkerLayer(
+                            markers: [
+                              Marker(
+                                point: coordinates!,
+                                width: 20,
+                                height: 20,
+                                child: PhosphorIcon(
+                                  PhosphorIcons.xCircle(
+                                    PhosphorIconsStyle.bold,
+                                  ),
+                                  color: context.colors.buttonPrimary,
+                                  size: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   )

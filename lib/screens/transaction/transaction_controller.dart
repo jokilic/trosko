@@ -184,7 +184,7 @@ class TransactionController
 
   /// Triggered when the user presses a [Location]
   void locationChanged(Location newLocation) => updateState(
-    location: newLocation,
+    location: value.location == newLocation ? null : newLocation,
   );
 
   /// Triggered when the user enables date edit mode
@@ -258,6 +258,7 @@ class TransactionController
   }
 
   /// Updates `state`
+  // TODO: All other values are okay, except `location` which is nullable, but there's a possibility to call updateState with explicit location == null. If it's null, then it should not take the old value.location, it should be null
   void updateState({
     Category? category,
     Location? location,
