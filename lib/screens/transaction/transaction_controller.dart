@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../models/category/category.dart';
+import '../../models/location/location.dart';
 import '../../models/notification_payload/notification_payload.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
@@ -14,7 +15,17 @@ import '../../services/logger_service.dart';
 class TransactionController
     extends
         ValueNotifier<
-          ({Category? category, int? amountCents, DateTime? transactionDateTime, bool nameValid, bool amountValid, bool categoryValid, bool dateEditMode, bool timeEditMode})
+          ({
+            Category? category,
+            Location? location,
+            int? amountCents,
+            DateTime? transactionDateTime,
+            bool nameValid,
+            bool amountValid,
+            bool categoryValid,
+            bool dateEditMode,
+            bool timeEditMode,
+          })
         >
     implements Disposable {
   ///
@@ -26,7 +37,9 @@ class TransactionController
   final FirebaseService firebase;
   final Transaction? passedTransaction;
   final List<Category> categories;
+  final List<Location> locations;
   final Category? passedCategory;
+  final Location? passedLocation;
   final NotificationPayload? passedNotificationPayload;
 
   TransactionController({
@@ -35,10 +48,13 @@ class TransactionController
     required this.firebase,
     required this.passedTransaction,
     required this.categories,
+    required this.locations,
     required this.passedCategory,
+    required this.passedLocation,
     required this.passedNotificationPayload,
   }) : super((
          category: null,
+         location: null,
          amountCents: null,
          transactionDateTime: null,
          nameValid: false,
@@ -60,6 +76,7 @@ class TransactionController
   );
 
   final categoryKeys = <String, GlobalKey>{};
+  final locationKeys = <String, GlobalKey>{};
 
   ///
   /// INIT
@@ -77,10 +94,20 @@ class TransactionController
 
     final category = categoryFromPassedTransaction ?? passedCategory ?? (categories.length == 1 ? categories.firstOrNull : null);
 
+    final locationFromPassedTransaction = locations
+        .where(
+          (location) => location.id == passedTransaction?.locationId,
+        )
+        .toList()
+        .firstOrNull;
+
+    final location = locationFromPassedTransaction ?? passedLocation ?? (locations.length == 1 ? locations.firstOrNull : null);
+
     final transactionDateTime = passedTransaction?.createdAt ?? passedNotificationPayload?.createdAt ?? now;
 
     updateState(
       category: category,
+      location: location,
       amountCents: passedTransaction?.amountCents ?? passedNotificationPayload?.amountCents,
       transactionDate: transactionDateTime,
       transactionTime: transactionDateTime,
@@ -102,6 +129,21 @@ class TransactionController
     if (value.category != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         final key = categoryKeys[value.category?.id];
+        final ctx = key?.currentContext;
+
+        if (ctx != null) {
+          Scrollable.ensureVisible(
+            ctx,
+            alignment: 0.5,
+          );
+        }
+      });
+    }
+
+    /// Scroll to `activeLocation`
+    if (value.location != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final key = locationKeys[value.location?.id];
         final ctx = key?.currentContext;
 
         if (ctx != null) {
@@ -140,6 +182,11 @@ class TransactionController
     categoryValid: true,
   );
 
+  /// Triggered when the user presses a [Location]
+  void locationChanged(Location newLocation) => updateState(
+    location: newLocation,
+  );
+
   /// Triggered when the user enables date edit mode
   void dateEditModeChanged() => updateState(dateEditMode: true);
 
@@ -164,6 +211,7 @@ class TransactionController
       name: name,
       amountCents: value.amountCents!,
       categoryId: value.category!.id,
+      locationId: value.location?.id,
       note: note.isNotEmpty ? note : null,
       createdAt: value.transactionDateTime ?? DateTime.now(),
     );
@@ -212,6 +260,7 @@ class TransactionController
   /// Updates `state`
   void updateState({
     Category? category,
+    Location? location,
     int? amountCents,
     DateTime? transactionDate,
     DateTime? transactionTime,
@@ -222,6 +271,7 @@ class TransactionController
     bool? timeEditMode,
   }) => value = (
     category: category ?? value.category,
+    location: location ?? value.location,
     amountCents: amountCents ?? value.amountCents,
     transactionDateTime: getTransactionDateTime(
       transactionDate: transactionDate,

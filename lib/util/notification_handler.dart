@@ -79,15 +79,23 @@ Future<void> handlePressedNotification({required String? payload}) async {
     /// Navigate to base route
     Navigator.of(context).popUntil((route) => route.isFirst);
 
+    /// Get instance of [Hive]
+    final hive = getIt.get<HiveService>().value;
+
     /// Get `categories` from [Hive]
-    final categories = getIt.get<HiveService>().value.categories;
+    final categories = hive.categories;
+
+    /// Get `locations` from [Hive]
+    final locations = hive.locations;
 
     /// Navigate to [TransactionScreen]
     openTransaction(
       context,
       passedTransaction: null,
       categories: categories,
+      locations: locations,
       passedCategory: null,
+      passedLocation: null,
       passedNotificationPayload: payload != null ? NotificationPayload.fromJson(payload) : null,
       onTransactionUpdated: SystemNavigator.pop,
     );

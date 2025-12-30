@@ -4,16 +4,19 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:scroll_datetime_picker/scroll_datetime_picker.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../models/category/category.dart';
+import '../../models/location/location.dart';
 import '../../models/notification_payload/notification_payload.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../services/map_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
@@ -24,11 +27,14 @@ import '../../widgets/trosko_text_field.dart';
 import 'transaction_controller.dart';
 import 'widgets/transaction_amount_widget.dart';
 import 'widgets/transaction_category.dart';
+import 'widgets/transaction_location.dart';
 
 class TransactionScreen extends WatchingStatefulWidget {
   final Transaction? passedTransaction;
   final List<Category> categories;
   final Category? passedCategory;
+  final List<Location> locations;
+  final Location? passedLocation;
   final NotificationPayload? passedNotificationPayload;
   final Function() onTransactionUpdated;
 
@@ -36,6 +42,8 @@ class TransactionScreen extends WatchingStatefulWidget {
     required this.passedTransaction,
     required this.categories,
     required this.passedCategory,
+    required this.locations,
+    required this.passedLocation,
     required this.passedNotificationPayload,
     required this.onTransactionUpdated,
     required super.key,
@@ -57,7 +65,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
         firebase: getIt.get<FirebaseService>(),
         passedTransaction: widget.passedTransaction,
         categories: widget.categories,
+        locations: widget.locations,
         passedCategory: widget.passedCategory,
+        passedLocation: widget.passedLocation,
         passedNotificationPayload: widget.passedNotificationPayload,
       ),
       instanceName: widget.passedTransaction?.id,
@@ -83,7 +93,12 @@ class _TransactionScreenState extends State<TransactionScreen> {
       instanceName: widget.passedTransaction?.id,
     ).value;
 
+    final useVectorMaps = watchIt<HiveService>().value.settings?.useVectorMaps ?? false;
+
+    final mapState = watchIt<MapService>().value;
+
     final activeCategory = state.category;
+    final activeLocation = state.location;
 
     final chosenDateTime = state.transactionDateTime;
 
@@ -169,7 +184,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 const SizedBox(height: 12),
 
                 ///
-                /// CATEGORY
+                /// CATEGORIES
                 ///
                 IntrinsicHeight(
                   child: SingleChildScrollView(
@@ -203,6 +218,68 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             icon: getRegularIconFromName(
                               category.iconName,
                             )?.value,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                ///
+                /// LOCATION TITLE
+                ///
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'transactionLocation'.tr(),
+                    style: context.textStyles.homeTitle,
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                ///
+                /// LOCATIONS
+                ///
+                IntrinsicHeight(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: List.generate(
+                        widget.locations.length,
+                        (index) {
+                          final location = widget.locations[index];
+                          final key = transactionController.locationKeys.putIfAbsent(
+                            location.id,
+                            GlobalKey.new,
+                          );
+
+                          final locationCoordinates = location.latitude != null && location.longitude != null
+                              ? LatLng(
+                                  location.latitude!,
+                                  location.longitude!,
+                                )
+                              : null;
+
+                          return TransactionLocation(
+                            key: key,
+                            onPressed: (location) {
+                              HapticFeedback.lightImpact();
+                              transactionController.locationChanged(location);
+                            },
+                            location: location,
+                            coordinates: locationCoordinates,
+                            useVectorMaps: useVectorMaps,
+                            mapStyle: mapState,
+                            opacity: activeLocation == location ? 1 : 0.5,
+                            color: context.colors.buttonBackground,
+                            highlightColor: context.colors.listTileBackground,
+                            icon: PhosphorIcons.mapTrifold(
+                              PhosphorIconsStyle.thin,
+                            ),
                           );
                         },
                       ),

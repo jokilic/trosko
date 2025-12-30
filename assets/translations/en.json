@@ -49,6 +49,7 @@
     "transactionUpdateSubtitle": "Edit details of an existing expense",
     "transactionNewSubtitle": "Create a new expense",
     "transactionCategory": "Category",
+    "transactionLocation": "Location",
     "transactionTitleNote": "Title & note",
     "transactionTitle": "Title",
     "transactionNote": "Note (not necessary)",

@@ -6,6 +6,7 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../models/category/category.dart';
 import '../../models/day_header/day_header.dart';
+import '../../models/location/location.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
@@ -21,11 +22,13 @@ import 'search_controller.dart';
 
 class SearchScreen extends WatchingStatefulWidget {
   final List<Category> categories;
+  final List<Location> locations;
   final Function() onTransactionUpdated;
   final String locale;
 
   const SearchScreen({
     required this.categories,
+    required this.locations,
     required this.onTransactionUpdated,
     required this.locale,
     required super.key,
@@ -186,7 +189,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     onLongPressed: () => TransactionScreen(
                       passedTransaction: item,
                       categories: widget.categories,
+                      locations: widget.locations,
                       passedCategory: null,
+                      passedLocation: null,
                       passedNotificationPayload: null,
                       onTransactionUpdated: () {
                         searchController.updateState(

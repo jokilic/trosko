@@ -49,6 +49,7 @@
     "transactionUpdateSubtitle": "Uredi detalje postojećeg troška",
     "transactionNewSubtitle": "Stvori novi trošak",
     "transactionCategory": "Kategorija",
+    "transactionLocation": "Lokacija",
     "transactionTitleNote": "Naziv i bilješka",
     "transactionTitle": "Naziv",
     "transactionNote": "Bilješka (nije obavezno)",

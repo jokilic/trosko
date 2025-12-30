@@ -44,11 +44,13 @@ void openHome(BuildContext context) => removeAllAndPushScreen(
 void openSearch(
   BuildContext context, {
   required List<Category> categories,
+  required List<Location> locations,
   required Function() onTransactionUpdated,
   required String locale,
 }) => pushScreen(
   SearchScreen(
     categories: categories,
+    locations: locations,
     onTransactionUpdated: onTransactionUpdated,
     locale: locale,
     key: const ValueKey('search'),
@@ -73,14 +75,18 @@ void openTransaction(
   BuildContext context, {
   required Transaction? passedTransaction,
   required List<Category> categories,
+  required List<Location> locations,
   required Category? passedCategory,
+  required Location? passedLocation,
   required NotificationPayload? passedNotificationPayload,
   required Function() onTransactionUpdated,
 }) => pushScreen(
   TransactionScreen(
     passedTransaction: passedTransaction,
     categories: categories,
+    locations: locations,
     passedCategory: passedCategory,
+    passedLocation: passedLocation,
     passedNotificationPayload: passedNotificationPayload,
     onTransactionUpdated: onTransactionUpdated,
     key: ValueKey(passedTransaction?.id),

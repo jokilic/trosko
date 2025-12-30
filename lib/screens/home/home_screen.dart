@@ -176,7 +176,9 @@ class _HomeScreenState extends State<HomeScreen> {
         openBuilder: (context, _) => TransactionScreen(
           passedTransaction: null,
           categories: categories,
+          locations: locations,
           passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
+          passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
           passedNotificationPayload: null,
           onTransactionUpdated: () => homeController.updateState(
             locale: context.locale.languageCode,
@@ -271,6 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 openBuilder: (context, _) => SearchScreen(
                   categories: categories,
+                  locations: locations,
                   onTransactionUpdated: () => homeController.updateState(
                     locale: context.locale.languageCode,
                   ),
@@ -583,7 +586,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     onLongPressed: () => TransactionScreen(
                       passedTransaction: item,
                       categories: categories,
+                      locations: locations,
                       passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
+                      passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
                       passedNotificationPayload: null,
                       onTransactionUpdated: () => homeController.updateState(
                         locale: context.locale.languageCode,
