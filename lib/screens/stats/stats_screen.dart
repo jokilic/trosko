@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../constants/durations.dart';
 import '../../models/category/category.dart';
 import '../../models/location/location.dart';
 import '../../models/month/month.dart';
@@ -12,8 +14,14 @@ import '../../util/stats.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'widgets/stats_all_list_tile.dart';
 import 'widgets/stats_category_list_tile.dart';
+import 'widgets/stats_location_list_tile.dart';
 
-class StatsScreen extends StatelessWidget {
+enum StatsSection {
+  categories,
+  locations,
+}
+
+class StatsScreen extends StatefulWidget {
   final Month month;
   final List<Transaction> transactions;
   final List<Category> categories;
@@ -26,6 +34,25 @@ class StatsScreen extends StatelessWidget {
     required this.locations,
     required super.key,
   });
+
+  @override
+  State<StatsScreen> createState() => _StatsScreenState();
+}
+
+class _StatsScreenState extends State<StatsScreen> {
+  var statsSection = StatsSection.categories;
+
+  void toggleStatsSection() => setState(
+    () => statsSection = statsSection == StatsSection.categories ? StatsSection.locations : StatsSection.categories,
+  );
+
+  String getBigSubtitleText() {
+    if (widget.month.isAll) {
+      return statsSection == StatsSection.categories ? 'statsSubtitleCategoryAll'.tr() : 'statsSubtitleLocationAll'.tr();
+    }
+
+    return statsSection == StatsSection.categories ? 'statsSubtitleCategory'.tr() : 'statsSubtitleLocation'.tr();
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -54,17 +81,43 @@ class StatsScreen extends StatelessWidget {
               size: 28,
             ),
           ),
-          smallTitle: month.isAll
+          actionWidgets: [
+            ///
+            /// TOGGLE CATEGORIES / LOCATIONS
+            ///
+            IconButton(
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                toggleStatsSection();
+              },
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                highlightColor: context.colors.buttonBackground,
+              ),
+              icon: PhosphorIcon(
+                statsSection == StatsSection.categories
+                    ? PhosphorIcons.shapes(
+                        PhosphorIconsStyle.bold,
+                      )
+                    : PhosphorIcons.mapTrifold(
+                        PhosphorIconsStyle.bold,
+                      ),
+                color: context.colors.text,
+                size: 28,
+              ),
+            ),
+          ],
+          smallTitle: widget.month.isAll
               ? 'statsTitleAll'.tr()
               : 'statsTitle'.tr(
-                  args: [month.label],
+                  args: [widget.month.label],
                 ),
-          bigTitle: month.isAll
+          bigTitle: widget.month.isAll
               ? 'statsTitleAll'.tr()
               : 'statsTitle'.tr(
-                  args: [month.label],
+                  args: [widget.month.label],
                 ),
-          bigSubtitle: month.isAll ? 'statsSubtitleAll'.tr() : 'statsSubtitle'.tr(),
+          bigSubtitle: getBigSubtitleText(),
         ),
         const SliverToBoxAdapter(
           child: SizedBox(height: 8),
@@ -75,8 +128,8 @@ class StatsScreen extends StatelessWidget {
         ///
         SliverToBoxAdapter(
           child: StatsAllListTile(
-            numberOfTransactions: transactions.length,
-            amountCents: transactions.fold<int>(0, (s, t) => s + t.amountCents),
+            numberOfTransactions: widget.transactions.length,
+            amountCents: widget.transactions.fold<int>(0, (s, t) => s + t.amountCents),
           ),
         ),
         const SliverToBoxAdapter(
@@ -86,26 +139,71 @@ class StatsScreen extends StatelessWidget {
         ///
         /// CATEGORIES
         ///
-        SliverList.builder(
-          itemCount: categories.length,
-          itemBuilder: (_, index) {
-            final category = categories[index];
-            final categoryTransactions = getTransactionsWithinCategory(
-              category: category,
-              transactions: transactions,
-            );
-            final amountCents = getTransactionsAmount(
-              category: category,
-              transactions: transactions,
-            );
+        if (statsSection == StatsSection.categories)
+          SliverList.builder(
+            itemCount: widget.categories.length,
+            itemBuilder: (_, index) {
+              final category = widget.categories[index];
+              final categoryTransactions = getTransactionsWithinCategory(
+                category: category,
+                transactions: widget.transactions,
+              );
+              final amountCents = getCategoryTransactionsAmount(
+                category: category,
+                transactions: widget.transactions,
+              );
 
-            return StatsCategoryListTile(
-              category: category,
-              numberOfTransactions: categoryTransactions.length,
-              amountCents: amountCents,
-            );
-          },
-        ),
+              return Animate(
+                key: ValueKey(category),
+                delay: Duration(milliseconds: index * 50),
+                effects: const [
+                  FadeEffect(
+                    curve: Curves.easeIn,
+                    duration: TroskoDurations.animation,
+                  ),
+                ],
+                child: StatsCategoryListTile(
+                  category: category,
+                  numberOfTransactions: categoryTransactions.length,
+                  amountCents: amountCents,
+                ),
+              );
+            },
+          )
+        ///
+        /// LOCATIONS
+        ///
+        else
+          SliverList.builder(
+            itemCount: widget.locations.length,
+            itemBuilder: (_, index) {
+              final location = widget.locations[index];
+              final locationTransactions = getTransactionsWithinLocation(
+                location: location,
+                transactions: widget.transactions,
+              );
+              final amountCents = getLocationTransactionsAmount(
+                location: location,
+                transactions: widget.transactions,
+              );
+
+              return Animate(
+                key: ValueKey(location),
+                delay: Duration(milliseconds: index * 50),
+                effects: const [
+                  FadeEffect(
+                    curve: Curves.easeIn,
+                    duration: TroskoDurations.animation,
+                  ),
+                ],
+                child: StatsLocationListTile(
+                  location: location,
+                  numberOfTransactions: locationTransactions.length,
+                  amountCents: amountCents,
+                ),
+              );
+            },
+          ),
 
         const SliverToBoxAdapter(
           child: SizedBox(height: 48),

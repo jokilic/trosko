@@ -330,6 +330,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     categories: categories,
                     transactions: transactions,
                   ),
+                  locations: getSortedLocations(
+                    locations: locations,
+                    transactions: transactions,
+                  ),
                   key: ValueKey(month),
                 );
               }

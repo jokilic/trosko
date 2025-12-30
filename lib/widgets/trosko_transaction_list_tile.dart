@@ -44,8 +44,12 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
 
   @override
   Widget build(BuildContext context) {
-    final boldIcon = getBoldIconFromName(
+    final boldCategoryIcon = getBoldIconFromName(
       widget.category?.iconName,
+    );
+
+    final boldLocationIcon = getBoldIconFromName(
+      widget.location?.iconName,
     );
 
     return OpenContainer(
@@ -133,9 +137,9 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                               width: 1.5,
                             ),
                           ),
-                          child: boldIcon != null
+                          child: boldCategoryIcon != null
                               ? PhosphorIcon(
-                                  boldIcon.value,
+                                  boldCategoryIcon.value,
                                   color: getWhiteOrBlackColor(
                                     backgroundColor: widget.category?.color ?? context.colors.scaffoldBackground,
                                     whiteColor: TroskoColors.lightThemeWhiteBackground,
@@ -247,7 +251,7 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                                   firstChild: Row(
                                     children: [
                                       PhosphorIcon(
-                                        getRegularIconFromName(widget.location?.iconName)?.value ?? PhosphorIcons.mapTrifold(),
+                                        boldLocationIcon?.value ?? PhosphorIcons.mapTrifold(),
                                         color: context.colors.text,
                                         size: 20,
                                       ),
@@ -265,7 +269,7 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                                   secondChild: Row(
                                     children: [
                                       PhosphorIcon(
-                                        getRegularIconFromName(widget.location?.iconName)?.value ?? PhosphorIcons.mapTrifold(),
+                                        boldLocationIcon?.value ?? PhosphorIcons.mapTrifold(),
                                         color: context.colors.text,
                                         size: 20,
                                       ),

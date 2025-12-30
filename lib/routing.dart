@@ -124,11 +124,13 @@ void openStats(
   required Month month,
   required List<Transaction> transactions,
   required List<Category> sortedCategories,
+  required List<Location> sortedLocations,
 }) => pushScreen(
   StatsScreen(
     month: month,
     transactions: transactions,
     categories: sortedCategories,
+    locations: sortedLocations,
     key: ValueKey(month),
   ),
   context: context,

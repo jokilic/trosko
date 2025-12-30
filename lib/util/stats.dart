@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 import '../models/category/category.dart';
+import '../models/location/location.dart';
 import '../models/transaction/transaction.dart';
 
 List<Transaction> getTransactionsWithinCategory({
@@ -8,7 +9,12 @@ List<Transaction> getTransactionsWithinCategory({
   required List<Transaction> transactions,
 }) => transactions.where((transaction) => transaction.categoryId == category.id).toList();
 
-int getTransactionsAmount({
+List<Transaction> getTransactionsWithinLocation({
+  required Location location,
+  required List<Transaction> transactions,
+}) => transactions.where((transaction) => transaction.locationId == location.id).toList();
+
+int getCategoryTransactionsAmount({
   required Category category,
   required List<Transaction> transactions,
 }) {
@@ -19,18 +25,46 @@ int getTransactionsAmount({
   return categoryTransactions.fold<int>(0, (s, t) => s + t.amountCents);
 }
 
+int getLocationTransactionsAmount({
+  required Location location,
+  required List<Transaction> transactions,
+}) {
+  final locationTransactions = getTransactionsWithinLocation(
+    location: location,
+    transactions: transactions,
+  );
+  return locationTransactions.fold<int>(0, (s, t) => s + t.amountCents);
+}
+
 List<Category> getSortedCategories({
   required List<Category> categories,
   required List<Transaction> transactions,
 }) => List.from(categories)
   ..sort(
     (a, b) =>
-        getTransactionsAmount(
+        getCategoryTransactionsAmount(
           category: b,
           transactions: transactions,
         ).compareTo(
-          getTransactionsAmount(
+          getCategoryTransactionsAmount(
             category: a,
+            transactions: transactions,
+          ),
+        ),
+  );
+
+List<Location> getSortedLocations({
+  required List<Location> locations,
+  required List<Transaction> transactions,
+}) => List.from(locations)
+  ..sort(
+    (a, b) =>
+        getLocationTransactionsAmount(
+          location: b,
+          transactions: transactions,
+        ).compareTo(
+          getLocationTransactionsAmount(
+            location: a,
             transactions: transactions,
           ),
         ),
