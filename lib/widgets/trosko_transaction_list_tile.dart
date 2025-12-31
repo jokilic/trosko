@@ -249,11 +249,12 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                                   sizeCurve: Curves.easeIn,
                                   crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                                   firstChild: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       PhosphorIcon(
                                         boldLocationIcon?.value ?? PhosphorIcons.mapTrifold(),
                                         color: context.colors.text,
-                                        size: 20,
+                                        size: 16,
                                       ),
                                       const SizedBox(width: 4),
                                       Expanded(
@@ -267,11 +268,12 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                                     ],
                                   ),
                                   secondChild: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       PhosphorIcon(
                                         boldLocationIcon?.value ?? PhosphorIcons.mapTrifold(),
                                         color: context.colors.text,
-                                        size: 20,
+                                        size: 16,
                                       ),
                                       const SizedBox(width: 4),
                                       Expanded(

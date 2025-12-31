@@ -22,6 +22,8 @@ import 'util/localization.dart';
 import 'util/navigation.dart';
 import 'util/theme.dart';
 
+// TODO: Vector not working on release
+
 Future<void> main() async {
   /// Initialize Flutter related tasks
   WidgetsFlutterBinding.ensureInitialized();
