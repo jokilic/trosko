@@ -241,7 +241,7 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                               /// LOCATION
                               ///
                               if (widget.location != null) ...[
-                                const SizedBox(height: 2),
+                                const SizedBox(height: 3),
                                 AnimatedCrossFade(
                                   duration: TroskoDurations.animation,
                                   firstCurve: Curves.easeIn,
