@@ -239,61 +239,65 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: SizedBox(height: 20),
           ),
 
-          ///
-          /// CATEGORIES TITLE
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'settingsCategoryPosition'.tr(),
-                style: context.textStyles.homeTitle,
+          if (categories.isNotEmpty) ...[
+            ///
+            /// CATEGORIES TITLE
+            ///
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'settingsCategoryPosition'.tr(),
+                  style: context.textStyles.homeTitle,
+                ),
               ),
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 14),
-          ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 14),
+            ),
 
-          ///
-          /// CATEGORIES
-          ///
-          SettingsCategories(
-            categories: categories,
-            onReorderCategories: hive.updateCategoriesOrder,
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 10),
-          ),
+            ///
+            /// CATEGORIES
+            ///
+            SettingsCategories(
+              categories: categories,
+              onReorderCategories: hive.updateCategoriesOrder,
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 10),
+            ),
+          ],
 
-          ///
-          /// LOCATIONS TITLE
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'settingsLocationPosition'.tr(),
-                style: context.textStyles.homeTitle,
+          if (locations.isNotEmpty) ...[
+            ///
+            /// LOCATIONS TITLE
+            ///
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'settingsLocationPosition'.tr(),
+                  style: context.textStyles.homeTitle,
+                ),
               ),
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 14),
-          ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 14),
+            ),
 
-          ///
-          /// LOCATIONS
-          ///
-          SettingsLocations(
-            locations: locations,
-            onReorderLocations: hive.updateLocationsOrder,
-            useVectorMaps: useVectorMaps,
-            mapStyle: mapState,
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 10),
-          ),
+            ///
+            /// LOCATIONS
+            ///
+            SettingsLocations(
+              locations: locations,
+              onReorderLocations: hive.updateLocationsOrder,
+              useVectorMaps: useVectorMaps,
+              mapStyle: mapState,
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 10),
+            ),
+          ],
 
           ///
           /// NOTIFICATIONS TITLE

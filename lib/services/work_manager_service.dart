@@ -86,6 +86,11 @@ void callbackDispatcher() => Workmanager().executeTask(
 
       return Future.value(true);
     } catch (e) {
+      await showBackgroundTaskNotification(
+        title: '❌ Background task failed',
+        body: '$e',
+      );
+
       return Future.value(false);
     }
   },
@@ -108,7 +113,7 @@ Future<void> showBackgroundTaskNotification({
 
   final plugin = notification.flutterLocalNotificationsPlugin;
 
-  final id = Random().nextInt(1000);
+  final id = Random().nextInt(10000);
 
   await plugin?.show(
     id,

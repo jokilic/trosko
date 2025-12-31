@@ -182,10 +182,10 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
   String? getUsername() => username.values.toList().firstOrNull;
 
   /// Called to get `expandedCategories` from [Hive]
-  bool getExpandedCategories() => expandedCategories.values.toList().firstOrNull ?? false;
+  bool getExpandedCategories() => expandedCategories.values.toList().firstOrNull ?? true;
 
   /// Called to get `expandedLocations` from [Hive]
-  bool getExpandedLocations() => expandedLocations.values.toList().firstOrNull ?? false;
+  bool getExpandedLocations() => expandedLocations.values.toList().firstOrNull ?? true;
 
   /// Called to get `transactions` from [Hive]
   List<Transaction> getTransactions() => transactions.values.toList();
