@@ -161,7 +161,12 @@ class LocationController
   Future<void> onAddressSubmitted(String address) async {
     final trimmedAddress = address.trim();
 
+    /// Empty address, update `state` to empty
     if (trimmedAddress.isEmpty) {
+      updateState(
+        latitude: null,
+        longitude: null,
+      );
       return;
     }
 
@@ -261,17 +266,16 @@ class LocationController
   void updateState({
     String? locationName,
     bool? nameValid,
-    double? latitude,
-    double? longitude,
+    Object? latitude = locationStateNoChange,
+    Object? longitude = locationStateNoChange,
     bool? mapEditMode,
     Object? locationIcon = locationStateNoChange,
-    // MapEntry<String, PhosphorIconData>? locationIcon,
     List<MapEntry<String, PhosphorIconData>>? searchedIcons,
   }) => value = (
     locationName: locationName ?? value.locationName,
     nameValid: nameValid ?? value.nameValid,
-    latitude: latitude ?? value.latitude,
-    longitude: longitude ?? value.longitude,
+    latitude: identical(latitude, locationStateNoChange) ? value.latitude : latitude as double?,
+    longitude: identical(longitude, locationStateNoChange) ? value.longitude : longitude as double?,
     mapEditMode: mapEditMode ?? value.mapEditMode,
     locationIcon: identical(locationIcon, locationStateNoChange) ? value.locationIcon : locationIcon as MapEntry<String, PhosphorIconData>?,
     searchedIcons: searchedIcons ?? value.searchedIcons,

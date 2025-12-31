@@ -398,10 +398,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          if (expandedCategories)
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 12),
-            ),
 
           ///
           /// CATEGORIES
@@ -414,20 +410,23 @@ class _HomeScreenState extends State<HomeScreen> {
               sizeCurve: Curves.easeIn,
               crossFadeState: expandedCategories ? CrossFadeState.showSecond : CrossFadeState.showFirst,
               firstChild: const SizedBox.shrink(),
-              secondChild: HomeCategories(
-                isExpanded: expandedCategories,
-                categories: categories,
-                activeCategories: activeCategories,
-                onReorderCategories: hive.updateCategoriesOrder,
-                onPressedCategory: (category) {
-                  HapticFeedback.lightImpact();
+              secondChild: Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: HomeCategories(
+                  isExpanded: expandedCategories,
+                  categories: categories,
+                  activeCategories: activeCategories,
+                  onReorderCategories: hive.updateCategoriesOrder,
+                  onPressedCategory: (category) {
+                    HapticFeedback.lightImpact();
 
-                  homeController.onCategoryPressed(
-                    category: category,
-                    activeCategories: activeCategories,
-                    languageCode: context.locale.languageCode,
-                  );
-                },
+                    homeController.onCategoryPressed(
+                      category: category,
+                      activeCategories: activeCategories,
+                      languageCode: context.locale.languageCode,
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -490,9 +489,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
-          ),
 
           ///
           /// LOCATIONS
@@ -505,22 +501,25 @@ class _HomeScreenState extends State<HomeScreen> {
               sizeCurve: Curves.easeIn,
               crossFadeState: expandedLocations ? CrossFadeState.showSecond : CrossFadeState.showFirst,
               firstChild: const SizedBox.shrink(),
-              secondChild: HomeLocations(
-                mapStyle: mapState,
-                useVectorMaps: useVectorMaps,
-                isExpanded: expandedLocations,
-                locations: locations,
-                activeLocations: activeLocations,
-                onReorderLocations: hive.updateLocationsOrder,
-                onPressedLocation: (location) {
-                  HapticFeedback.lightImpact();
+              secondChild: Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: HomeLocations(
+                  mapStyle: mapState,
+                  useVectorMaps: useVectorMaps,
+                  isExpanded: expandedLocations,
+                  locations: locations,
+                  activeLocations: activeLocations,
+                  onReorderLocations: hive.updateLocationsOrder,
+                  onPressedLocation: (location) {
+                    HapticFeedback.lightImpact();
 
-                  homeController.onLocationPressed(
-                    location: location,
-                    activeLocations: activeLocations,
-                    languageCode: context.locale.languageCode,
-                  );
-                },
+                    homeController.onLocationPressed(
+                      location: location,
+                      activeLocations: activeLocations,
+                      languageCode: context.locale.languageCode,
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -529,92 +528,95 @@ class _HomeScreenState extends State<HomeScreen> {
           /// TRANSACTIONS
           ///
           if (items.isNotEmpty)
-            SliverList.builder(
-              itemCount: items.length,
-              itemBuilder: (_, index) {
-                final item = items[index];
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 2),
+              sliver: SliverList.builder(
+                itemCount: items.length,
+                itemBuilder: (_, index) {
+                  final item = items[index];
 
-                ///
-                /// DAY HEADER
-                ///
-                if (item is DayHeader) {
-                  return Padding(
-                    padding: EdgeInsets.fromLTRB(28, index == 0 ? 8 : 28, 28, 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ///
-                        /// DAY
-                        ///
-                        Expanded(
-                          child: Text(
-                            item.label,
+                  ///
+                  /// DAY HEADER
+                  ///
+                  if (item is DayHeader) {
+                    return Padding(
+                      padding: EdgeInsets.fromLTRB(28, index == 0 ? 8 : 28, 28, 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ///
+                          /// DAY
+                          ///
+                          Expanded(
+                            child: Text(
+                              item.label,
+                              style: context.textStyles.homeTitle,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+
+                          ///
+                          /// AMOUNT
+                          ///
+                          Text.rich(
+                            TextSpan(
+                              text: formatCentsToCurrency(
+                                item.amountCents,
+                                locale: context.locale.languageCode,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: 'homeCurrency'.tr(),
+                                  style: context.textStyles.homeTitleEuro,
+                                ),
+                              ],
+                            ),
                             style: context.textStyles.homeTitle,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-
-                        ///
-                        /// AMOUNT
-                        ///
-                        Text.rich(
-                          TextSpan(
-                            text: formatCentsToCurrency(
-                              item.amountCents,
-                              locale: context.locale.languageCode,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: 'homeCurrency'.tr(),
-                                style: context.textStyles.homeTitleEuro,
-                              ),
-                            ],
-                          ),
-                          style: context.textStyles.homeTitle,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
-                ///
-                /// TRANSACTION
-                ///
-                if (item is Transaction) {
-                  final category = categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
-                  final location = locations.where((location) => location.id == item.locationId).toList().firstOrNull;
-
-                  return TroskoTransactionListTile(
-                    onLongPressed: () => TransactionScreen(
-                      passedTransaction: item,
-                      categories: categories,
-                      locations: locations,
-                      passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
-                      passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
-                      passedNotificationPayload: null,
-                      onTransactionUpdated: () => homeController.updateState(
-                        locale: context.locale.languageCode,
+                        ],
                       ),
-                      key: ValueKey(item.id),
-                    ),
-                    onDeletePressed: () {
-                      HapticFeedback.lightImpact();
-                      homeController.deleteTransaction(
-                        transaction: item,
-                        locale: context.locale.languageCode,
-                      );
-                    },
-                    transaction: item,
-                    category: category,
-                    location: location,
-                  );
-                }
+                    );
+                  }
 
-                return const SizedBox.shrink();
-              },
+                  ///
+                  /// TRANSACTION
+                  ///
+                  if (item is Transaction) {
+                    final category = categories.where((category) => category.id == item.categoryId).toList().firstOrNull;
+                    final location = locations.where((location) => location.id == item.locationId).toList().firstOrNull;
+
+                    return TroskoTransactionListTile(
+                      onLongPressed: () => TransactionScreen(
+                        passedTransaction: item,
+                        categories: categories,
+                        locations: locations,
+                        passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
+                        passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
+                        passedNotificationPayload: null,
+                        onTransactionUpdated: () => homeController.updateState(
+                          locale: context.locale.languageCode,
+                        ),
+                        key: ValueKey(item.id),
+                      ),
+                      onDeletePressed: () {
+                        HapticFeedback.lightImpact();
+                        homeController.deleteTransaction(
+                          transaction: item,
+                          locale: context.locale.languageCode,
+                        );
+                      },
+                      transaction: item,
+                      category: category,
+                      location: location,
+                    );
+                  }
+
+                  return const SizedBox.shrink();
+                },
+              ),
             )
           else
             SliverPadding(
