@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../util/dependencies.dart';
 import 'logger_service.dart';
-import 'notification_service.dart';
 
 class WorkManagerService {
   final LoggerService logger;
@@ -86,49 +83,7 @@ void callbackDispatcher() => Workmanager().executeTask(
 
       return Future.value(true);
     } catch (e) {
-      await showBackgroundTaskNotification(
-        title: '❌ Background task failed',
-        body: '$e',
-      );
-
       return Future.value(false);
     }
   },
 );
-
-/// Shows background task notification
-Future<void> showBackgroundTaskNotification({
-  required String title,
-  required String body,
-}) async {
-  final notification = getIt.get<NotificationService>();
-
-  final canShowNotification = notification.value.notificationGranted && notification.value.listenerGranted && notification.value.useNotificationListener;
-
-  if (!canShowNotification) {
-    return;
-  }
-
-  await notification.initializeLocalNotifications();
-
-  final plugin = notification.flutterLocalNotificationsPlugin;
-
-  final id = Random().nextInt(10000);
-
-  await plugin?.show(
-    id,
-    title,
-    body,
-    const NotificationDetails(
-      android: AndroidNotificationDetails(
-        'trosko_background_task_channel_id',
-        'Troško background task notifications',
-        channelDescription: 'Background task notifications shown by the Troško app',
-        category: AndroidNotificationCategory.service,
-        importance: Importance.max,
-        priority: Priority.max,
-        ticker: 'ticker',
-      ),
-    ),
-  );
-}
