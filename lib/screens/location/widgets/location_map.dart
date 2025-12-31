@@ -67,14 +67,14 @@ class LocationMap extends StatelessWidget {
           markers: [
             Marker(
               point: coordinates,
-              width: 26,
-              height: 26,
+              width: 20,
+              height: 20,
               child: PhosphorIcon(
-                PhosphorIcons.xCircle(
+                PhosphorIcons.x(
                   PhosphorIconsStyle.bold,
                 ),
                 color: context.colors.buttonPrimary,
-                size: 26,
+                size: 20,
               ),
             ),
           ],

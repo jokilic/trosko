@@ -98,14 +98,14 @@ class SettingsLocation extends StatelessWidget {
                             markers: [
                               Marker(
                                 point: coordinates!,
-                                width: 20,
-                                height: 20,
+                                width: 16,
+                                height: 16,
                                 child: PhosphorIcon(
-                                  PhosphorIcons.xCircle(
+                                  PhosphorIcons.x(
                                     PhosphorIconsStyle.bold,
                                   ),
                                   color: context.colors.buttonPrimary,
-                                  size: 20,
+                                  size: 16,
                                 ),
                               ),
                             ],

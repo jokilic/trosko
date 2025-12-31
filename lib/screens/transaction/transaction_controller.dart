@@ -99,7 +99,7 @@ class TransactionController
         .toList()
         .firstOrNull;
 
-    final category = categoryFromPassedTransaction ?? passedCategory ?? (categories.length == 1 ? categories.firstOrNull : null);
+    final category = categoryFromPassedTransaction ?? passedCategory;
 
     final locationFromPassedTransaction = locations
         .where(
@@ -108,7 +108,7 @@ class TransactionController
         .toList()
         .firstOrNull;
 
-    final location = locationFromPassedTransaction ?? passedLocation ?? (locations.length == 1 ? locations.firstOrNull : null);
+    final location = locationFromPassedTransaction ?? passedLocation;
 
     final transactionDateTime = passedTransaction?.createdAt ?? passedNotificationPayload?.createdAt ?? now;
 

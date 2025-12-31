@@ -217,7 +217,7 @@ class _LocationScreenState extends State<LocationScreen> {
                               child: PhosphorIcon(
                                 PhosphorIcons.arrowsOutCardinal(),
                                 color: context.colors.text,
-                                size: 24,
+                                size: 20,
                               ),
                             ),
                         ],
