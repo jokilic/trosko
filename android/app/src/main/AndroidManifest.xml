@@ -60,8 +60,8 @@ android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" andro
             <meta-data android:name="app_icon" android:resource="@drawable/app_icon" />
 
             <meta-data
-            android:name="io.flutter.embedding.android.EnableImpeller"
-            android:value="false" />
+                android:name="io.flutter.embedding.android.EnableImpeller"
+                android:value="false" />
 
     </application>
     <!-- Required to query activities that can process text, see:
