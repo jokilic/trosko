@@ -46,8 +46,11 @@ class HomeCategory extends StatelessWidget {
       width: 80,
       child: Column(
         children: [
-          Container(
+          AnimatedContainer(
+            duration: TroskoDurations.animation,
+            curve: Curves.easeIn,
             decoration: BoxDecoration(
+              color: color,
               shape: BoxShape.circle,
               border: Border.all(
                 color: color,
@@ -66,8 +69,6 @@ class HomeCategory extends StatelessWidget {
               onLongPress: onPressed != null ? openContainer : null,
               style: IconButton.styleFrom(
                 padding: const EdgeInsets.all(12),
-                backgroundColor: color,
-                disabledBackgroundColor: color,
                 highlightColor: highlightColor,
                 alignment: Alignment.center,
               ),

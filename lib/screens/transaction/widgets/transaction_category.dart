@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../../constants/durations.dart';
 import '../../../models/category/category.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/extensions.dart';
@@ -27,8 +28,11 @@ class TransactionCategory extends StatelessWidget {
     width: 80,
     child: Column(
       children: [
-        Container(
+        AnimatedContainer(
+          duration: TroskoDurations.animation,
+          curve: Curves.easeIn,
           decoration: BoxDecoration(
+            color: color,
             shape: BoxShape.circle,
             border: Border.all(
               color: color,
@@ -39,7 +43,6 @@ class TransactionCategory extends StatelessWidget {
             onPressed: () => onPressed(category),
             style: IconButton.styleFrom(
               padding: const EdgeInsets.all(12),
-              backgroundColor: color,
               highlightColor: highlightColor,
               alignment: Alignment.center,
             ),

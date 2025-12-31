@@ -67,6 +67,7 @@ class HomeLocations extends StatelessWidget {
               location: location,
               coordinates: locationCoordinates,
               mapStyle: mapStyle,
+              isActive: isActive,
               useMap: locationCoordinates != null,
               useVectorMaps: useVectorMaps,
               onPressed: () => onPressedLocation(location),
@@ -90,6 +91,7 @@ class HomeLocations extends StatelessWidget {
               ),
           ],
           child: HomeLocation(
+            isActive: false,
             useMap: false,
             useVectorMaps: useVectorMaps,
             location: null,

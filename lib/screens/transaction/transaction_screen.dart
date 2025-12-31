@@ -276,6 +276,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             },
                             location: location,
                             coordinates: locationCoordinates,
+                            isActive: isActive,
                             useMap: locationCoordinates != null,
                             useVectorMaps: useVectorMaps,
                             mapStyle: mapState,
