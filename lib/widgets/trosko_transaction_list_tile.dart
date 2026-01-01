@@ -53,7 +53,7 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
     );
 
     return OpenContainer(
-      transitionDuration: TroskoDurations.switchAnimation,
+      transitionDuration: TroskoDurations.animationLong,
       transitionType: ContainerTransitionType.fadeThrough,
       middleColor: context.colors.scaffoldBackground,
       openElevation: 0,

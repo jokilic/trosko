@@ -120,22 +120,25 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
   void startHoldTimer() {
     holdTimer?.cancel();
 
-    holdTimer = Timer(TroskoDurations.backspaceHold, () {
-      setState(() {
-        isHolding = true;
-      });
+    holdTimer = Timer(
+      TroskoDurations.animationLong,
+      () {
+        setState(
+          () => isHolding = true,
+        );
 
-      clearAll();
-    });
+        clearAll();
+      },
+    );
   }
 
   /// Triggered when the user stops holding `backspace` button
   void stopHoldTimer() {
     holdTimer?.cancel();
 
-    setState(() {
-      isHolding = false;
-    });
+    setState(
+      () => isHolding = false,
+    );
   }
 
   /// Resets values to zero

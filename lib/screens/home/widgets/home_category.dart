@@ -29,7 +29,7 @@ class HomeCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => OpenContainer(
-    transitionDuration: TroskoDurations.switchAnimation,
+    transitionDuration: TroskoDurations.animationLong,
     transitionType: ContainerTransitionType.fadeThrough,
     middleColor: context.colors.scaffoldBackground,
     openElevation: 0,

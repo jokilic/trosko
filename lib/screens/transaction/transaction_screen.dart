@@ -281,7 +281,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             useVectorMaps: useVectorMaps,
                             mapStyle: mapState,
                             color: isActive ? context.colors.buttonPrimary : context.colors.buttonBackground,
-                            icon: getRegularIconFromName(location.iconName)?.value ?? PhosphorIcons.mapTrifold(),
+                            icon: getRegularIconFromName(location.iconName)?.value,
                           );
                         },
                       ),

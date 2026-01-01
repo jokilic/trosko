@@ -242,7 +242,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           bottom: MediaQuery.viewInsetsOf(context).bottom,
         ),
         child: AnimatedSwitcher(
-          duration: TroskoDurations.switchAnimation,
+          duration: TroskoDurations.animationLong,
           switchInCurve: Curves.easeIn,
           switchOutCurve: Curves.easeIn,
           child: isLoading

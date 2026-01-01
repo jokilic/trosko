@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -42,14 +44,11 @@ class SettingsLocation extends StatelessWidget {
           decoration: BoxDecoration(
             color: color,
             shape: BoxShape.circle,
-            border: Border.all(
-              color: color,
-              width: 1.5,
-            ),
           ),
           child: ClipOval(
             child: IgnorePointer(
               child: Stack(
+                fit: StackFit.expand,
                 alignment: Alignment.center,
                 children: [
                   ///
@@ -86,27 +85,21 @@ class SettingsLocation extends StatelessWidget {
                             maxNativeZoom: 21,
                             userAgentPackageName: 'com.josipkilic.trosko',
                           ),
-
-                        ///
-                        /// MARKER
-                        ///
-                        MarkerLayer(
-                          markers: [
-                            Marker(
-                              point: coordinates!,
-                              width: 16,
-                              height: 16,
-                              child: PhosphorIcon(
-                                PhosphorIcons.x(
-                                  PhosphorIconsStyle.bold,
-                                ),
-                                color: context.colors.buttonPrimary,
-                                size: 16,
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
+                    ),
+
+                  ///
+                  /// BLUR
+                  ///
+                  if (useMap)
+                    ClipOval(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 4,
+                          sigmaY: 4,
+                        ),
+                        child: const SizedBox.shrink(),
+                      ),
                     ),
 
                   ///
@@ -117,14 +110,16 @@ class SettingsLocation extends StatelessWidget {
                     style: IconButton.styleFrom(
                       alignment: Alignment.center,
                     ),
-                    icon: icon != null && !useMap
+                    icon: icon != null
                         ? PhosphorIcon(
                             icon!,
-                            color: getWhiteOrBlackColor(
-                              backgroundColor: color,
-                              whiteColor: TroskoColors.lightThemeWhiteBackground,
-                              blackColor: TroskoColors.lightThemeBlackText,
-                            ),
+                            color: useMap
+                                ? TroskoColors.lightThemeBlackText
+                                : getWhiteOrBlackColor(
+                                    backgroundColor: color,
+                                    whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                    blackColor: TroskoColors.lightThemeBlackText,
+                                  ),
                             size: 40,
                           )
                         : const SizedBox(

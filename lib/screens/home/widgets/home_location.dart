@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,7 +43,7 @@ class HomeLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => OpenContainer(
-    transitionDuration: TroskoDurations.switchAnimation,
+    transitionDuration: TroskoDurations.animationLong,
     transitionType: ContainerTransitionType.fadeThrough,
     middleColor: context.colors.scaffoldBackground,
     openElevation: 0,
@@ -61,19 +63,15 @@ class HomeLocation extends StatelessWidget {
           AnimatedContainer(
             duration: TroskoDurations.animation,
             curve: Curves.easeIn,
-            padding: isActive && useMap ? const EdgeInsets.all(4) : null,
             height: 80,
             width: 80,
             decoration: BoxDecoration(
               color: color,
               shape: BoxShape.circle,
-              border: Border.all(
-                color: color,
-                width: 1.5,
-              ),
             ),
             child: ClipOval(
               child: Stack(
+                fit: StackFit.expand,
                 alignment: Alignment.center,
                 children: [
                   ///
@@ -110,27 +108,39 @@ class HomeLocation extends StatelessWidget {
                             maxNativeZoom: 21,
                             userAgentPackageName: 'com.josipkilic.trosko',
                           ),
-
-                        ///
-                        /// MARKER
-                        ///
-                        MarkerLayer(
-                          markers: [
-                            Marker(
-                              point: coordinates!,
-                              width: 16,
-                              height: 16,
-                              child: PhosphorIcon(
-                                PhosphorIcons.x(
-                                  PhosphorIconsStyle.bold,
-                                ),
-                                color: context.colors.buttonPrimary,
-                                size: 16,
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
+                    ),
+
+                  ///
+                  /// BLUR
+                  ///
+                  if (useMap)
+                    ClipOval(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 4,
+                          sigmaY: 4,
+                        ),
+                        child: const SizedBox.shrink(),
+                      ),
+                    ),
+
+                  ///
+                  /// ACTIVE MAP
+                  ///
+                  if (useMap)
+                    AnimatedContainer(
+                      duration: TroskoDurations.animation,
+                      curve: Curves.easeIn,
+                      height: 80,
+                      width: 80,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: isActive ? color : Colors.transparent,
+                          width: 6,
+                        ),
+                        shape: BoxShape.circle,
+                      ),
                     ),
 
                   ///
@@ -149,14 +159,16 @@ class HomeLocation extends StatelessWidget {
                     style: IconButton.styleFrom(
                       alignment: Alignment.center,
                     ),
-                    icon: icon != null && !useMap
+                    icon: icon != null
                         ? PhosphorIcon(
                             icon!,
-                            color: getWhiteOrBlackColor(
-                              backgroundColor: color,
-                              whiteColor: TroskoColors.lightThemeWhiteBackground,
-                              blackColor: TroskoColors.lightThemeBlackText,
-                            ),
+                            color: useMap
+                                ? TroskoColors.lightThemeBlackText
+                                : getWhiteOrBlackColor(
+                                    backgroundColor: color,
+                                    whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                    blackColor: TroskoColors.lightThemeBlackText,
+                                  ),
                             size: 40,
                           )
                         : const SizedBox(

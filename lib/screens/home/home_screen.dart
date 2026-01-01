@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       floatingActionButton: OpenContainer(
-        transitionDuration: TroskoDurations.switchAnimation,
+        transitionDuration: TroskoDurations.animationLong,
         transitionType: ContainerTransitionType.fadeThrough,
         middleColor: context.colors.scaffoldBackground,
         openElevation: 0,
@@ -199,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
               /// SETTINGS
               ///
               OpenContainer(
-                transitionDuration: TroskoDurations.switchAnimation,
+                transitionDuration: TroskoDurations.animationLong,
                 transitionType: ContainerTransitionType.fadeThrough,
                 middleColor: context.colors.scaffoldBackground,
                 openElevation: 0,
@@ -241,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
               /// SEARCH
               ///
               OpenContainer(
-                transitionDuration: TroskoDurations.switchAnimation,
+                transitionDuration: TroskoDurations.animationLong,
                 transitionType: ContainerTransitionType.fadeThrough,
                 middleColor: context.colors.scaffoldBackground,
                 openElevation: 0,
@@ -372,7 +372,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               const SizedBox(width: 4),
                               AnimatedSwitcher(
-                                duration: TroskoDurations.switchAnimation,
+                                duration: TroskoDurations.animationLong,
                                 switchInCurve: Curves.easeIn,
                                 switchOutCurve: Curves.easeIn,
                                 child: PhosphorIcon(
@@ -404,7 +404,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ///
           SliverToBoxAdapter(
             child: AnimatedCrossFade(
-              duration: TroskoDurations.switchAnimation,
+              duration: TroskoDurations.animationLong,
               firstCurve: Curves.easeIn,
               secondCurve: Curves.easeIn,
               sizeCurve: Curves.easeIn,
@@ -463,7 +463,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               const SizedBox(width: 4),
                               AnimatedSwitcher(
-                                duration: TroskoDurations.switchAnimation,
+                                duration: TroskoDurations.animationLong,
                                 switchInCurve: Curves.easeIn,
                                 switchOutCurve: Curves.easeIn,
                                 child: PhosphorIcon(
@@ -495,7 +495,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ///
           SliverToBoxAdapter(
             child: AnimatedCrossFade(
-              duration: TroskoDurations.switchAnimation,
+              duration: TroskoDurations.animationLong,
               firstCurve: Curves.easeIn,
               secondCurve: Curves.easeIn,
               sizeCurve: Curves.easeIn,
