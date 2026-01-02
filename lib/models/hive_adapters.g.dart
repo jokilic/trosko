@@ -150,15 +150,16 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       isLoggedIn: fields[0] as bool,
       troskoThemeId: fields[4] as TroskoThemeId?,
       primaryColor: fields[2] as Color?,
-      useNotificationListener: fields[5] as bool?,
-      useVectorMaps: fields[6] as bool,
+      useNotificationListener: fields[5] == null ? false : fields[5] as bool,
+      useVectorMaps: fields[6] == null ? false : fields[6] as bool,
+      useColoredIcons: fields[7] == null ? false : fields[7] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.isLoggedIn)
       ..writeByte(2)
@@ -168,7 +169,9 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       ..writeByte(5)
       ..write(obj.useNotificationListener)
       ..writeByte(6)
-      ..write(obj.useVectorMaps);
+      ..write(obj.useVectorMaps)
+      ..writeByte(7)
+      ..write(obj.useColoredIcons);
   }
 
   @override

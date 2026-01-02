@@ -4,11 +4,12 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../theme/colors.dart';
 import '../theme/extensions.dart';
 import '../util/color.dart';
+import '../util/icons.dart';
 
 class IconListTile extends StatelessWidget {
   final bool isActive;
   final Function() onPressed;
-  final MapEntry<String, PhosphorIconData> icon;
+  final MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])> icon;
 
   const IconListTile({
     required this.isActive,
@@ -40,7 +41,11 @@ class IconListTile extends StatelessWidget {
               /// LEADING
               ///
               PhosphorIcon(
-                icon.value,
+                getPhosphorIcon(
+                  icon.value,
+                  isDuotone: false,
+                  isBold: false,
+                ),
                 color: isActive
                     ? getWhiteOrBlackColor(
                         backgroundColor: context.colors.buttonPrimary,
@@ -48,6 +53,7 @@ class IconListTile extends StatelessWidget {
                         blackColor: TroskoColors.lightThemeBlackText,
                       )
                     : context.colors.text,
+                duotoneSecondaryColor: context.colors.buttonPrimary,
                 size: 32,
               ),
               const SizedBox(width: 12),

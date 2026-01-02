@@ -80,7 +80,7 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     updateState(
       notificationGranted: notificationPermission == NotificationPermission.granted,
       listenerGranted: listenerGranted,
-      useNotificationListener: hive.getSettings().useNotificationListener ?? false,
+      useNotificationListener: hive.getSettings().useNotificationListener,
     );
 
     /// Return `true` if all permissions are granted

@@ -47,6 +47,7 @@ class SettingsCategories extends StatelessWidget {
         ),
         itemBuilder: (_, index) {
           final category = categories[index];
+          final icon = getPhosphorIconFromName(category.iconName)?.value;
 
           return ReorderableDelayedDragStartListener(
             key: ValueKey(category.id),
@@ -54,7 +55,13 @@ class SettingsCategories extends StatelessWidget {
             child: SettingsCategory(
               color: category.color,
               highlightColor: category.color,
-              icon: getRegularIconFromName(category.iconName)?.value,
+              icon: icon != null
+                  ? getPhosphorIcon(
+                      icon,
+                      isDuotone: false,
+                      isBold: false,
+                    )
+                  : null,
               text: category.name,
             ),
           );

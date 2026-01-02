@@ -14,11 +14,14 @@ class Settings {
   @HiveField(3)
   final Color? primaryColor;
 
-  @HiveField(4)
-  final bool? useNotificationListener;
+  @HiveField(4, defaultValue: false)
+  final bool useNotificationListener;
 
-  @HiveField(5)
+  @HiveField(5, defaultValue: false)
   final bool useVectorMaps;
+
+  @HiveField(6, defaultValue: false)
+  final bool useColoredIcons;
 
   Settings({
     required this.isLoggedIn,
@@ -26,6 +29,7 @@ class Settings {
     required this.primaryColor,
     required this.useNotificationListener,
     required this.useVectorMaps,
+    required this.useColoredIcons,
   });
 
   Settings copyWith({
@@ -34,19 +38,21 @@ class Settings {
     Object? primaryColor = noChange,
     Object? useNotificationListener = noChange,
     Object? useVectorMaps = noChange,
+    Object? useColoredIcons = noChange,
   }) => Settings(
     isLoggedIn: isLoggedIn == noChange ? this.isLoggedIn : isLoggedIn! as bool,
     troskoThemeId: troskoThemeId == noChange ? this.troskoThemeId : troskoThemeId as TroskoThemeId?,
     primaryColor: primaryColor == noChange ? this.primaryColor : primaryColor as Color?,
-    useNotificationListener: useNotificationListener == noChange ? this.useNotificationListener : useNotificationListener as bool?,
+    useNotificationListener: useNotificationListener == noChange ? this.useNotificationListener : useNotificationListener! as bool,
     useVectorMaps: useVectorMaps == noChange ? this.useVectorMaps : useVectorMaps! as bool,
+    useColoredIcons: useColoredIcons == noChange ? this.useColoredIcons : useColoredIcons! as bool,
   );
 
   static const noChange = Object();
 
   @override
   String toString() =>
-      'Settings(isLoggedIn: $isLoggedIn, troskoThemeId: $troskoThemeId, primaryColor: $primaryColor, useNotificationListener: $useNotificationListener, useVectorMaps: $useVectorMaps)';
+      'Settings(isLoggedIn: $isLoggedIn, troskoThemeId: $troskoThemeId, primaryColor: $primaryColor, useNotificationListener: $useNotificationListener, useVectorMaps: $useVectorMaps, useColoredIcons: $useColoredIcons)';
 
   @override
   bool operator ==(covariant Settings other) {
@@ -58,9 +64,10 @@ class Settings {
         other.troskoThemeId == troskoThemeId &&
         other.primaryColor == primaryColor &&
         other.useNotificationListener == useNotificationListener &&
-        other.useVectorMaps == useVectorMaps;
+        other.useVectorMaps == useVectorMaps &&
+        other.useColoredIcons == useColoredIcons;
   }
 
   @override
-  int get hashCode => isLoggedIn.hashCode ^ troskoThemeId.hashCode ^ primaryColor.hashCode ^ useNotificationListener.hashCode ^ useVectorMaps.hashCode;
+  int get hashCode => isLoggedIn.hashCode ^ troskoThemeId.hashCode ^ primaryColor.hashCode ^ useNotificationListener.hashCode ^ useVectorMaps.hashCode ^ useColoredIcons.hashCode;
 }

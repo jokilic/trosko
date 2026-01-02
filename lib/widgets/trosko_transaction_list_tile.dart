@@ -44,13 +44,13 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
 
   @override
   Widget build(BuildContext context) {
-    final boldCategoryIcon = getBoldIconFromName(
+    final boldCategoryIcon = getPhosphorIconFromName(
       widget.category?.iconName,
-    );
+    )?.value;
 
-    final boldLocationIcon = getBoldIconFromName(
+    final boldLocationIcon = getPhosphorIconFromName(
       widget.location?.iconName,
-    );
+    )?.value;
 
     return OpenContainer(
       transitionDuration: TroskoDurations.animationLong,
@@ -139,12 +139,17 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                           ),
                           child: boldCategoryIcon != null
                               ? PhosphorIcon(
-                                  boldCategoryIcon.value,
+                                  getPhosphorIcon(
+                                    boldCategoryIcon,
+                                    isDuotone: false,
+                                    isBold: true,
+                                  ),
                                   color: getWhiteOrBlackColor(
                                     backgroundColor: widget.category?.color ?? context.colors.scaffoldBackground,
                                     whiteColor: TroskoColors.lightThemeWhiteBackground,
                                     blackColor: TroskoColors.lightThemeBlackText,
                                   ),
+                                  duotoneSecondaryColor: context.colors.buttonPrimary,
                                   size: 16,
                                 )
                               : null,
@@ -252,8 +257,13 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       PhosphorIcon(
-                                        boldLocationIcon?.value ?? PhosphorIcons.mapTrifold(),
+                                        getPhosphorIcon(
+                                          boldLocationIcon ?? PhosphorIcons.mapTrifold,
+                                          isDuotone: false,
+                                          isBold: true,
+                                        ),
                                         color: context.colors.text,
+                                        duotoneSecondaryColor: context.colors.buttonPrimary,
                                         size: 16,
                                       ),
                                       const SizedBox(width: 4),
@@ -271,8 +281,13 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       PhosphorIcon(
-                                        boldLocationIcon?.value ?? PhosphorIcons.mapTrifold(),
+                                        getPhosphorIcon(
+                                          boldLocationIcon ?? PhosphorIcons.mapTrifold,
+                                          isDuotone: false,
+                                          isBold: true,
+                                        ),
                                         color: context.colors.text,
+                                        duotoneSecondaryColor: context.colors.buttonPrimary,
                                         size: 16,
                                       ),
                                       const SizedBox(width: 4),

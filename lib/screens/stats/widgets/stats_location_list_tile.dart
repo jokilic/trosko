@@ -78,15 +78,20 @@ class _StatsLocationListTileState extends State<StatsLocationListTile> {
                       ),
                     ),
                     child: PhosphorIcon(
-                      getBoldIconFromName(widget.location.iconName)?.value ??
-                          PhosphorIcons.mapTrifold(
-                            PhosphorIconsStyle.bold,
-                          ),
+                      getPhosphorIcon(
+                        getPhosphorIconFromName(
+                              widget.location.iconName,
+                            )?.value ??
+                            PhosphorIcons.mapTrifold,
+                        isDuotone: false,
+                        isBold: true,
+                      ),
                       color: getWhiteOrBlackColor(
                         backgroundColor: context.colors.buttonBackground,
                         whiteColor: TroskoColors.lightThemeWhiteBackground,
                         blackColor: TroskoColors.lightThemeBlackText,
                       ),
+                      duotoneSecondaryColor: context.colors.buttonPrimary,
                       size: 16,
                     ),
                   ),

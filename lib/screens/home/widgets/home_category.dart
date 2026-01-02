@@ -15,7 +15,7 @@ class HomeCategory extends StatelessWidget {
   final Function()? onPressed;
   final Color color;
   final Color highlightColor;
-  final IconData? icon;
+  final PhosphorIconData? icon;
   final String text;
 
   const HomeCategory({
@@ -80,6 +80,7 @@ class HomeCategory extends StatelessWidget {
                         whiteColor: TroskoColors.lightThemeWhiteBackground,
                         blackColor: TroskoColors.lightThemeBlackText,
                       ),
+                      duotoneSecondaryColor: context.colors.buttonPrimary,
                       size: 36,
                     )
                   : const SizedBox(

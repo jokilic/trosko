@@ -18,6 +18,7 @@ import '../../theme/extensions.dart';
 import '../../util/color.dart';
 import '../../util/currency.dart';
 import '../../util/dependencies.dart';
+import '../../util/icons.dart';
 import '../../util/months.dart';
 import '../../util/stats.dart';
 import '../../util/string.dart';
@@ -222,10 +223,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     highlightColor: context.colors.buttonBackground,
                   ),
                   icon: PhosphorIcon(
-                    PhosphorIcons.gearSix(
-                      PhosphorIconsStyle.bold,
+                    getPhosphorIcon(
+                      PhosphorIcons.gearSix,
+                      isDuotone: true,
+                      isBold: true,
                     ),
                     color: context.colors.text,
+                    duotoneSecondaryColor: context.colors.buttonPrimary,
                     size: 28,
                   ),
                 ),

@@ -35,9 +35,9 @@ class _StatsCategoryListTileState extends State<StatsCategoryListTile> {
 
   @override
   Widget build(BuildContext context) {
-    final boldIcon = getBoldIconFromName(
+    final icon = getPhosphorIconFromName(
       widget.category.iconName,
-    );
+    )?.value;
 
     return AnimatedSize(
       alignment: Alignment.topCenter,
@@ -82,14 +82,19 @@ class _StatsCategoryListTileState extends State<StatsCategoryListTile> {
                           width: 1.5,
                         ),
                       ),
-                      child: boldIcon != null
+                      child: icon != null
                           ? PhosphorIcon(
-                              boldIcon.value,
+                              getPhosphorIcon(
+                                icon,
+                                isDuotone: false,
+                                isBold: true,
+                              ),
                               color: getWhiteOrBlackColor(
                                 backgroundColor: widget.category.color,
                                 whiteColor: TroskoColors.lightThemeWhiteBackground,
                                 blackColor: TroskoColors.lightThemeBlackText,
                               ),
+                              duotoneSecondaryColor: context.colors.buttonPrimary,
                               size: 16,
                             )
                           : null,

@@ -31,7 +31,7 @@ class LocationController
             double? longitude,
             bool mapEditMode,
             MapEntry<String, PhosphorIconData>? locationIcon,
-            List<MapEntry<String, PhosphorIconData>>? searchedIcons,
+            List<MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>>? searchedIcons,
           })
         >
     implements Disposable {
@@ -94,10 +94,10 @@ class LocationController
       latitude: passedLocation?.latitude,
       longitude: passedLocation?.longitude,
       mapEditMode: false,
-      locationIcon: getRegularIconFromName(
+      locationIcon: getPhosphorIconFromName(
         passedLocation?.iconName,
       ),
-      searchedIcons: getRegularIconsFromName(
+      searchedIcons: getPhosphorIconsFromName(
         iconTextEditingController.text.trim().toLowerCase(),
       ),
     );
@@ -117,7 +117,7 @@ class LocationController
     /// Icon search
     iconTextEditingController.addListener(
       () => updateState(
-        searchedIcons: getRegularIconsFromName(
+        searchedIcons: getPhosphorIconsFromName(
           iconTextEditingController.text.trim(),
         ),
       ),
@@ -144,7 +144,7 @@ class LocationController
   ///
 
   /// Triggered when the user presses an [Icon]
-  void iconChanged(MapEntry<String, PhosphorIconData> newIcon) => updateState(
+  void iconChanged(MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])> newIcon) => updateState(
     locationIcon: value.locationIcon?.key == newIcon.key ? null : newIcon,
   );
 
@@ -270,7 +270,7 @@ class LocationController
     Object? longitude = locationStateNoChange,
     bool? mapEditMode,
     Object? locationIcon = locationStateNoChange,
-    List<MapEntry<String, PhosphorIconData>>? searchedIcons,
+    List<MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>>? searchedIcons,
   }) => value = (
     locationName: locationName ?? value.locationName,
     nameValid: nameValid ?? value.nameValid,

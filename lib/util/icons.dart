@@ -1,24 +1,38 @@
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../constants/icons_bold.dart';
-import '../constants/icons_regular.dart';
+import '../constants/phosphor_icons.dart';
 
 ///
-/// REGULAR ICONS
+/// HELPERS
 ///
 
-MapEntry<String, PhosphorIconData>? getRegularIconFromName(String? iconName) =>
-    iconsRegular.entries.where((element) => element.key == iconName?.toLowerCase()).toList().firstOrNull;
-
-List<MapEntry<String, PhosphorIconData>>? getRegularIconsFromName(String? iconName) {
-  if (iconName?.isNotEmpty ?? false) {
-    return iconsRegular.entries.where((element) => element.key.contains(iconName!.toLowerCase())).toList();
+/// Returns the appropriate [PhosphorIconData]
+PhosphorIconData getPhosphorIcon(
+  PhosphorIconData Function([PhosphorIconsStyle]) icon, {
+  required bool isDuotone,
+  required bool isBold,
+}) {
+  if (isDuotone) {
+    return icon(
+      PhosphorIconsStyle.duotone,
+    );
   }
-  return iconsRegular.entries.toList();
+
+  if (isBold) {
+    return icon(
+      PhosphorIconsStyle.bold,
+    );
+  }
+
+  return icon();
 }
 
-///
-/// BOLD ICONS
-///
+MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>? getPhosphorIconFromName(String? iconName) =>
+    phosphorIcons.entries.where((element) => element.key == iconName?.toLowerCase()).toList().firstOrNull;
 
-MapEntry<String, PhosphorIconData>? getBoldIconFromName(String? iconName) => iconsBold.entries.where((element) => element.key == iconName?.toLowerCase()).toList().firstOrNull;
+List<MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>>? getPhosphorIconsFromName(String? iconName) {
+  if (iconName?.isNotEmpty ?? false) {
+    return phosphorIcons.entries.where((element) => element.key.contains(iconName!.toLowerCase())).toList();
+  }
+  return phosphorIcons.entries.toList();
+}

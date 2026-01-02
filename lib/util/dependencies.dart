@@ -161,10 +161,11 @@ Future<void> initializeForBackgroundTask() async {
         );
 
         final settings = notification.hive.getSettings();
+
         notification.updateState(
-          useNotificationListener: settings.useNotificationListener ?? false,
-          notificationGranted: settings.useNotificationListener ?? false,
-          listenerGranted: settings.useNotificationListener ?? false,
+          useNotificationListener: settings.useNotificationListener,
+          notificationGranted: settings.useNotificationListener,
+          listenerGranted: settings.useNotificationListener,
         );
 
         return notification;

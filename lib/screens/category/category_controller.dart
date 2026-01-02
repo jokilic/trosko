@@ -14,7 +14,13 @@ import '../../util/icons.dart';
 class CategoryController
     extends
         ValueNotifier<
-          ({String? categoryName, Color? categoryColor, bool nameValid, MapEntry<String, PhosphorIconData>? categoryIcon, List<MapEntry<String, PhosphorIconData>>? searchedIcons})
+          ({
+            String? categoryName,
+            Color? categoryColor,
+            bool nameValid,
+            MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>? categoryIcon,
+            List<MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>>? searchedIcons,
+          })
         >
     implements Disposable {
   ///
@@ -60,10 +66,10 @@ class CategoryController
       categoryName: passedCategory?.name,
       categoryColor: passedCategory?.color,
       nameValid: passedCategory?.name.isNotEmpty ?? false,
-      categoryIcon: getRegularIconFromName(
+      categoryIcon: getPhosphorIconFromName(
         passedCategory?.iconName,
       ),
-      searchedIcons: getRegularIconsFromName(
+      searchedIcons: getPhosphorIconsFromName(
         iconTextEditingController.text.trim().toLowerCase(),
       ),
     );
@@ -83,7 +89,7 @@ class CategoryController
     /// Icon search
     iconTextEditingController.addListener(
       () => updateState(
-        searchedIcons: getRegularIconsFromName(
+        searchedIcons: getPhosphorIconsFromName(
           iconTextEditingController.text.trim(),
         ),
       ),
@@ -110,7 +116,7 @@ class CategoryController
   );
 
   /// Triggered when the user presses an [Icon]
-  void iconChanged(MapEntry<String, PhosphorIconData> newIcon) => updateState(
+  void iconChanged(MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])> newIcon) => updateState(
     categoryIcon: newIcon,
   );
 
@@ -174,8 +180,8 @@ class CategoryController
     String? categoryName,
     Color? categoryColor,
     bool? nameValid,
-    MapEntry<String, PhosphorIconData>? categoryIcon,
-    List<MapEntry<String, PhosphorIconData>>? searchedIcons,
+    MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>? categoryIcon,
+    List<MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>>? searchedIcons,
   }) => value = (
     categoryName: categoryName ?? value.categoryName,
     categoryColor: categoryColor ?? value.categoryColor,

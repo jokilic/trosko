@@ -61,6 +61,8 @@ class SettingsLocations extends StatelessWidget {
                 )
               : null;
 
+          final icon = getPhosphorIconFromName(location.iconName)?.value;
+
           return ReorderableDelayedDragStartListener(
             key: ValueKey(location.id),
             index: index,
@@ -71,7 +73,13 @@ class SettingsLocations extends StatelessWidget {
               useVectorMaps: useVectorMaps,
               color: context.colors.buttonBackground,
               text: location.name,
-              icon: getRegularIconFromName(location.iconName)?.value,
+              icon: icon != null
+                  ? getPhosphorIcon(
+                      icon,
+                      isDuotone: false,
+                      isBold: false,
+                    )
+                  : null,
             ),
           );
         },

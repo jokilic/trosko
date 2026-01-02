@@ -54,6 +54,8 @@ class HomeLocations extends StatelessWidget {
 
           final isActive = activeLocations?.contains(location) ?? false;
 
+          final icon = getPhosphorIconFromName(location.iconName)?.value;
+
           return Animate(
             key: ValueKey(isExpanded),
             effects: [
@@ -72,7 +74,13 @@ class HomeLocations extends StatelessWidget {
               useVectorMaps: useVectorMaps,
               onPressed: () => onPressedLocation(location),
               color: isActive ? context.colors.buttonPrimary : context.colors.buttonBackground,
-              icon: getRegularIconFromName(location.iconName)?.value,
+              icon: icon != null
+                  ? getPhosphorIcon(
+                      icon,
+                      isDuotone: false,
+                      isBold: false,
+                    )
+                  : null,
               text: location.name,
             ),
           );

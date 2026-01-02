@@ -204,6 +204,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
                           final isActive = activeCategory == category;
 
+                          final icon = getPhosphorIconFromName(category.iconName)?.value;
+
                           return TransactionCategory(
                             key: key,
                             onPressed: (category) {
@@ -217,9 +219,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             highlightColor: category.color.withValues(
                               alpha: isActive ? 1 : 0.2,
                             ),
-                            icon: getRegularIconFromName(
-                              category.iconName,
-                            )?.value,
+                            icon: icon != null
+                                ? getPhosphorIcon(
+                                    icon,
+                                    isDuotone: false,
+                                    isBold: false,
+                                  )
+                                : null,
                           );
                         },
                       ),
@@ -268,6 +274,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
                           final isActive = activeLocation == location;
 
+                          final icon = getPhosphorIconFromName(location.iconName)?.value;
+
                           return TransactionLocation(
                             key: key,
                             onPressed: (location) {
@@ -281,7 +289,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             useVectorMaps: useVectorMaps,
                             mapStyle: mapState,
                             color: isActive ? context.colors.buttonPrimary : context.colors.buttonBackground,
-                            icon: getRegularIconFromName(location.iconName)?.value,
+                            icon: icon != null
+                                ? getPhosphorIcon(
+                                    icon,
+                                    isDuotone: false,
+                                    isBold: false,
+                                  )
+                                : null,
                           );
                         },
                       ),

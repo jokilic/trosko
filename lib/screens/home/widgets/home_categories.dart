@@ -38,6 +38,7 @@ class HomeCategories extends StatelessWidget {
         ///
         if (index < categories.length) {
           final category = categories[index];
+          final icon = getPhosphorIconFromName(category.iconName)?.value;
 
           return Animate(
             key: ValueKey(isExpanded),
@@ -55,7 +56,13 @@ class HomeCategories extends StatelessWidget {
                 alpha: (activeCategories?.isEmpty ?? true) || (activeCategories?.contains(category) ?? false) ? 1 : 0.2,
               ),
               highlightColor: category.color.withValues(alpha: 0.2),
-              icon: getRegularIconFromName(category.iconName)?.value,
+              icon: icon != null
+                  ? getPhosphorIcon(
+                      icon,
+                      isDuotone: false,
+                      isBold: false,
+                    )
+                  : null,
               text: category.name,
             ),
           );
@@ -77,7 +84,11 @@ class HomeCategories extends StatelessWidget {
             category: null,
             color: context.colors.buttonBackground,
             highlightColor: context.colors.listTileBackground,
-            icon: PhosphorIcons.plus(),
+            icon: getPhosphorIcon(
+              PhosphorIcons.plus,
+              isDuotone: false,
+              isBold: false,
+            ),
             text: 'homeAdd'.tr(),
           ),
         );

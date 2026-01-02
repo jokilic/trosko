@@ -15,6 +15,7 @@ import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
+import '../../util/icons.dart';
 import '../../widgets/icon_list_tile.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
@@ -96,10 +97,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 highlightColor: context.colors.buttonBackground,
               ),
               icon: PhosphorIcon(
-                PhosphorIcons.arrowLeft(
-                  PhosphorIconsStyle.bold,
+                getPhosphorIcon(
+                  PhosphorIcons.arrowLeft,
+                  isDuotone: false,
+                  isBold: true,
                 ),
                 color: context.colors.text,
+                duotoneSecondaryColor: context.colors.buttonPrimary,
                 size: 28,
               ),
             ),
@@ -118,10 +122,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     highlightColor: context.colors.buttonBackground,
                   ),
                   icon: PhosphorIcon(
-                    PhosphorIcons.trash(
-                      PhosphorIconsStyle.bold,
+                    getPhosphorIcon(
+                      PhosphorIcons.trash,
+                      isDuotone: false,
+                      isBold: true,
                     ),
                     color: context.colors.delete,
+                    duotoneSecondaryColor: context.colors.buttonPrimary,
                     size: 28,
                   ),
                 ),
@@ -159,12 +166,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ),
                       child: categoryIcon != null
                           ? PhosphorIcon(
-                              categoryIcon.value,
+                              getPhosphorIcon(
+                                categoryIcon.value,
+                                isDuotone: true,
+                                isBold: false,
+                              ),
                               color: getWhiteOrBlackColor(
                                 backgroundColor: categoryColor ?? context.colors.scaffoldBackground,
                                 whiteColor: TroskoColors.lightThemeWhiteBackground,
                                 blackColor: TroskoColors.lightThemeBlackText,
                               ),
+                              duotoneSecondaryColor: context.colors.buttonPrimary,
                               size: 56,
                             )
                           : null,
