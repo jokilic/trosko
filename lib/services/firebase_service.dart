@@ -402,7 +402,7 @@ class FirebaseService {
 
       Query<Map<String, dynamic>> query = firestore.collection('users').doc(user.uid).collection('locations');
 
-      query = query.orderBy('createdAt', descending: true);
+      query = query.orderBy('createdAt', descending: false);
 
       final snapshot = await query.get();
 
