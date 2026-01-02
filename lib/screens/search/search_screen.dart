@@ -67,6 +67,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
     final state = watchIt<SearchController>().value;
 
+    final useColorfulIcons = watchIt<HiveService>().value.settings?.useColorfulIcons ?? false;
+
     final items = state.datesAndTransactions;
     final isTextFieldEmpty = state.isTextFieldEmpty;
 
@@ -91,7 +93,7 @@ class _SearchScreenState extends State<SearchScreen> {
               icon: PhosphorIcon(
                 getPhosphorIcon(
                   PhosphorIcons.arrowLeft,
-                  isDuotone: false,
+                  isDuotone: useColorfulIcons,
                   isBold: true,
                 ),
                 color: context.colors.text,
@@ -191,6 +193,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   final location = widget.locations.where((location) => location.id == item.locationId).toList().firstOrNull;
 
                   return TroskoTransactionListTile(
+                    useColorfulIcons: useColorfulIcons,
                     onLongPressed: () => TransactionScreen(
                       passedTransaction: item,
                       categories: widget.categories,
@@ -232,7 +235,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     PhosphorIcon(
                       getPhosphorIcon(
                         PhosphorIcons.magnifyingGlass,
-                        isDuotone: false,
+                        isDuotone: useColorfulIcons,
                         isBold: true,
                       ),
                       color: context.colors.text,

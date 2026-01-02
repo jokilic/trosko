@@ -125,7 +125,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               icon: PhosphorIcon(
                 getPhosphorIcon(
                   PhosphorIcons.arrowLeft,
-                  isDuotone: false,
+                  isDuotone: useColorfulIcons,
                   isBold: true,
                 ),
                 color: context.colors.text,
@@ -266,6 +266,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             /// CATEGORIES
             ///
             SettingsCategories(
+              useColorfulIcons: useColorfulIcons,
               categories: categories,
               onReorderCategories: hive.updateCategoriesOrder,
             ),
@@ -295,6 +296,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             /// LOCATIONS
             ///
             SettingsLocations(
+              useColorfulIcons: useColorfulIcons,
               locations: locations,
               onReorderLocations: hive.updateLocationsOrder,
               useVectorMaps: useVectorMaps,

@@ -19,6 +19,7 @@ class HomeLocations extends StatelessWidget {
   final void Function(Location location) onPressedLocation;
   final Style? mapStyle;
   final bool useVectorMaps;
+  final bool useColorfulIcons;
 
   const HomeLocations({
     required this.isExpanded,
@@ -27,6 +28,7 @@ class HomeLocations extends StatelessWidget {
     required this.onReorderLocations,
     required this.onPressedLocation,
     required this.useVectorMaps,
+    required this.useColorfulIcons,
     this.mapStyle,
   });
 
@@ -77,7 +79,7 @@ class HomeLocations extends StatelessWidget {
               icon: icon != null
                   ? getPhosphorIcon(
                       icon,
-                      isDuotone: false,
+                      isDuotone: useColorfulIcons,
                       isBold: false,
                     )
                   : null,
@@ -106,7 +108,7 @@ class HomeLocations extends StatelessWidget {
             color: context.colors.buttonBackground,
             icon: getPhosphorIcon(
               PhosphorIcons.plus,
-              isDuotone: false,
+              isDuotone: useColorfulIcons,
               isBold: false,
             ),
             text: 'homeAdd'.tr(),

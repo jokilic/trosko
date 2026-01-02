@@ -76,6 +76,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final hiveState = watchIt<HiveService>().value;
 
+    final useColorfulIcons = hiveState.settings?.useColorfulIcons ?? false;
+
     final allTransactions = hiveState.transactions;
 
     final categories = hiveState.categories;
@@ -163,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: PhosphorIcon(
                 getPhosphorIcon(
                   PhosphorIcons.coins,
-                  isDuotone: false,
+                  isDuotone: useColorfulIcons,
                   isBold: false,
                 ),
                 color: categories.isNotEmpty
@@ -230,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: PhosphorIcon(
                     getPhosphorIcon(
                       PhosphorIcons.gearSix,
-                      isDuotone: false,
+                      isDuotone: useColorfulIcons,
                       isBold: true,
                     ),
                     color: context.colors.text,
@@ -275,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: PhosphorIcon(
                     getPhosphorIcon(
                       PhosphorIcons.magnifyingGlass,
-                      isDuotone: false,
+                      isDuotone: useColorfulIcons,
                       isBold: true,
                     ),
                     color: context.colors.text,
@@ -391,7 +393,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   key: ValueKey(expandedCategories),
                                   getPhosphorIcon(
                                     expandedCategories ? PhosphorIcons.caretUp : PhosphorIcons.caretDown,
-                                    isDuotone: false,
+                                    isDuotone: useColorfulIcons,
                                     isBold: true,
                                   ),
                                   color: context.colors.text,
@@ -437,6 +439,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       languageCode: context.locale.languageCode,
                     );
                   },
+                  useColorfulIcons: useColorfulIcons,
                 ),
               ),
             ),
@@ -481,7 +484,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   key: ValueKey(expandedLocations),
                                   getPhosphorIcon(
                                     expandedLocations ? PhosphorIcons.caretUp : PhosphorIcons.caretDown,
-                                    isDuotone: false,
+                                    isDuotone: useColorfulIcons,
                                     isBold: true,
                                   ),
                                   color: context.colors.text,
@@ -514,6 +517,7 @@ class _HomeScreenState extends State<HomeScreen> {
               secondChild: Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: HomeLocations(
+                  useColorfulIcons: useColorfulIcons,
                   mapStyle: mapState,
                   useVectorMaps: useVectorMaps,
                   isExpanded: expandedLocations,
@@ -599,6 +603,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     final location = locations.where((location) => location.id == item.locationId).toList().firstOrNull;
 
                     return TroskoTransactionListTile(
+                      useColorfulIcons: useColorfulIcons,
                       onLongPressed: () => TransactionScreen(
                         passedTransaction: item,
                         categories: categories,
@@ -637,7 +642,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     PhosphorIcon(
                       getPhosphorIcon(
                         PhosphorIcons.coins,
-                        isDuotone: false,
+                        isDuotone: useColorfulIcons,
                         isBold: false,
                       ),
                       color: context.colors.text,

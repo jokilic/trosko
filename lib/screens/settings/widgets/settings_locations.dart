@@ -12,11 +12,13 @@ class SettingsLocations extends StatelessWidget {
   final void Function(List<Location> newOrder) onReorderLocations;
   final Style? mapStyle;
   final bool useVectorMaps;
+  final bool useColorfulIcons;
 
   const SettingsLocations({
     required this.locations,
     required this.onReorderLocations,
     required this.useVectorMaps,
+    required this.useColorfulIcons,
     this.mapStyle,
   });
 
@@ -76,7 +78,7 @@ class SettingsLocations extends StatelessWidget {
               icon: icon != null
                   ? getPhosphorIcon(
                       icon,
-                      isDuotone: false,
+                      isDuotone: useColorfulIcons,
                       isBold: false,
                     )
                   : null,

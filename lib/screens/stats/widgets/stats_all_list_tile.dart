@@ -13,10 +13,12 @@ import '../../../util/stats.dart';
 class StatsAllListTile extends StatefulWidget {
   final int numberOfTransactions;
   final int amountCents;
+  final bool useColorfulIcons;
 
   const StatsAllListTile({
     required this.numberOfTransactions,
     required this.amountCents,
+    required this.useColorfulIcons,
   });
 
   @override
@@ -82,7 +84,7 @@ class _StatsAllListTileState extends State<StatsAllListTile> {
                     child: PhosphorIcon(
                       getPhosphorIcon(
                         PhosphorIcons.coins,
-                        isDuotone: false,
+                        isDuotone: widget.useColorfulIcons,
                         isBold: true,
                       ),
                       color: getWhiteOrBlackColor(

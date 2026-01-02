@@ -76,7 +76,10 @@ class _LocationScreenState extends State<LocationScreen> {
 
     final mapState = watchIt<MapService>().value;
 
-    final useVectorMaps = watchIt<HiveService>().value.settings?.useVectorMaps ?? false;
+    final hiveState = watchIt<HiveService>().value;
+
+    final useVectorMaps = hiveState.settings?.useVectorMaps ?? false;
+    final useColorfulIcons = hiveState.settings?.useColorfulIcons ?? false;
 
     final locationName = state.locationName;
 
@@ -119,7 +122,7 @@ class _LocationScreenState extends State<LocationScreen> {
               icon: PhosphorIcon(
                 getPhosphorIcon(
                   PhosphorIcons.arrowLeft,
-                  isDuotone: false,
+                  isDuotone: useColorfulIcons,
                   isBold: true,
                 ),
                 color: context.colors.text,
@@ -144,7 +147,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   icon: PhosphorIcon(
                     getPhosphorIcon(
                       PhosphorIcons.trash,
-                      isDuotone: false,
+                      isDuotone: useColorfulIcons,
                       isBold: true,
                     ),
                     color: context.colors.delete,
@@ -196,6 +199,7 @@ class _LocationScreenState extends State<LocationScreen> {
                                 ? IgnorePointer(
                                     ignoring: !mapEditMode,
                                     child: LocationMap(
+                                      useColorfulIcons: useColorfulIcons,
                                       mapStyle: mapState,
                                       useVectorMaps: useVectorMaps,
                                       mapController: locationController.mapController,
@@ -208,7 +212,7 @@ class _LocationScreenState extends State<LocationScreen> {
                                 ? PhosphorIcon(
                                     getPhosphorIcon(
                                       locationIcon.value,
-                                      isDuotone: false,
+                                      isDuotone: useColorfulIcons,
                                       isBold: false,
                                     ),
                                     color: context.colors.text,
@@ -229,7 +233,7 @@ class _LocationScreenState extends State<LocationScreen> {
                               child: PhosphorIcon(
                                 getPhosphorIcon(
                                   PhosphorIcons.arrowsOutCardinal,
-                                  isDuotone: false,
+                                  isDuotone: useColorfulIcons,
                                   isBold: false,
                                 ),
                                 color: TroskoColors.lightThemeBlackText,
@@ -400,6 +404,7 @@ class _LocationScreenState extends State<LocationScreen> {
                         final icon = searchedIcons![index];
 
                         return IconListTile(
+                          useColorfulIcons: useColorfulIcons,
                           isActive: locationIcon?.key == icon.key,
                           onPressed: () {
                             HapticFeedback.lightImpact();

@@ -11,11 +11,13 @@ class CategoryColor extends StatelessWidget {
   final Color color;
   final Color highlightColor;
   final PhosphorIconData Function([PhosphorIconsStyle])? icon;
+  final bool useColorfulIcons;
 
   const CategoryColor({
     required this.onPressed,
     required this.color,
     required this.highlightColor,
+    required this.useColorfulIcons,
     this.icon,
   });
 
@@ -40,7 +42,7 @@ class CategoryColor extends StatelessWidget {
           ? PhosphorIcon(
               getPhosphorIcon(
                 icon!,
-                isDuotone: false,
+                isDuotone: useColorfulIcons,
                 isBold: false,
               ),
               color: getWhiteOrBlackColor(

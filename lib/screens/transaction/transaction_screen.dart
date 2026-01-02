@@ -93,7 +93,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
       instanceName: widget.passedTransaction?.id,
     ).value;
 
-    final useVectorMaps = watchIt<HiveService>().value.settings?.useVectorMaps ?? false;
+    final hiveState = watchIt<HiveService>().value;
+
+    final useVectorMaps = hiveState.settings?.useVectorMaps ?? false;
+    final useColorfulIcons = hiveState.settings?.useColorfulIcons ?? false;
 
     final mapState = watchIt<MapService>().value;
 
@@ -128,7 +131,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
               icon: PhosphorIcon(
                 getPhosphorIcon(
                   PhosphorIcons.arrowLeft,
-                  isDuotone: false,
+                  isDuotone: useColorfulIcons,
                   isBold: true,
                 ),
                 color: context.colors.text,
@@ -155,7 +158,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   icon: PhosphorIcon(
                     getPhosphorIcon(
                       PhosphorIcons.trash,
-                      isDuotone: false,
+                      isDuotone: useColorfulIcons,
                       isBold: true,
                     ),
                     color: context.colors.delete,
@@ -228,7 +231,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             icon: icon != null
                                 ? getPhosphorIcon(
                                     icon,
-                                    isDuotone: false,
+                                    isDuotone: useColorfulIcons,
                                     isBold: false,
                                   )
                                 : null,
@@ -298,7 +301,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             icon: icon != null
                                 ? getPhosphorIcon(
                                     icon,
-                                    isDuotone: false,
+                                    isDuotone: useColorfulIcons,
                                     isBold: false,
                                   )
                                 : null,
@@ -374,6 +377,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TransactionAmountWidget(
+                    useColorfulIcons: useColorfulIcons,
                     onValueChanged: transactionController.transactionAmountChanged,
                     initialCents: widget.passedTransaction?.amountCents ?? widget.passedNotificationPayload?.amountCents ?? 0,
                     languageCode: context.locale.languageCode,
@@ -433,7 +437,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           lastMonthIcon: PhosphorIcon(
                             getPhosphorIcon(
                               PhosphorIcons.caretCircleLeft,
-                              isDuotone: false,
+                              isDuotone: useColorfulIcons,
                               isBold: false,
                             ),
                             color: context.colors.text,
@@ -444,7 +448,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           nextMonthIcon: PhosphorIcon(
                             getPhosphorIcon(
                               PhosphorIcons.caretCircleRight,
-                              isDuotone: false,
+                              isDuotone: useColorfulIcons,
                               isBold: false,
                             ),
                             color: context.colors.text,

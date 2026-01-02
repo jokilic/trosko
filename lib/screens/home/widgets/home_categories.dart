@@ -15,6 +15,7 @@ class HomeCategories extends StatelessWidget {
   final List<Category>? activeCategories;
   final void Function(List<Category> newOrder) onReorderCategories;
   final void Function(Category category) onPressedCategory;
+  final bool useColorfulIcons;
 
   const HomeCategories({
     required this.isExpanded,
@@ -22,6 +23,7 @@ class HomeCategories extends StatelessWidget {
     required this.activeCategories,
     required this.onReorderCategories,
     required this.onPressedCategory,
+    required this.useColorfulIcons,
   });
 
   @override
@@ -59,7 +61,7 @@ class HomeCategories extends StatelessWidget {
               icon: icon != null
                   ? getPhosphorIcon(
                       icon,
-                      isDuotone: false,
+                      isDuotone: useColorfulIcons,
                       isBold: false,
                     )
                   : null,
@@ -86,7 +88,7 @@ class HomeCategories extends StatelessWidget {
             highlightColor: context.colors.listTileBackground,
             icon: getPhosphorIcon(
               PhosphorIcons.plus,
-              isDuotone: false,
+              isDuotone: useColorfulIcons,
               isBold: false,
             ),
             text: 'homeAdd'.tr(),

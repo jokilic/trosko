@@ -15,6 +15,7 @@ class LocationMap extends StatelessWidget {
   final Function() onMapReady;
   final Style? mapStyle;
   final bool useVectorMaps;
+  final bool useColorfulIcons;
 
   const LocationMap({
     required this.mapController,
@@ -23,6 +24,7 @@ class LocationMap extends StatelessWidget {
     required this.onMapReady,
     required this.mapStyle,
     required this.useVectorMaps,
+    required this.useColorfulIcons,
   });
 
   @override
@@ -73,7 +75,7 @@ class LocationMap extends StatelessWidget {
               child: PhosphorIcon(
                 getPhosphorIcon(
                   PhosphorIcons.x,
-                  isDuotone: false,
+                  isDuotone: useColorfulIcons,
                   isBold: false,
                 ),
                 color: context.colors.buttonPrimary,

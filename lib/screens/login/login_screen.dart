@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> handleLogin({
     required BuildContext context,
     required Future<({User? user, String? error})> Function() onLoginPressed,
+    required bool useColorfulIcons,
   }) async {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
@@ -59,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
       text: loginResult.error ?? 'errorUnknown'.tr(),
       icon: getPhosphorIcon(
         PhosphorIcons.warningCircle,
-        isDuotone: false,
+        isDuotone: useColorfulIcons,
         isBold: true,
       ),
     );
@@ -90,6 +91,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final loginController = getIt.get<LoginController>();
 
     final state = watchIt<LoginController>().value;
+
+    final useColorfulIcons = watchIt<HiveService>().value.settings?.useColorfulIcons ?? false;
 
     final validated = state.emailValid && state.passwordValid;
     final isLoading = state.isLoading;
@@ -168,6 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       handleLogin(
                         context: context,
                         onLoginPressed: loginController.loginPressed,
+                        useColorfulIcons: useColorfulIcons,
                       ),
                     );
                   },
@@ -246,6 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? () => handleLogin(
                             context: context,
                             onLoginPressed: loginController.loginPressed,
+                            useColorfulIcons: useColorfulIcons,
                           )
                         : null,
                     style: FilledButton.styleFrom(

@@ -10,11 +10,13 @@ class IconListTile extends StatelessWidget {
   final bool isActive;
   final Function() onPressed;
   final MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])> icon;
+  final bool useColorfulIcons;
 
   const IconListTile({
     required this.isActive,
     required this.onPressed,
     required this.icon,
+    required this.useColorfulIcons,
   });
 
   @override
@@ -43,7 +45,7 @@ class IconListTile extends StatelessWidget {
               PhosphorIcon(
                 getPhosphorIcon(
                   icon.value,
-                  isDuotone: false,
+                  isDuotone: useColorfulIcons,
                   isBold: false,
                 ),
                 color: isActive

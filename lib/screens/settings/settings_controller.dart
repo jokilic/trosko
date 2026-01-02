@@ -117,6 +117,19 @@ class SettingsController implements Disposable {
     }
   }
 
+  /// Triggered when the user presses the icons [ListTile]
+  Future<void> onPressedColorfulIcons() async {
+    final settings = hive.getSettings();
+
+    final newUseColorfulIcons = !settings.useColorfulIcons;
+
+    await hive.writeSettings(
+      settings.copyWith(
+        useColorfulIcons: newUseColorfulIcons,
+      ),
+    );
+  }
+
   /// Triggered when the user submits a new `name`
   Future<void> onSubmittedName(String newName) async {
     await hive.writeUsername(
@@ -131,16 +144,16 @@ class SettingsController implements Disposable {
   }
 
   /// Triggered when the user presses some [ThemeMode]
-  void onPressedThemeData({
+  Future<void> onPressedThemeData({
     required ThemeData? newThemeData,
-  }) => hive.writeSettings(
+  }) async => hive.writeSettings(
     hive.getSettings().copyWith(
       troskoThemeId: newThemeData?.extension<TroskoThemeTag>()?.id,
     ),
   );
 
   /// Triggered when the user presses some [Color]
-  void onPressedPrimaryColor(Color newPrimaryColor) => hive.writeSettings(
+  Future<void> onPressedPrimaryColor(Color newPrimaryColor) async => hive.writeSettings(
     hive.getSettings().copyWith(
       primaryColor: newPrimaryColor,
     ),

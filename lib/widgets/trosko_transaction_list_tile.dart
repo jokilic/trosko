@@ -22,6 +22,7 @@ class TroskoTransactionListTile extends StatefulWidget {
   final Transaction transaction;
   final Category? category;
   final Location? location;
+  final bool useColorfulIcons;
 
   const TroskoTransactionListTile({
     required this.onLongPressed,
@@ -29,6 +30,7 @@ class TroskoTransactionListTile extends StatefulWidget {
     required this.transaction,
     required this.category,
     required this.location,
+    required this.useColorfulIcons,
   });
 
   @override
@@ -98,7 +100,7 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                   icon: PhosphorIcon(
                     getPhosphorIcon(
                       PhosphorIcons.trash,
-                      isDuotone: false,
+                      isDuotone: widget.useColorfulIcons,
                       isBold: true,
                     ),
                     color: context.colors.listTileBackground,
@@ -144,7 +146,7 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                               ? PhosphorIcon(
                                   getPhosphorIcon(
                                     boldCategoryIcon,
-                                    isDuotone: false,
+                                    isDuotone: widget.useColorfulIcons,
                                     isBold: true,
                                   ),
                                   color: getWhiteOrBlackColor(
@@ -262,7 +264,7 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                                       PhosphorIcon(
                                         getPhosphorIcon(
                                           boldLocationIcon ?? PhosphorIcons.mapTrifold,
-                                          isDuotone: false,
+                                          isDuotone: widget.useColorfulIcons,
                                           isBold: true,
                                         ),
                                         color: context.colors.text,
@@ -286,7 +288,7 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                                       PhosphorIcon(
                                         getPhosphorIcon(
                                           boldLocationIcon ?? PhosphorIcons.mapTrifold,
-                                          isDuotone: false,
+                                          isDuotone: widget.useColorfulIcons,
                                           isBold: true,
                                         ),
                                         color: context.colors.text,

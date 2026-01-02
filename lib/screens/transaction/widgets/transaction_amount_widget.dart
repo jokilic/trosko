@@ -14,11 +14,13 @@ class TransactionAmountWidget extends StatefulWidget {
   final Function(int cents) onValueChanged;
   final int initialCents;
   final String languageCode;
+  final bool useColorfulIcons;
 
   const TransactionAmountWidget({
     required this.onValueChanged,
     required this.initialCents,
     required this.languageCode,
+    required this.useColorfulIcons,
   });
 
   @override
@@ -175,7 +177,7 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
             PhosphorIcon(
               getPhosphorIcon(
                 PhosphorIcons.currencyEur,
-                isDuotone: false,
+                isDuotone: widget.useColorfulIcons,
                 isBold: true,
               ),
               color: context.colors.text,
@@ -261,7 +263,7 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
               child: PhosphorIcon(
                 getPhosphorIcon(
                   PhosphorIcons.backspace,
-                  isDuotone: false,
+                  isDuotone: widget.useColorfulIcons,
                   isBold: true,
                 ),
                 color: isHolding ? context.colors.delete : context.colors.text,

@@ -70,6 +70,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
       instanceName: widget.passedCategory?.id,
     ).value;
 
+    final useColorfulIcons = watchIt<HiveService>().value.settings?.useColorfulIcons ?? false;
+
     final categoryName = state.categoryName;
     final categoryColor = state.categoryColor;
     final categoryIcon = state.categoryIcon;
@@ -99,7 +101,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               icon: PhosphorIcon(
                 getPhosphorIcon(
                   PhosphorIcons.arrowLeft,
-                  isDuotone: false,
+                  isDuotone: useColorfulIcons,
                   isBold: true,
                 ),
                 color: context.colors.text,
@@ -124,7 +126,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   icon: PhosphorIcon(
                     getPhosphorIcon(
                       PhosphorIcons.trash,
-                      isDuotone: false,
+                      isDuotone: useColorfulIcons,
                       isBold: true,
                     ),
                     color: context.colors.delete,
@@ -168,7 +170,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           ? PhosphorIcon(
                               getPhosphorIcon(
                                 categoryIcon.value,
-                                isDuotone: false,
+                                isDuotone: useColorfulIcons,
                                 isBold: false,
                               ),
                               color: getWhiteOrBlackColor(
@@ -237,6 +239,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 /// CATEGORY COLORS
                 ///
                 CategoryColors(
+                  useColorfulIcons: useColorfulIcons,
                   colors: categoryColors,
                   activeColor: categoryColor,
                   onPressedColor: (color) {
@@ -326,6 +329,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             categoryController.iconChanged(icon);
                           },
                           icon: icon,
+                          useColorfulIcons: useColorfulIcons,
                         );
                       },
                     ),

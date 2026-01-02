@@ -15,11 +15,13 @@ class StatsCategoryListTile extends StatefulWidget {
   final Category category;
   final int numberOfTransactions;
   final int amountCents;
+  final bool useColorfulIcons;
 
   const StatsCategoryListTile({
     required this.category,
     required this.numberOfTransactions,
     required this.amountCents,
+    required this.useColorfulIcons,
   });
 
   @override
@@ -86,7 +88,7 @@ class _StatsCategoryListTileState extends State<StatsCategoryListTile> {
                           ? PhosphorIcon(
                               getPhosphorIcon(
                                 icon,
-                                isDuotone: false,
+                                isDuotone: widget.useColorfulIcons,
                                 isBold: true,
                               ),
                               color: getWhiteOrBlackColor(

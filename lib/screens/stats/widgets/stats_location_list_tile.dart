@@ -15,11 +15,13 @@ class StatsLocationListTile extends StatefulWidget {
   final Location location;
   final int numberOfTransactions;
   final int amountCents;
+  final bool useColorfulIcons;
 
   const StatsLocationListTile({
     required this.location,
     required this.numberOfTransactions,
     required this.amountCents,
+    required this.useColorfulIcons,
   });
 
   @override
@@ -83,7 +85,7 @@ class _StatsLocationListTileState extends State<StatsLocationListTile> {
                               widget.location.iconName,
                             )?.value ??
                             PhosphorIcons.mapTrifold,
-                        isDuotone: false,
+                        isDuotone: widget.useColorfulIcons,
                         isBold: true,
                       ),
                       color: getWhiteOrBlackColor(

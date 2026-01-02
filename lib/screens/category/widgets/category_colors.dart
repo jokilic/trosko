@@ -9,12 +9,14 @@ class CategoryColors extends StatelessWidget {
   final Color? activeColor;
   final Function(Color color) onPressedColor;
   final Function() onPressedAdd;
+  final bool useColorfulIcons;
 
   const CategoryColors({
     required this.colors,
     required this.activeColor,
     required this.onPressedColor,
     required this.onPressedAdd,
+    required this.useColorfulIcons,
   });
 
   @override
@@ -43,6 +45,7 @@ class CategoryColors extends StatelessWidget {
         ///
         if (color != null) {
           return CategoryColor(
+            useColorfulIcons: useColorfulIcons,
             onPressed: () => onPressedColor(color),
             color: color.withValues(
               alpha: activeColor == color ? 1 : 0.4,
@@ -57,6 +60,7 @@ class CategoryColors extends StatelessWidget {
         /// ADD NEW CATEGORY
         ///
         return CategoryColor(
+          useColorfulIcons: useColorfulIcons,
           onPressed: onPressedAdd,
           color: context.colors.buttonBackground,
           highlightColor: context.colors.listTileBackground,

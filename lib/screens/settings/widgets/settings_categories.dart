@@ -8,10 +8,12 @@ import 'settings_category.dart';
 class SettingsCategories extends StatelessWidget {
   final List<Category> categories;
   final void Function(List<Category> newOrder) onReorderCategories;
+  final bool useColorfulIcons;
 
   const SettingsCategories({
     required this.categories,
     required this.onReorderCategories,
+    required this.useColorfulIcons,
   });
 
   @override
@@ -58,7 +60,7 @@ class SettingsCategories extends StatelessWidget {
               icon: icon != null
                   ? getPhosphorIcon(
                       icon,
-                      isDuotone: false,
+                      isDuotone: useColorfulIcons,
                       isBold: false,
                     )
                   : null,

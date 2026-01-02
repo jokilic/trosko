@@ -38,6 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future<void> handleRegister({
     required BuildContext context,
     required Future<({User? user, String? error})> Function() onRegisterPressed,
+    required bool useColorfulIcons,
   }) async {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
@@ -59,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       text: registerResult.error ?? 'errorUnknown'.tr(),
       icon: getPhosphorIcon(
         PhosphorIcons.warningCircle,
-        isDuotone: false,
+        isDuotone: useColorfulIcons,
         isBold: true,
       ),
     );
@@ -90,6 +91,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final registerController = getIt.get<RegisterController>();
 
     final state = watchIt<RegisterController>().value;
+
+    final useColorfulIcons = watchIt<HiveService>().value.settings?.useColorfulIcons ?? false;
 
     final validated = state.emailValid && state.passwordValid;
     final isLoading = state.isLoading;
@@ -191,6 +194,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       handleRegister(
                         context: context,
                         onRegisterPressed: registerController.registerPressed,
+                        useColorfulIcons: useColorfulIcons,
                       ),
                     );
                   },
@@ -267,6 +271,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ? () => handleRegister(
                             context: context,
                             onRegisterPressed: registerController.registerPressed,
+                            useColorfulIcons: useColorfulIcons,
                           )
                         : null,
                     style: FilledButton.styleFrom(
