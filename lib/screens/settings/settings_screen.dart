@@ -59,6 +59,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         firebase: getIt.get<FirebaseService>(),
         notification: getIt.get<NotificationService>(),
         workManager: getIt.get<WorkManagerService>(),
+        map: getIt.get<MapService>(),
       ),
       afterRegister: (controller) => controller.init(),
     );

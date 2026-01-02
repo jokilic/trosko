@@ -78,13 +78,17 @@ Future<void> initializeServices() async {
   if (!getIt.isRegistered<MapService>()) {
     getIt.registerSingletonAsync(
       () async {
+        final useVectorMaps = getIt.get<HiveService>().value.settings?.useVectorMaps;
+
         final map = MapService(
           logger: getIt.get<LoggerService>(),
         );
-        await map.init();
+        if (useVectorMaps ?? false) {
+          await map.init();
+        }
         return map;
       },
-      dependsOn: [LoggerService],
+      dependsOn: [LoggerService, HiveService],
     );
   }
 

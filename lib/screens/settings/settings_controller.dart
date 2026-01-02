@@ -8,6 +8,7 @@ import '../../models/trosko_theme_tag/trosko_theme_tag.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../services/map_service.dart';
 import '../../services/notification_service.dart';
 import '../../services/work_manager_service.dart';
 
@@ -21,6 +22,7 @@ class SettingsController implements Disposable {
   final FirebaseService firebase;
   final NotificationService notification;
   final WorkManagerService workManager;
+  final MapService map;
 
   SettingsController({
     required this.logger,
@@ -28,6 +30,7 @@ class SettingsController implements Disposable {
     required this.firebase,
     required this.notification,
     required this.workManager,
+    required this.map,
   });
 
   ///
@@ -98,16 +101,20 @@ class SettingsController implements Disposable {
   }
 
   /// Triggered when the user presses the vector [ListTile]
-  void onPressedVectorMaps() {
+  Future<void> onPressedVectorMaps() async {
     final settings = hive.getSettings();
 
     final newUseVectorMaps = !settings.useVectorMaps;
 
-    hive.writeSettings(
+    await hive.writeSettings(
       settings.copyWith(
         useVectorMaps: newUseVectorMaps,
       ),
     );
+
+    if (newUseVectorMaps) {
+      await map.init();
+    }
   }
 
   /// Triggered when the user submits a new `name`

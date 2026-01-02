@@ -34,6 +34,11 @@ class MapService extends ValueNotifier<Style?> {
 
   /// Loads style of vector maps used throughout the app
   Future<void> loadVectorMapsStyle() async {
+    /// Don't load if already loaded
+    if (value != null) {
+      return;
+    }
+
     try {
       final style = await StyleReader(
         uri: openStreetMapVectorUri,

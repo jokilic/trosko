@@ -22,8 +22,6 @@ import 'util/localization.dart';
 import 'util/navigation.dart';
 import 'util/theme.dart';
 
-/// TODO: Initialize MapService only if `useVectorMaps` is true
-
 Future<void> main() async {
   /// Initialize Flutter related tasks
   WidgetsFlutterBinding.ensureInitialized();
