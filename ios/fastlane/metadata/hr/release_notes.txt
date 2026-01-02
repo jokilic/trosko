@@ -1,5 +1,6 @@
 * Add location to your transactions
 * Filter multiple months & categories
+* Add colorful icons option in Settings
 * Migrate to workmanager for background tasks
 * Some UI updates
 * Code updates & refactors

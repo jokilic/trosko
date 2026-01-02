@@ -100,6 +100,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     )?.extension<TroskoThemeTag>()?.id;
 
     final useVectorMaps = settings?.useVectorMaps ?? false;
+    final useColorfulIcons = settings?.useColorfulIcons ?? false;
 
     final isAndroid = defaultTargetPlatform == TargetPlatform.android;
 
@@ -305,13 +306,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ],
 
           ///
-          /// NOTIFICATIONS TITLE
+          /// SETTINGS TITLE
           ///
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'settingsNotifications'.tr(),
+                'settingsSettings'.tr(),
                 style: context.textStyles.homeTitle,
               ),
             ),
@@ -371,23 +372,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 24),
-          ),
-
-          ///
-          /// MAPS TITLE
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'settingsMaps'.tr(),
-                style: context.textStyles.homeTitle,
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 12),
+            child: SizedBox(height: 28),
           ),
 
           ///
@@ -431,7 +416,51 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 24),
+            child: SizedBox(height: 28),
+          ),
+
+          ///
+          /// ICONS LIST TILE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: SettingsListTile(
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  settingsController.onPressedColorfulIcons();
+                },
+                title: 'settingsIconsTitle'.tr(),
+                subtitle: 'settingsIconsSubtitle'.tr(),
+                trailingWidget: Switch.adaptive(
+                  activeThumbColor: context.colors.buttonPrimary,
+                  value: useColorfulIcons,
+                  onChanged: (_) {
+                    HapticFeedback.lightImpact();
+                    settingsController.onPressedColorfulIcons();
+                  },
+                ),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 10),
+          ),
+
+          ///
+          /// ICONS TEXT
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'settingsIconsText'.tr(),
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 40),
           ),
 
           ///

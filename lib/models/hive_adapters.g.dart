@@ -152,7 +152,7 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       primaryColor: fields[2] as Color?,
       useNotificationListener: fields[5] == null ? false : fields[5] as bool,
       useVectorMaps: fields[6] == null ? false : fields[6] as bool,
-      useColoredIcons: fields[7] == null ? false : fields[7] as bool,
+      useColorfulIcons: fields[8] == null ? false : fields[8] as bool,
     );
   }
 
@@ -170,8 +170,8 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       ..write(obj.useNotificationListener)
       ..writeByte(6)
       ..write(obj.useVectorMaps)
-      ..writeByte(7)
-      ..write(obj.useColoredIcons);
+      ..writeByte(8)
+      ..write(obj.useColorfulIcons);
   }
 
   @override

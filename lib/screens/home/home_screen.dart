@@ -230,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: PhosphorIcon(
                     getPhosphorIcon(
                       PhosphorIcons.gearSix,
-                      isDuotone: true,
+                      isDuotone: false,
                       isBold: true,
                     ),
                     color: context.colors.text,

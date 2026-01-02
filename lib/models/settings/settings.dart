@@ -21,7 +21,7 @@ class Settings {
   final bool useVectorMaps;
 
   @HiveField(6, defaultValue: false)
-  final bool useColoredIcons;
+  final bool useColorfulIcons;
 
   Settings({
     required this.isLoggedIn,
@@ -29,7 +29,7 @@ class Settings {
     required this.primaryColor,
     required this.useNotificationListener,
     required this.useVectorMaps,
-    required this.useColoredIcons,
+    required this.useColorfulIcons,
   });
 
   Settings copyWith({
@@ -38,21 +38,21 @@ class Settings {
     Object? primaryColor = noChange,
     Object? useNotificationListener = noChange,
     Object? useVectorMaps = noChange,
-    Object? useColoredIcons = noChange,
+    Object? useColorfulIcons = noChange,
   }) => Settings(
     isLoggedIn: isLoggedIn == noChange ? this.isLoggedIn : isLoggedIn! as bool,
     troskoThemeId: troskoThemeId == noChange ? this.troskoThemeId : troskoThemeId as TroskoThemeId?,
     primaryColor: primaryColor == noChange ? this.primaryColor : primaryColor as Color?,
     useNotificationListener: useNotificationListener == noChange ? this.useNotificationListener : useNotificationListener! as bool,
     useVectorMaps: useVectorMaps == noChange ? this.useVectorMaps : useVectorMaps! as bool,
-    useColoredIcons: useColoredIcons == noChange ? this.useColoredIcons : useColoredIcons! as bool,
+    useColorfulIcons: useColorfulIcons == noChange ? this.useColorfulIcons : useColorfulIcons! as bool,
   );
 
   static const noChange = Object();
 
   @override
   String toString() =>
-      'Settings(isLoggedIn: $isLoggedIn, troskoThemeId: $troskoThemeId, primaryColor: $primaryColor, useNotificationListener: $useNotificationListener, useVectorMaps: $useVectorMaps, useColoredIcons: $useColoredIcons)';
+      'Settings(isLoggedIn: $isLoggedIn, troskoThemeId: $troskoThemeId, primaryColor: $primaryColor, useNotificationListener: $useNotificationListener, useVectorMaps: $useVectorMaps, useColorfulIcons: $useColorfulIcons)';
 
   @override
   bool operator ==(covariant Settings other) {
@@ -65,9 +65,9 @@ class Settings {
         other.primaryColor == primaryColor &&
         other.useNotificationListener == useNotificationListener &&
         other.useVectorMaps == useVectorMaps &&
-        other.useColoredIcons == useColoredIcons;
+        other.useColorfulIcons == useColorfulIcons;
   }
 
   @override
-  int get hashCode => isLoggedIn.hashCode ^ troskoThemeId.hashCode ^ primaryColor.hashCode ^ useNotificationListener.hashCode ^ useVectorMaps.hashCode ^ useColoredIcons.hashCode;
+  int get hashCode => isLoggedIn.hashCode ^ troskoThemeId.hashCode ^ primaryColor.hashCode ^ useNotificationListener.hashCode ^ useVectorMaps.hashCode ^ useColorfulIcons.hashCode;
 }

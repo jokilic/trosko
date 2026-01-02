@@ -168,7 +168,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           ? PhosphorIcon(
                               getPhosphorIcon(
                                 categoryIcon.value,
-                                isDuotone: true,
+                                isDuotone: false,
                                 isBold: false,
                               ),
                               color: getWhiteOrBlackColor(
