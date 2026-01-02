@@ -10,6 +10,7 @@ import '../../models/location/location.dart';
 import '../../models/month/month.dart';
 import '../../models/transaction/transaction.dart';
 import '../../theme/extensions.dart';
+import '../../util/icons.dart';
 import '../../util/stats.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'widgets/stats_all_list_tile.dart';
@@ -74,10 +75,13 @@ class _StatsScreenState extends State<StatsScreen> {
               highlightColor: context.colors.buttonBackground,
             ),
             icon: PhosphorIcon(
-              PhosphorIcons.arrowLeft(
-                PhosphorIconsStyle.bold,
+              getPhosphorIcon(
+                PhosphorIcons.arrowLeft,
+                isDuotone: false,
+                isBold: true,
               ),
               color: context.colors.text,
+              duotoneSecondaryColor: context.colors.buttonPrimary,
               size: 28,
             ),
           ),
@@ -95,14 +99,13 @@ class _StatsScreenState extends State<StatsScreen> {
                 highlightColor: context.colors.buttonBackground,
               ),
               icon: PhosphorIcon(
-                statsSection == StatsSection.categories
-                    ? PhosphorIcons.shapes(
-                        PhosphorIconsStyle.bold,
-                      )
-                    : PhosphorIcons.mapTrifold(
-                        PhosphorIconsStyle.bold,
-                      ),
+                getPhosphorIcon(
+                  statsSection == StatsSection.categories ? PhosphorIcons.shapes : PhosphorIcons.mapTrifold,
+                  isDuotone: false,
+                  isBold: true,
+                ),
                 color: context.colors.text,
+                duotoneSecondaryColor: context.colors.buttonPrimary,
                 size: 28,
               ),
             ),

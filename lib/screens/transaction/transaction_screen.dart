@@ -126,10 +126,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 highlightColor: context.colors.buttonBackground,
               ),
               icon: PhosphorIcon(
-                PhosphorIcons.arrowLeft(
-                  PhosphorIconsStyle.bold,
+                getPhosphorIcon(
+                  PhosphorIcons.arrowLeft,
+                  isDuotone: false,
+                  isBold: true,
                 ),
                 color: context.colors.text,
+                duotoneSecondaryColor: context.colors.buttonPrimary,
                 size: 28,
               ),
             ),
@@ -150,10 +153,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     highlightColor: context.colors.buttonBackground,
                   ),
                   icon: PhosphorIcon(
-                    PhosphorIcons.trash(
-                      PhosphorIconsStyle.bold,
+                    getPhosphorIcon(
+                      PhosphorIcons.trash,
+                      isDuotone: false,
+                      isBold: true,
                     ),
                     color: context.colors.delete,
+                    duotoneSecondaryColor: context.colors.buttonPrimary,
                     size: 28,
                   ),
                 ),
@@ -425,14 +431,24 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           hideScrollViewTopHeaderDivider: true,
                           hideYearPickerDividers: true,
                           lastMonthIcon: PhosphorIcon(
-                            PhosphorIcons.caretCircleLeft(),
+                            getPhosphorIcon(
+                              PhosphorIcons.caretCircleLeft,
+                              isDuotone: false,
+                              isBold: false,
+                            ),
                             color: context.colors.text,
+                            duotoneSecondaryColor: context.colors.buttonPrimary,
                             size: 28,
                           ),
                           monthTextStyle: context.textStyles.transactionDateInactive,
                           nextMonthIcon: PhosphorIcon(
-                            PhosphorIcons.caretCircleRight(),
+                            getPhosphorIcon(
+                              PhosphorIcons.caretCircleRight,
+                              isDuotone: false,
+                              isBold: false,
+                            ),
                             color: context.colors.text,
+                            duotoneSecondaryColor: context.colors.buttonPrimary,
                             size: 28,
                           ),
                           selectedDayHighlightColor: context.colors.text,

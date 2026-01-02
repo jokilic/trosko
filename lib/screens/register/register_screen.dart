@@ -18,6 +18,7 @@ import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
+import '../../util/icons.dart';
 import '../../util/snackbars.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_loading.dart';
@@ -56,8 +57,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     showSnackbar(
       context,
       text: registerResult.error ?? 'errorUnknown'.tr(),
-      icon: PhosphorIcons.warningCircle(
-        PhosphorIconsStyle.bold,
+      icon: getPhosphorIcon(
+        PhosphorIcons.warningCircle,
+        isDuotone: false,
+        isBold: true,
       ),
     );
   }

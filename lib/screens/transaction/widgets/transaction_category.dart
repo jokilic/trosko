@@ -54,6 +54,7 @@ class TransactionCategory extends StatelessWidget {
                       whiteColor: TroskoColors.lightThemeWhiteBackground,
                       blackColor: TroskoColors.lightThemeBlackText,
                     ),
+                    duotoneSecondaryColor: context.colors.buttonPrimary,
                     size: 36,
                   )
                 : const SizedBox(

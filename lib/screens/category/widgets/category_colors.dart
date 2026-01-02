@@ -60,7 +60,7 @@ class CategoryColors extends StatelessWidget {
           onPressed: onPressedAdd,
           color: context.colors.buttonBackground,
           highlightColor: context.colors.listTileBackground,
-          icon: PhosphorIcons.plus(),
+          icon: PhosphorIcons.plus,
         );
       },
       separatorBuilder: (_, __) => const SizedBox(width: 12),

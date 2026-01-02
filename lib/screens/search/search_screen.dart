@@ -14,6 +14,7 @@ import '../../services/logger_service.dart';
 import '../../theme/extensions.dart';
 import '../../util/currency.dart';
 import '../../util/dependencies.dart';
+import '../../util/icons.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import '../../widgets/trosko_transaction_list_tile.dart';
@@ -88,10 +89,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 highlightColor: context.colors.buttonBackground,
               ),
               icon: PhosphorIcon(
-                PhosphorIcons.arrowLeft(
-                  PhosphorIconsStyle.bold,
+                getPhosphorIcon(
+                  PhosphorIcons.arrowLeft,
+                  isDuotone: false,
+                  isBold: true,
                 ),
                 color: context.colors.text,
+                duotoneSecondaryColor: context.colors.buttonPrimary,
                 size: 28,
               ),
             ),
@@ -226,10 +230,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: Column(
                   children: [
                     PhosphorIcon(
-                      PhosphorIcons.magnifyingGlass(
-                        PhosphorIconsStyle.bold,
+                      getPhosphorIcon(
+                        PhosphorIcons.magnifyingGlass,
+                        isDuotone: false,
+                        isBold: true,
                       ),
                       color: context.colors.text,
+                      duotoneSecondaryColor: context.colors.buttonPrimary,
                       size: 56,
                     ),
                     const SizedBox(height: 12),

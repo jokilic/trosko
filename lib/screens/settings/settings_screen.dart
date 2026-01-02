@@ -22,6 +22,7 @@ import '../../theme/extensions.dart';
 import '../../util/app_version.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
+import '../../util/icons.dart';
 import '../../util/sounds.dart';
 import '../../util/theme.dart';
 import '../../widgets/trosko_app_bar.dart';
@@ -121,10 +122,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 highlightColor: context.colors.buttonBackground,
               ),
               icon: PhosphorIcon(
-                PhosphorIcons.arrowLeft(
-                  PhosphorIconsStyle.bold,
+                getPhosphorIcon(
+                  PhosphorIcons.arrowLeft,
+                  isDuotone: false,
+                  isBold: true,
                 ),
                 color: context.colors.text,
+                duotoneSecondaryColor: context.colors.buttonPrimary,
                 size: 28,
               ),
             ),

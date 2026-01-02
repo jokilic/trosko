@@ -104,7 +104,11 @@ class HomeLocations extends StatelessWidget {
             useVectorMaps: useVectorMaps,
             location: null,
             color: context.colors.buttonBackground,
-            icon: PhosphorIcons.plus(),
+            icon: getPhosphorIcon(
+              PhosphorIcons.plus,
+              isDuotone: false,
+              isBold: false,
+            ),
             text: 'homeAdd'.tr(),
           ),
         );

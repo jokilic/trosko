@@ -7,6 +7,7 @@ import '../../../theme/colors.dart';
 import '../../../theme/extensions.dart';
 import '../../../util/color.dart';
 import '../../../util/currency.dart';
+import '../../../util/icons.dart';
 import '../../../util/stats.dart';
 
 class StatsAllListTile extends StatefulWidget {
@@ -79,14 +80,17 @@ class _StatsAllListTileState extends State<StatsAllListTile> {
                       ),
                     ),
                     child: PhosphorIcon(
-                      PhosphorIcons.coins(
-                        PhosphorIconsStyle.bold,
+                      getPhosphorIcon(
+                        PhosphorIcons.coins,
+                        isDuotone: false,
+                        isBold: true,
                       ),
                       color: getWhiteOrBlackColor(
                         backgroundColor: context.colors.scaffoldBackground,
                         whiteColor: TroskoColors.lightThemeWhiteBackground,
                         blackColor: TroskoColors.lightThemeBlackText,
                       ),
+                      duotoneSecondaryColor: context.colors.buttonPrimary,
                       size: 16,
                     ),
                   ),

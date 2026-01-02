@@ -16,6 +16,7 @@ import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
+import '../../util/icons.dart';
 import '../../widgets/icon_list_tile.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
@@ -116,10 +117,13 @@ class _LocationScreenState extends State<LocationScreen> {
                 highlightColor: context.colors.buttonBackground,
               ),
               icon: PhosphorIcon(
-                PhosphorIcons.arrowLeft(
-                  PhosphorIconsStyle.bold,
+                getPhosphorIcon(
+                  PhosphorIcons.arrowLeft,
+                  isDuotone: false,
+                  isBold: true,
                 ),
                 color: context.colors.text,
+                duotoneSecondaryColor: context.colors.buttonPrimary,
                 size: 28,
               ),
             ),
@@ -138,10 +142,13 @@ class _LocationScreenState extends State<LocationScreen> {
                     highlightColor: context.colors.buttonBackground,
                   ),
                   icon: PhosphorIcon(
-                    PhosphorIcons.trash(
-                      PhosphorIconsStyle.bold,
+                    getPhosphorIcon(
+                      PhosphorIcons.trash,
+                      isDuotone: false,
+                      isBold: true,
                     ),
                     color: context.colors.delete,
+                    duotoneSecondaryColor: context.colors.buttonPrimary,
                     size: 28,
                   ),
                 ),
@@ -199,8 +206,13 @@ class _LocationScreenState extends State<LocationScreen> {
                                   )
                                 : locationIcon != null
                                 ? PhosphorIcon(
-                                    locationIcon.value,
+                                    getPhosphorIcon(
+                                      locationIcon.value,
+                                      isDuotone: false,
+                                      isBold: false,
+                                    ),
                                     color: context.colors.text,
+                                    duotoneSecondaryColor: context.colors.buttonPrimary,
                                     size: 104,
                                   )
                                 : null,
@@ -215,8 +227,13 @@ class _LocationScreenState extends State<LocationScreen> {
                               left: 0,
                               right: 0,
                               child: PhosphorIcon(
-                                PhosphorIcons.arrowsOutCardinal(),
+                                getPhosphorIcon(
+                                  PhosphorIcons.arrowsOutCardinal,
+                                  isDuotone: false,
+                                  isBold: false,
+                                ),
                                 color: TroskoColors.lightThemeBlackText,
+                                duotoneSecondaryColor: context.colors.buttonPrimary,
                                 size: 20,
                               ),
                             ),

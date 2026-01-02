@@ -18,6 +18,7 @@ void showSnackbar(
           PhosphorIcon(
             icon,
             color: context.colors.text,
+            duotoneSecondaryColor: context.colors.buttonPrimary,
             size: 28,
           ),
           const SizedBox(width: 10),

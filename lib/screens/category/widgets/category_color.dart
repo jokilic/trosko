@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../theme/colors.dart';
+import '../../../theme/extensions.dart';
 import '../../../util/color.dart';
+import '../../../util/icons.dart';
 
 class CategoryColor extends StatelessWidget {
   final Function() onPressed;
   final Color color;
   final Color highlightColor;
-  final IconData? icon;
+  final PhosphorIconData Function([PhosphorIconsStyle])? icon;
 
   const CategoryColor({
     required this.onPressed,
@@ -36,12 +38,17 @@ class CategoryColor extends StatelessWidget {
       ),
       icon: icon != null
           ? PhosphorIcon(
-              icon!,
+              getPhosphorIcon(
+                icon!,
+                isDuotone: false,
+                isBold: false,
+              ),
               color: getWhiteOrBlackColor(
                 backgroundColor: color,
                 whiteColor: TroskoColors.lightThemeWhiteBackground,
                 blackColor: TroskoColors.lightThemeBlackText,
               ),
+              duotoneSecondaryColor: context.colors.buttonPrimary,
               size: 28,
             )
           : const SizedBox(

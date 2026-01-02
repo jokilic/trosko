@@ -169,6 +169,7 @@ class HomeLocation extends StatelessWidget {
                                     whiteColor: TroskoColors.lightThemeWhiteBackground,
                                     blackColor: TroskoColors.lightThemeBlackText,
                                   ),
+                            duotoneSecondaryColor: context.colors.buttonPrimary,
                             size: 40,
                           )
                         : const SizedBox(

@@ -96,10 +96,13 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                   color: context.colors.delete,
                   backgroundRadius: 16,
                   icon: PhosphorIcon(
-                    PhosphorIcons.trash(
-                      PhosphorIconsStyle.bold,
+                    getPhosphorIcon(
+                      PhosphorIcons.trash,
+                      isDuotone: false,
+                      isBold: true,
                     ),
                     color: context.colors.listTileBackground,
+                    duotoneSecondaryColor: context.colors.buttonPrimary,
                     size: 28,
                   ),
                 ),

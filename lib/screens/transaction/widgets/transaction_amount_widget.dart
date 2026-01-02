@@ -7,6 +7,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../constants/durations.dart';
 import '../../../theme/extensions.dart';
 import '../../../util/currency.dart';
+import '../../../util/icons.dart';
 import 'transaction_amount_button.dart';
 
 class TransactionAmountWidget extends StatefulWidget {
@@ -172,10 +173,13 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
         child: Row(
           children: [
             PhosphorIcon(
-              PhosphorIcons.currencyEur(
-                PhosphorIconsStyle.bold,
+              getPhosphorIcon(
+                PhosphorIcons.currencyEur,
+                isDuotone: false,
+                isBold: true,
               ),
               color: context.colors.text,
+              duotoneSecondaryColor: context.colors.buttonPrimary,
               size: 28,
             ),
             const SizedBox(width: 8),
@@ -255,10 +259,13 @@ class _TransactionAmountWidgetState extends State<TransactionAmountWidget> {
               onLongPressStart: startHoldTimer,
               onLongPressEnd: stopHoldTimer,
               child: PhosphorIcon(
-                PhosphorIcons.backspace(
-                  PhosphorIconsStyle.bold,
+                getPhosphorIcon(
+                  PhosphorIcons.backspace,
+                  isDuotone: false,
+                  isBold: true,
                 ),
                 color: isHolding ? context.colors.delete : context.colors.text,
+                duotoneSecondaryColor: context.colors.buttonPrimary,
                 size: 24,
               ),
             );

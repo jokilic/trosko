@@ -161,7 +161,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               icon: PhosphorIcon(
-                PhosphorIcons.coins(),
+                getPhosphorIcon(
+                  PhosphorIcons.coins,
+                  isDuotone: false,
+                  isBold: false,
+                ),
                 color: categories.isNotEmpty
                     ? getWhiteOrBlackColor(
                         backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
@@ -169,6 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         blackColor: TroskoColors.lightThemeBlackText,
                       )
                     : context.colors.disabledText,
+                duotoneSecondaryColor: context.colors.buttonPrimary,
                 size: 32,
               ),
             ),
@@ -268,10 +273,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     highlightColor: context.colors.buttonBackground,
                   ),
                   icon: PhosphorIcon(
-                    PhosphorIcons.magnifyingGlass(
-                      PhosphorIconsStyle.bold,
+                    getPhosphorIcon(
+                      PhosphorIcons.magnifyingGlass,
+                      isDuotone: false,
+                      isBold: true,
                     ),
                     color: context.colors.text,
+                    duotoneSecondaryColor: context.colors.buttonPrimary,
                     size: 28,
                   ),
                 ),
@@ -381,14 +389,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 switchOutCurve: Curves.easeIn,
                                 child: PhosphorIcon(
                                   key: ValueKey(expandedCategories),
-                                  expandedCategories
-                                      ? PhosphorIcons.caretUp(
-                                          PhosphorIconsStyle.bold,
-                                        )
-                                      : PhosphorIcons.caretDown(
-                                          PhosphorIconsStyle.bold,
-                                        ),
+                                  getPhosphorIcon(
+                                    expandedCategories ? PhosphorIcons.caretUp : PhosphorIcons.caretDown,
+                                    isDuotone: false,
+                                    isBold: true,
+                                  ),
                                   color: context.colors.text,
+                                  duotoneSecondaryColor: context.colors.buttonPrimary,
                                   size: 16,
                                 ),
                               ),
@@ -472,14 +479,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 switchOutCurve: Curves.easeIn,
                                 child: PhosphorIcon(
                                   key: ValueKey(expandedLocations),
-                                  expandedLocations
-                                      ? PhosphorIcons.caretUp(
-                                          PhosphorIconsStyle.bold,
-                                        )
-                                      : PhosphorIcons.caretDown(
-                                          PhosphorIconsStyle.bold,
-                                        ),
+                                  getPhosphorIcon(
+                                    expandedLocations ? PhosphorIcons.caretUp : PhosphorIcons.caretDown,
+                                    isDuotone: false,
+                                    isBold: true,
+                                  ),
                                   color: context.colors.text,
+                                  duotoneSecondaryColor: context.colors.buttonPrimary,
                                   size: 16,
                                 ),
                               ),
@@ -629,9 +635,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: [
                     PhosphorIcon(
-                      PhosphorIcons.coins(),
+                      getPhosphorIcon(
+                        PhosphorIcons.coins,
+                        isDuotone: false,
+                        isBold: false,
+                      ),
                       color: context.colors.text,
                       size: 56,
+                      duotoneSecondaryColor: context.colors.buttonPrimary,
                     ),
                     const SizedBox(height: 12),
                     Text(

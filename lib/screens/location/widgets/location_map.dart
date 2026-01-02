@@ -6,6 +6,7 @@ import 'package:vector_map_tiles/vector_map_tiles.dart';
 
 import '../../../services/map_service.dart';
 import '../../../theme/extensions.dart';
+import '../../../util/icons.dart';
 
 class LocationMap extends StatelessWidget {
   final MapController mapController;
@@ -70,10 +71,13 @@ class LocationMap extends StatelessWidget {
               width: 20,
               height: 20,
               child: PhosphorIcon(
-                PhosphorIcons.x(
-                  PhosphorIconsStyle.bold,
+                getPhosphorIcon(
+                  PhosphorIcons.x,
+                  isDuotone: false,
+                  isBold: false,
                 ),
                 color: context.colors.buttonPrimary,
+                duotoneSecondaryColor: context.colors.buttonPrimary,
                 size: 20,
               ),
             ),
