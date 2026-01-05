@@ -10,6 +10,10 @@
 	<string>Troško needs access to location to show your current location on the map.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Troško needs access to speech recognition in order to create expenses using your voice.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Troško needs access to microphone in order to create expenses using your voice.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

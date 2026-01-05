@@ -8,6 +8,7 @@ import '../services/hive_service.dart';
 import '../services/logger_service.dart';
 import '../services/map_service.dart';
 import '../services/notification_service.dart';
+import '../services/speech_to_text_service.dart';
 import '../services/work_manager_service.dart';
 
 final getIt = GetIt.instance;
@@ -87,6 +88,25 @@ Future<void> initializeServices() async {
           await map.init();
         }
         return map;
+      },
+      dependsOn: [LoggerService, HiveService],
+    );
+  }
+
+  if (!getIt.isRegistered<SpeechToTextService>()) {
+    getIt.registerSingletonAsync(
+      () async {
+        // TODO: Implement Hive -> Settings
+        // final useSpeechToText = getIt.get<HiveService>().value.settings?.useSpeechToText;
+        const useSpeechToText = true;
+
+        final speechToText = SpeechToTextService(
+          logger: getIt.get<LoggerService>(),
+        );
+        if (useSpeechToText) {
+          await speechToText.init();
+        }
+        return speechToText;
       },
       dependsOn: [LoggerService, HiveService],
     );

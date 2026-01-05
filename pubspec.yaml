@@ -55,6 +55,7 @@ dependencies:
   package_info_plus: 9.0.0
   phosphor_flutter: 2.1.0
   scroll_datetime_picker: 0.2.2
+  speech_to_text: 7.3.0
   string_similarity: 2.1.1
   uuid: 4.5.2
   vector_map_tiles: 9.0.0-beta.8
