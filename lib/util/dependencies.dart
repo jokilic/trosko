@@ -96,14 +96,12 @@ Future<void> initializeServices() async {
   if (!getIt.isRegistered<SpeechToTextService>()) {
     getIt.registerSingletonAsync(
       () async {
-        // TODO: Implement Hive -> Settings
-        // final useSpeechToText = getIt.get<HiveService>().value.settings?.useSpeechToText;
-        const useSpeechToText = true;
+        final useVoice = getIt.get<HiveService>().value.settings?.useVoice;
 
         final speechToText = SpeechToTextService(
           logger: getIt.get<LoggerService>(),
         );
-        if (useSpeechToText) {
+        if (useVoice ?? false) {
           await speechToText.init();
         }
         return speechToText;

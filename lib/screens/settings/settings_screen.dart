@@ -16,6 +16,7 @@ import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/map_service.dart';
 import '../../services/notification_service.dart';
+import '../../services/speech_to_text_service.dart';
 import '../../services/work_manager_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
@@ -61,6 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         notification: getIt.get<NotificationService>(),
         workManager: getIt.get<WorkManagerService>(),
         map: getIt.get<MapService>(),
+        speechToText: getIt.get<SpeechToTextService>(),
       ),
       afterRegister: (controller) => controller.init(),
     );
@@ -100,6 +102,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     )?.extension<TroskoThemeTag>()?.id;
 
     final useVectorMaps = settings?.useVectorMaps ?? false;
+    final useVoice = settings?.useVoice ?? false;
     final useColorfulIcons = settings?.useColorfulIcons ?? false;
 
     final isAndroid = defaultTargetPlatform == TargetPlatform.android;
@@ -413,6 +416,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
             sliver: SliverToBoxAdapter(
               child: Text(
                 'settingsMapsText'.tr(),
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 28),
+          ),
+
+          ///
+          /// VOICE LIST TILE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: SettingsListTile(
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  settingsController.onPressedVoice();
+                },
+                title: 'settingsVoiceTitle'.tr(),
+                subtitle: 'settingsVoiceSubtitle'.tr(),
+                trailingWidget: Switch.adaptive(
+                  activeThumbColor: context.colors.buttonPrimary,
+                  value: useVoice,
+                  onChanged: (_) {
+                    HapticFeedback.lightImpact();
+                    settingsController.onPressedVoice();
+                  },
+                ),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 10),
+          ),
+
+          ///
+          /// MAPS TEXT
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'settingsVoiceText'.tr(),
                 style: context.textStyles.homeTransactionNote,
               ),
             ),

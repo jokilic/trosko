@@ -52,6 +52,7 @@ class HiveService extends ValueNotifier<({Settings? settings, String? username, 
     useNotificationListener: false,
     useVectorMaps: false,
     useColorfulIcons: false,
+    useVoice: false,
   );
 
   ///

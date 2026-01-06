@@ -10,6 +10,7 @@ import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/map_service.dart';
 import '../../services/notification_service.dart';
+import '../../services/speech_to_text_service.dart';
 import '../../services/work_manager_service.dart';
 
 class SettingsController implements Disposable {
@@ -23,6 +24,7 @@ class SettingsController implements Disposable {
   final NotificationService notification;
   final WorkManagerService workManager;
   final MapService map;
+  final SpeechToTextService speechToText;
 
   SettingsController({
     required this.logger,
@@ -31,6 +33,7 @@ class SettingsController implements Disposable {
     required this.notification,
     required this.workManager,
     required this.map,
+    required this.speechToText,
   });
 
   ///
@@ -114,6 +117,23 @@ class SettingsController implements Disposable {
 
     if (newUseVectorMaps) {
       await map.init();
+    }
+  }
+
+  /// Triggered when the user presses the voice [ListTile]
+  Future<void> onPressedVoice() async {
+    final settings = hive.getSettings();
+
+    final newUseVoice = !settings.useVoice;
+
+    await hive.writeSettings(
+      settings.copyWith(
+        useVoice: newUseVoice,
+      ),
+    );
+
+    if (newUseVoice) {
+      await speechToText.init();
     }
   }
 

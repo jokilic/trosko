@@ -43,7 +43,7 @@ types:
         index: 4
   Settings:
     typeId: 3
-    nextIndex: 9
+    nextIndex: 11
     fields:
       isLoggedIn:
         index: 0
@@ -57,6 +57,8 @@ types:
         index: 6
       useColorfulIcons:
         index: 8
+      useVoice:
+        index: 10
   TroskoThemeId:
     typeId: 4
     nextIndex: 6

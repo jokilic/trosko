@@ -153,13 +153,14 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       useNotificationListener: fields[5] == null ? false : fields[5] as bool,
       useVectorMaps: fields[6] == null ? false : fields[6] as bool,
       useColorfulIcons: fields[8] == null ? false : fields[8] as bool,
+      useVoice: fields[10] == null ? false : fields[10] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.isLoggedIn)
       ..writeByte(2)
@@ -171,7 +172,9 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       ..writeByte(6)
       ..write(obj.useVectorMaps)
       ..writeByte(8)
-      ..write(obj.useColorfulIcons);
+      ..write(obj.useColorfulIcons)
+      ..writeByte(10)
+      ..write(obj.useVoice);
   }
 
   @override

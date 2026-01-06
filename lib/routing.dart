@@ -14,6 +14,7 @@ import 'screens/search/search_screen.dart';
 import 'screens/settings/settings_screen.dart';
 import 'screens/stats/stats_screen.dart';
 import 'screens/transaction/transaction_screen.dart';
+import 'screens/voice/voice_screen.dart';
 import 'util/navigation.dart';
 
 /// Opens [LoginScreen]
@@ -132,6 +133,14 @@ void openStats(
     categories: sortedCategories,
     locations: sortedLocations,
     key: ValueKey(month),
+  ),
+  context: context,
+);
+
+/// Opens [VoiceScreen]
+void openVoice(BuildContext context) => pushScreen(
+  const VoiceScreen(
+    key: ValueKey('voice'),
   ),
   context: context,
 );
