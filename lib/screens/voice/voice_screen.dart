@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +10,9 @@ import 'package:watch_it/watch_it.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/speech_to_text_service.dart';
+import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
+import '../../util/color.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
 import '../../widgets/trosko_app_bar.dart';
@@ -39,6 +44,24 @@ class _VoiceScreenState extends State<VoiceScreen> {
   void dispose() {
     unRegisterIfNotDisposed<VoiceController>();
     super.dispose();
+  }
+
+  // TODO
+  String getButtonText({
+    required bool available,
+    required bool isListening,
+  }) {
+    log('getButtonText() -> available: $available, isListening: $isListening');
+
+    if (!available) {
+      return 'Not available';
+    }
+
+    if (isListening) {
+      return 'Listening...';
+    }
+
+    return 'Record';
   }
 
   @override
@@ -83,14 +106,73 @@ class _VoiceScreenState extends State<VoiceScreen> {
                 size: 28,
               ),
             ),
-            smallTitle: 'searchTitle'.tr(),
-            bigTitle: 'searchTitle'.tr(),
-            bigSubtitle: 'searchSubtitle'.tr(),
+            // TODO
+            smallTitle: 'Voice input',
+            bigTitle: 'Voice input',
+            bigSubtitle: 'Create expenses using voice',
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 4),
           ),
+
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                // TODO
+                state ?? '--',
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 48),
+          ),
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
+        ),
+        child: SizedBox(
+          width: double.infinity,
+          child: FilledButton(
+            onPressed: available
+                ? () async {
+                    unawaited(
+                      HapticFeedback.lightImpact(),
+                    );
+                    await voiceController.onSpeechToTextPressed(
+                      locale: context.locale.languageCode,
+                    );
+                  }
+                : null,
+            style: FilledButton.styleFrom(
+              padding: EdgeInsets.fromLTRB(
+                24,
+                28,
+                24,
+                MediaQuery.paddingOf(context).bottom + 12,
+              ),
+              backgroundColor: context.colors.buttonPrimary,
+              foregroundColor: getWhiteOrBlackColor(
+                backgroundColor: context.colors.buttonPrimary,
+                whiteColor: TroskoColors.lightThemeWhiteBackground,
+                blackColor: TroskoColors.lightThemeBlackText,
+              ),
+              overlayColor: context.colors.buttonBackground,
+              disabledBackgroundColor: context.colors.disabledBackground,
+              disabledForegroundColor: context.colors.disabledText,
+            ),
+            child: Text(
+              getButtonText(
+                available: available,
+                isListening: isListening,
+              ).toUpperCase(),
+            ),
+          ),
+        ),
       ),
     );
   }

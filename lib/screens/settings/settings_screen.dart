@@ -425,6 +425,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
 
           ///
+          /// ICONS LIST TILE
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: SettingsListTile(
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  settingsController.onPressedColorfulIcons();
+                },
+                title: 'settingsIconsTitle'.tr(),
+                subtitle: 'settingsIconsSubtitle'.tr(),
+                trailingWidget: Switch.adaptive(
+                  activeThumbColor: context.colors.buttonPrimary,
+                  value: useColorfulIcons,
+                  onChanged: (_) {
+                    HapticFeedback.lightImpact();
+                    settingsController.onPressedColorfulIcons();
+                  },
+                ),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 10),
+          ),
+
+          ///
+          /// ICONS TEXT
+          ///
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'settingsIconsText'.tr(),
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 28),
+          ),
+
+          ///
           /// VOICE LIST TILE
           ///
           SliverPadding(
@@ -464,46 +508,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 28),
-          ),
-
-          ///
-          /// ICONS LIST TILE
-          ///
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(
-              child: SettingsListTile(
-                onPressed: () {
-                  HapticFeedback.lightImpact();
-                  settingsController.onPressedColorfulIcons();
-                },
-                title: 'settingsIconsTitle'.tr(),
-                subtitle: 'settingsIconsSubtitle'.tr(),
-                trailingWidget: Switch.adaptive(
-                  activeThumbColor: context.colors.buttonPrimary,
-                  value: useColorfulIcons,
-                  onChanged: (_) {
-                    HapticFeedback.lightImpact();
-                    settingsController.onPressedColorfulIcons();
-                  },
-                ),
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 10),
-          ),
-
-          ///
-          /// ICONS TEXT
-          ///
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 28),
             sliver: SliverToBoxAdapter(
               child: Text(
-                'settingsIconsText'.tr(),
+                'settingsVoiceText2'.tr(),
+                style: context.textStyles.homeTransactionNote,
+              ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                'settingsVoiceText3'.tr(),
                 style: context.textStyles.homeTransactionNote,
               ),
             ),

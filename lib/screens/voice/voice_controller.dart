@@ -2,12 +2,13 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 
 import '../../services/logger_service.dart';
 import '../../services/speech_to_text_service.dart';
 
-class VoiceController extends ValueNotifier<String?> {
+class VoiceController extends ValueNotifier<String?> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -19,6 +20,17 @@ class VoiceController extends ValueNotifier<String?> {
     required this.logger,
     required this.speechToText,
   }) : super(null);
+
+  ///
+  /// DISPOSE
+  ///
+
+  @override
+  void onDispose() {
+    speechToText.updateState(
+      isListening: false,
+    );
+  }
 
   ///
   /// METHODS

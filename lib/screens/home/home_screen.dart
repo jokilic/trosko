@@ -28,6 +28,7 @@ import '../search/search_screen.dart';
 import '../settings/settings_screen.dart';
 import '../stats/stats_screen.dart';
 import '../transaction/transaction_screen.dart';
+import '../voice/voice_screen.dart';
 import 'home_controller.dart';
 import 'widgets/home_categories.dart';
 import 'widgets/home_locations.dart';
@@ -76,7 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final hiveState = watchIt<HiveService>().value;
 
+    final useVectorMaps = hiveState.settings?.useVectorMaps ?? false;
     final useColorfulIcons = hiveState.settings?.useColorfulIcons ?? false;
+    final useVoice = hiveState.settings?.useVoice ?? false;
 
     final allTransactions = hiveState.transactions;
 
@@ -84,8 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
     final locations = hiveState.locations;
 
     final name = hiveState.username;
-
-    final useVectorMaps = hiveState.settings?.useVectorMaps ?? false;
 
     final state = watchIt<HomeController>().value;
 
@@ -104,95 +105,180 @@ class _HomeScreenState extends State<HomeScreen> {
     final greeting = getGreeting(now);
 
     return Scaffold(
-      floatingActionButton: OpenContainer(
-        transitionDuration: TroskoDurations.animationLong,
-        transitionType: ContainerTransitionType.fadeThrough,
-        middleColor: context.colors.scaffoldBackground,
-        openElevation: 0,
-        openColor: context.colors.scaffoldBackground,
-        openShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        closedElevation: 0,
-        closedColor: context.colors.scaffoldBackground,
-        closedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        closedBuilder: (context, openContainer) => Theme(
-          data: Theme.of(context).copyWith(
-            splashColor: Colors.transparent,
-            highlightColor: context.colors.buttonBackground,
-          ),
-          child: Animate(
-            autoPlay: false,
-            onInit: (controller) => homeController.shakeFabController = controller,
-            effects: const [
-              ShakeEffect(
-                curve: Curves.easeIn,
-                duration: TroskoDurations.animation,
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          ///
+          /// VOICE
+          ///
+          if (useVoice) ...[
+            OpenContainer(
+              transitionDuration: TroskoDurations.animationLong,
+              transitionType: ContainerTransitionType.fadeThrough,
+              middleColor: context.colors.scaffoldBackground,
+              openElevation: 0,
+              openColor: context.colors.scaffoldBackground,
+              openShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
               ),
-            ],
-            child: FloatingActionButton.extended(
-              onPressed: categories.isNotEmpty
-                  ? () {
-                      HapticFeedback.lightImpact();
-                      openContainer();
-                    }
-                  : () {
-                      HapticFeedback.lightImpact();
-                      homeController.triggerFabAnimation();
-                    },
-              backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-              foregroundColor: categories.isNotEmpty
-                  ? getWhiteOrBlackColor(
-                      backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                      whiteColor: TroskoColors.lightThemeWhiteBackground,
-                      blackColor: TroskoColors.lightThemeBlackText,
-                    )
-                  : context.colors.disabledText,
-              label: Text(
-                'homeAddExpense'.tr().toUpperCase(),
-                style: context.textStyles.homeFloatingActionButton.copyWith(
-                  color: categories.isNotEmpty
+              closedElevation: 0,
+              closedColor: context.colors.scaffoldBackground,
+              closedShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              closedBuilder: (context, openContainer) => Theme(
+                data: Theme.of(context).copyWith(
+                  splashColor: Colors.transparent,
+                  highlightColor: context.colors.buttonBackground,
+                ),
+                child: Animate(
+                  autoPlay: false,
+                  onInit: (controller) => homeController.shakeFabController = controller,
+                  effects: const [
+                    ShakeEffect(
+                      curve: Curves.easeIn,
+                      duration: TroskoDurations.animation,
+                    ),
+                  ],
+                  child: FloatingActionButton(
+                    onPressed: categories.isNotEmpty
+                        ? () {
+                            HapticFeedback.lightImpact();
+                            openContainer();
+                          }
+                        : () {
+                            HapticFeedback.lightImpact();
+                            homeController.triggerFabAnimation();
+                          },
+                    backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                    foregroundColor: categories.isNotEmpty
+                        ? getWhiteOrBlackColor(
+                            backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                            whiteColor: TroskoColors.lightThemeWhiteBackground,
+                            blackColor: TroskoColors.lightThemeBlackText,
+                          )
+                        : context.colors.disabledText,
+                    child: PhosphorIcon(
+                      getPhosphorIcon(
+                        PhosphorIcons.microphone,
+                        isDuotone: useColorfulIcons,
+                        isBold: false,
+                      ),
+                      color: categories.isNotEmpty
+                          ? getWhiteOrBlackColor(
+                              backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                              whiteColor: TroskoColors.lightThemeWhiteBackground,
+                              blackColor: TroskoColors.lightThemeBlackText,
+                            )
+                          : context.colors.disabledText,
+                      duotoneSecondaryColor: context.colors.buttonPrimary,
+                      size: 32,
+                    ),
+                  ),
+                ),
+              ),
+              openBuilder: (context, _) => const VoiceScreen(
+                key: ValueKey('voice'),
+              ),
+            ),
+            const SizedBox(height: 16),
+          ],
+
+          ///
+          /// ADD EXPENSE
+          ///
+          OpenContainer(
+            transitionDuration: TroskoDurations.animationLong,
+            transitionType: ContainerTransitionType.fadeThrough,
+            middleColor: context.colors.scaffoldBackground,
+            openElevation: 0,
+            openColor: context.colors.scaffoldBackground,
+            openShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            closedElevation: 0,
+            closedColor: context.colors.scaffoldBackground,
+            closedShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            closedBuilder: (context, openContainer) => Theme(
+              data: Theme.of(context).copyWith(
+                splashColor: Colors.transparent,
+                highlightColor: context.colors.buttonBackground,
+              ),
+              child: Animate(
+                autoPlay: false,
+                onInit: (controller) => homeController.shakeFabController = controller,
+                effects: const [
+                  ShakeEffect(
+                    curve: Curves.easeIn,
+                    duration: TroskoDurations.animation,
+                  ),
+                ],
+                child: FloatingActionButton.extended(
+                  onPressed: categories.isNotEmpty
+                      ? () {
+                          HapticFeedback.lightImpact();
+                          openContainer();
+                        }
+                      : () {
+                          HapticFeedback.lightImpact();
+                          homeController.triggerFabAnimation();
+                        },
+                  backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                  foregroundColor: categories.isNotEmpty
                       ? getWhiteOrBlackColor(
                           backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
                           whiteColor: TroskoColors.lightThemeWhiteBackground,
                           blackColor: TroskoColors.lightThemeBlackText,
                         )
                       : context.colors.disabledText,
+                  label: Text(
+                    'homeAddExpense'.tr().toUpperCase(),
+                    style: context.textStyles.homeFloatingActionButton.copyWith(
+                      color: categories.isNotEmpty
+                          ? getWhiteOrBlackColor(
+                              backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                              whiteColor: TroskoColors.lightThemeWhiteBackground,
+                              blackColor: TroskoColors.lightThemeBlackText,
+                            )
+                          : context.colors.disabledText,
+                    ),
+                  ),
+                  icon: PhosphorIcon(
+                    getPhosphorIcon(
+                      PhosphorIcons.coins,
+                      isDuotone: useColorfulIcons,
+                      isBold: false,
+                    ),
+                    color: categories.isNotEmpty
+                        ? getWhiteOrBlackColor(
+                            backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                            whiteColor: TroskoColors.lightThemeWhiteBackground,
+                            blackColor: TroskoColors.lightThemeBlackText,
+                          )
+                        : context.colors.disabledText,
+                    duotoneSecondaryColor: context.colors.buttonPrimary,
+                    size: 32,
+                  ),
                 ),
-              ),
-              icon: PhosphorIcon(
-                getPhosphorIcon(
-                  PhosphorIcons.coins,
-                  isDuotone: useColorfulIcons,
-                  isBold: false,
-                ),
-                color: categories.isNotEmpty
-                    ? getWhiteOrBlackColor(
-                        backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                        whiteColor: TroskoColors.lightThemeWhiteBackground,
-                        blackColor: TroskoColors.lightThemeBlackText,
-                      )
-                    : context.colors.disabledText,
-                duotoneSecondaryColor: context.colors.buttonPrimary,
-                size: 32,
               ),
             ),
+            openBuilder: (context, _) => TransactionScreen(
+              passedTransaction: null,
+              categories: categories,
+              locations: locations,
+              passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
+              passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
+              passedNotificationPayload: null,
+              onTransactionUpdated: () => homeController.updateState(
+                locale: context.locale.languageCode,
+              ),
+              key: const ValueKey(null),
+            ),
           ),
-        ),
-        openBuilder: (context, _) => TransactionScreen(
-          passedTransaction: null,
-          categories: categories,
-          locations: locations,
-          passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
-          passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
-          passedNotificationPayload: null,
-          onTransactionUpdated: () => homeController.updateState(
-            locale: context.locale.languageCode,
-          ),
-          key: const ValueKey(null),
-        ),
+        ],
       ),
       body: CustomScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

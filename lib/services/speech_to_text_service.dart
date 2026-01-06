@@ -90,12 +90,10 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
     }
 
     try {
+      await value.speechToText!.stop();
+
       updateState(
         isListening: false,
-      );
-
-      unawaited(
-        value.speechToText!.stop(),
       );
     } catch (e) {
       logger.e('SpeechToTextService -> stopListening() -> $e');
