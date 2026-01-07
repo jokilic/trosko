@@ -1,8 +1,4 @@
-import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
-import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import 'logger_service.dart';
@@ -38,10 +34,27 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
       final available = await speechToText.initialize(
         debugLogging: kDebugMode,
         onStatus: (status) {
-          log('SpeechToTextService -> onStatus() -> $status');
+          switch (status.toLowerCase().trim()) {
+            /// Speech recognition begins
+            case 'listening':
+              updateState(
+                isListening: true,
+              );
+              break;
+
+            /// Speech recognition is no longer listening
+            case 'notListening':
+            case 'done':
+              updateState(
+                isListening: false,
+              );
+              break;
+          }
         },
         onError: (error) {
-          log('SpeechToTextService -> onError() -> $error');
+          updateState(
+            isListening: false,
+          );
         },
       );
 
@@ -56,7 +69,7 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
 
   /// Starts a speech recognition session
   Future<void> startListening({
-    required Function(SpeechRecognitionResult)? onResult,
+    required Function(String words) onResult,
     required String locale,
   }) async {
     if (value.speechToText == null) {
@@ -66,12 +79,10 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
 
     try {
       await value.speechToText!.listen(
-        onResult: onResult,
-        localeId: locale,
-        listenOptions: SpeechListenOptions(
-          // TODO
-          sampleRate: 16000,
+        onResult: (result) => onResult(
+          result.recognizedWords,
         ),
+        localeId: locale,
       );
 
       updateState(

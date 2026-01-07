@@ -78,9 +78,7 @@
     "settingsMapsText": "Vektorske karte su kvalitetnije, ali grafički kompleksnije za prikaz.",
     "settingsVoiceTitle": "Glasovni unos",
     "settingsVoiceSubtitle": "Stvori troškove koristeći glas",
-    "settingsVoiceText": "Pritisni gumb na glavnom zaslonu i pričaj o troškovima.",
-    "settingsVoiceText2": "Spomeni kategoriju ili lokaciju, iznos, datum, bilješku, štogod ti padne napamet.",
-    "settingsVoiceText3": "Troško će stvoriti nove troškove te upitati za dodatne detalje ako bude potrebno.",
+    "settingsVoiceText": "Pritisni gumb na glavnom zaslonu i stvori troškove koristeći svoj glas.",
     "settingsIconsTitle": "Šarene ikone",
     "settingsIconsSubtitle": "Koristi ikone u boji",
     "settingsIconsText": "Ikone kategorija i sve ostale korištene kroz aplikaciju.",
@@ -135,5 +133,16 @@
     "foregroundTaskNotificationText": "Koristi se za prikaz obavijesti",
     "expenseNotificationTitle": "Novi trošak 💸",
     "expenseNotificationText": "Potrošio si €{} u {}.",
-    "expenseNotificationButton": "Dodaj trošak"
+    "expenseNotificationButton": "Dodaj trošak",
+    "voiceTitle": "Glasovni unos",
+    "voiceSubtitle": "Stvori troškove koristeći glas",
+    "voiceText1": "Pritisni gumb za snimanje i slobodno pričaj o svojim troškovima.",
+    "voiceText2": "Zamisli da razgovaraš s čovjekom, spomeni što više detalja.",
+    "voiceText3": "Cilj je biti detaljan kako bi Troško kreirao nove troškove uz što manje dodatne pomoći s tvoje strane.",
+    "voiceText4": "Nakon što završiš s govorom, Troško će kreirati troškove i zatražiti tvoju pomoć ako nešto nedostaje.",
+    "voiceActiveLanguage": " je aktivni jezik govora.",
+    "voiceActiveLanguageChange": "Možeš ga promijeniti u postavkama.",
+    "voiceButtonNotAvailable": "Nije dostupno",
+    "voiceButtonListening": "Slušam...",
+    "voiceButtonStart": "Započni"
 }

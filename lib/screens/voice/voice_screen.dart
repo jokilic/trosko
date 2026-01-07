@@ -1,12 +1,13 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants/durations.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/speech_to_text_service.dart';
@@ -28,6 +29,8 @@ class VoiceScreen extends WatchingStatefulWidget {
 }
 
 class _VoiceScreenState extends State<VoiceScreen> {
+  var recordTriggered = false;
+
   @override
   void initState() {
     super.initState();
@@ -46,22 +49,32 @@ class _VoiceScreenState extends State<VoiceScreen> {
     super.dispose();
   }
 
-  // TODO
   String getButtonText({
     required bool available,
     required bool isListening,
   }) {
-    log('getButtonText() -> available: $available, isListening: $isListening');
-
     if (!available) {
-      return 'Not available';
+      return 'voiceButtonNotAvailable'.tr();
     }
 
     if (isListening) {
-      return 'Listening...';
+      return 'voiceButtonListening'.tr();
     }
 
-    return 'Record';
+    return 'voiceButtonStart'.tr();
+  }
+
+  String getLanguageName({
+    required String languageCode,
+  }) {
+    switch (languageCode) {
+      case 'en':
+        return 'settingsEnglish'.tr();
+      case 'hr':
+        return 'settingsCroatian'.tr();
+      default:
+        return '--';
+    }
   }
 
   @override
@@ -106,25 +119,119 @@ class _VoiceScreenState extends State<VoiceScreen> {
                 size: 28,
               ),
             ),
-            // TODO
-            smallTitle: 'Voice input',
-            bigTitle: 'Voice input',
-            bigSubtitle: 'Create expenses using voice',
+            smallTitle: 'voiceTitle'.tr(),
+            bigTitle: 'voiceTitle'.tr(),
+            bigSubtitle: 'voiceSubtitle'.tr(),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 4),
           ),
 
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                // TODO
-                state ?? '--',
-                style: context.textStyles.homeTransactionNote,
+          ///
+          /// SPOKEN TEXT
+          ///
+          if (isListening || (state?.isNotEmpty ?? false))
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  state ?? '...',
+                  style: context.textStyles.homeTransactionNote,
+                ),
+              ),
+            )
+          ///
+          /// EXPLANATION TEXT
+          ///
+          else if (!recordTriggered) ...[
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'voiceText1'.tr(),
+                  style: context.textStyles.homeTransactionNote,
+                ),
               ),
             ),
-          ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 8),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'voiceText2'.tr(),
+                  style: context.textStyles.homeTransactionNote,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 8),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'voiceText3'.tr(),
+                  style: context.textStyles.homeTransactionNote,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 8),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'voiceText4'.tr(),
+                  style: context.textStyles.homeTransactionNote,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 8),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: Text.rich(
+                  TextSpan(
+                    text: getLanguageName(
+                      languageCode: context.locale.languageCode,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'voiceActiveLanguage'.tr(),
+                        style: context.textStyles.homeTransactionNote,
+                      ),
+                    ],
+                  ),
+                  style: context.textStyles.homeTransactionNoteBold,
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'voiceActiveLanguageChange'.tr(),
+                  style: context.textStyles.homeTransactionNote,
+                ),
+              ),
+            ),
+          ]
+          ///
+          ///
+          ///
+          else
+            SliverToBoxAdapter(
+              child: Container(
+                height: 40,
+                width: 40,
+                color: Colors.amber,
+              ),
+            ),
 
           const SliverToBoxAdapter(
             child: SizedBox(height: 48),
@@ -143,8 +250,13 @@ class _VoiceScreenState extends State<VoiceScreen> {
                     unawaited(
                       HapticFeedback.lightImpact(),
                     );
+
                     await voiceController.onSpeechToTextPressed(
                       locale: context.locale.languageCode,
+                    );
+
+                    setState(
+                      () => recordTriggered = true,
                     );
                   }
                 : null,
@@ -165,11 +277,25 @@ class _VoiceScreenState extends State<VoiceScreen> {
               disabledBackgroundColor: context.colors.disabledBackground,
               disabledForegroundColor: context.colors.disabledText,
             ),
-            child: Text(
-              getButtonText(
-                available: available,
-                isListening: isListening,
-              ).toUpperCase(),
+            child: Animate(
+              key: ValueKey(isListening),
+              onPlay: (controller) => controller.loop(
+                reverse: true,
+                min: 0.6,
+              ),
+              effects: [
+                if (isListening)
+                  const FadeEffect(
+                    curve: Curves.easeIn,
+                    duration: TroskoDurations.recording,
+                  ),
+              ],
+              child: Text(
+                getButtonText(
+                  available: available,
+                  isListening: isListening,
+                ).toUpperCase(),
+              ),
             ),
           ),
         ),

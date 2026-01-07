@@ -194,8 +194,6 @@ class LocationController
             mapController.camera.zoom,
           );
         }
-      } else {
-        logger.d('LocationController -> onAddressSubmitted() -> No location found');
       }
     } catch (e) {
       logger.e('LocationController -> onAddressSubmitted() -> $e');

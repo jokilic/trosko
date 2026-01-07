@@ -56,6 +56,9 @@ TroskoTextThemesExtension getTextThemesExtension({
   homeTransactionNote: TroskoTextStyles.homeTransactionNote.copyWith(
     color: colorsExtension.text,
   ),
+  homeTransactionNoteBold: TroskoTextStyles.homeTransactionNoteBold.copyWith(
+    color: colorsExtension.text,
+  ),
   homeTransactionValue: TroskoTextStyles.homeTransactionValue.copyWith(
     color: colorsExtension.text,
   ),

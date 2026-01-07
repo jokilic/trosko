@@ -94,9 +94,7 @@ class CodegenLoader extends AssetLoader{
   "settingsMapsText": "Vector maps are higher quality, but graphically more complex to display.",
   "settingsVoiceTitle": "Voice input",
   "settingsVoiceSubtitle": "Create expenses using voice",
-  "settingsVoiceText": "Press the button on the main screen and talk about expenses.",
-  "settingsVoiceText2": "Mention a category or location, amount, date, note, whatever comes to your mind.",
-  "settingsVoiceText3": "Troško will create new expenses, asking you to fill in additional details if necessary.",
+  "settingsVoiceText": "Press the button on the main screen and create expenses using your voice.",
   "settingsIconsTitle": "Colorful icons",
   "settingsIconsSubtitle": "Use icons with color",
   "settingsIconsText": "Category icons and all others used throughout the app.",
@@ -151,7 +149,18 @@ class CodegenLoader extends AssetLoader{
   "foregroundTaskNotificationText": "Used to show notifications",
   "expenseNotificationTitle": "New expense 💸",
   "expenseNotificationText": "You spent €{} at {}.",
-  "expenseNotificationButton": "Add expense"
+  "expenseNotificationButton": "Add expense",
+  "voiceTitle": "Voice input",
+  "voiceSubtitle": "Create expenses using voice",
+  "voiceText1": "Press the record button and speak freely about your expenses.",
+  "voiceText2": "Imagine you're talking to a person, mention as much details as possible.",
+  "voiceText3": "The idea is to be detailed so Troško can create new expenses with as little additional help from you.",
+  "voiceText4": "After finishing your speech, Troško will create the expenses and ask for your assistance if anything is missing.",
+  "voiceActiveLanguage": " is the active speech language.",
+  "voiceActiveLanguageChange": "You can change it in settings.",
+  "voiceButtonNotAvailable": "Not available",
+  "voiceButtonListening": "Listening...",
+  "voiceButtonStart": "Start"
 };
 static const Map<String,dynamic> _hr = {
   "appName": "Troško",
@@ -233,9 +242,7 @@ static const Map<String,dynamic> _hr = {
   "settingsMapsText": "Vektorske karte su kvalitetnije, ali grafički kompleksnije za prikaz.",
   "settingsVoiceTitle": "Glasovni unos",
   "settingsVoiceSubtitle": "Stvori troškove koristeći glas",
-  "settingsVoiceText": "Pritisni gumb na glavnom zaslonu i pričaj o troškovima.",
-  "settingsVoiceText2": "Spomeni kategoriju ili lokaciju, iznos, datum, bilješku, štogod ti padne napamet.",
-  "settingsVoiceText3": "Troško će stvoriti nove troškove te upitati za dodatne detalje ako bude potrebno.",
+  "settingsVoiceText": "Pritisni gumb na glavnom zaslonu i stvori troškove koristeći svoj glas.",
   "settingsIconsTitle": "Šarene ikone",
   "settingsIconsSubtitle": "Koristi ikone u boji",
   "settingsIconsText": "Ikone kategorija i sve ostale korištene kroz aplikaciju.",
@@ -290,7 +297,18 @@ static const Map<String,dynamic> _hr = {
   "foregroundTaskNotificationText": "Koristi se za prikaz obavijesti",
   "expenseNotificationTitle": "Novi trošak 💸",
   "expenseNotificationText": "Potrošio si €{} u {}.",
-  "expenseNotificationButton": "Dodaj trošak"
+  "expenseNotificationButton": "Dodaj trošak",
+  "voiceTitle": "Glasovni unos",
+  "voiceSubtitle": "Stvori troškove koristeći glas",
+  "voiceText1": "Pritisni gumb za snimanje i slobodno pričaj o svojim troškovima.",
+  "voiceText2": "Zamisli da razgovaraš s čovjekom, spomeni što više detalja.",
+  "voiceText3": "Cilj je biti detaljan kako bi Troško kreirao nove troškove uz što manje dodatne pomoći s tvoje strane.",
+  "voiceText4": "Nakon što završiš s govorom, Troško će kreirati troškove i zatražiti tvoju pomoć ako nešto nedostaje.",
+  "voiceActiveLanguage": " je aktivni jezik govora.",
+  "voiceActiveLanguageChange": "Možeš ga promijeniti u postavkama.",
+  "voiceButtonNotAvailable": "Nije dostupno",
+  "voiceButtonListening": "Slušam...",
+  "voiceButtonStart": "Započni"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "hr": _hr};
 }

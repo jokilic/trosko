@@ -508,26 +508,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'settingsVoiceText2'.tr(),
-                style: context.textStyles.homeTransactionNote,
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                'settingsVoiceText3'.tr(),
-                style: context.textStyles.homeTransactionNote,
-              ),
-            ),
-          ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 40),
+            child: SizedBox(height: 32),
           ),
 
           ///

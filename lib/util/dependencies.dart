@@ -12,6 +12,7 @@ import '../services/speech_to_text_service.dart';
 import '../services/work_manager_service.dart';
 
 final getIt = GetIt.instance;
+final getItBackground = GetIt.asNewInstance();
 
 /// Registers a class if it's not already initialized
 /// Optionally runs a function with newly registered class
@@ -151,17 +152,17 @@ Future<void> initializeServices() async {
 
 /// Initializes only the services needed for background task
 Future<void> initializeForBackgroundTask() async {
-  if (!getIt.isRegistered<LoggerService>()) {
-    getIt.registerSingletonAsync<LoggerService>(
+  if (!getItBackground.isRegistered<LoggerService>()) {
+    getItBackground.registerSingletonAsync<LoggerService>(
       () async => LoggerService(),
     );
   }
 
-  if (!getIt.isRegistered<HiveService>()) {
-    getIt.registerSingletonAsync<HiveService>(
+  if (!getItBackground.isRegistered<HiveService>()) {
+    getItBackground.registerSingletonAsync<HiveService>(
       () async {
         final hive = HiveService(
-          logger: getIt.get<LoggerService>(),
+          logger: getItBackground.get<LoggerService>(),
         );
         await hive.init();
         return hive;
@@ -170,12 +171,12 @@ Future<void> initializeForBackgroundTask() async {
     );
   }
 
-  if (!getIt.isRegistered<NotificationService>()) {
-    getIt.registerSingletonAsync<NotificationService>(
+  if (!getItBackground.isRegistered<NotificationService>()) {
+    getItBackground.registerSingletonAsync<NotificationService>(
       () async {
         final notification = NotificationService(
-          logger: getIt.get<LoggerService>(),
-          hive: getIt.get<HiveService>(),
+          logger: getItBackground.get<LoggerService>(),
+          hive: getItBackground.get<HiveService>(),
         );
 
         final settings = notification.hive.getSettings();
@@ -193,5 +194,5 @@ Future<void> initializeForBackgroundTask() async {
   }
 
   /// Wait for initialization to finish
-  await getIt.allReady();
+  await getItBackground.allReady();
 }
