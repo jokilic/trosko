@@ -145,5 +145,14 @@
     "voiceButtonNotAvailable": "Nije dostupno",
     "voiceButtonListening": "Slušam...",
     "voiceButtonThinking": "Razmišljam...",
-    "voiceButtonStart": "Započni"
+    "voiceButtonStart": "Započni",
+    "voiceSayListening": "Pričaj o svojim troškovima",
+    "voiceSayYouSaid": "Rekao si Trošku",
+    "voiceCheckNewExpenses": "Provjeri nove troškove",
+    "voiceCheckNewExpensesText": "Dodaj ili promijeni bilo koji podatak u novim troškovima.",
+    "voiceSaveNewExpenses": "Spremi nove troškove.",
+    "voiceSaveNewExpensesText": "Kad si zadovoljan novim troškovima, spremi ih.",
+    "voiceLanguage": "Jezik",
+    "voiceResults": "Rezultati",
+    "voiceError": "Greška"
 }

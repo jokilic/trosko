@@ -145,5 +145,14 @@
     "voiceButtonNotAvailable": "Not available",
     "voiceButtonListening": "Listening...",
     "voiceButtonThinking": "Thinking...",
-    "voiceButtonStart": "Start"
+    "voiceButtonStart": "Start",
+    "voiceSayListening": "Talk about your expenses",
+    "voiceSayYouSaid": "You said to Troško",
+    "voiceCheckNewExpenses": "Check new expenses",
+    "voiceCheckNewExpensesText": "Add or modify any data in new expenses.",
+    "voiceSaveNewExpenses": "Save new expenses.",
+    "voiceSaveNewExpensesText": "When you're happy with new expenses, save them.",
+    "voiceLanguage": "Language",
+    "voiceResults": "Results",
+    "voiceError": "Error"
 }

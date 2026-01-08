@@ -12,7 +12,7 @@ class VoiceStateNoChange {
 
 const voiceStateNoChange = VoiceStateNoChange();
 
-class VoiceController extends ValueNotifier<({String? userWords, String? aiResult})> implements Disposable {
+class VoiceController extends ValueNotifier<({String? userWords, String? aiResult, String? aiError})> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
@@ -25,7 +25,7 @@ class VoiceController extends ValueNotifier<({String? userWords, String? aiResul
     required this.logger,
     required this.speechToText,
     required this.ai,
-  }) : super((userWords: null, aiResult: null));
+  }) : super((userWords: null, aiResult: null, aiError: null));
 
   ///
   /// DISPOSE
@@ -51,6 +51,7 @@ class VoiceController extends ValueNotifier<({String? userWords, String? aiResul
       updateState(
         userWords: null,
         aiResult: null,
+        aiError: null,
       );
 
       await speechToText.startListening(
@@ -75,12 +76,11 @@ class VoiceController extends ValueNotifier<({String? userWords, String? aiResul
         prompt: value.userWords!,
       );
 
-      /// Result from `AI` exists, update `state`
-      if (result?.isNotEmpty ?? false) {
-        updateState(
-          aiResult: result,
-        );
-      }
+      /// Update `state` with `result`
+      updateState(
+        aiResult: result.aiResult,
+        aiError: result.error,
+      );
     }
   }
 
@@ -88,8 +88,10 @@ class VoiceController extends ValueNotifier<({String? userWords, String? aiResul
   void updateState({
     Object? userWords = voiceStateNoChange,
     Object? aiResult = voiceStateNoChange,
+    Object? aiError = voiceStateNoChange,
   }) => value = (
     userWords: identical(userWords, voiceStateNoChange) ? value.userWords : userWords as String?,
     aiResult: identical(aiResult, voiceStateNoChange) ? value.aiResult : aiResult as String?,
+    aiError: identical(aiError, voiceStateNoChange) ? value.aiError : aiError as String?,
   );
 }

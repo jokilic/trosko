@@ -19,6 +19,7 @@ import '../../util/dependencies.dart';
 import '../../util/icons.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'voice_controller.dart';
+import 'widgets/voice_list_tile.dart';
 
 class VoiceScreen extends WatchingStatefulWidget {
   const VoiceScreen({
@@ -30,7 +31,7 @@ class VoiceScreen extends WatchingStatefulWidget {
 }
 
 class _VoiceScreenState extends State<VoiceScreen> {
-  var showAdditionalExplanationText = true;
+  var showFullExplanationText = true;
 
   @override
   void initState() {
@@ -101,6 +102,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
 
     final userWords = state.userWords;
     final aiResult = state.aiResult;
+    final aiError = state.aiError;
 
     return Scaffold(
       body: CustomScrollView(
@@ -140,11 +142,28 @@ class _VoiceScreenState extends State<VoiceScreen> {
           ),
 
           ///
-          /// SPOKEN TEXT
+          /// YOU SAID
           ///
-          if (isListening || isGenerating || (userWords?.isNotEmpty ?? false))
+          if (isListening || (userWords?.isNotEmpty ?? false)) ...[
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: VoiceListTile(
+                  title: isListening ? 'voiceSayListening'.tr() : 'voiceSayYouSaid'.tr(),
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 10),
+            ),
+          ],
+
+          ///
+          /// SPOKEN TEXT
+          ///
+          if (isListening || (userWords?.isNotEmpty ?? false))
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
               sliver: SliverToBoxAdapter(
                 child: Text(
                   userWords ?? '...',
@@ -155,9 +174,24 @@ class _VoiceScreenState extends State<VoiceScreen> {
           ///
           /// EXPLANATION TEXT
           ///
-          else
+          else ...[
+            ///
+            /// TALK ABOUT EXPENSES
+            ///
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: VoiceListTile(
+                  title: 'voiceSayListening'.tr(),
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 10),
+            ),
+
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
               sliver: SliverToBoxAdapter(
                 child: Text(
                   'voiceText1'.tr(),
@@ -166,85 +200,168 @@ class _VoiceScreenState extends State<VoiceScreen> {
               ),
             ),
 
-          ///
-          /// ADDITIONAL EXPLANATION TEXT
-          ///
-          if (showAdditionalExplanationText) ...[
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 8),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'voiceText2'.tr(),
-                  style: context.textStyles.homeTransactionNote,
-                ),
+            if (showFullExplanationText) ...[
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 8),
               ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 8),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'voiceText3'.tr(),
-                  style: context.textStyles.homeTransactionNote,
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 8),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'voiceText4'.tr(),
-                  style: context.textStyles.homeTransactionNote,
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 8),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverToBoxAdapter(
-                child: Text.rich(
-                  TextSpan(
-                    text: getLanguageName(
-                      languageCode: context.locale.languageCode,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'voiceActiveLanguage'.tr(),
-                        style: context.textStyles.homeTransactionNote,
-                      ),
-                    ],
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 28),
+                sliver: SliverToBoxAdapter(
+                  child: Text(
+                    'voiceText2'.tr(),
+                    style: context.textStyles.homeTransactionNote,
                   ),
-                  style: context.textStyles.homeTransactionNoteBold,
                 ),
               ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'voiceActiveLanguageChange'.tr(),
-                  style: context.textStyles.homeTransactionNote,
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 8),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 28),
+                sliver: SliverToBoxAdapter(
+                  child: Text(
+                    'voiceText3'.tr(),
+                    style: context.textStyles.homeTransactionNote,
+                  ),
                 ),
               ),
-            ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 28),
+              ),
+
+              ///
+              /// CHECK NEW EXPENSES
+              ///
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                sliver: SliverToBoxAdapter(
+                  child: VoiceListTile(
+                    title: 'voiceCheckNewExpenses'.tr(),
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 10),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 28),
+                sliver: SliverToBoxAdapter(
+                  child: Text(
+                    'voiceText4'.tr(),
+                    style: context.textStyles.homeTransactionNote,
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 8),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 28),
+                sliver: SliverToBoxAdapter(
+                  child: Text(
+                    'voiceCheckNewExpensesText'.tr(),
+                    style: context.textStyles.homeTransactionNote,
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 28),
+              ),
+
+              ///
+              /// SAVE NEW EXPENSES
+              ///
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                sliver: SliverToBoxAdapter(
+                  child: VoiceListTile(
+                    title: 'voiceSaveNewExpenses'.tr(),
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 10),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 28),
+                sliver: SliverToBoxAdapter(
+                  child: Text(
+                    'voiceSaveNewExpensesText'.tr(),
+                    style: context.textStyles.homeTransactionNote,
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 28),
+              ),
+
+              ///
+              /// ACTIVE LANGUAGE
+              ///
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                sliver: SliverToBoxAdapter(
+                  child: VoiceListTile(
+                    title: 'voiceLanguage'.tr(),
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 10),
+              ),
+
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 28),
+                sliver: SliverToBoxAdapter(
+                  child: Text.rich(
+                    TextSpan(
+                      text: getLanguageName(
+                        languageCode: context.locale.languageCode,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'voiceActiveLanguage'.tr(),
+                          style: context.textStyles.homeTransactionNote,
+                        ),
+                      ],
+                    ),
+                    style: context.textStyles.homeTransactionNoteBold,
+                  ),
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 28),
+                sliver: SliverToBoxAdapter(
+                  child: Text(
+                    'voiceActiveLanguageChange'.tr(),
+                    style: context.textStyles.homeTransactionNote,
+                  ),
+                ),
+              ),
+            ],
           ],
 
           ///
           /// GENERATED TEXT
           ///
-          if (!isListening && !isGenerating && (aiResult?.isNotEmpty ?? false))
+          if (!isListening && !isGenerating && (aiResult?.isNotEmpty ?? false)) ...[
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 28),
+            ),
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: VoiceListTile(
+                  title: 'voiceResults'.tr(),
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 10),
+            ),
+
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
               sliver: SliverToBoxAdapter(
                 child: Text(
                   aiResult!,
@@ -252,6 +369,38 @@ class _VoiceScreenState extends State<VoiceScreen> {
                 ),
               ),
             ),
+          ],
+
+          ///
+          /// ERROR TEXT
+          ///
+          if (!isListening && !isGenerating && (aiError?.isNotEmpty ?? false)) ...[
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 28),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: VoiceListTile(
+                  title: 'voiceError'.tr(),
+                  backgroundColor: context.colors.delete.withValues(alpha: 0.2),
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 10),
+            ),
+
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  aiError!,
+                  style: context.textStyles.homeTransactionNote,
+                ),
+              ),
+            ),
+          ],
 
           const SliverToBoxAdapter(
             child: SizedBox(height: 48),
@@ -270,13 +419,11 @@ class _VoiceScreenState extends State<VoiceScreen> {
                     unawaited(
                       HapticFeedback.lightImpact(),
                     );
-
                     await voiceController.onSpeechToTextPressed(
                       locale: context.locale.languageCode,
                     );
-
                     setState(
-                      () => showAdditionalExplanationText = false,
+                      () => showFullExplanationText = false,
                     );
                   }
                 : null,

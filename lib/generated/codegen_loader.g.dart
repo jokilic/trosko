@@ -161,7 +161,16 @@ class CodegenLoader extends AssetLoader{
   "voiceButtonNotAvailable": "Not available",
   "voiceButtonListening": "Listening...",
   "voiceButtonThinking": "Thinking...",
-  "voiceButtonStart": "Start"
+  "voiceButtonStart": "Start",
+  "voiceSayListening": "Talk about your expenses",
+  "voiceSayYouSaid": "You said to Troško",
+  "voiceCheckNewExpenses": "Check new expenses",
+  "voiceCheckNewExpensesText": "Add or modify any data in new expenses.",
+  "voiceSaveNewExpenses": "Save new expenses.",
+  "voiceSaveNewExpensesText": "When you're happy with new expenses, save them.",
+  "voiceLanguage": "Language",
+  "voiceResults": "Results",
+  "voiceError": "Error"
 };
 static const Map<String,dynamic> _hr = {
   "appName": "Troško",
@@ -310,7 +319,16 @@ static const Map<String,dynamic> _hr = {
   "voiceButtonNotAvailable": "Nije dostupno",
   "voiceButtonListening": "Slušam...",
   "voiceButtonThinking": "Razmišljam...",
-  "voiceButtonStart": "Započni"
+  "voiceButtonStart": "Započni",
+  "voiceSayListening": "Pričaj o svojim troškovima",
+  "voiceSayYouSaid": "Rekao si Trošku",
+  "voiceCheckNewExpenses": "Provjeri nove troškove",
+  "voiceCheckNewExpensesText": "Dodaj ili promijeni bilo koji podatak u novim troškovima.",
+  "voiceSaveNewExpenses": "Spremi nove troškove.",
+  "voiceSaveNewExpensesText": "Kad si zadovoljan novim troškovima, spremi ih.",
+  "voiceLanguage": "Jezik",
+  "voiceResults": "Rezultati",
+  "voiceError": "Greška"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "hr": _hr};
 }

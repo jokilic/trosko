@@ -113,10 +113,11 @@ Example of your response:
   }
 
   /// Triggers `AI` with `prompt` and all necessary data
-  Future<String?> triggerAI({required String prompt}) async {
+  Future<({String? aiResult, String? error})> triggerAI({required String prompt}) async {
     if (value.generativeModel == null) {
-      logger.e('AIService -> triggerAI() -> generativeModel == null');
-      return null;
+      const error = 'AIService -> triggerAI() -> generativeModel == null';
+      logger.e(error);
+      return (aiResult: null, error: error);
     }
 
     try {
@@ -150,15 +151,17 @@ Example of your response:
         isGenerating: false,
       );
 
-      return response.text;
+      return (aiResult: response.text, error: null);
     } catch (e) {
-      logger.e('AIService -> triggerAI() -> $e');
+      final error = 'AIService -> triggerAI() -> $e';
+
+      logger.e(error);
 
       updateState(
         isGenerating: false,
       );
 
-      return null;
+      return (aiResult: null, error: '$e');
     }
   }
 
