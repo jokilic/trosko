@@ -30,7 +30,7 @@ class VoiceScreen extends WatchingStatefulWidget {
 }
 
 class _VoiceScreenState extends State<VoiceScreen> {
-  var recordTriggered = false;
+  var showAdditionalExplanationText = true;
 
   @override
   void initState() {
@@ -61,8 +61,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
     }
 
     if (isGenerating) {
-      // TODO
-      return 'Thinking...';
+      return 'voiceButtonThinking'.tr();
     }
 
     if (isListening) {
@@ -81,8 +80,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
       case 'hr':
         return 'settingsCroatian'.tr();
       default:
-        // TODO
-        return 'Say something...';
+        return '--';
     }
   }
 
@@ -100,6 +98,9 @@ class _VoiceScreenState extends State<VoiceScreen> {
     final useColorfulIcons = watchIt<HiveService>().value.settings?.useColorfulIcons ?? false;
 
     final state = watchIt<VoiceController>().value;
+
+    final userWords = state.userWords;
+    final aiResult = state.aiResult;
 
     return Scaffold(
       body: CustomScrollView(
@@ -141,12 +142,12 @@ class _VoiceScreenState extends State<VoiceScreen> {
           ///
           /// SPOKEN TEXT
           ///
-          if (isListening || isGenerating || (state?.isNotEmpty ?? false))
+          if (isListening || isGenerating || (userWords?.isNotEmpty ?? false))
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverToBoxAdapter(
                 child: Text(
-                  state ?? '...',
+                  userWords ?? '...',
                   style: context.textStyles.homeTransactionNote,
                 ),
               ),
@@ -168,7 +169,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
           ///
           /// ADDITIONAL EXPLANATION TEXT
           ///
-          if (!recordTriggered) ...[
+          if (showAdditionalExplanationText) ...[
             const SliverToBoxAdapter(
               child: SizedBox(height: 8),
             ),
@@ -238,6 +239,20 @@ class _VoiceScreenState extends State<VoiceScreen> {
             ),
           ],
 
+          ///
+          /// GENERATED TEXT
+          ///
+          if (!isListening && !isGenerating && (aiResult?.isNotEmpty ?? false))
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  aiResult!,
+                  style: context.textStyles.homeTransactionNote,
+                ),
+              ),
+            ),
+
           const SliverToBoxAdapter(
             child: SizedBox(height: 48),
           ),
@@ -261,7 +276,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
                     );
 
                     setState(
-                      () => recordTriggered = true,
+                      () => showAdditionalExplanationText = false,
                     );
                   }
                 : null,

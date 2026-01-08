@@ -27,9 +27,6 @@ class AIService extends ValueNotifier<({GenerativeModel? generativeModel, bool i
   ///
 
   final systemInstruction = '''
-You will get a text of user's recorded voice.
-User should be talking about one or multiple expenses.
-
 Only thing you should generate is a `List<AITransaction>` in `JSON` format using `Dart` language.
 
 ```dart
@@ -43,25 +40,33 @@ class AITransaction {
 }
 ```
 
-You will get a `List<Category>` and `List<Location>` which can be a part of each `AITransaction`.
+You will get:
+1. Text of user's recorded voice (should be about one or multiple expenses)
+2. `List<Category>`
+3. `List<Location>`
+4. `DateTime.now().toIso8601String()`
+
 It's up to you to understand what the user meant and try to fill out as much as possible data for each `AITransaction`.
 Every `AITransaction` field is nullable and you can return `null` if you don't have enough information about it.
 
-You will also get `DateTime.now().toIso8601String()` to help you generate the `createdAt`, but return still `null` if the user didn't specify any date or time.
-
-Keep in mind the text can be in English or Croatian.
+Text can be in English or Croatian.
 Generate fields using the language user spoke.
 
-Example:
+Example of user's text:
 "Yesterday around noon I bought a book for 20 euro"
 
-```
-name -> 'Book'
-amountCents -> 2000
-createdAt -> '2026-01-15T12:00:00.000Z' (relative to that `DateTime.now().toIso8601String()`)
-locationId -> try to find the location from the passed `List<Location>`, in example user didn't specify anything proper
-categoryId -> try to find the category from the passed `List<Category>`, in example user didn't specify anything proper
-note -> try to find additional details, in example user didn't specify anything proper
+Example of your response:
+```dart
+[
+  {
+    name: 'Book',
+    amountCents: 2000,
+    createdAt: '2026-01-15T12:00:00.000Z', // Relative to that `DateTime.now().toIso8601String()`
+    locationId: null, // Try to find the location from the passed `List<Location>`, in this example user didn't specify anything proper
+    categoryId: null, // Try to find the category from the passed `List<Category>`, in this example user didn't specify anything proper
+    note: null, // Try to find additional details, in this example user didn't specify anything proper
+  }
+]
 ```
 ''';
 
@@ -91,6 +96,7 @@ note -> try to find additional details, in example user didn't specify anything 
     try {
       final model = ai.generativeModel(
         model: 'gemini-2.5-flash',
+        // model: 'gemini-2.5-flash-lite',
         systemInstruction: Content.system(systemInstruction),
         generationConfig: GenerationConfig(
           responseMimeType: 'application/json',
@@ -106,10 +112,11 @@ note -> try to find additional details, in example user didn't specify anything 
     }
   }
 
-  Future<void> triggerAI({required String prompt}) async {
+  /// Triggers `AI` with `prompt` and all necessary data
+  Future<String?> triggerAI({required String prompt}) async {
     if (value.generativeModel == null) {
       logger.e('AIService -> triggerAI() -> generativeModel == null');
-      return;
+      return null;
     }
 
     try {
@@ -139,16 +146,20 @@ note -> try to find additional details, in example user didn't specify anything 
         ],
       );
 
-      print('----------------------');
-      print(response.text);
-      print('----------------------');
+      updateState(
+        isGenerating: false,
+      );
+
+      return response.text;
     } catch (e) {
       logger.e('AIService -> triggerAI() -> $e');
-    }
 
-    updateState(
-      isGenerating: false,
-    );
+      updateState(
+        isGenerating: false,
+      );
+
+      return null;
+    }
   }
 
   /// Updates state

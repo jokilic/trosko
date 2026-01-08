@@ -160,6 +160,7 @@ class CodegenLoader extends AssetLoader{
   "voiceActiveLanguageChange": "You can change it in settings.",
   "voiceButtonNotAvailable": "Not available",
   "voiceButtonListening": "Listening...",
+  "voiceButtonThinking": "Thinking...",
   "voiceButtonStart": "Start"
 };
 static const Map<String,dynamic> _hr = {
@@ -308,6 +309,7 @@ static const Map<String,dynamic> _hr = {
   "voiceActiveLanguageChange": "Možeš ga promijeniti u postavkama.",
   "voiceButtonNotAvailable": "Nije dostupno",
   "voiceButtonListening": "Slušam...",
+  "voiceButtonThinking": "Razmišljam...",
   "voiceButtonStart": "Započni"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "hr": _hr};

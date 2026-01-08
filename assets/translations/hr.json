@@ -144,5 +144,6 @@
     "voiceActiveLanguageChange": "Možeš ga promijeniti u postavkama.",
     "voiceButtonNotAvailable": "Nije dostupno",
     "voiceButtonListening": "Slušam...",
+    "voiceButtonThinking": "Razmišljam...",
     "voiceButtonStart": "Započni"
 }
