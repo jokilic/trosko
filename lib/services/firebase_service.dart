@@ -383,7 +383,7 @@ class FirebaseService {
     try {
       await FirebaseFirestore.instance.collection('users').doc(uid).collection('categories').doc(category.id).delete();
     } catch (e) {
-      logger.e(e.toString());
+      logger.e('FirebaseService -> deleteCategory() -> $e');
     }
   }
 

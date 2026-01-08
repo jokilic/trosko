@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
+import '../screens/voice/voice_controller.dart';
+import '../util/dependencies.dart';
 import 'logger_service.dart';
 
 class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bool available, bool isListening})> {
@@ -48,6 +50,12 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
               updateState(
                 isListening: false,
               );
+
+              /// Trigger `AI` logic if `VoiceController` is registered
+              if (getIt.isRegistered<VoiceController>()) {
+                getIt.get<VoiceController>().triggerAI();
+              }
+
               break;
           }
         },
@@ -55,6 +63,8 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
           updateState(
             isListening: false,
           );
+
+          logger.e('SpeechToTextService -> onError() -> $error');
         },
       );
 
