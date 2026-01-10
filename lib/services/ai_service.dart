@@ -165,7 +165,7 @@ Example of your response:
 
         return (aiResult: response.text, error: null);
       } catch (e) {
-        final error = 'generativeModel -> $e';
+        final error = 'generativeModel -> ${e.toString().contains('quota') ? 'quota exceeded, try again later' : e.toString()}';
         logger.e(error);
         errors.add(error);
       }
@@ -184,7 +184,7 @@ Example of your response:
 
         return (aiResult: response.text, error: null);
       } catch (e) {
-        final error = 'alternativeGenerativeModel -> $e';
+        final error = 'alternativeGenerativeModel -> ${e.toString().contains('quota') ? 'quota exceeded, try again later' : e.toString()}';
         logger.e(error);
         errors.add(error);
       }
