@@ -12,6 +12,7 @@ import 'package:watch_it/watch_it.dart';
 import '../../models/category/category.dart';
 import '../../models/location/location.dart';
 import '../../models/notification_payload/notification_payload.dart';
+import '../../models/transaction/ai_transaction.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
@@ -31,6 +32,7 @@ import 'widgets/transaction_location.dart';
 
 class TransactionScreen extends WatchingStatefulWidget {
   final Transaction? passedTransaction;
+  final AITransaction? passedAITransaction;
   final List<Category> categories;
   final Category? passedCategory;
   final List<Location> locations;
@@ -40,6 +42,7 @@ class TransactionScreen extends WatchingStatefulWidget {
 
   const TransactionScreen({
     required this.passedTransaction,
+    required this.passedAITransaction,
     required this.categories,
     required this.passedCategory,
     required this.locations,
@@ -64,13 +67,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
         hive: getIt.get<HiveService>(),
         firebase: getIt.get<FirebaseService>(),
         passedTransaction: widget.passedTransaction,
+        passedAITransaction: widget.passedAITransaction,
         categories: widget.categories,
         locations: widget.locations,
         passedCategory: widget.passedCategory,
         passedLocation: widget.passedLocation,
         passedNotificationPayload: widget.passedNotificationPayload,
       ),
-      instanceName: widget.passedTransaction?.id,
+      instanceName: widget.passedTransaction?.id ?? widget.passedAITransaction?.id,
       afterRegister: (controller) => controller.init(),
     );
   }
@@ -78,7 +82,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
   @override
   void dispose() {
     unRegisterIfNotDisposed<TransactionController>(
-      instanceName: widget.passedTransaction?.id,
+      instanceName: widget.passedTransaction?.id ?? widget.passedAITransaction?.id,
     );
     super.dispose();
   }
@@ -86,11 +90,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
   @override
   Widget build(BuildContext context) {
     final transactionController = getIt.get<TransactionController>(
-      instanceName: widget.passedTransaction?.id,
+      instanceName: widget.passedTransaction?.id ?? widget.passedAITransaction?.id,
     );
 
     final state = watchIt<TransactionController>(
-      instanceName: widget.passedTransaction?.id,
+      instanceName: widget.passedTransaction?.id ?? widget.passedAITransaction?.id,
     ).value;
 
     final hiveState = watchIt<HiveService>().value;
@@ -140,15 +144,21 @@ class _TransactionScreenState extends State<TransactionScreen> {
               ),
             ),
             actionWidgets: [
-              if (widget.passedTransaction != null)
+              if (widget.passedTransaction != null || widget.passedAITransaction != null)
                 IconButton(
                   onPressed: () async {
                     unawaited(
                       HapticFeedback.lightImpact(),
                     );
 
+                    /// Proper transaction exists, delete it
+                    if (widget.passedTransaction != null) {}
                     await transactionController.deleteTransaction();
+
+                    /// Trigger callback from parent
                     widget.onTransactionUpdated();
+
+                    /// Dismiss screen
                     Navigator.of(context).pop();
                   },
                   style: IconButton.styleFrom(
@@ -379,7 +389,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   child: TransactionAmountWidget(
                     useColorfulIcons: useColorfulIcons,
                     onValueChanged: transactionController.transactionAmountChanged,
-                    initialCents: widget.passedTransaction?.amountCents ?? widget.passedNotificationPayload?.amountCents ?? 0,
+                    initialCents: widget.passedTransaction?.amountCents ?? widget.passedAITransaction?.amountCents ?? widget.passedNotificationPayload?.amountCents ?? 0,
                     languageCode: context.locale.languageCode,
                   ),
                 ),

@@ -4,6 +4,7 @@ import 'models/category/category.dart';
 import 'models/location/location.dart';
 import 'models/month/month.dart';
 import 'models/notification_payload/notification_payload.dart';
+import 'models/transaction/ai_transaction.dart';
 import 'models/transaction/transaction.dart';
 import 'screens/category/category_screen.dart';
 import 'screens/home/home_screen.dart';
@@ -75,6 +76,7 @@ void openSettings(
 void openTransaction(
   BuildContext context, {
   required Transaction? passedTransaction,
+  required AITransaction? passedAITransaction,
   required List<Category> categories,
   required List<Location> locations,
   required Category? passedCategory,
@@ -84,6 +86,7 @@ void openTransaction(
 }) => pushScreen(
   TransactionScreen(
     passedTransaction: passedTransaction,
+    passedAITransaction: passedAITransaction,
     categories: categories,
     locations: locations,
     passedCategory: passedCategory,

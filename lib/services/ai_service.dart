@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 import '../models/transaction/ai_transaction.dart';
 import 'hive_service.dart';
@@ -71,6 +72,7 @@ Example of your response:
 ''';
 
   final exampleTransaction = AITransaction(
+    id: const Uuid().v1(),
     name: 'name of transaction',
     amountCents: 500,
     createdAt: DateTime.now(),

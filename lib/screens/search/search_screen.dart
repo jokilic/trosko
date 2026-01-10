@@ -196,6 +196,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     useColorfulIcons: useColorfulIcons,
                     onLongPressed: () => TransactionScreen(
                       passedTransaction: item,
+                      passedAITransaction: null,
                       categories: widget.categories,
                       locations: widget.locations,
                       passedCategory: null,

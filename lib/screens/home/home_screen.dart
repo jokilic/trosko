@@ -267,6 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             openBuilder: (context, _) => TransactionScreen(
               passedTransaction: null,
+              passedAITransaction: null,
               categories: categories,
               locations: locations,
               passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
@@ -692,6 +693,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       useColorfulIcons: useColorfulIcons,
                       onLongPressed: () => TransactionScreen(
                         passedTransaction: item,
+                        passedAITransaction: null,
                         categories: categories,
                         locations: locations,
                         passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,

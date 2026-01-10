@@ -18,6 +18,7 @@ import '../../util/color.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
 import '../../widgets/trosko_app_bar.dart';
+import '../transaction/transaction_screen.dart';
 import 'voice_controller.dart';
 import 'widgets/voice_ai_transaction_list_tile.dart';
 import 'widgets/voice_list_tile.dart';
@@ -368,25 +369,23 @@ class _VoiceScreenState extends State<VoiceScreen> {
 
                   return VoiceAITransactionListTile(
                     useColorfulIcons: useColorfulIcons,
-                    onLongPressed: () {},
-                    // onLongPressed: () => TransactionScreen(
-                    //   passedTransaction: item,
-                    //   categories: categories,
-                    //   locations: locations,
-                    //   passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
-                    //   passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
-                    //   passedNotificationPayload: null,
-                    //   onTransactionUpdated: () => homeController.updateState(
-                    //     locale: context.locale.languageCode,
-                    //   ),
-                    //   key: ValueKey(item.id),
-                    // ),
+                    onLongPressed: () => TransactionScreen(
+                      passedTransaction: null,
+                      passedAITransaction: result,
+                      categories: categories,
+                      locations: locations,
+                      passedCategory: null,
+                      passedLocation: null,
+                      passedNotificationPayload: null,
+                      onTransactionUpdated: () {},
+                      key: ValueKey(result.id),
+                    ),
                     onDeletePressed: () {
-                      // HapticFeedback.lightImpact();
-                      // homeController.deleteTransaction(
-                      //   transaction: item,
-                      //   locale: context.locale.languageCode,
-                      // );
+                      HapticFeedback.lightImpact();
+                      homeController.deleteTransaction(
+                        transaction: item,
+                        locale: context.locale.languageCode,
+                      );
                     },
                     aiTransaction: result,
                     category: category,

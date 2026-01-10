@@ -92,6 +92,7 @@ Future<void> handlePressedNotification({required String? payload}) async {
     openTransaction(
       context,
       passedTransaction: null,
+      passedAITransaction: null,
       categories: categories,
       locations: locations,
       passedCategory: null,

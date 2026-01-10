@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:uuid/uuid.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../models/transaction/ai_transaction.dart';
@@ -53,6 +54,7 @@ class VoiceController extends ValueNotifier<({String? userWords, List<AITransact
     updateState(
       aiResults: <AITransaction>[
         AITransaction(
+          id: const Uuid().v1(),
           name: 'Hello there',
           note: 'Some note',
           amountCents: 100,

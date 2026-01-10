@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import '../../models/category/category.dart';
 import '../../models/location/location.dart';
 import '../../models/notification_payload/notification_payload.dart';
+import '../../models/transaction/ai_transaction.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
@@ -43,6 +44,7 @@ class TransactionController
   final HiveService hive;
   final FirebaseService firebase;
   final Transaction? passedTransaction;
+  final AITransaction? passedAITransaction;
   final List<Category> categories;
   final List<Location> locations;
   final Category? passedCategory;
@@ -54,6 +56,7 @@ class TransactionController
     required this.hive,
     required this.firebase,
     required this.passedTransaction,
+    required this.passedAITransaction,
     required this.categories,
     required this.locations,
     required this.passedCategory,
@@ -76,10 +79,10 @@ class TransactionController
   ///
 
   late final nameTextEditingController = TextEditingController(
-    text: passedTransaction?.name ?? passedNotificationPayload?.name,
+    text: passedTransaction?.name ?? passedAITransaction?.name ?? passedNotificationPayload?.name,
   );
   late final noteTextEditingController = TextEditingController(
-    text: passedTransaction?.note,
+    text: passedTransaction?.note ?? passedAITransaction?.note,
   );
 
   final categoryKeys = <String, GlobalKey>{};
@@ -94,7 +97,7 @@ class TransactionController
 
     final categoryFromPassedTransaction = categories
         .where(
-          (category) => category.id == passedTransaction?.categoryId,
+          (category) => category.id == (passedTransaction?.categoryId ?? passedAITransaction?.categoryId),
         )
         .toList()
         .firstOrNull;
@@ -103,23 +106,23 @@ class TransactionController
 
     final locationFromPassedTransaction = locations
         .where(
-          (location) => location.id == passedTransaction?.locationId,
+          (location) => location.id == (passedTransaction?.locationId ?? passedAITransaction?.locationId),
         )
         .toList()
         .firstOrNull;
 
     final location = locationFromPassedTransaction ?? passedLocation;
 
-    final transactionDateTime = passedTransaction?.createdAt ?? passedNotificationPayload?.createdAt ?? now;
+    final transactionDateTime = passedTransaction?.createdAt ?? passedAITransaction?.createdAt ?? passedNotificationPayload?.createdAt ?? now;
 
     updateState(
       category: category,
       location: location,
-      amountCents: passedTransaction?.amountCents ?? passedNotificationPayload?.amountCents,
+      amountCents: passedTransaction?.amountCents ?? passedAITransaction?.amountCents ?? passedNotificationPayload?.amountCents,
       transactionDate: transactionDateTime,
       transactionTime: transactionDateTime,
-      nameValid: passedTransaction?.name.isNotEmpty ?? passedNotificationPayload?.name?.isNotEmpty ?? false,
-      amountValid: (passedTransaction?.amountCents ?? 0) > 0 || (passedNotificationPayload?.amountCents ?? 0) > 0,
+      nameValid: passedTransaction?.name.isNotEmpty ?? passedAITransaction?.name?.isNotEmpty ?? passedNotificationPayload?.name?.isNotEmpty ?? false,
+      amountValid: (passedTransaction?.amountCents ?? 0) > 0 || (passedAITransaction?.amountCents ?? 0) > 0 || (passedNotificationPayload?.amountCents ?? 0) > 0,
       categoryValid: category != null,
       dateEditMode: false,
       timeEditMode: false,
@@ -214,7 +217,7 @@ class TransactionController
 
     /// Create [Transaction]
     final newTransaction = Transaction(
-      id: passedTransaction?.id ?? const Uuid().v1(),
+      id: passedTransaction?.id ?? passedAITransaction?.id ?? const Uuid().v1(),
       name: name,
       amountCents: value.amountCents!,
       categoryId: value.category!.id,

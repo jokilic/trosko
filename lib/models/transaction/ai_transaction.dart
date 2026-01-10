@@ -1,4 +1,5 @@
 class AITransaction {
+  final String id;
   final String? name;
   final int? amountCents;
   final String? categoryId;
@@ -7,6 +8,7 @@ class AITransaction {
   final String? locationId;
 
   AITransaction({
+    required this.id,
     this.name,
     this.amountCents,
     this.categoryId,
@@ -16,6 +18,7 @@ class AITransaction {
   });
 
   factory AITransaction.fromMap(Map<String, dynamic> map) => AITransaction(
+    id: map['id'] as String,
     name: map['name'] != null ? map['name'] as String : null,
     amountCents: map['amountCents'] != null ? map['amountCents'] as int : null,
     categoryId: map['categoryId'] != null ? map['categoryId'] as String : null,
@@ -25,6 +28,7 @@ class AITransaction {
   );
 
   Map<String, dynamic> toMap() => <String, dynamic>{
+    'id': id,
     'name': name,
     'amountCents': amountCents,
     'categoryId': categoryId,
@@ -34,7 +38,7 @@ class AITransaction {
   };
 
   @override
-  String toString() => 'AITransaction(name: $name, amountCents: $amountCents, categoryId: $categoryId, note: $note, createdAt: $createdAt, locationId: $locationId)';
+  String toString() => 'AITransaction(id: $id, name: $name, amountCents: $amountCents, categoryId: $categoryId, note: $note, createdAt: $createdAt, locationId: $locationId)';
 
   @override
   bool operator ==(covariant AITransaction other) {
@@ -42,7 +46,8 @@ class AITransaction {
       return true;
     }
 
-    return other.name == name &&
+    return other.id == id &&
+        other.name == name &&
         other.amountCents == amountCents &&
         other.categoryId == categoryId &&
         other.note == note &&
@@ -51,5 +56,5 @@ class AITransaction {
   }
 
   @override
-  int get hashCode => name.hashCode ^ amountCents.hashCode ^ categoryId.hashCode ^ note.hashCode ^ createdAt.hashCode ^ locationId.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode ^ amountCents.hashCode ^ categoryId.hashCode ^ note.hashCode ^ createdAt.hashCode ^ locationId.hashCode;
 }
