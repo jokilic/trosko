@@ -155,43 +155,51 @@ Example of your response:
     ];
 
     /// Try `generativeModel` first
-    try {
-      final response = await value.generativeModel?.generateContent(contents);
+    if (value.generativeModel != null) {
+      try {
+        final response = await value.generativeModel!.generateContent(contents);
 
-      updateState(
-        isGenerating: false,
-      );
+        updateState(
+          isGenerating: false,
+        );
 
-      return (aiResult: response?.text, error: null);
-    } catch (e) {
-      final error = 'generativeModel -> $e';
-      logger.e(error);
-      errors.add(error);
+        return (aiResult: response.text, error: null);
+      } catch (e) {
+        final error = 'generativeModel -> $e';
+        logger.e(error);
+        errors.add(error);
+      }
+    } else {
+      errors.add('generativeModel == null');
     }
 
     /// Fallback to `alternativeGenerativeModel`
-    try {
-      final response = await value.alternativeGenerativeModel?.generateContent(contents);
+    if (value.alternativeGenerativeModel != null) {
+      try {
+        final response = await value.alternativeGenerativeModel!.generateContent(contents);
 
-      updateState(
-        isGenerating: false,
-      );
+        updateState(
+          isGenerating: false,
+        );
 
-      return (aiResult: response?.text, error: null);
-    } catch (e) {
-      final error = 'alternativeGenerativeModel -> $e';
-      logger.e(error);
-      errors.add(error);
-
-      updateState(
-        isGenerating: false,
-      );
-
-      return (
-        aiResult: null,
-        error: errors.toString(),
-      );
+        return (aiResult: response.text, error: null);
+      } catch (e) {
+        final error = 'alternativeGenerativeModel -> $e';
+        logger.e(error);
+        errors.add(error);
+      }
+    } else {
+      errors.add('alternativeGenerativeModel == null');
     }
+
+    updateState(
+      isGenerating: false,
+    );
+
+    return (
+      aiResult: null,
+      error: errors.toString(),
+    );
   }
 
   /// Updates state
