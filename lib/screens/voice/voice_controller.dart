@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:uuid/uuid.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../models/transaction/ai_transaction.dart';
@@ -51,19 +50,6 @@ class VoiceController extends ValueNotifier<({String? userWords, List<AITransact
   Future<void> onSpeechToTextPressed({
     required String locale,
   }) async {
-    updateState(
-      aiResults: <AITransaction>[
-        AITransaction(
-          id: const Uuid().v1(),
-          name: 'Hello there',
-          note: 'Some note',
-          amountCents: 100,
-          createdAt: DateTime.now(),
-        ),
-      ],
-    );
-    return;
-
     /// [SpeechToText] was disabled, start listening
     if (!speechToText.value.isListening) {
       updateState(
@@ -141,6 +127,17 @@ class VoiceController extends ValueNotifier<({String? userWords, List<AITransact
       return null;
     }
   }
+
+  /// Removes `transaction` from `state`
+  void removeTransaction({
+    required AITransaction transaction,
+  }) => updateState(
+    aiResults: value.aiResults
+        ?.where(
+          (result) => result.id != transaction.id,
+        )
+        .toList(),
+  );
 
   /// Updates `state`
   void updateState({

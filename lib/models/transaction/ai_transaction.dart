@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 class AITransaction {
   final String id;
   final String? name;
@@ -18,7 +20,7 @@ class AITransaction {
   });
 
   factory AITransaction.fromMap(Map<String, dynamic> map) => AITransaction(
-    id: map['id'] as String,
+    id: const Uuid().v1(),
     name: map['name'] != null ? map['name'] as String : null,
     amountCents: map['amountCents'] != null ? map['amountCents'] as int : null,
     categoryId: map['categoryId'] != null ? map['categoryId'] as String : null,

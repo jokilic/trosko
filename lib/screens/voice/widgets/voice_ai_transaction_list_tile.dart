@@ -341,7 +341,7 @@ class _VoiceIiTransactionListTileState extends State<VoiceAITransactionListTile>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 2),
-                            if (!hasAmount)
+                            if (hasAmount)
                               Text.rich(
                                 TextSpan(
                                   text: formatCentsToCurrency(

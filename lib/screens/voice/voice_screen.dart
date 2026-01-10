@@ -18,6 +18,7 @@ import '../../util/color.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
 import '../../widgets/trosko_app_bar.dart';
+import '../home/home_controller.dart';
 import '../transaction/transaction_screen.dart';
 import 'voice_controller.dart';
 import 'widgets/voice_ai_transaction_list_tile.dart';
@@ -58,19 +59,29 @@ class _VoiceScreenState extends State<VoiceScreen> {
     required bool available,
     required bool isListening,
     required bool isGenerating,
+    required bool isGenerated,
   }) {
+    /// Not available
     if (!available) {
       return 'voiceButtonNotAvailable'.tr();
     }
 
+    /// Generating
     if (isGenerating) {
       return 'voiceButtonThinking'.tr();
     }
 
+    /// Listening
     if (isListening) {
       return 'voiceButtonListening'.tr();
     }
 
+    /// Results exist
+    if (isGenerated) {
+      return 'voiceButtonGenerated'.tr();
+    }
+
+    /// Start
     return 'voiceButtonStart'.tr();
   }
 
@@ -90,6 +101,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
   @override
   Widget build(BuildContext context) {
     final voiceController = getIt.get<VoiceController>();
+    final homeController = getIt.maybeGet<HomeController>();
 
     final speechToTextState = watchIt<SpeechToTextService>().value;
 
@@ -377,14 +389,27 @@ class _VoiceScreenState extends State<VoiceScreen> {
                       passedCategory: null,
                       passedLocation: null,
                       passedNotificationPayload: null,
-                      onTransactionUpdated: () {},
+                      onTransactionUpdated: () {
+                        voiceController.removeTransaction(
+                          transaction: result,
+                        );
+
+                        /// Update `state` in [HomeScreen]
+                        homeController?.updateState(
+                          locale: context.locale.languageCode,
+                        );
+
+                        /// Dismiss screen if no more results
+                        if (aiResults.length == 1) {
+                          Navigator.of(context).pop();
+                        }
+                      },
                       key: ValueKey(result.id),
                     ),
                     onDeletePressed: () {
                       HapticFeedback.lightImpact();
-                      homeController.deleteTransaction(
-                        transaction: item,
-                        locale: context.locale.languageCode,
+                      voiceController.removeTransaction(
+                        transaction: result,
                       );
                     },
                     aiTransaction: result,
@@ -470,14 +495,16 @@ class _VoiceScreenState extends State<VoiceScreen> {
         child: SizedBox(
           width: double.infinity,
           child: FilledButton(
-            onPressed: available
+            onPressed: available && (aiResults?.isEmpty ?? true)
                 ? () async {
                     unawaited(
                       HapticFeedback.lightImpact(),
                     );
+
                     await voiceController.onSpeechToTextPressed(
                       locale: context.locale.languageCode,
                     );
+
                     setState(
                       () => showFullExplanationText = false,
                     );
@@ -518,6 +545,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
                   available: available,
                   isListening: isListening,
                   isGenerating: isGenerating,
+                  isGenerated: aiResults?.isNotEmpty ?? false,
                 ).toUpperCase(),
               ),
             ),
