@@ -95,8 +95,8 @@ Example of your response:
   void initializeGemini() {
     try {
       final model = ai.generativeModel(
-        model: 'gemini-2.5-flash',
-        // model: 'gemini-2.5-flash-lite',
+        // model: 'gemini-2.5-flash',
+        model: 'gemini-2.5-flash-lite',
         systemInstruction: Content.system(systemInstruction),
         generationConfig: GenerationConfig(
           responseMimeType: 'application/json',

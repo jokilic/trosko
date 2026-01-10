@@ -83,7 +83,7 @@ class _StatsAllListTileState extends State<StatsAllListTile> {
                     ),
                     child: PhosphorIcon(
                       getPhosphorIcon(
-                        PhosphorIcons.coins,
+                        PhosphorIcons.handCoins,
                         isDuotone: widget.useColorfulIcons,
                         isBold: true,
                       ),

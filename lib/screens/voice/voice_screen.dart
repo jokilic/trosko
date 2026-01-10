@@ -19,6 +19,7 @@ import '../../util/dependencies.dart';
 import '../../util/icons.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'voice_controller.dart';
+import 'widgets/voice_ai_transaction_list_tile.dart';
 import 'widgets/voice_list_tile.dart';
 
 class VoiceScreen extends WatchingStatefulWidget {
@@ -96,12 +97,17 @@ class _VoiceScreenState extends State<VoiceScreen> {
 
     final isGenerating = watchIt<AIService>().value.isGenerating;
 
-    final useColorfulIcons = watchIt<HiveService>().value.settings?.useColorfulIcons ?? false;
+    final hiveState = watchIt<HiveService>().value;
+
+    final categories = hiveState.categories;
+    final locations = hiveState.locations;
+
+    final useColorfulIcons = hiveState.settings?.useColorfulIcons ?? false;
 
     final state = watchIt<VoiceController>().value;
 
     final userWords = state.userWords;
-    final aiResult = state.aiResult;
+    final aiResults = state.aiResults;
     final aiError = state.aiError;
 
     return Scaffold(
@@ -189,7 +195,6 @@ class _VoiceScreenState extends State<VoiceScreen> {
             const SliverToBoxAdapter(
               child: SizedBox(height: 10),
             ),
-
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 28),
               sliver: SliverToBoxAdapter(
@@ -253,18 +258,6 @@ class _VoiceScreenState extends State<VoiceScreen> {
                 ),
               ),
               const SliverToBoxAdapter(
-                child: SizedBox(height: 8),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 28),
-                sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'voiceCheckNewExpensesText'.tr(),
-                    style: context.textStyles.homeTransactionNote,
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
                 child: SizedBox(height: 28),
               ),
 
@@ -286,54 +279,19 @@ class _VoiceScreenState extends State<VoiceScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 28),
                 sliver: SliverToBoxAdapter(
                   child: Text(
-                    'voiceSaveNewExpensesText'.tr(),
+                    'voiceSaveNewExpensesText1'.tr(),
                     style: context.textStyles.homeTransactionNote,
                   ),
                 ),
               ),
               const SliverToBoxAdapter(
-                child: SizedBox(height: 28),
-              ),
-
-              ///
-              /// ACTIVE LANGUAGE
-              ///
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                sliver: SliverToBoxAdapter(
-                  child: VoiceListTile(
-                    title: 'voiceLanguage'.tr(),
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 10),
-              ),
-
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 28),
-                sliver: SliverToBoxAdapter(
-                  child: Text.rich(
-                    TextSpan(
-                      text: getLanguageName(
-                        languageCode: context.locale.languageCode,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: 'voiceActiveLanguage'.tr(),
-                          style: context.textStyles.homeTransactionNote,
-                        ),
-                      ],
-                    ),
-                    style: context.textStyles.homeTransactionNoteBold,
-                  ),
-                ),
+                child: SizedBox(height: 8),
               ),
               SliverPadding(
                 padding: const EdgeInsets.symmetric(horizontal: 28),
                 sliver: SliverToBoxAdapter(
                   child: Text(
-                    'voiceActiveLanguageChange'.tr(),
+                    'voiceSaveNewExpensesText2'.tr(),
                     style: context.textStyles.homeTransactionNote,
                   ),
                 ),
@@ -344,7 +302,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
           ///
           /// GENERATED TEXT
           ///
-          if (!isListening && !isGenerating && (aiResult?.isNotEmpty ?? false)) ...[
+          if (!isListening && !isGenerating && (aiResults != null)) ...[
             const SliverToBoxAdapter(
               child: SizedBox(height: 28),
             ),
@@ -360,15 +318,114 @@ class _VoiceScreenState extends State<VoiceScreen> {
               child: SizedBox(height: 10),
             ),
 
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 28),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  aiResult!,
-                  style: context.textStyles.homeTransactionNote,
+            ///
+            /// GENERATED RESULTS
+            ///
+            if (aiResults.isNotEmpty) ...[
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 28),
+                sliver: SliverToBoxAdapter(
+                  child: Text(
+                    'voiceSaveNewExpensesText1'.tr(),
+                    style: context.textStyles.homeTransactionNote,
+                  ),
                 ),
               ),
-            ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 8),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 28),
+                sliver: SliverToBoxAdapter(
+                  child: Text(
+                    'voiceSaveNewExpensesText3'.tr(),
+                    style: context.textStyles.homeTransactionNote,
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 8),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 28),
+                sliver: SliverToBoxAdapter(
+                  child: Text(
+                    'voiceSaveNewExpensesText4'.tr(),
+                    style: context.textStyles.homeTransactionNote,
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 28),
+              ),
+              SliverList.builder(
+                itemCount: aiResults.length,
+                itemBuilder: (_, index) {
+                  final result = aiResults[index];
+
+                  final category = categories.where((category) => category.id == result.categoryId).toList().firstOrNull;
+                  final location = locations.where((location) => location.id == result.locationId).toList().firstOrNull;
+
+                  return VoiceAITransactionListTile(
+                    useColorfulIcons: useColorfulIcons,
+                    onLongPressed: () {},
+                    // onLongPressed: () => TransactionScreen(
+                    //   passedTransaction: item,
+                    //   categories: categories,
+                    //   locations: locations,
+                    //   passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
+                    //   passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
+                    //   passedNotificationPayload: null,
+                    //   onTransactionUpdated: () => homeController.updateState(
+                    //     locale: context.locale.languageCode,
+                    //   ),
+                    //   key: ValueKey(item.id),
+                    // ),
+                    onDeletePressed: () {
+                      // HapticFeedback.lightImpact();
+                      // homeController.deleteTransaction(
+                      //   transaction: item,
+                      //   locale: context.locale.languageCode,
+                      // );
+                    },
+                    aiTransaction: result,
+                    category: category,
+                    location: location,
+                  );
+                },
+              ),
+            ] else
+              SliverPadding(
+                padding: const EdgeInsets.all(24),
+                sliver: SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      PhosphorIcon(
+                        getPhosphorIcon(
+                          PhosphorIcons.handCoins,
+                          isDuotone: useColorfulIcons,
+                          isBold: false,
+                        ),
+                        color: context.colors.text,
+                        size: 56,
+                        duotoneSecondaryColor: context.colors.buttonPrimary,
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        'homeNoExpensesTitle'.tr(),
+                        textAlign: TextAlign.center,
+                        style: context.textStyles.homeTitle,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'voiceNoExpensesSubtitle'.tr(),
+                        textAlign: TextAlign.center,
+                        style: context.textStyles.homeTitle,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
           ],
 
           ///

@@ -6,38 +6,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../constants/durations.dart';
-import '../models/category/category.dart';
-import '../models/location/location.dart';
-import '../models/transaction/transaction.dart';
-import '../theme/colors.dart';
-import '../theme/extensions.dart';
-import '../util/color.dart';
-import '../util/currency.dart';
-import '../util/icons.dart';
+import '../../../constants/durations.dart';
+import '../../../models/category/category.dart';
+import '../../../models/location/location.dart';
+import '../../../models/transaction/ai_transaction.dart';
+import '../../../theme/colors.dart';
+import '../../../theme/extensions.dart';
+import '../../../util/color.dart';
+import '../../../util/currency.dart';
+import '../../../util/icons.dart';
 
-class TroskoTransactionListTile extends StatefulWidget {
+class VoiceAITransactionListTile extends StatefulWidget {
   final Function() onLongPressed;
   final Function() onDeletePressed;
-  final Transaction transaction;
+  final AITransaction aiTransaction;
   final Category? category;
   final Location? location;
   final bool useColorfulIcons;
 
-  const TroskoTransactionListTile({
+  const VoiceAITransactionListTile({
     required this.onLongPressed,
     required this.onDeletePressed,
-    required this.transaction,
+    required this.aiTransaction,
     required this.category,
     required this.location,
     required this.useColorfulIcons,
   });
 
   @override
-  State<TroskoTransactionListTile> createState() => _TroskoTransactionListTileState();
+  State<VoiceAITransactionListTile> createState() => _VoiceIiTransactionListTileState();
 }
 
-class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
+class _VoiceIiTransactionListTileState extends State<VoiceAITransactionListTile> {
   var expanded = false;
 
   void toggleExpanded() => setState(
@@ -46,6 +46,11 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
 
   @override
   Widget build(BuildContext context) {
+    final hasName = widget.aiTransaction.name?.isNotEmpty ?? false;
+    final hasAmount = widget.aiTransaction.amountCents != null;
+    final hasCreatedAt = widget.aiTransaction.createdAt != null;
+    final hasCategory = widget.category != null;
+
     final boldCategoryIcon = getPhosphorIconFromName(
       widget.category?.iconName,
     )?.value;
@@ -80,7 +85,7 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: SwipeActionCell(
-              key: ValueKey(widget.transaction),
+              key: ValueKey(widget.aiTransaction),
               backgroundColor: context.colors.scaffoldBackground,
               openAnimationDuration: 175,
               closeAnimationDuration: 175,
@@ -139,26 +144,33 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                             shape: BoxShape.circle,
                             color: widget.category?.color,
                             border: Border.all(
-                              color: widget.category?.color ?? context.colors.text,
+                              color: widget.category?.color ?? context.colors.delete,
                               width: 1.5,
                             ),
                           ),
-                          child: boldCategoryIcon != null
-                              ? PhosphorIcon(
-                                  getPhosphorIcon(
-                                    boldCategoryIcon,
-                                    isDuotone: widget.useColorfulIcons,
-                                    isBold: true,
+                          child: hasCategory
+                              ? boldCategoryIcon != null
+                                    ? PhosphorIcon(
+                                        getPhosphorIcon(
+                                          boldCategoryIcon,
+                                          isDuotone: widget.useColorfulIcons,
+                                          isBold: true,
+                                        ),
+                                        color: getWhiteOrBlackColor(
+                                          backgroundColor: widget.category?.color ?? context.colors.scaffoldBackground,
+                                          whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                          blackColor: TroskoColors.lightThemeBlackText,
+                                        ),
+                                        duotoneSecondaryColor: context.colors.buttonPrimary,
+                                        size: 16,
+                                      )
+                                    : null
+                              : Text(
+                                  '?',
+                                  style: context.textStyles.homeTransactionValue.copyWith(
+                                    color: context.colors.delete,
                                   ),
-                                  color: getWhiteOrBlackColor(
-                                    backgroundColor: widget.category?.color ?? context.colors.scaffoldBackground,
-                                    whiteColor: TroskoColors.lightThemeWhiteBackground,
-                                    blackColor: TroskoColors.lightThemeBlackText,
-                                  ),
-                                  duotoneSecondaryColor: context.colors.buttonPrimary,
-                                  size: 16,
-                                )
-                              : null,
+                                ),
                         ),
                         const SizedBox(width: 12),
 
@@ -181,13 +193,15 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                                 sizeCurve: Curves.easeIn,
                                 crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                                 firstChild: Text(
-                                  widget.transaction.name,
-                                  style: context.textStyles.homeTransactionTitle,
+                                  widget.aiTransaction.name ?? 'voiceAddTitle'.tr(),
+                                  style: context.textStyles.homeTransactionTitle.copyWith(
+                                    color: !hasName ? context.colors.delete : null,
+                                  ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 secondChild: Text(
-                                  widget.transaction.name,
+                                  widget.aiTransaction.name ?? 'voiceAddTitle'.tr(),
                                   style: context.textStyles.homeTransactionTitle,
                                 ),
                               ),
@@ -203,31 +217,39 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                                 sizeCurve: Curves.easeIn,
                                 crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                                 firstChild: Text(
-                                  DateFormat(
-                                    'HH:mm',
-                                    context.locale.languageCode,
-                                  ).format(
-                                    widget.transaction.createdAt,
+                                  hasCreatedAt
+                                      ? DateFormat(
+                                          'HH:mm',
+                                          context.locale.languageCode,
+                                        ).format(
+                                          widget.aiTransaction.createdAt!,
+                                        )
+                                      : 'voiceAddTime'.tr(),
+                                  style: context.textStyles.homeTransactionTime.copyWith(
+                                    color: !hasCreatedAt ? context.colors.delete : null,
                                   ),
-                                  style: context.textStyles.homeTransactionTime,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 secondChild: Text(
-                                  DateFormat(
-                                    'HH:mm',
-                                    context.locale.languageCode,
-                                  ).format(
-                                    widget.transaction.createdAt,
+                                  hasCreatedAt
+                                      ? DateFormat(
+                                          'HH:mm',
+                                          context.locale.languageCode,
+                                        ).format(
+                                          widget.aiTransaction.createdAt!,
+                                        )
+                                      : 'voiceAddTime'.tr(),
+                                  style: context.textStyles.homeTransactionTime.copyWith(
+                                    color: !hasCreatedAt ? context.colors.delete : null,
                                   ),
-                                  style: context.textStyles.homeTransactionTime,
                                 ),
                               ),
 
                               ///
                               /// NOTE
                               ///
-                              if (widget.transaction.note?.isNotEmpty ?? false) ...[
+                              if (widget.aiTransaction.note?.isNotEmpty ?? false) ...[
                                 const SizedBox(height: 2),
                                 AnimatedCrossFade(
                                   duration: TroskoDurations.animation,
@@ -236,13 +258,13 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                                   sizeCurve: Curves.easeIn,
                                   crossFadeState: expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                                   firstChild: Text(
-                                    widget.transaction.note!,
+                                    widget.aiTransaction.note!,
                                     style: context.textStyles.homeTransactionNote,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   secondChild: Text(
-                                    widget.transaction.note!,
+                                    widget.aiTransaction.note!,
                                     style: context.textStyles.homeTransactionNote,
                                   ),
                                 ),
@@ -319,23 +341,33 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 2),
-                            Text.rich(
-                              TextSpan(
-                                text: formatCentsToCurrency(
-                                  widget.transaction.amountCents,
-                                  locale: context.locale.languageCode,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'homeCurrency'.tr(),
-                                    style: context.textStyles.homeTransactionEuro,
+                            if (!hasAmount)
+                              Text.rich(
+                                TextSpan(
+                                  text: formatCentsToCurrency(
+                                    widget.aiTransaction.amountCents!,
+                                    locale: context.locale.languageCode,
                                   ),
-                                ],
+                                  children: [
+                                    TextSpan(
+                                      text: 'homeCurrency'.tr(),
+                                      style: context.textStyles.homeTransactionEuro,
+                                    ),
+                                  ],
+                                ),
+                                style: context.textStyles.homeTransactionValue,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              )
+                            else
+                              Text(
+                                'voiceAddAmount'.tr(),
+                                style: context.textStyles.homeTransactionEuro.copyWith(
+                                  color: context.colors.delete,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              style: context.textStyles.homeTransactionValue,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
                           ],
                         ),
                       ],
