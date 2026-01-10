@@ -8,7 +8,7 @@ import '../models/transaction/ai_transaction.dart';
 import 'hive_service.dart';
 import 'logger_service.dart';
 
-class AIService extends ValueNotifier<({GenerativeModel? generativeModel, bool isGenerating})> {
+class AIService extends ValueNotifier<({GenerativeModel? generativeModel, GenerativeModel? alternativeGenerativeModel, bool isGenerating})> {
   ///
   /// CONSTRUCTOR
   ///
@@ -21,7 +21,7 @@ class AIService extends ValueNotifier<({GenerativeModel? generativeModel, bool i
     required this.logger,
     required this.hive,
     required this.ai,
-  }) : super((generativeModel: null, isGenerating: false));
+  }) : super((generativeModel: null, alternativeGenerativeModel: null, isGenerating: false));
 
   ///
   /// VARIABLES
@@ -96,28 +96,36 @@ Example of your response:
   /// Initialize `Gemini` backend service
   void initializeGemini() {
     try {
-      final model = ai.generativeModel(
-        // model: 'gemini-2.5-flash',
+      final model = initializeGenerativeModel(
+        model: 'gemini-2.5-flash',
+      );
+      final alternativeModel = initializeGenerativeModel(
         model: 'gemini-2.5-flash-lite',
-        systemInstruction: Content.system(systemInstruction),
-        generationConfig: GenerationConfig(
-          responseMimeType: 'application/json',
-          responseJsonSchema: exampleTransaction.toMap(),
-        ),
       );
 
       updateState(
         generativeModel: model,
+        alternativeGenerativeModel: alternativeModel,
       );
     } catch (e) {
       logger.e('AIService -> initializeGemini() -> $e');
     }
   }
 
+  /// Initializes `generativeModel` with passed `model` name
+  GenerativeModel initializeGenerativeModel({required String model}) => ai.generativeModel(
+    model: model,
+    systemInstruction: Content.system(systemInstruction),
+    generationConfig: GenerationConfig(
+      responseMimeType: 'application/json',
+      responseJsonSchema: exampleTransaction.toMap(),
+    ),
+  );
+
   /// Triggers `AI` with `prompt` and all necessary data
   Future<({String? aiResult, String? error})> triggerAI({required String prompt}) async {
-    if (value.generativeModel == null) {
-      const error = 'AIService -> triggerAI() -> generativeModel == null';
+    if (value.generativeModel == null || value.alternativeGenerativeModel == null) {
+      const error = 'AIService -> triggerAI() -> generativeModel == null || alternativeGenerativeModel == null';
       logger.e(error);
       return (aiResult: null, error: error);
     }
@@ -170,9 +178,11 @@ Example of your response:
   /// Updates state
   void updateState({
     GenerativeModel? generativeModel,
+    GenerativeModel? alternativeGenerativeModel,
     bool? isGenerating,
   }) => value = (
     generativeModel: generativeModel ?? value.generativeModel,
+    alternativeGenerativeModel: alternativeGenerativeModel ?? value.alternativeGenerativeModel,
     isGenerating: isGenerating ?? value.isGenerating,
   );
 }

@@ -1,7 +1,3 @@
-* Add location to your transactions
-* Filter multiple months, categories & locations
-* Add colorful icons option in Settings
-* Migrate to workmanager for background tasks
-* Some UI updates
-* Code updates & refactors
+* Generate your expenses with voice
+* Graph in Stats
 * Update dependencies
