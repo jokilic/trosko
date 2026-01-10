@@ -124,54 +124,73 @@ Example of your response:
 
   /// Triggers `AI` with `prompt` and all necessary data
   Future<({String? aiResult, String? error})> triggerAI({required String prompt}) async {
-    if (value.generativeModel == null || value.alternativeGenerativeModel == null) {
-      const error = 'AIService -> triggerAI() -> generativeModel == null || alternativeGenerativeModel == null';
+    /// Create `errors` list
+    final errors = <String>[
+      'AIService -> triggerAI()',
+    ];
+
+    updateState(
+      isGenerating: true,
+    );
+
+    /// Generate `contents` to pass into `AI`
+    final contents = [
+      /// Prompt
+      Content.text(prompt),
+
+      /// Categories
+      Content.text(
+        hive.getCategories().toString(),
+      ),
+
+      /// Locations
+      Content.text(
+        hive.getLocations().toString(),
+      ),
+
+      /// Current `DateTime`
+      Content.text(
+        DateTime.now().toIso8601String(),
+      ),
+    ];
+
+    /// Try `generativeModel` first
+    try {
+      final response = await value.generativeModel?.generateContent(contents);
+
+      updateState(
+        isGenerating: false,
+      );
+
+      return (aiResult: response?.text, error: null);
+    } catch (e) {
+      final error = 'generativeModel -> $e';
       logger.e(error);
-      return (aiResult: null, error: error);
+      errors.add(error);
     }
 
+    /// Fallback to `alternativeGenerativeModel`
     try {
-      updateState(
-        isGenerating: true,
-      );
-
-      final response = await value.generativeModel!.generateContent(
-        [
-          /// Prompt
-          Content.text(prompt),
-
-          /// Categories
-          Content.text(
-            hive.getCategories().toString(),
-          ),
-
-          /// Locations
-          Content.text(
-            hive.getLocations().toString(),
-          ),
-
-          /// Current `DateTime`
-          Content.text(
-            DateTime.now().toIso8601String(),
-          ),
-        ],
-      );
+      final response = await value.alternativeGenerativeModel?.generateContent(contents);
 
       updateState(
         isGenerating: false,
       );
 
-      return (aiResult: response.text, error: null);
+      return (aiResult: response?.text, error: null);
     } catch (e) {
-      final error = 'AIService -> triggerAI() -> $e';
-
+      final error = 'alternativeGenerativeModel -> $e';
       logger.e(error);
+      errors.add(error);
 
       updateState(
         isGenerating: false,
       );
 
-      return (aiResult: null, error: '$e');
+      return (
+        aiResult: null,
+        error: errors.toString(),
+      );
     }
   }
 
