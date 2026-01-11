@@ -4,6 +4,27 @@ import '../models/category/category.dart';
 import '../models/location/location.dart';
 import '../models/transaction/transaction.dart';
 
+Category? getCategoryById({
+  required String id,
+  required List<Category> categories,
+}) => categories
+    .where(
+      (c) => c.id == id,
+    )
+    .firstOrNull;
+
+Map<String, int> calculateCategoryTotals({
+  required List<Transaction> transactions,
+}) {
+  final totals = <String, int>{};
+
+  for (final transaction in transactions) {
+    totals[transaction.categoryId] = (totals[transaction.categoryId] ?? 0) + transaction.amountCents;
+  }
+
+  return totals;
+}
+
 List<Transaction> getTransactionsWithinCategory({
   required Category category,
   required List<Transaction> transactions,

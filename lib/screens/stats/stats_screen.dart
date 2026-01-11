@@ -11,18 +11,17 @@ import '../../models/location/location.dart';
 import '../../models/month/month.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
+import '../../services/logger_service.dart';
 import '../../theme/extensions.dart';
+import '../../util/dependencies.dart';
 import '../../util/icons.dart';
 import '../../util/stats.dart';
 import '../../widgets/trosko_app_bar.dart';
+import 'stats_controller.dart';
 import 'widgets/stats_all_list_tile.dart';
+import 'widgets/stats_category_graph.dart';
 import 'widgets/stats_category_list_tile.dart';
 import 'widgets/stats_location_list_tile.dart';
-
-enum StatsSection {
-  categories,
-  locations,
-}
 
 class StatsScreen extends WatchingStatefulWidget {
   final Month month;
@@ -43,22 +42,48 @@ class StatsScreen extends WatchingStatefulWidget {
 }
 
 class _StatsScreenState extends State<StatsScreen> {
-  var statsSection = StatsSection.categories;
+  @override
+  void initState() {
+    super.initState();
 
-  void toggleStatsSection() => setState(
-    () => statsSection = statsSection == StatsSection.categories ? StatsSection.locations : StatsSection.categories,
-  );
+    registerIfNotInitialized<StatsController>(
+      () => StatsController(
+        logger: getIt.get<LoggerService>(),
+        transactions: widget.transactions,
+        categories: widget.categories,
+      ),
+      instanceName: widget.month.label,
+    );
+  }
 
-  String getBigSubtitleText() {
+  @override
+  void dispose() {
+    unRegisterIfNotDisposed<StatsController>(
+      instanceName: widget.month.label,
+    );
+    super.dispose();
+  }
+
+  String getBigSubtitleText({required StatsSection section}) {
     if (widget.month.isAll) {
-      return statsSection == StatsSection.categories ? 'statsSubtitleCategoryAll'.tr() : 'statsSubtitleLocationAll'.tr();
+      return section == StatsSection.categories ? 'statsSubtitleCategoryAll'.tr() : 'statsSubtitleLocationAll'.tr();
     }
 
-    return statsSection == StatsSection.categories ? 'statsSubtitleCategory'.tr() : 'statsSubtitleLocation'.tr();
+    return section == StatsSection.categories ? 'statsSubtitleCategory'.tr() : 'statsSubtitleLocation'.tr();
   }
 
   @override
   Widget build(BuildContext context) {
+    final controller = getIt.get<StatsController>(
+      instanceName: widget.month.label,
+    );
+
+    final state = watchIt<StatsController>(
+      instanceName: widget.month.label,
+    ).value;
+
+    final section = state.section;
+
     final useColorfulIcons = watchIt<HiveService>().value.settings?.useColorfulIcons ?? false;
 
     return Scaffold(
@@ -97,7 +122,7 @@ class _StatsScreenState extends State<StatsScreen> {
               IconButton(
                 onPressed: () {
                   HapticFeedback.lightImpact();
-                  toggleStatsSection();
+                  controller.toggleStatsSection();
                 },
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.transparent,
@@ -105,7 +130,7 @@ class _StatsScreenState extends State<StatsScreen> {
                 ),
                 icon: PhosphorIcon(
                   getPhosphorIcon(
-                    statsSection == StatsSection.categories ? PhosphorIcons.shapes : PhosphorIcons.mapTrifold,
+                    section == StatsSection.categories ? PhosphorIcons.shapes : PhosphorIcons.mapTrifold,
                     isDuotone: useColorfulIcons,
                     isBold: true,
                   ),
@@ -125,30 +150,49 @@ class _StatsScreenState extends State<StatsScreen> {
                 : 'statsTitle'.tr(
                     args: [widget.month.label],
                   ),
-            bigSubtitle: getBigSubtitleText(),
+            bigSubtitle: getBigSubtitleText(
+              section: section,
+            ),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 8),
           ),
 
           ///
-          /// ALL
-          ///
-          SliverToBoxAdapter(
-            child: StatsAllListTile(
-              useColorfulIcons: useColorfulIcons,
-              numberOfTransactions: widget.transactions.length,
-              amountCents: widget.transactions.fold<int>(0, (s, t) => s + t.amountCents),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 24),
-          ),
-
-          ///
           /// CATEGORIES
           ///
-          if (statsSection == StatsSection.categories)
+          if (section == StatsSection.categories) ...[
+            ///
+            /// GRAPH
+            ///
+            SliverToBoxAdapter(
+              child: StatsCategoryGraph(
+                categories: widget.categories,
+                useColorfulIcons: useColorfulIcons,
+                instanceName: widget.month.label,
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 48),
+            ),
+
+            ///
+            /// ALL
+            ///
+            SliverToBoxAdapter(
+              child: StatsAllListTile(
+                useColorfulIcons: useColorfulIcons,
+                numberOfTransactions: widget.transactions.length,
+                amountCents: widget.transactions.fold<int>(0, (s, t) => s + t.amountCents),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 24),
+            ),
+
+            ///
+            /// LIST
+            ///
             SliverList.builder(
               itemCount: widget.categories.length,
               itemBuilder: (_, index) {
@@ -179,7 +223,8 @@ class _StatsScreenState extends State<StatsScreen> {
                   ),
                 );
               },
-            )
+            ),
+          ]
           ///
           /// LOCATIONS
           ///
