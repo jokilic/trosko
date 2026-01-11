@@ -61,6 +61,10 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
       }
     }
 
+    entries.sort(
+      (a, b) => b.value.compareTo(a.value),
+    );
+
     return entries;
   }
 
@@ -178,6 +182,10 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
         entries.add(entry);
       }
     }
+
+    entries.sort(
+      (a, b) => b.value.compareTo(a.value),
+    );
 
     return entries;
   }

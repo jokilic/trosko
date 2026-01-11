@@ -168,10 +168,19 @@ class _StatsScreenState extends State<StatsScreen> {
             /// GRAPH
             ///
             SliverToBoxAdapter(
-              child: StatsCategoriesGraph(
-                categories: widget.categories,
-                useColorfulIcons: useColorfulIcons,
-                instanceName: widget.month.label,
+              child: Animate(
+                key: ValueKey(section),
+                effects: const [
+                  FadeEffect(
+                    curve: Curves.easeIn,
+                    duration: TroskoDurations.animationLong,
+                  ),
+                ],
+                child: StatsCategoriesGraph(
+                  categories: widget.categories,
+                  useColorfulIcons: useColorfulIcons,
+                  instanceName: widget.month.label,
+                ),
               ),
             ),
             const SliverToBoxAdapter(
@@ -214,7 +223,7 @@ class _StatsScreenState extends State<StatsScreen> {
                   effects: const [
                     FadeEffect(
                       curve: Curves.easeIn,
-                      duration: TroskoDurations.animation,
+                      duration: TroskoDurations.animationLong,
                     ),
                   ],
                   child: StatsCategoryListTile(
@@ -235,10 +244,19 @@ class _StatsScreenState extends State<StatsScreen> {
             /// GRAPH
             ///
             SliverToBoxAdapter(
-              child: StatsLocationsGraph(
-                locations: widget.locations,
-                useColorfulIcons: useColorfulIcons,
-                instanceName: widget.month.label,
+              child: Animate(
+                key: ValueKey(section),
+                effects: const [
+                  FadeEffect(
+                    curve: Curves.easeIn,
+                    duration: TroskoDurations.animationLong,
+                  ),
+                ],
+                child: StatsLocationsGraph(
+                  locations: widget.locations,
+                  useColorfulIcons: useColorfulIcons,
+                  instanceName: widget.month.label,
+                ),
               ),
             ),
             const SliverToBoxAdapter(
@@ -281,7 +299,7 @@ class _StatsScreenState extends State<StatsScreen> {
                   effects: const [
                     FadeEffect(
                       curve: Curves.easeIn,
-                      duration: TroskoDurations.animation,
+                      duration: TroskoDurations.animationLong,
                     ),
                   ],
                   child: StatsLocationListTile(
