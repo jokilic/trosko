@@ -114,10 +114,14 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
 
       final percentage = (entry.value / getTotalCategoryAmount()) * 100;
       final isTouched = index == value.touchedCategoryIndex;
-      final radius = isTouched ? 88.0 : 80.0;
+      final radius = isTouched ? 104.0 : 96.0;
 
       sections.add(
         PieChartSectionData(
+          borderSide: BorderSide(
+            color: category.color,
+            width: 1.5,
+          ),
           showTitle: true,
           color: category.color,
           value: entry.value.toDouble(),
@@ -145,7 +149,7 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
                   useColorfulIcons: useColorfulIcons,
                 )
               : null,
-          badgePositionPercentageOffset: 1.325,
+          badgePositionPercentageOffset: 1.275,
         ),
       );
 
@@ -236,10 +240,14 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
 
       final percentage = (entry.value / getTotalLocationAmount()) * 100;
       final isTouched = index == value.touchedLocationIndex;
-      final radius = isTouched ? 88.0 : 80.0;
+      final radius = isTouched ? 104.0 : 96.0;
 
       sections.add(
         PieChartSectionData(
+          borderSide: BorderSide(
+            color: context.colors.buttonPrimary,
+            width: 1.5,
+          ),
           showTitle: true,
           color: context.colors.buttonPrimary,
           value: entry.value.toDouble(),
@@ -267,7 +275,7 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
                   useColorfulIcons: useColorfulIcons,
                 )
               : null,
-          badgePositionPercentageOffset: 1.325,
+          badgePositionPercentageOffset: 1.275,
         ),
       );
 

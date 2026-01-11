@@ -184,7 +184,7 @@ class _StatsScreenState extends State<StatsScreen> {
               ),
             ),
             const SliverToBoxAdapter(
-              child: SizedBox(height: 24),
+              child: SizedBox(height: 40),
             ),
 
             ///
@@ -219,7 +219,6 @@ class _StatsScreenState extends State<StatsScreen> {
 
                 return Animate(
                   key: ValueKey(category),
-                  delay: Duration(milliseconds: index * 50),
                   effects: const [
                     FadeEffect(
                       curve: Curves.easeIn,
@@ -260,7 +259,7 @@ class _StatsScreenState extends State<StatsScreen> {
               ),
             ),
             const SliverToBoxAdapter(
-              child: SizedBox(height: 24),
+              child: SizedBox(height: 40),
             ),
 
             ///
@@ -295,7 +294,6 @@ class _StatsScreenState extends State<StatsScreen> {
 
                 return Animate(
                   key: ValueKey(location),
-                  delay: Duration(milliseconds: index * 50),
                   effects: const [
                     FadeEffect(
                       curve: Curves.easeIn,
