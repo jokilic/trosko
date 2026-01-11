@@ -25,6 +25,29 @@ Map<String, int> calculateCategoryTotals({
   return totals;
 }
 
+Location? getLocationById({
+  required String id,
+  required List<Location> locations,
+}) => locations
+    .where(
+      (l) => l.id == id,
+    )
+    .firstOrNull;
+
+Map<String, int> calculateLocationTotals({
+  required List<Transaction> transactions,
+}) {
+  final totals = <String, int>{};
+
+  for (final transaction in transactions) {
+    if (transaction.locationId != null) {
+      totals[transaction.locationId!] = (totals[transaction.locationId] ?? 0) + transaction.amountCents;
+    }
+  }
+
+  return totals;
+}
+
 List<Transaction> getTransactionsWithinCategory({
   required Category category,
   required List<Transaction> transactions,

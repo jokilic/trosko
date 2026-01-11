@@ -1,16 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/category/category.dart';
 import '../../../theme/extensions.dart';
 import '../../../util/currency.dart';
 
-class StatsCategoryCenterText extends StatelessWidget {
-  final Category category;
+class StatsCenterTextWidget extends StatelessWidget {
+  final String name;
   final int amount;
 
-  const StatsCategoryCenterText({
-    required this.category,
+  const StatsCenterTextWidget({
+    required this.name,
     required this.amount,
   });
 
@@ -26,7 +25,7 @@ class StatsCategoryCenterText extends StatelessWidget {
         /// TITLE
         ///
         Text(
-          category.name,
+          name,
           style: context.textStyles.homeTransactionTitle,
           textAlign: TextAlign.center,
           maxLines: 1,

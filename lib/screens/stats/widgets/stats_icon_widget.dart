@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../models/category/category.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/extensions.dart';
 import '../../../util/color.dart';
 import '../../../util/icons.dart';
 
-class StatsCategoryIcon extends StatelessWidget {
-  final Category category;
+class StatsIconWidget extends StatelessWidget {
+  final String? iconName;
+  final Color color;
   final bool useColorfulIcons;
 
-  const StatsCategoryIcon({
-    required this.category,
+  const StatsIconWidget({
+    required this.iconName,
+    required this.color,
     required this.useColorfulIcons,
   });
 
   @override
   Widget build(BuildContext context) {
-    final icon = getPhosphorIconFromName(
-      category.iconName,
-    );
+    final icon = getPhosphorIconFromName(iconName);
 
     return Container(
       width: 32,
       height: 32,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: category.color,
+        color: color,
         border: Border.all(
-          color: category.color,
+          color: color,
           width: 1.5,
         ),
       ),
@@ -41,7 +40,7 @@ class StatsCategoryIcon extends StatelessWidget {
                 isBold: true,
               ),
               color: getWhiteOrBlackColor(
-                backgroundColor: category.color,
+                backgroundColor: color,
                 whiteColor: TroskoColors.lightThemeWhiteBackground,
                 blackColor: TroskoColors.lightThemeBlackText,
               ),

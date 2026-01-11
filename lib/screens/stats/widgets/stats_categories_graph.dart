@@ -5,14 +5,14 @@ import 'package:watch_it/watch_it.dart';
 import '../../../models/category/category.dart';
 import '../../../util/dependencies.dart';
 import '../stats_controller.dart';
-import 'stats_category_center_text.dart';
+import 'stats_center_text_widget.dart';
 
-class StatsCategoryGraph extends WatchingWidget {
+class StatsCategoriesGraph extends WatchingWidget {
   final List<Category> categories;
   final bool useColorfulIcons;
   final String instanceName;
 
-  const StatsCategoryGraph({
+  const StatsCategoriesGraph({
     required this.categories,
     required this.useColorfulIcons,
     required this.instanceName,
@@ -35,13 +35,13 @@ class StatsCategoryGraph extends WatchingWidget {
     final touchedCategory = controller.getTouchedCategory();
     final touchedAmount = controller.getTouchedCategoryAmount();
 
-    final sections = controller.getPieChartSections(
+    final sections = controller.getPieChartCategorySections(
       useColorfulIcons: useColorfulIcons,
       context: context,
     );
 
     return SizedBox(
-      height: 304,
+      height: 360,
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -75,8 +75,8 @@ class StatsCategoryGraph extends WatchingWidget {
           /// CENTER TEXT
           ///
           if (touchedCategory != null && touchedAmount != null)
-            StatsCategoryCenterText(
-              category: touchedCategory,
+            StatsCenterTextWidget(
+              name: touchedCategory.name,
               amount: touchedAmount,
             ),
         ],

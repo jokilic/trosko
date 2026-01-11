@@ -19,9 +19,10 @@ import '../../util/stats.dart';
 import '../../widgets/trosko_app_bar.dart';
 import 'stats_controller.dart';
 import 'widgets/stats_all_list_tile.dart';
-import 'widgets/stats_category_graph.dart';
+import 'widgets/stats_categories_graph.dart';
 import 'widgets/stats_category_list_tile.dart';
 import 'widgets/stats_location_list_tile.dart';
+import 'widgets/stats_locations_graph.dart';
 
 class StatsScreen extends WatchingStatefulWidget {
   final Month month;
@@ -51,6 +52,7 @@ class _StatsScreenState extends State<StatsScreen> {
         logger: getIt.get<LoggerService>(),
         transactions: widget.transactions,
         categories: widget.categories,
+        locations: widget.locations,
       ),
       instanceName: widget.month.label,
     );
@@ -166,14 +168,14 @@ class _StatsScreenState extends State<StatsScreen> {
             /// GRAPH
             ///
             SliverToBoxAdapter(
-              child: StatsCategoryGraph(
+              child: StatsCategoriesGraph(
                 categories: widget.categories,
                 useColorfulIcons: useColorfulIcons,
                 instanceName: widget.month.label,
               ),
             ),
             const SliverToBoxAdapter(
-              child: SizedBox(height: 48),
+              child: SizedBox(height: 24),
             ),
 
             ///
@@ -228,7 +230,38 @@ class _StatsScreenState extends State<StatsScreen> {
           ///
           /// LOCATIONS
           ///
-          else
+          else ...[
+            ///
+            /// GRAPH
+            ///
+            SliverToBoxAdapter(
+              child: StatsLocationsGraph(
+                locations: widget.locations,
+                useColorfulIcons: useColorfulIcons,
+                instanceName: widget.month.label,
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 24),
+            ),
+
+            ///
+            /// ALL
+            ///
+            SliverToBoxAdapter(
+              child: StatsAllListTile(
+                useColorfulIcons: useColorfulIcons,
+                numberOfTransactions: widget.transactions.length,
+                amountCents: widget.transactions.fold<int>(0, (s, t) => s + t.amountCents),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 24),
+            ),
+
+            ///
+            /// LIST
+            ///
             SliverList.builder(
               itemCount: widget.locations.length,
               itemBuilder: (_, index) {
@@ -260,6 +293,7 @@ class _StatsScreenState extends State<StatsScreen> {
                 );
               },
             ),
+          ],
 
           const SliverToBoxAdapter(
             child: SizedBox(height: 48),

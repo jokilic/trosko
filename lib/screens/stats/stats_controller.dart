@@ -2,20 +2,21 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/category/category.dart';
+import '../../models/location/location.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/logger_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
 import '../../util/stats.dart';
-import 'widgets/stats_category_icon.dart';
+import 'widgets/stats_icon_widget.dart';
 
 enum StatsSection {
   categories,
   locations,
 }
 
-class StatsController extends ValueNotifier<({StatsSection section, int touchedCategoryIndex})> {
+class StatsController extends ValueNotifier<({StatsSection section, int touchedCategoryIndex, int touchedLocationIndex})> {
   ///
   /// CONSTRUCTOR
   ///
@@ -23,15 +24,17 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
   final LoggerService logger;
   final List<Transaction> transactions;
   final List<Category> categories;
+  final List<Location> locations;
 
   StatsController({
     required this.logger,
     required this.transactions,
     required this.categories,
-  }) : super((section: StatsSection.categories, touchedCategoryIndex: -1));
+    required this.locations,
+  }) : super((section: StatsSection.categories, touchedCategoryIndex: -1, touchedLocationIndex: -1));
 
   ///
-  /// METHODS
+  /// CATEGORIES
   ///
 
   int getTotalCategoryAmount() =>
@@ -77,7 +80,6 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
 
   int? getTouchedCategoryAmount() {
     final categoryEntries = getCategoryEntries();
-
     final touchedCategoryIndex = value.touchedCategoryIndex;
 
     if (touchedCategoryIndex < 0 || touchedCategoryIndex >= categoryEntries.length) {
@@ -87,7 +89,7 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
     return categoryEntries[touchedCategoryIndex].value;
   }
 
-  List<PieChartSectionData> getPieChartSections({
+  List<PieChartSectionData> getPieChartCategorySections({
     required bool useColorfulIcons,
     required BuildContext context,
   }) {
@@ -133,8 +135,9 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
                   ),
                 ),
           badgeWidget: percentage >= 3
-              ? StatsCategoryIcon(
-                  category: category,
+              ? StatsIconWidget(
+                  iconName: category.iconName,
+                  color: category.color,
                   useColorfulIcons: useColorfulIcons,
                 )
               : null,
@@ -148,6 +151,128 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
     return sections;
   }
 
+  ///
+  /// LOCATIONS
+  ///
+
+  int getTotalLocationAmount() =>
+      calculateLocationTotals(
+        transactions: transactions,
+      ).values.fold<int>(
+        0,
+        (sum, amount) => sum + amount,
+      );
+
+  List<MapEntry<String, int>> getLocationEntries() {
+    final entries = <MapEntry<String, int>>[];
+
+    for (final entry in calculateLocationTotals(
+      transactions: transactions,
+    ).entries) {
+      final location = getLocationById(
+        id: entry.key,
+        locations: locations,
+      );
+
+      if (location != null) {
+        entries.add(entry);
+      }
+    }
+
+    return entries;
+  }
+
+  Location? getTouchedLocation() {
+    final locationEntries = getLocationEntries();
+    final touchedLocationIndex = value.touchedLocationIndex;
+
+    if (touchedLocationIndex < 0 || touchedLocationIndex >= locationEntries.length) {
+      return null;
+    }
+
+    return getLocationById(
+      id: locationEntries[touchedLocationIndex].key,
+      locations: locations,
+    );
+  }
+
+  int? getTouchedLocationAmount() {
+    final locationEntries = getLocationEntries();
+    final touchedLocationIndex = value.touchedLocationIndex;
+
+    if (touchedLocationIndex < 0 || touchedLocationIndex >= locationEntries.length) {
+      return null;
+    }
+
+    return locationEntries[touchedLocationIndex].value;
+  }
+
+  List<PieChartSectionData> getPieChartLocationSections({
+    required bool useColorfulIcons,
+    required BuildContext context,
+  }) {
+    final locationEntries = getLocationEntries();
+    final sections = <PieChartSectionData>[];
+
+    var index = 0;
+
+    for (final entry in locationEntries) {
+      final location = getLocationById(
+        id: entry.key,
+        locations: locations,
+      );
+
+      if (location == null) {
+        continue;
+      }
+
+      final percentage = (entry.value / getTotalLocationAmount()) * 100;
+      final isTouched = index == value.touchedLocationIndex;
+      final radius = isTouched ? 88.0 : 80.0;
+
+      sections.add(
+        PieChartSectionData(
+          showTitle: true,
+          color: context.colors.buttonPrimary,
+          value: entry.value.toDouble(),
+          title: percentage >= 5 ? '${percentage.toStringAsFixed(0)}%' : '',
+          radius: radius,
+          titleStyle: isTouched
+              ? context.textStyles.homeTransactionTitle.copyWith(
+                  color: getWhiteOrBlackColor(
+                    backgroundColor: context.colors.buttonPrimary,
+                    whiteColor: TroskoColors.lightThemeWhiteBackground,
+                    blackColor: TroskoColors.lightThemeBlackText,
+                  ),
+                )
+              : context.textStyles.homeTransactionEuro.copyWith(
+                  color: getWhiteOrBlackColor(
+                    backgroundColor: context.colors.buttonPrimary,
+                    whiteColor: TroskoColors.lightThemeWhiteBackground,
+                    blackColor: TroskoColors.lightThemeBlackText,
+                  ),
+                ),
+          badgeWidget: percentage >= 3
+              ? StatsIconWidget(
+                  iconName: location.iconName,
+                  color: context.colors.buttonBackground,
+                  useColorfulIcons: useColorfulIcons,
+                )
+              : null,
+          badgePositionPercentageOffset: 1.325,
+        ),
+      );
+
+      index++;
+    }
+
+    return sections;
+  }
+
+  ///
+  /// METHODS
+  ///
+
   void toggleStatsSection() => updateState(
     section: value.section == StatsSection.categories ? StatsSection.locations : StatsSection.categories,
   );
@@ -156,8 +281,10 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
   void updateState({
     StatsSection? section,
     int? touchedCategoryIndex,
+    int? touchedLocationIndex,
   }) => value = (
     section: section ?? value.section,
     touchedCategoryIndex: touchedCategoryIndex ?? value.touchedCategoryIndex,
+    touchedLocationIndex: touchedLocationIndex ?? value.touchedLocationIndex,
   );
 }
