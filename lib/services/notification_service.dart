@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_redundant_argument_values
+
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -165,6 +167,7 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     foregroundTaskOptions: ForegroundTaskOptions(
       eventAction: ForegroundTaskEventAction.nothing(),
       autoRunOnBoot: true,
+      allowWakeLock: true,
       allowWifiLock: true,
     ),
   );

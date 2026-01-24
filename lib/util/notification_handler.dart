@@ -202,6 +202,12 @@ class NotificationHandler extends TaskHandler {
     /// Initialize `notifications` if not already done
     await initializeBackgroundLocalNotifications();
 
+    /// Get current [DateTime]
+    final now = DateTime.now();
+
+    /// Generate notification `id`
+    final id = now.millisecondsSinceEpoch % 1000000000;
+
     /// Generate `title` for the notification
     final title = 'expenseNotificationTitle'.tr();
 
@@ -219,12 +225,6 @@ class NotificationHandler extends TaskHandler {
       'expenseNotificationButton'.tr(),
       showsUserInterface: true,
     );
-
-    /// Get current [DateTime]
-    final now = DateTime.now();
-
-    /// Generate notification `id`
-    final id = now.millisecondsSinceEpoch % 1000000000;
 
     /// Show `notification`
     await backgroundNotificationsPlugin?.show(
