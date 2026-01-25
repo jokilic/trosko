@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../util/dependencies.dart';
 import '../util/localization.dart';
-import '../util/notification_handler.dart';
 import 'logger_service.dart';
 import 'notification_service.dart';
 
@@ -92,10 +89,6 @@ void callbackDispatcher() => Workmanager().executeTask(
       /// Restart notification listener foreground service if enabled
       final notification = getItBackground.get<NotificationService>();
 
-      await showWorkManagerNotification(
-        useNotificationListener: notification.value.useNotificationListener,
-      );
-
       if (notification.value.useNotificationListener) {
         notification.initializeForegroundTask();
         await notification.startService();
@@ -107,50 +100,3 @@ void callbackDispatcher() => Workmanager().executeTask(
     }
   },
 );
-
-Future<void> showWorkManagerNotification({
-  required bool useNotificationListener,
-}) async {
-  /// Initialize notification plugin
-  final plugin = FlutterLocalNotificationsPlugin();
-  await initializeNotificationPlugin(plugin);
-
-  /// Get current [DateTime]
-  final now = DateTime.now();
-
-  /// Get formatted [DateTime] for notification `title`
-  final formattedDateTime = DateFormat('HH:mm:ss').format(now);
-
-  /// Generate notification `id`
-  final id = now.millisecondsSinceEpoch % 1000000000;
-
-  /// Generate `title` for the notification
-  final title = 'WorkManager notification from $formattedDateTime';
-
-  /// Generate `body` for the notification
-  final body = useNotificationListener ? 'Notification listener is <b>active</b>' : 'Notification listener is <b>not active</b>';
-
-  /// Show notification
-  await plugin.show(
-    id,
-    title,
-    body,
-    NotificationDetails(
-      android: AndroidNotificationDetails(
-        'trosko_work_manager_channel_id',
-        'Troško work manager',
-        channelDescription: 'Work manager used by the Troško app',
-        styleInformation: BigTextStyleInformation(
-          body,
-          contentTitle: title,
-          htmlFormatBigText: true,
-          htmlFormatContent: true,
-        ),
-        category: AndroidNotificationCategory.service,
-        importance: Importance.max,
-        priority: Priority.max,
-        ticker: 'ticker',
-      ),
-    ),
-  );
-}
