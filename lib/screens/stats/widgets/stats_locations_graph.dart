@@ -41,7 +41,7 @@ class StatsLocationsGraph extends WatchingWidget {
     );
 
     return SizedBox(
-      height: 336,
+      height: 384,
       child: Stack(
         alignment: Alignment.center,
         children: [
