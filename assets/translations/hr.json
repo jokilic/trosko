@@ -158,5 +158,7 @@
     "voiceError": "Greška",
     "voiceAddTitle": "dodaj naslov",
     "voiceAddTime": "dodaj vrijeme",
-    "voiceAddAmount": "dodaj iznos"
+    "voiceAddAmount": "dodaj iznos",
+    "transactionCategorySearchModalText": "Pretraži kategorije",
+    "transactionLocationSearchModalText": "Pretraži lokacije"
 }

@@ -54,7 +54,7 @@ void startCallback() {
 
 Future<bool> initializeNotificationPlugin(FlutterLocalNotificationsPlugin plugin) async {
   final initialized = await plugin.initialize(
-    const InitializationSettings(
+    settings: const InitializationSettings(
       android: AndroidInitializationSettings('app_icon'),
     ),
     onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
@@ -228,10 +228,10 @@ class NotificationHandler extends TaskHandler {
 
     /// Show `notification`
     await backgroundNotificationsPlugin?.show(
-      id,
-      title,
-      body,
-      NotificationDetails(
+      id: id,
+      title: title,
+      body: body,
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           'trosko_notification_channel_id',
           'Troško notifications',

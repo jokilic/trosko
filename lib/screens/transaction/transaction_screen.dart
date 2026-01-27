@@ -28,7 +28,9 @@ import '../../widgets/trosko_text_field.dart';
 import 'transaction_controller.dart';
 import 'widgets/transaction_amount_widget.dart';
 import 'widgets/transaction_category.dart';
+import 'widgets/transaction_category_search_modal.dart';
 import 'widgets/transaction_location.dart';
+import 'widgets/transaction_location_search_modal.dart';
 
 class TransactionScreen extends WatchingStatefulWidget {
   final Transaction? passedTransaction;
@@ -188,19 +190,79 @@ class _TransactionScreenState extends State<TransactionScreen> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                const SizedBox(height: 4),
-
                 ///
                 /// CATEGORY TITLE
                 ///
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 28),
-                  child: Text(
-                    'transactionCategory'.tr(),
-                    style: context.textStyles.homeTitle,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Material(
+                          color: context.colors.scaffoldBackground,
+                          borderRadius: BorderRadius.circular(8),
+                          child: InkWell(
+                            onTap: () async {
+                              unawaited(
+                                HapticFeedback.lightImpact(),
+                              );
+
+                              /// Show [TransactionCategorySearchModal]
+                              final category = await showModalBottomSheet<Category?>(
+                                context: context,
+                                backgroundColor: context.colors.scaffoldBackground,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                builder: (context) => TransactionCategorySearchModal(
+                                  categories: widget.categories,
+                                  useColorfulIcons: useColorfulIcons,
+                                  key: const ValueKey('category-search-modal'),
+                                ),
+                              );
+
+                              /// `category` exists
+                              if (category != null) {
+                                transactionController.categoryChanged(category);
+                              }
+                            },
+                            highlightColor: context.colors.buttonBackground,
+                            borderRadius: BorderRadius.circular(8),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 12,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      'transactionCategory'.tr(),
+                                      style: context.textStyles.homeTitle,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  PhosphorIcon(
+                                    getPhosphorIcon(
+                                      PhosphorIcons.magnifyingGlass,
+                                      isDuotone: useColorfulIcons,
+                                      isBold: true,
+                                    ),
+                                    color: context.colors.text,
+                                    duotoneSecondaryColor: context.colors.buttonPrimary,
+                                    size: 16,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 4),
 
                 ///
                 /// CATEGORIES
@@ -251,19 +313,83 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 12),
 
                 ///
                 /// LOCATION TITLE
                 ///
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 28),
-                  child: Text(
-                    'transactionLocation'.tr(),
-                    style: context.textStyles.homeTitle,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Material(
+                          color: context.colors.scaffoldBackground,
+                          borderRadius: BorderRadius.circular(8),
+                          child: InkWell(
+                            onTap: () async {
+                              unawaited(
+                                HapticFeedback.lightImpact(),
+                              );
+
+                              /// Show [TransactionLocationSearchModal]
+                              final location = await showModalBottomSheet<Location?>(
+                                context: context,
+                                backgroundColor: context.colors.scaffoldBackground,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                builder: (context) => TransactionLocationSearchModal(
+                                  locations: widget.locations,
+                                  mapState: mapState,
+                                  useColorfulIcons: useColorfulIcons,
+                                  useVectorMaps: useVectorMaps,
+                                  key: const ValueKey('location-search-modal'),
+                                ),
+                              );
+
+                              /// `location` exists
+                              if (location != null) {
+                                transactionController.locationChanged(location);
+                              }
+                            },
+                            highlightColor: context.colors.buttonBackground,
+                            borderRadius: BorderRadius.circular(8),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 12,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      'transactionLocation'.tr(),
+                                      style: context.textStyles.homeTitle,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  PhosphorIcon(
+                                    getPhosphorIcon(
+                                      PhosphorIcons.magnifyingGlass,
+                                      isDuotone: useColorfulIcons,
+                                      isBold: true,
+                                    ),
+                                    color: context.colors.text,
+                                    duotoneSecondaryColor: context.colors.buttonPrimary,
+                                    size: 16,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 4),
 
                 ///
                 /// LOCATIONS

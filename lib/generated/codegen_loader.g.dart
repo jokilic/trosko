@@ -174,7 +174,9 @@ class CodegenLoader extends AssetLoader{
   "voiceError": "Error",
   "voiceAddTitle": "add title",
   "voiceAddTime": "add time",
-  "voiceAddAmount": "add amount"
+  "voiceAddAmount": "add amount",
+  "transactionCategorySearchModalText": "Search for category",
+  "transactionLocationSearchModalText": "Search for location"
 };
 static const Map<String,dynamic> _hr = {
   "appName": "Troško",
@@ -336,7 +338,9 @@ static const Map<String,dynamic> _hr = {
   "voiceError": "Greška",
   "voiceAddTitle": "dodaj naslov",
   "voiceAddTime": "dodaj vrijeme",
-  "voiceAddAmount": "dodaj iznos"
+  "voiceAddAmount": "dodaj iznos",
+  "transactionCategorySearchModalText": "Pretraži kategorije",
+  "transactionLocationSearchModalText": "Pretraži lokacije"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "hr": _hr};
 }

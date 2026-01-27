@@ -158,5 +158,7 @@
     "voiceError": "Error",
     "voiceAddTitle": "add title",
     "voiceAddTime": "add time",
-    "voiceAddAmount": "add amount"
+    "voiceAddAmount": "add amount",
+    "transactionCategorySearchModalText": "Search for category",
+    "transactionLocationSearchModalText": "Search for location"
 }
