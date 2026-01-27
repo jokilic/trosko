@@ -6,6 +6,19 @@
 	<array>
 		<string>com.transistorsoft.fetch</string>
 	</array>
+	<key>GIDClientID</key>
+	<string>64667044702-92dcs45q9c9nddpdmpep8p4t67idd5i1.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.64667044702-92dcs45q9c9nddpdmpep8p4t67idd5i1</string>
+			</array>
+		</dict>
+	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Troško needs access to location to show your current location on the map.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>

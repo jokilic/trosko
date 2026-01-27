@@ -127,6 +127,69 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
     }
   }
 
+  /// Triggered when the user presses Google register button
+  Future<({User? user, String? error})> googleSignInPressed() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    updateState(
+      isLoading: true,
+    );
+
+    try {
+      /// Register into [Firebase] with Google
+      final registerResult = await firebase.signInWithGoogle();
+
+      /// Successful register
+      if (registerResult.user != null && registerResult.error == null) {
+        /// Store `isLoggedIn` into [Hive]
+        await hive.writeSettings(
+          hive.getSettings().copyWith(
+            isLoggedIn: true,
+          ),
+        );
+
+        /// Check if user has written a `name`, fallback to Google display name
+        var name = nameTextEditingController.text.trim();
+        if (name.isEmpty) {
+          name = registerResult.user?.displayName?.trim() ?? '';
+        }
+
+        if (name.isNotEmpty) {
+          final existingUsername = await firebase.getUsername();
+          if (existingUsername == null || existingUsername.isEmpty) {
+            await hive.writeUsername(name);
+
+            await firebase.writeUsername(
+              newUsername: name,
+            );
+          }
+        }
+
+        /// Fetch all data from [Firebase] & store into [Hive]
+        await getFirebaseDataIntoHive();
+
+        updateState(
+          isLoading: false,
+        );
+      }
+      /// Not successful register
+      else {
+        logger.e('RegisterController -> googleSignInPressed() -> user == null');
+        updateState(
+          isLoading: false,
+        );
+      }
+
+      return registerResult;
+    } catch (e) {
+      logger.e('RegisterController -> googleSignInPressed() -> $e');
+      updateState(
+        isLoading: false,
+      );
+      return (user: null, error: '$e');
+    }
+  }
+
   /// Registers user into [Firebase]
   Future<({User? user, String? error})> registerUser() async {
     /// Parse values

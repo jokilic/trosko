@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart' hide Transaction;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../models/category/category.dart';
 import '../models/location/location.dart';
@@ -17,11 +18,13 @@ class FirebaseService {
   final LoggerService logger;
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
+  final GoogleSignIn googleSignIn;
 
   FirebaseService({
     required this.logger,
     required this.auth,
     required this.firestore,
+    required this.googleSignIn,
   });
 
   ///
@@ -68,6 +71,57 @@ class FirebaseService {
 
   /// Logs user out of [Firebase]
   void logOut() => auth.signOut();
+
+  /// Signs user in with Google and authenticates with [Firebase]
+  Future<({User? user, String? error})> signInWithGoogle() async {
+    try {
+      await googleSignIn.initialize();
+
+      if (!googleSignIn.supportsAuthenticate()) {
+        return (user: null, error: 'errorOperationNotAllowed'.tr());
+      }
+
+      final user = await googleSignIn.authenticate();
+      final googleAuth = user.authentication;
+      final idToken = googleAuth.idToken;
+
+      if (idToken == null || idToken.isEmpty) {
+        return (user: null, error: 'errorInvalidCredential'.tr());
+      }
+
+      final credential = GoogleAuthProvider.credential(
+        idToken: idToken,
+      );
+
+      final userCredential = await auth.signInWithCredential(credential);
+
+      return (user: userCredential.user, error: null);
+    } on GoogleSignInException catch (e) {
+      final error = switch (e.code) {
+        GoogleSignInExceptionCode.canceled => 'errorUnknown'.tr(),
+        GoogleSignInExceptionCode.interrupted => 'errorUnknown'.tr(),
+        GoogleSignInExceptionCode.uiUnavailable => 'errorOperationNotAllowed'.tr(),
+        _ => 'errorUnknown'.tr(),
+      };
+      logger.e('GoogleSignInException ${e.code}: ${e.description}');
+      return (user: null, error: error);
+    } on FirebaseAuthException catch (e) {
+      final error = switch (e.code) {
+        'account-exists-with-different-credential' => 'errorInvalidCredential'.tr(),
+        'invalid-credential' => 'errorInvalidCredential'.tr(),
+        'user-disabled' => 'errorAccountDisabled'.tr(),
+        'operation-not-allowed' => 'errorOperationNotAllowed'.tr(),
+        'too-many-requests' => 'errorTooManyRequests'.tr(),
+        _ => e.code,
+      };
+      logger.e(error);
+      return (user: null, error: error);
+    } catch (e) {
+      final error = 'Google sign-in error $e';
+      logger.e(error);
+      return (user: null, error: error);
+    }
+  }
 
   /// Registers user into [Firebase]
   Future<({User? user, String? error})> registerUser({

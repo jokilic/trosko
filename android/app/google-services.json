@@ -12,7 +12,20 @@
           "package_name": "com.josipkilic.trosko"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "64667044702-ll3k0jrg6bqlfhsa1i6310rp248pin04.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.josipkilic.trosko",
+            "certificate_hash": "67003878a81de68ce85e2cb33b1bf8b1cde89ac0"
+          }
+        },
+        {
+          "client_id": "64667044702-4jgq25p9mtkmvctet8e6m3kmp67nhce0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAjdeB-0aM-K2pCUkA3KxY3gNa8ZaPUPnE"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64667044702-4jgq25p9mtkmvctet8e6m3kmp67nhce0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "64667044702-92dcs45q9c9nddpdmpep8p4t67idd5i1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.josipkilic.trosko"
+              }
+            }
+          ]
         }
       }
     }

@@ -113,6 +113,51 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
     }
   }
 
+  /// Triggered when the user presses Google login button
+  Future<({User? user, String? error})> googleSignInPressed() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    updateState(
+      isLoading: true,
+    );
+
+    try {
+      final loginResult = await firebase.signInWithGoogle();
+
+      /// Successful login
+      if (loginResult.user != null && loginResult.error == null) {
+        /// Store `isLoggedIn` into [Hive]
+        await hive.writeSettings(
+          hive.getSettings().copyWith(
+            isLoggedIn: true,
+          ),
+        );
+
+        /// Fetch all data from [Firebase] & store into [Hive]
+        await getFirebaseDataIntoHive();
+
+        updateState(
+          isLoading: false,
+        );
+      }
+      /// Not successful login
+      else {
+        logger.e('LoginController -> googleSignInPressed() -> user == null');
+        updateState(
+          isLoading: false,
+        );
+      }
+
+      return loginResult;
+    } catch (e) {
+      logger.e('LoginController -> googleSignInPressed() -> $e');
+      updateState(
+        isLoading: false,
+      );
+      return (user: null, error: '$e');
+    }
+  }
+
   /// Logs user into [Firebase]
   Future<({User? user, String? error})> loginUser() async {
     /// Parse values

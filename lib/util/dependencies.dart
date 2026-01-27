@@ -3,6 +3,7 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../services/ai_service.dart';
 import '../services/firebase_service.dart';
@@ -74,6 +75,7 @@ Future<void> initializeServices() async {
         logger: getIt.get<LoggerService>(),
         auth: FirebaseAuth.instance,
         firestore: FirebaseFirestore.instance,
+        googleSignIn: GoogleSignIn.instance,
       ),
       dependsOn: [LoggerService],
     );
