@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "64667044702-ems5omsjec1mgmct109q3714qfcu2102.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.josipkilic.trosko",
+            "certificate_hash": "213d66cec54c510a07a6fae38d8d0fb5147f2950"
+          }
+        },
+        {
           "client_id": "64667044702-ll3k0jrg6bqlfhsa1i6310rp248pin04.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.josipkilic.trosko",
             "certificate_hash": "67003878a81de68ce85e2cb33b1bf8b1cde89ac0"
+          }
+        },
+        {
+          "client_id": "64667044702-om0mqkneq1ksqkjceg3s10ve1uh8cglp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.josipkilic.trosko",
+            "certificate_hash": "1c9dddbeb5e2cc272d98a5b9f6406d6335f9bfe5"
           }
         },
         {

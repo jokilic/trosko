@@ -109,7 +109,13 @@ class FirebaseService {
       };
 
       logger.e('GoogleSignInException ${e.code}: ${e.description}');
-      return (user: null, error: error);
+      // TODO: Revert
+      // return (user: null, error: error);
+
+      return (
+        user: null,
+        error: 'Code -> ${e.code} Description -> ${e.description} Details -> ${e.details}',
+      );
     } on FirebaseAuthException catch (e) {
       final error = switch (e.code) {
         'account-exists-with-different-credential' => 'errorInvalidCredential'.tr(),
