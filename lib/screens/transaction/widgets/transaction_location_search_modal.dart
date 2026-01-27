@@ -233,7 +233,6 @@ class _TransactionLocationSearchModalState extends State<TransactionLocationSear
               textInputAction: TextInputAction.search,
             ),
           ),
-          const SizedBox(height: 28),
         ],
       ),
     ),

@@ -92,7 +92,6 @@ class _CategoryCustomColorModalState extends State<CategoryCustomColorModal> {
               ),
             ),
           ),
-          const SizedBox(height: 28),
         ],
       ),
     ),

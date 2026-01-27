@@ -211,6 +211,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               final category = await showModalBottomSheet<Category?>(
                                 context: context,
                                 backgroundColor: context.colors.scaffoldBackground,
+                                isScrollControlled: true,
+                                useSafeArea: true,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -223,7 +225,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
                               /// `category` exists
                               if (category != null) {
-                                transactionController.categoryChanged(category);
+                                transactionController
+                                  ..categoryChanged(category)
+                                  ..scrollToActiveCategoryAndLocation();
                               }
                             },
                             highlightColor: context.colors.buttonBackground,
@@ -336,6 +340,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               final location = await showModalBottomSheet<Location?>(
                                 context: context,
                                 backgroundColor: context.colors.scaffoldBackground,
+                                isScrollControlled: true,
+                                useSafeArea: true,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -350,7 +356,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
                               /// `location` exists
                               if (location != null) {
-                                transactionController.locationChanged(location);
+                                transactionController
+                                  ..locationChanged(location)
+                                  ..scrollToActiveCategoryAndLocation();
                               }
                             },
                             highlightColor: context.colors.buttonBackground,

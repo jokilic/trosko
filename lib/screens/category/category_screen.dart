@@ -255,6 +255,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     final color = await showModalBottomSheet<Color>(
                       context: context,
                       backgroundColor: context.colors.scaffoldBackground,
+                      isScrollControlled: true,
+                      useSafeArea: true,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),

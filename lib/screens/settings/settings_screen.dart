@@ -724,6 +724,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     final value = await showModalBottomSheet<({String email, String password, bool shouldDelete})>(
                       context: context,
                       backgroundColor: context.colors.scaffoldBackground,
+                      isScrollControlled: true,
+                      useSafeArea: true,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),

@@ -173,7 +173,6 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
               ),
             ),
           ),
-          const SizedBox(height: 28),
         ],
       ),
     ),

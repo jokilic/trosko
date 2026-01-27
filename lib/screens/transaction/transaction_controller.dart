@@ -135,6 +135,26 @@ class TransactionController
       ),
     );
 
+    /// Scroll to `activeCategory` and `activeLocation`
+    scrollToActiveCategoryAndLocation();
+  }
+
+  ///
+  /// DISPOSE
+  ///
+
+  @override
+  void onDispose() {
+    nameTextEditingController.dispose();
+    noteTextEditingController.dispose();
+  }
+
+  ///
+  /// METHODS
+  ///
+
+  /// Scroll to `activeCategory` and `activeLocation`
+  void scrollToActiveCategoryAndLocation() {
     /// Scroll to `activeCategory`
     if (value.category != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -165,20 +185,6 @@ class TransactionController
       });
     }
   }
-
-  ///
-  /// DISPOSE
-  ///
-
-  @override
-  void onDispose() {
-    nameTextEditingController.dispose();
-    noteTextEditingController.dispose();
-  }
-
-  ///
-  /// METHODS
-  ///
 
   /// Triggered when the user writes in the [TransactionAmountWidget]
   void transactionAmountChanged(int newCents) => updateState(

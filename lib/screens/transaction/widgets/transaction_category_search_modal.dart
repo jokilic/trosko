@@ -205,7 +205,6 @@ class _TransactionCategorySearchModalState extends State<TransactionCategorySear
               textInputAction: TextInputAction.search,
             ),
           ),
-          const SizedBox(height: 28),
         ],
       ),
     ),
