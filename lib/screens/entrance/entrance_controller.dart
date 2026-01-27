@@ -1,0 +1,151 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+import '../../services/firebase_service.dart';
+import '../../services/hive_service.dart';
+import '../../services/logger_service.dart';
+
+class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appleIsLoading})> {
+  ///
+  /// CONSTRUCTOR
+  ///
+
+  final LoggerService logger;
+  final FirebaseService firebase;
+  final HiveService hive;
+
+  EntranceController({
+    required this.logger,
+    required this.firebase,
+    required this.hive,
+  }) : super((
+         googleIsLoading: false,
+         appleIsLoading: false,
+       ));
+
+  ///
+  /// METHODS
+  ///
+
+  /// Triggered when the user presses Google login button
+  Future<({User? user, String? error})> googleSignInPressed() async {
+    updateState(
+      googleIsLoading: true,
+      appleIsLoading: false,
+    );
+
+    try {
+      final loginResult = await firebase.signInWithGoogle();
+
+      /// Successful login
+      if (loginResult.user != null && loginResult.error == null) {
+        /// Store `isLoggedIn` into [Hive]
+        await hive.writeSettings(
+          hive.getSettings().copyWith(
+            isLoggedIn: true,
+          ),
+        );
+
+        /// Fetch all data from [Firebase] & store into [Hive]
+        await getFirebaseDataIntoHive();
+
+        updateState(
+          googleIsLoading: false,
+          appleIsLoading: false,
+        );
+      }
+      /// Not successful login
+      else {
+        logger.e('EntranceController -> googleSignInPressed() -> user == null');
+        updateState(
+          googleIsLoading: false,
+          appleIsLoading: false,
+        );
+      }
+
+      return loginResult;
+    } catch (e) {
+      logger.e('EntranceController -> googleSignInPressed() -> $e');
+      updateState(
+        googleIsLoading: false,
+        appleIsLoading: false,
+      );
+      return (user: null, error: '$e');
+    }
+  }
+
+  /// Triggered when the user presses Apple login button
+  Future<({User? user, String? error})> appleSignInPressed() async {
+    updateState(
+      googleIsLoading: false,
+      appleIsLoading: true,
+    );
+
+    return (user: null, error: 'Not implemented yet');
+
+    // TODO: Implement Apple sign-in
+
+    // try {
+    //   final loginResult = await firebase.signInWithGoogle();
+
+    //   /// Successful login
+    //   if (loginResult.user != null && loginResult.error == null) {
+    //     /// Store `isLoggedIn` into [Hive]
+    //     await hive.writeSettings(
+    //       hive.getSettings().copyWith(
+    //         isLoggedIn: true,
+    //       ),
+    //     );
+
+    //     /// Fetch all data from [Firebase] & store into [Hive]
+    //     await getFirebaseDataIntoHive();
+
+    //     updateState(
+    //       googleIsLoading: false,
+    //       appleIsLoading: false,
+    //     );
+    //   }
+    //   /// Not successful login
+    //   else {
+    //     logger.e('EntranceController -> googleSignInPressed() -> user == null');
+    //     updateState(
+    //       googleIsLoading: false,
+    //       appleIsLoading: false,
+    //     );
+    //   }
+
+    //   return loginResult;
+    // } catch (e) {
+    //   logger.e('EntranceController -> googleSignInPressed() -> $e');
+    //   updateState(
+    //     googleIsLoading: false,
+    //     appleIsLoading: false,
+    //   );
+    //   return (user: null, error: '$e');
+    // }
+  }
+
+  /// Gets all data from [Firebase] and stores into [Hive]
+  Future<void> getFirebaseDataIntoHive() async {
+    final username = await firebase.getUsername();
+    final transactions = await firebase.getTransactions();
+    final categories = await firebase.getCategories();
+    final locations = await firebase.getLocations();
+
+    await hive.storeDataFromFirebase(
+      username: username,
+      transactions: transactions ?? [],
+      categories: categories ?? [],
+      locations: locations ?? [],
+    );
+  }
+
+  /// Updates `state`
+  void updateState({
+    bool? googleIsLoading,
+    bool? appleIsLoading,
+  }) => value = (
+    googleIsLoading: googleIsLoading ?? value.googleIsLoading,
+    appleIsLoading: appleIsLoading ?? value.appleIsLoading,
+  );
+}

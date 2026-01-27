@@ -209,41 +209,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
 
             ///
-            /// GOOGLE SIGN IN
-            ///
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverToBoxAdapter(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton.icon(
-                    onPressed: isLoading
-                        ? null
-                        : () => handleRegister(
-                            context: context,
-                            onRegisterPressed: registerController.googleSignInPressed,
-                            useColorfulIcons: useColorfulIcons,
-                          ),
-                    // icon: getPhosphorIcon(
-                    //   PhosphorIcons.googleLogo,
-                    //   isDuotone: useColorfulIcons,
-                    //   isBold: true,
-                    // ),
-                    label: Text('continueWithGoogle'.tr()),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      foregroundColor: context.colors.text,
-                      side: BorderSide(color: context.colors.buttonBackground),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 16),
-            ),
-
-            ///
             /// LOGIN
             ///
             SliverPadding(
@@ -258,7 +223,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             HapticFeedback.lightImpact();
-                            openLogin(context);
+                            openEntrance(context);
                           },
                         style: context.textStyles.homeTitleBold,
                       ),

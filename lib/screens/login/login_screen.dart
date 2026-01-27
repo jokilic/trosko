@@ -188,55 +188,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
 
             ///
-            /// GOOGLE SIGN IN
-            ///
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverToBoxAdapter(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton.icon(
-                    onPressed: isLoading
-                        ? null
-                        : () => handleLogin(
-                            context: context,
-                            onLoginPressed: loginController.googleSignInPressed,
-                            useColorfulIcons: useColorfulIcons,
-                          ),
-                    icon: PhosphorIcon(
-                      getPhosphorIcon(
-                        PhosphorIcons.googleLogo,
-                        isDuotone: useColorfulIcons,
-                        isBold: true,
-                      ),
-                      color: context.colors.text,
-                      duotoneSecondaryColor: context.colors.buttonPrimary,
-                      size: 24,
-                    ),
-                    label: Text(
-                      'continueWithGoogle'.tr(),
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      textStyle: context.textStyles.homeTitleBold,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      foregroundColor: context.colors.text,
-                      side: BorderSide(
-                        color: context.colors.text,
-                        width: 1.5,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 16),
-            ),
-
-            ///
             /// REGISTER
             ///
             SliverPadding(

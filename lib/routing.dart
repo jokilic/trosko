@@ -7,6 +7,7 @@ import 'models/notification_payload/notification_payload.dart';
 import 'models/transaction/ai_transaction.dart';
 import 'models/transaction/transaction.dart';
 import 'screens/category/category_screen.dart';
+import 'screens/entrance/entrance_screen.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/location/location_screen.dart';
 import 'screens/login/login_screen.dart';
@@ -17,6 +18,14 @@ import 'screens/stats/stats_screen.dart';
 import 'screens/transaction/transaction_screen.dart';
 import 'screens/voice/voice_screen.dart';
 import 'util/navigation.dart';
+
+/// Opens [EntranceScreen]
+void openEntrance(BuildContext context) => removeAllAndPushScreen(
+  const EntranceScreen(
+    key: ValueKey('entrance'),
+  ),
+  context: context,
+);
 
 /// Opens [LoginScreen]
 void openLogin(BuildContext context) => removeAllAndPushScreen(

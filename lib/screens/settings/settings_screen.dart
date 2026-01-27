@@ -657,7 +657,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     );
 
                     await settingsController.logOut();
-                    openLogin(context);
+                    openEntrance(context);
                   },
                   style: FilledButton.styleFrom(
                     backgroundColor: context.colors.delete,
@@ -746,7 +746,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       /// User successfully deleted
                       if (isDeletedUser) {
                         /// Go to [LoginScreen]
-                        openLogin(context);
+                        openEntrance(context);
                       }
                     }
                   },

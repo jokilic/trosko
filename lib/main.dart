@@ -11,8 +11,8 @@ import 'package:watch_it/watch_it.dart';
 import 'constants/durations.dart';
 import 'firebase_options.dart';
 import 'generated/codegen_loader.g.dart';
+import 'screens/entrance/entrance_screen.dart';
 import 'screens/home/home_screen.dart';
-import 'screens/login/login_screen.dart';
 import 'services/hive_service.dart';
 import 'theme/extensions.dart';
 import 'theme/theme.dart';
@@ -120,8 +120,8 @@ class TroskoWidget extends WatchingWidget {
           ? const HomeScreen(
               key: ValueKey('home'),
             )
-          : const LoginScreen(
-              key: ValueKey('login'),
+          : const EntranceScreen(
+              key: ValueKey('entrance'),
             ),
       onGenerateTitle: (_) => 'appName'.tr(),
       theme:
