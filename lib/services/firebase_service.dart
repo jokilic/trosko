@@ -60,6 +60,7 @@ class FirebaseService {
         'operation-not-allowed' => 'errorOperationNotAllowed'.tr(),
         _ => e.code,
       };
+
       logger.e(error);
       return (user: null, error: error);
     } catch (e) {
@@ -98,11 +99,15 @@ class FirebaseService {
       return (user: userCredential.user, error: null);
     } on GoogleSignInException catch (e) {
       final error = switch (e.code) {
-        GoogleSignInExceptionCode.canceled => 'errorUnknown'.tr(),
-        GoogleSignInExceptionCode.interrupted => 'errorUnknown'.tr(),
-        GoogleSignInExceptionCode.uiUnavailable => 'errorOperationNotAllowed'.tr(),
-        _ => 'errorUnknown'.tr(),
+        GoogleSignInExceptionCode.unknownError => 'errorUnknown'.tr(),
+        GoogleSignInExceptionCode.canceled => 'errorGoogleCanceled'.tr(),
+        GoogleSignInExceptionCode.interrupted => 'errorGoogleInterrupted'.tr(),
+        GoogleSignInExceptionCode.clientConfigurationError => 'errorGoogleClientConfigurationError'.tr(),
+        GoogleSignInExceptionCode.providerConfigurationError => 'errorGoogleProviderConfigurationError'.tr(),
+        GoogleSignInExceptionCode.uiUnavailable => 'errorGoogleUIUnavailable'.tr(),
+        GoogleSignInExceptionCode.userMismatch => 'errorGoogleUserMismatch'.tr(),
       };
+
       logger.e('GoogleSignInException ${e.code}: ${e.description}');
       return (user: null, error: error);
     } on FirebaseAuthException catch (e) {
@@ -114,6 +119,7 @@ class FirebaseService {
         'too-many-requests' => 'errorTooManyRequests'.tr(),
         _ => e.code,
       };
+
       logger.e(error);
       return (user: null, error: error);
     } catch (e) {
@@ -144,6 +150,7 @@ class FirebaseService {
         'too-many-requests' => 'errorTooManyRequests'.tr(),
         _ => e.code,
       };
+
       logger.e(error);
       return (user: null, error: error);
     } catch (e) {
