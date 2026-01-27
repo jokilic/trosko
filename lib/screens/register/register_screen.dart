@@ -121,7 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             SliverToBoxAdapter(
               child: Image.asset(
                 TroskoIcons.illustration,
-                height: 200,
+                height: 256,
                 fit: BoxFit.scaleDown,
               ),
             ),

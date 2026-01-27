@@ -102,7 +102,7 @@ class _EntranceScreenState extends State<EntranceScreen> {
             TroskoAppBar(
               smallTitle: 'welcomeTitle'.tr(),
               bigTitle: 'welcomeTitle'.tr(),
-              bigSubtitle: 'welcomeSubtitle'.tr(),
+              bigSubtitle: 'entranceChooseYourSignInMethod'.tr(),
             ),
             const SliverToBoxAdapter(
               child: SizedBox(height: 12),
@@ -119,7 +119,7 @@ class _EntranceScreenState extends State<EntranceScreen> {
               ),
             ),
             const SliverToBoxAdapter(
-              child: SizedBox(height: 40),
+              child: SizedBox(height: 80),
             ),
 
             ///
@@ -151,6 +151,7 @@ class _EntranceScreenState extends State<EntranceScreen> {
                       ),
                       textStyle: context.textStyles.homeTitleBold,
                       padding: const EdgeInsets.symmetric(vertical: 16),
+                      backgroundColor: context.colors.listTileBackground,
                       foregroundColor: context.colors.text,
                       side: BorderSide(
                         color: context.colors.text,
@@ -200,6 +201,7 @@ class _EntranceScreenState extends State<EntranceScreen> {
                       ),
                       textStyle: context.textStyles.homeTitleBold,
                       padding: const EdgeInsets.symmetric(vertical: 16),
+                      backgroundColor: context.colors.listTileBackground,
                       foregroundColor: context.colors.text,
                       side: BorderSide(
                         color: context.colors.text,
@@ -249,6 +251,7 @@ class _EntranceScreenState extends State<EntranceScreen> {
                       ),
                       textStyle: context.textStyles.homeTitleBold,
                       padding: const EdgeInsets.symmetric(vertical: 16),
+                      backgroundColor: context.colors.listTileBackground,
                       foregroundColor: context.colors.text,
                       side: BorderSide(
                         color: context.colors.text,

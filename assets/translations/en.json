@@ -122,6 +122,7 @@
     "errorPasswordWrong": "Your password is wrong",
     "errorInvalidCredential": "Your credential is invalid",
     "errorUnknown": "Unknown error",
+    "entranceChooseYourSignInMethod": "Choose your sign-in method",
     "continueWithEmail": "Continue with email",
     "continueWithGoogle": "Continue with Google",
     "continueWithApple": "Continue with Apple",

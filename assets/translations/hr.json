@@ -122,6 +122,7 @@
     "errorPasswordWrong": "Tvoja lozinka je pogrešna",
     "errorInvalidCredential": "Tvoji podaci za prijavu su nevažeći",
     "errorUnknown": "Nepoznata greška",
+    "entranceChooseYourSignInMethod": "Odaberi način prijave",
     "continueWithEmail": "Nastavi s emailom",
     "continueWithGoogle": "Nastavi s Googleom",
     "continueWithApple": "Nastavi s Appleom",

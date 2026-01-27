@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SliverToBoxAdapter(
               child: Image.asset(
                 TroskoIcons.illustration,
-                height: 200,
+                height: 256,
                 fit: BoxFit.scaleDown,
               ),
             ),
