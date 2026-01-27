@@ -122,6 +122,7 @@
     "errorPasswordWrong": "Your password is wrong",
     "errorInvalidCredential": "Your credential is invalid",
     "errorUnknown": "Unknown error",
+    "continueWithGoogle": "Continue with Google",
     "searchTitle": "Search",
     "searchSubtitle": "Find your expenses",
     "searchTextField": "Search",
