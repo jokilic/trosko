@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +30,13 @@ class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appl
 
   /// Triggered when the user presses Google login button
   Future<({User? user, String? error})> googleSignInPressed() async {
+    if (value.appleIsLoading) {
+      return (
+        user: null,
+        error: 'entranceWaitAppleToFinish'.tr(),
+      );
+    }
+
     updateState(
       googleIsLoading: true,
       appleIsLoading: false,
@@ -76,6 +84,13 @@ class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appl
 
   /// Triggered when the user presses Apple login button
   Future<({User? user, String? error})> appleSignInPressed() async {
+    if (value.googleIsLoading) {
+      return (
+        user: null,
+        error: 'entranceWaitGoogleToFinish'.tr(),
+      );
+    }
+
     updateState(
       googleIsLoading: false,
       appleIsLoading: true,

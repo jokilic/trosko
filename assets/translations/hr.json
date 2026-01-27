@@ -128,6 +128,8 @@
     "errorGoogleProviderConfigurationError": "Pogreška konfiguracije davatelja usluga",
     "errorGoogleUIUnavailable": "UI nedostupan",
     "errorGoogleUserMismatch": "Korisnik nije trenutni korisnik",
+    "entranceWaitGoogleToFinish": "Pričekajte da Google prijava završi",
+    "entranceWaitAppleToFinish": "Pričekajte da Apple prijava završi",
     "entranceChooseYourSignInMethod": "Odaberi način prijave",
     "continueWithEmail": "Nastavi s emailom",
     "continueWithGoogle": "Nastavi s Googleom",

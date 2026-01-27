@@ -109,13 +109,7 @@ class FirebaseService {
       };
 
       logger.e('GoogleSignInException ${e.code}: ${e.description}');
-      // TODO: Revert
-      // return (user: null, error: error);
-
-      return (
-        user: null,
-        error: 'Code -> ${e.code} Description -> ${e.description} Details -> ${e.details}',
-      );
+      return (user: null, error: error);
     } on FirebaseAuthException catch (e) {
       final error = switch (e.code) {
         'account-exists-with-different-credential' => 'errorInvalidCredential'.tr(),
@@ -254,11 +248,7 @@ class FirebaseService {
 
       final docSnapshot = await firestore.collection('users').doc(user.uid).get();
 
-      if (docSnapshot.exists) {
-        return docSnapshot.data()?['username'];
-      }
-
-      return null;
+      return docSnapshot.data()?['username'] ?? user.displayName;
     } catch (e) {
       logger.e('FirebaseService -> getUsername() -> $e');
       return null;

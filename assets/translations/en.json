@@ -128,6 +128,8 @@
     "errorGoogleProviderConfigurationError": "Provider configuration error",
     "errorGoogleUIUnavailable": "UI unavailable",
     "errorGoogleUserMismatch": "User is not the current user",
+    "entranceWaitGoogleToFinish": "Please wait for Google sign-in to finish",
+    "entranceWaitAppleToFinish": "Please wait for Apple sign-in to finish",
     "entranceChooseYourSignInMethod": "Choose your sign-in method",
     "continueWithEmail": "Continue with email",
     "continueWithGoogle": "Continue with Google",
