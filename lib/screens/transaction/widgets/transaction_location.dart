@@ -60,38 +60,40 @@ class TransactionLocation extends StatelessWidget {
                 /// MAP
                 ///
                 if (useMap)
-                  FlutterMap(
-                    options: MapOptions(
-                      backgroundColor: context.colors.buttonBackground,
-                      onTap: (_, __) => onPressed(location),
-                      maxZoom: 21,
-                      interactionOptions: const InteractionOptions(
-                        flags: InteractiveFlag.none,
-                      ),
-                      initialCenter: coordinates!,
-                      initialZoom: 16,
-                    ),
-                    children: [
-                      ///
-                      /// MAP VECTOR
-                      ///
-                      if (mapStyle != null && useVectorMaps)
-                        VectorTileLayer(
-                          tileProviders: mapStyle!.providers,
-                          theme: mapStyle!.theme,
-                          tileOffset: TileOffset.mapbox,
-                        )
-                      ///
-                      /// FALLBACK MAP
-                      ///
-                      else
-                        TileLayer(
-                          urlTemplate: openStreetMapUri,
-                          maxZoom: 21,
-                          maxNativeZoom: 21,
-                          userAgentPackageName: 'com.josipkilic.trosko',
+                  ExcludeFocus(
+                    child: FlutterMap(
+                      options: MapOptions(
+                        backgroundColor: context.colors.buttonBackground,
+                        onTap: (_, __) => onPressed(location),
+                        maxZoom: 21,
+                        interactionOptions: const InteractionOptions(
+                          flags: InteractiveFlag.none,
                         ),
-                    ],
+                        initialCenter: coordinates!,
+                        initialZoom: 16,
+                      ),
+                      children: [
+                        ///
+                        /// MAP VECTOR
+                        ///
+                        if (mapStyle != null && useVectorMaps)
+                          VectorTileLayer(
+                            tileProviders: mapStyle!.providers,
+                            theme: mapStyle!.theme,
+                            tileOffset: TileOffset.mapbox,
+                          )
+                        ///
+                        /// FALLBACK MAP
+                        ///
+                        else
+                          TileLayer(
+                            urlTemplate: openStreetMapUri,
+                            maxZoom: 21,
+                            maxNativeZoom: 21,
+                            userAgentPackageName: 'com.josipkilic.trosko',
+                          ),
+                      ],
+                    ),
                   ),
 
                 ///

@@ -1,1 +1,3 @@
-* Tweak spacing of graphs
+* Search categories & locations when creating or editing transaction
+* Login using additional credentials
+* Tweak spacing of graph

@@ -6,6 +6,7 @@ class TroskoTextField extends StatelessWidget {
   final bool autocorrect;
   final bool autofocus;
   final TextEditingController controller;
+  final FocusNode? focusNode;
   final String labelText;
   final TextInputType keyboardType;
   final int? minLines;
@@ -24,6 +25,7 @@ class TroskoTextField extends StatelessWidget {
     required this.textAlign,
     required this.textCapitalization,
     required this.textInputAction,
+    this.focusNode,
     this.autocorrect = true,
     this.autofocus = false,
     this.minLines = 1,
@@ -41,6 +43,7 @@ class TroskoTextField extends StatelessWidget {
     autocorrect: autocorrect,
     autofocus: autofocus,
     controller: controller,
+    focusNode: focusNode,
     cursorHeight: 24,
     cursorRadius: const Radius.circular(8),
     cursorWidth: 1.5,

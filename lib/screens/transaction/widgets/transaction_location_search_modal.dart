@@ -31,17 +31,26 @@ class TransactionLocationSearchModal extends StatefulWidget {
 
 class _TransactionLocationSearchModalState extends State<TransactionLocationSearchModal> {
   late final textEditingController = TextEditingController();
+  late final FocusNode searchFocusNode = FocusNode();
   late var currentLocations = widget.locations;
 
   @override
   void initState() {
     super.initState();
     textEditingController.addListener(updateState);
+
+    /// Delay focus to after the sheet & maps are laid out so they don't steal it.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        searchFocusNode.requestFocus();
+      }
+    });
   }
 
   @override
   void dispose() {
     textEditingController.dispose();
+    searchFocusNode.dispose();
     super.dispose();
   }
 
@@ -215,6 +224,7 @@ class _TransactionLocationSearchModalState extends State<TransactionLocationSear
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: TroskoTextField(
               autofocus: true,
+              focusNode: searchFocusNode,
               controller: textEditingController,
               labelText: 'searchTextField'.tr(),
               keyboardType: TextInputType.text,
