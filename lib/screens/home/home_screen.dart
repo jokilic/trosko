@@ -248,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   icon: PhosphorIcon(
                     getPhosphorIcon(
-                      PhosphorIcons.handCoins,
+                      PhosphorIcons.coins,
                       isDuotone: useColorfulIcons,
                       isBold: false,
                     ),
@@ -729,7 +729,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     PhosphorIcon(
                       getPhosphorIcon(
-                        PhosphorIcons.handCoins,
+                        PhosphorIcons.coins,
                         isDuotone: useColorfulIcons,
                         isBold: false,
                       ),

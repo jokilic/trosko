@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -134,7 +135,7 @@ class _EntranceScreenState extends State<EntranceScreen> {
                     onPressed: () => openLogin(context),
                     icon: PhosphorIcon(
                       getPhosphorIcon(
-                        PhosphorIcons.identificationCard,
+                        PhosphorIcons.at,
                         isDuotone: useColorfulIcons,
                         isBold: true,
                       ),
@@ -221,54 +222,56 @@ class _EntranceScreenState extends State<EntranceScreen> {
             ///
             /// APPLE SIGN IN
             ///
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverToBoxAdapter(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton.icon(
-                    onPressed: appleIsLoading
-                        ? null
-                        : () => handleLogin(
-                            context: context,
-                            onLoginPressed: entranceController.appleSignInPressed,
-                            useColorfulIcons: useColorfulIcons,
-                          ),
-                    icon: PhosphorIcon(
-                      getPhosphorIcon(
-                        PhosphorIcons.appleLogo,
-                        isDuotone: useColorfulIcons,
-                        isBold: true,
+            if (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS) ...[
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                sliver: SliverToBoxAdapter(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: appleIsLoading
+                          ? null
+                          : () => handleLogin(
+                              context: context,
+                              onLoginPressed: entranceController.appleSignInPressed,
+                              useColorfulIcons: useColorfulIcons,
+                            ),
+                      icon: PhosphorIcon(
+                        getPhosphorIcon(
+                          PhosphorIcons.appleLogo,
+                          isDuotone: useColorfulIcons,
+                          isBold: true,
+                        ),
+                        color: context.colors.text,
+                        duotoneSecondaryColor: context.colors.buttonPrimary,
+                        size: 24,
                       ),
-                      color: context.colors.text,
-                      duotoneSecondaryColor: context.colors.buttonPrimary,
-                      size: 24,
-                    ),
-                    label: Text(
-                      'continueWithApple'.tr(),
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                      label: Text(
+                        'continueWithApple'.tr(),
                       ),
-                      textStyle: context.textStyles.homeTitleBold,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      backgroundColor: context.colors.listTileBackground,
-                      foregroundColor: context.colors.text,
-                      disabledBackgroundColor: context.colors.listTileBackground,
-                      disabledForegroundColor: context.colors.text,
-                      side: BorderSide(
-                        color: appleIsLoading ? context.colors.listTileBackground : context.colors.text,
-                        width: 1.5,
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        textStyle: context.textStyles.homeTitleBold,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        backgroundColor: context.colors.listTileBackground,
+                        foregroundColor: context.colors.text,
+                        disabledBackgroundColor: context.colors.listTileBackground,
+                        disabledForegroundColor: context.colors.text,
+                        side: BorderSide(
+                          color: appleIsLoading ? context.colors.listTileBackground : context.colors.text,
+                          width: 1.5,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 16),
-            ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 16),
+              ),
+            ],
 
             ///
             /// BOTTOM SPACING

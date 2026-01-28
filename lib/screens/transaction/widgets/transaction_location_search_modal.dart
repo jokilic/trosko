@@ -224,6 +224,10 @@ class _TransactionLocationSearchModalState extends State<TransactionLocationSear
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: TroskoTextField(
               autofocus: true,
+              onSubmitted: (_) {
+                HapticFeedback.lightImpact();
+                Navigator.of(context).pop(currentLocations.firstOrNull);
+              },
               focusNode: searchFocusNode,
               controller: textEditingController,
               labelText: 'searchTextField'.tr(),

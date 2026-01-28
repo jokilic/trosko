@@ -197,6 +197,10 @@ class _TransactionCategorySearchModalState extends State<TransactionCategorySear
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: TroskoTextField(
               autofocus: true,
+              onSubmitted: (_) {
+                HapticFeedback.lightImpact();
+                Navigator.of(context).pop(currentCategories.firstOrNull);
+              },
               controller: textEditingController,
               labelText: 'searchTextField'.tr(),
               keyboardType: TextInputType.text,

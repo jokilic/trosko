@@ -426,7 +426,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
                     children: [
                       PhosphorIcon(
                         getPhosphorIcon(
-                          PhosphorIcons.handCoins,
+                          PhosphorIcons.coins,
                           isDuotone: useColorfulIcons,
                           isBold: false,
                         ),
