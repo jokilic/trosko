@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' hide Transaction;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../models/category/category.dart';
 import '../models/location/location.dart';
@@ -37,6 +38,9 @@ class FirebaseService {
   /// METHODS
   ///
 
+  /// Logs user out of [Firebase]
+  void logOut() => auth.signOut();
+
   /// Logs user into [Firebase]
   Future<({User? user, String? error})> loginUser({
     required String email,
@@ -69,9 +73,6 @@ class FirebaseService {
       return (user: null, error: error);
     }
   }
-
-  /// Logs user out of [Firebase]
-  void logOut() => auth.signOut();
 
   /// Signs user in with Google and authenticates with [Firebase]
   Future<({User? user, String? error})> signInWithGoogle() async {
@@ -124,6 +125,62 @@ class FirebaseService {
       return (user: null, error: error);
     } catch (e) {
       final error = 'Google sign-in error $e';
+      logger.e(error);
+      return (user: null, error: error);
+    }
+  }
+
+  /// Signs user in with Apple and authenticates with [Firebase]
+  Future<({User? user, String? error})> signInWithApple() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      if (credential.identityToken == null || credential.identityToken!.isEmpty) {
+        return (user: null, error: 'errorInvalidCredential'.tr());
+      }
+
+      final oauthCredential = OAuthProvider('apple.com').credential(
+        idToken: credential.identityToken,
+        accessToken: credential.authorizationCode,
+      );
+
+      final userCredential = await auth.signInWithCredential(oauthCredential);
+
+      return (user: userCredential.user, error: null);
+    } on SignInWithAppleAuthorizationException catch (e) {
+      final error = switch (e.code) {
+        AuthorizationErrorCode.canceled => 'errorAppleCanceled'.tr(),
+        AuthorizationErrorCode.failed => 'errorAppleFailed'.tr(),
+        AuthorizationErrorCode.invalidResponse => 'errorAppleInvalidResponse'.tr(),
+        AuthorizationErrorCode.notHandled => 'errorAppleNotHandled'.tr(),
+        AuthorizationErrorCode.notInteractive => 'errorAppleNotInteractive'.tr(),
+        AuthorizationErrorCode.unknown => 'errorUnknown'.tr(),
+        AuthorizationErrorCode.credentialExport => 'errorAppleCredentialExport'.tr(),
+        AuthorizationErrorCode.credentialImport => 'errorAppleCredentialImport'.tr(),
+        AuthorizationErrorCode.matchedExcludedCredential => 'errorAppleMatchedExcludedCredential'.tr(),
+      };
+
+      logger.e('AppleSignInException ${e.code}: ${e.message}');
+      return (user: null, error: error);
+    } on FirebaseAuthException catch (e) {
+      final error = switch (e.code) {
+        'account-exists-with-different-credential' => 'errorInvalidCredential'.tr(),
+        'invalid-credential' => 'errorInvalidCredential'.tr(),
+        'user-disabled' => 'errorAccountDisabled'.tr(),
+        'operation-not-allowed' => 'errorOperationNotAllowed'.tr(),
+        'too-many-requests' => 'errorTooManyRequests'.tr(),
+        _ => e.code,
+      };
+
+      logger.e(error);
+      return (user: null, error: error);
+    } catch (e) {
+      final error = 'Apple sign-in error $e';
       logger.e(error);
       return (user: null, error: error);
     }

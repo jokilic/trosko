@@ -119,7 +119,7 @@ class _EntranceScreenState extends State<EntranceScreen> {
               ),
             ),
             const SliverToBoxAdapter(
-              child: SizedBox(height: 80),
+              child: SizedBox(height: 56),
             ),
 
             ///
@@ -203,8 +203,10 @@ class _EntranceScreenState extends State<EntranceScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       backgroundColor: context.colors.listTileBackground,
                       foregroundColor: context.colors.text,
+                      disabledBackgroundColor: context.colors.listTileBackground,
+                      disabledForegroundColor: context.colors.text,
                       side: BorderSide(
-                        color: context.colors.text,
+                        color: googleIsLoading ? context.colors.listTileBackground : context.colors.text,
                         width: 1.5,
                       ),
                     ),
@@ -253,8 +255,10 @@ class _EntranceScreenState extends State<EntranceScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       backgroundColor: context.colors.listTileBackground,
                       foregroundColor: context.colors.text,
+                      disabledBackgroundColor: context.colors.listTileBackground,
+                      disabledForegroundColor: context.colors.text,
                       side: BorderSide(
-                        color: context.colors.text,
+                        color: appleIsLoading ? context.colors.listTileBackground : context.colors.text,
                         width: 1.5,
                       ),
                     ),

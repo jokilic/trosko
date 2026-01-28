@@ -39,7 +39,6 @@ class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appl
 
     updateState(
       googleIsLoading: true,
-      appleIsLoading: false,
     );
 
     try {
@@ -59,7 +58,6 @@ class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appl
 
         updateState(
           googleIsLoading: false,
-          appleIsLoading: false,
         );
       }
       /// Not successful login
@@ -67,7 +65,6 @@ class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appl
         logger.e('EntranceController -> googleSignInPressed() -> user == null');
         updateState(
           googleIsLoading: false,
-          appleIsLoading: false,
         );
       }
 
@@ -76,7 +73,6 @@ class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appl
       logger.e('EntranceController -> googleSignInPressed() -> $e');
       updateState(
         googleIsLoading: false,
-        appleIsLoading: false,
       );
       return (user: null, error: '$e');
     }
@@ -92,52 +88,44 @@ class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appl
     }
 
     updateState(
-      googleIsLoading: false,
       appleIsLoading: true,
     );
 
-    return (user: null, error: 'Not implemented yet');
+    try {
+      final loginResult = await firebase.signInWithApple();
 
-    // TODO: Implement Apple sign-in
+      /// Successful login
+      if (loginResult.user != null && loginResult.error == null) {
+        /// Store `isLoggedIn` into [Hive]
+        await hive.writeSettings(
+          hive.getSettings().copyWith(
+            isLoggedIn: true,
+          ),
+        );
 
-    // try {
-    //   final loginResult = await firebase.signInWithGoogle();
+        /// Fetch all data from [Firebase] & store into [Hive]
+        await getFirebaseDataIntoHive();
 
-    //   /// Successful login
-    //   if (loginResult.user != null && loginResult.error == null) {
-    //     /// Store `isLoggedIn` into [Hive]
-    //     await hive.writeSettings(
-    //       hive.getSettings().copyWith(
-    //         isLoggedIn: true,
-    //       ),
-    //     );
+        updateState(
+          appleIsLoading: false,
+        );
+      }
+      /// Not successful login
+      else {
+        logger.e('EntranceController -> appleSignInPressed() -> user == null');
+        updateState(
+          appleIsLoading: false,
+        );
+      }
 
-    //     /// Fetch all data from [Firebase] & store into [Hive]
-    //     await getFirebaseDataIntoHive();
-
-    //     updateState(
-    //       googleIsLoading: false,
-    //       appleIsLoading: false,
-    //     );
-    //   }
-    //   /// Not successful login
-    //   else {
-    //     logger.e('EntranceController -> googleSignInPressed() -> user == null');
-    //     updateState(
-    //       googleIsLoading: false,
-    //       appleIsLoading: false,
-    //     );
-    //   }
-
-    //   return loginResult;
-    // } catch (e) {
-    //   logger.e('EntranceController -> googleSignInPressed() -> $e');
-    //   updateState(
-    //     googleIsLoading: false,
-    //     appleIsLoading: false,
-    //   );
-    //   return (user: null, error: '$e');
-    // }
+      return loginResult;
+    } catch (e) {
+      logger.e('EntranceController -> appleSignInPressed() -> $e');
+      updateState(
+        appleIsLoading: false,
+      );
+      return (user: null, error: '$e');
+    }
   }
 
   /// Gets all data from [Firebase] and stores into [Hive]

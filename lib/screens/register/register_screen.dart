@@ -107,6 +107,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
             /// APP BAR
             ///
             TroskoAppBar(
+              leadingWidget: IconButton(
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  openEntrance(context);
+                },
+                style: IconButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  highlightColor: context.colors.buttonBackground,
+                ),
+                icon: PhosphorIcon(
+                  getPhosphorIcon(
+                    PhosphorIcons.arrowLeft,
+                    isDuotone: useColorfulIcons,
+                    isBold: true,
+                  ),
+                  color: context.colors.text,
+                  duotoneSecondaryColor: context.colors.buttonPrimary,
+                  size: 28,
+                ),
+              ),
               smallTitle: 'welcomeTitle'.tr(),
               bigTitle: 'welcomeTitle'.tr(),
               bigSubtitle: 'welcomeSubtitle'.tr(),
@@ -126,7 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
             const SliverToBoxAdapter(
-              child: SizedBox(height: 40),
+              child: SizedBox(height: 56),
             ),
 
             ///
@@ -223,7 +243,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             HapticFeedback.lightImpact();
-                            openEntrance(context);
+                            openLogin(context);
                           },
                         style: context.textStyles.homeTitleBold,
                       ),

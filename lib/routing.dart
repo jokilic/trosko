@@ -28,7 +28,7 @@ void openEntrance(BuildContext context) => removeAllAndPushScreen(
 );
 
 /// Opens [LoginScreen]
-void openLogin(BuildContext context) => pushScreen(
+void openLogin(BuildContext context) => removeAllAndPushScreen(
   const LoginScreen(
     key: ValueKey('login'),
   ),
