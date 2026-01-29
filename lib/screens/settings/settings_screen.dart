@@ -24,7 +24,6 @@ import '../../util/app_version.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
-import '../../util/snackbars.dart';
 import '../../util/sounds.dart';
 import '../../util/theme.dart';
 import '../../widgets/trosko_app_bar.dart';
@@ -722,17 +721,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                     /// Trigger deletion logic
                     final isDeleted = await settingsController.onDeleteAccountPressed(context);
-
-                    /// Show snackbar with result
-                    showSnackbar(
-                      context,
-                      text: isDeleted ? 'User is deleted' : 'User is not deleted',
-                      icon: getPhosphorIcon(
-                        PhosphorIcons.warningCircle,
-                        isDuotone: useColorfulIcons,
-                        isBold: true,
-                      ),
-                    );
 
                     /// User is deleted
                     if (isDeleted) {
