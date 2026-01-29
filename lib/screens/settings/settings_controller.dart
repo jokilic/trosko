@@ -12,6 +12,8 @@ import '../../services/map_service.dart';
 import '../../services/notification_service.dart';
 import '../../services/speech_to_text_service.dart';
 import '../../services/work_manager_service.dart';
+import '../../theme/extensions.dart';
+import 'widgets/settings_delete_account_modal.dart';
 
 class SettingsController implements Disposable {
   ///
@@ -206,10 +208,48 @@ class SettingsController implements Disposable {
     await hive.clearEverything();
   }
 
+  /// Triggered when the user presses the delete account button
+  Future<bool> onDeleteAccountPressed(BuildContext context) async {
+    /// Get `authProvider`
+    final authProvider = firebase.authProvider;
+    final isNotEmailProvider = authProvider == AuthProvider.google || authProvider == AuthProvider.apple;
+
+    /// Show [SettingsDeleteAccountModal] for email users
+    final value = await showModalBottomSheet<({String email, String password, bool shouldDelete})>(
+      context: context,
+      backgroundColor: context.colors.scaffoldBackground,
+      isScrollControlled: true,
+      useSafeArea: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      builder: (context) => SettingsDeleteAccountModal(
+        deleteWord: isNotEmailProvider ? 'settingsDeleteAccountDeleteWordModalWord'.tr() : null,
+        userEmail: !isNotEmailProvider ? firebase.userEmail : null,
+        key: const ValueKey('delete-account-modal'),
+      ),
+    );
+
+    /// User should be deleted
+    if (value?.shouldDelete ?? false) {
+      /// Delete `user`
+      final isDeletedUser = await deleteUser(
+        email: value?.email,
+        password: value?.password,
+      );
+
+      return isDeletedUser;
+    }
+
+    return false;
+  }
+
   /// Deletes [Firebase] user & clears [Hive]
+  /// For email/password users, [email] and [password] are required
+  /// For Google/Apple users, reauthentication is handled automatically via OAuth
   Future<bool> deleteUser({
-    required String email,
-    required String password,
+    String? email,
+    String? password,
   }) async {
     final isUserDeleted = await firebase.deleteUser(
       email: email,

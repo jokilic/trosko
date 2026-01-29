@@ -9,9 +9,11 @@ import '../../../util/email.dart';
 import '../../../widgets/trosko_text_field.dart';
 
 class SettingsDeleteAccountModal extends StatefulWidget {
+  final String? deleteWord;
   final String? userEmail;
 
   const SettingsDeleteAccountModal({
+    required this.deleteWord,
     required this.userEmail,
     required super.key,
   });
@@ -21,8 +23,12 @@ class SettingsDeleteAccountModal extends StatefulWidget {
 }
 
 class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal> {
+  var isDeleteWordValid = false;
+
   var isEmailValid = false;
   var isPasswordValid = false;
+
+  late final deleteWordTextEditingController = TextEditingController();
 
   late final emailTextEditingController = TextEditingController();
   late final passwordTextEditingController = TextEditingController();
@@ -32,18 +38,15 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
     super.initState();
 
     /// Validation
-    emailTextEditingController.addListener(
-      validateEmailAndPassword,
-    );
-
-    /// Validation
-    passwordTextEditingController.addListener(
-      validateEmailAndPassword,
-    );
+    deleteWordTextEditingController.addListener(validateTextFields);
+    emailTextEditingController.addListener(validateTextFields);
+    passwordTextEditingController.addListener(validateTextFields);
   }
 
   @override
   void dispose() {
+    deleteWordTextEditingController.dispose();
+
     emailTextEditingController.dispose();
     passwordTextEditingController.dispose();
 
@@ -51,15 +54,18 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
   }
 
   /// Triggered on every [TextField] change
-  /// Validates email & password
+  /// Validates delete word, email & password
   /// Updates login button state
-  void validateEmailAndPassword() {
+  void validateTextFields() {
     /// Parse values
+    final deleteWord = deleteWordTextEditingController.text.trim();
+
     final email = emailTextEditingController.text.trim();
     final password = passwordTextEditingController.text.trim();
 
     /// Validate values
     updateState(
+      deleteWordValid: deleteWord == widget.deleteWord,
       emailValid: isValidEmail(email),
       passwordValid: password.length >= 8,
     );
@@ -67,9 +73,12 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
 
   /// Updates `state`
   void updateState({
+    bool? deleteWordValid,
     bool? emailValid,
     bool? passwordValid,
   }) => setState(() {
+    isDeleteWordValid = deleteWordValid ?? isDeleteWordValid;
+
     isEmailValid = emailValid ?? isEmailValid;
     isPasswordValid = passwordValid ?? isPasswordValid;
   });
@@ -87,49 +96,96 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ///
-          /// TEXT
+          /// EMAIL & PASSWORD
           ///
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            child: Text(
-              'settingsDeleteAccountModalText'.tr(),
-              style: context.textStyles.homeTitle,
+          if (widget.userEmail != null) ...[
+            ///
+            /// TEXT
+            ///
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              child: Text(
+                'settingsDeleteAccountEmailModalText'.tr(),
+                style: context.textStyles.homeTitle,
+              ),
             ),
-          ),
-          const SizedBox(height: 12),
+            const SizedBox(height: 12),
+
+            ///
+            /// EMAIL
+            ///
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: TroskoTextField(
+                controller: emailTextEditingController,
+                labelText: 'email'.tr(),
+                keyboardType: TextInputType.emailAddress,
+                textAlign: TextAlign.left,
+                textCapitalization: TextCapitalization.none,
+                textInputAction: TextInputAction.next,
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            ///
+            /// PASSWORD
+            ///
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: TroskoTextField(
+                obscureText: true,
+                controller: passwordTextEditingController,
+                labelText: 'password'.tr(),
+                keyboardType: TextInputType.visiblePassword,
+                textAlign: TextAlign.left,
+                textCapitalization: TextCapitalization.none,
+                textInputAction: TextInputAction.go,
+              ),
+            ),
+            const SizedBox(height: 28),
+          ],
 
           ///
-          /// EMAIL
+          /// DELETE WORD
           ///
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: TroskoTextField(
-              controller: emailTextEditingController,
-              labelText: 'email'.tr(),
-              keyboardType: TextInputType.emailAddress,
-              textAlign: TextAlign.left,
-              textCapitalization: TextCapitalization.none,
-              textInputAction: TextInputAction.next,
+          if (widget.deleteWord != null) ...[
+            ///
+            /// TEXT
+            ///
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              child: Text.rich(
+                TextSpan(
+                  text: 'settingsDeleteAccountDeleteWordModalText'.tr(),
+                  children: [
+                    TextSpan(
+                      text: 'settingsDeleteAccountDeleteWordModalWord'.tr(),
+                      style: context.textStyles.homeTitleBold,
+                    ),
+                    const TextSpan(text: '.'),
+                  ],
+                ),
+                style: context.textStyles.homeTitle,
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
+            const SizedBox(height: 12),
 
-          ///
-          /// PASSWORD
-          ///
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: TroskoTextField(
-              obscureText: true,
-              controller: passwordTextEditingController,
-              labelText: 'password'.tr(),
-              keyboardType: TextInputType.visiblePassword,
-              textAlign: TextAlign.left,
-              textCapitalization: TextCapitalization.none,
-              textInputAction: TextInputAction.go,
+            ///
+            /// DELETE WORD
+            ///
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: TroskoTextField(
+                controller: deleteWordTextEditingController,
+                labelText: 'settingsDeleteAccountDeleteWordModalWord'.tr(),
+                keyboardType: TextInputType.text,
+                textAlign: TextAlign.left,
+                textCapitalization: TextCapitalization.none,
+                textInputAction: TextInputAction.go,
+              ),
             ),
-          ),
-          const SizedBox(height: 28),
+            const SizedBox(height: 28),
+          ],
 
           ///
           /// BUTTON
@@ -139,11 +195,13 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
             child: SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: isEmailValid && isPasswordValid
+                onPressed: (isEmailValid && isPasswordValid) || isDeleteWordValid
                     ? () {
                         HapticFeedback.lightImpact();
 
                         /// Parse values
+                        final deleteWord = deleteWordTextEditingController.text.trim();
+
                         final email = emailTextEditingController.text.trim();
                         final password = passwordTextEditingController.text.trim();
 
@@ -151,7 +209,7 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
                           (
                             email: email,
                             password: password,
-                            shouldDelete: widget.userEmail == email,
+                            shouldDelete: widget.userEmail == email || widget.deleteWord == deleteWord,
                           ),
                         );
                       }

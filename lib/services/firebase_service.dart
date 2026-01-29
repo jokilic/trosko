@@ -11,6 +11,12 @@ import '../models/location/location.dart';
 import '../models/transaction/transaction.dart';
 import 'logger_service.dart';
 
+enum AuthProvider {
+  email,
+  google,
+  apple,
+}
+
 class FirebaseService {
   ///
   /// CONSTRUCTOR
@@ -33,6 +39,27 @@ class FirebaseService {
   ///
 
   String? get userEmail => auth.currentUser?.email;
+
+  /// Returns the sign-in provider for the current user
+  /// Possible values: 'google.com', 'apple.com', 'password', or null
+  AuthProvider? get authProvider {
+    final user = auth.currentUser;
+
+    if (user == null) {
+      return null;
+    }
+
+    for (final provider in user.providerData) {
+      if (provider.providerId == 'google.com') {
+        return AuthProvider.google;
+      }
+      if (provider.providerId == 'apple.com') {
+        return AuthProvider.apple;
+      }
+    }
+
+    return AuthProvider.email;
+  }
 
   ///
   /// METHODS
@@ -218,9 +245,12 @@ class FirebaseService {
   }
 
   /// Deletes data and user from [Firebase]
+  /// For email/password users, provide [email] and [password]
+  /// For Google / Apple users, these parameters are ignored and
+  /// the user will be prompted to reauthenticate via `OAuth`
   Future<bool> deleteUser({
-    required String email,
-    required String password,
+    String? email,
+    String? password,
   }) async {
     try {
       final user = auth.currentUser;
@@ -229,12 +259,35 @@ class FirebaseService {
         return false;
       }
 
-      /// Reauthenticate before deleting
-      final credential = EmailAuthProvider.credential(
-        email: email,
-        password: password,
-      );
-      await user.reauthenticateWithCredential(credential);
+      /// Reauthenticate before deleting based on sign-in provider
+      var isReauthenticated = false;
+
+      switch (authProvider) {
+        case AuthProvider.google:
+          isReauthenticated = await reauthenticateWithGoogle(user);
+          break;
+
+        case AuthProvider.apple:
+          isReauthenticated = await reauthenticateWithApple(user);
+          break;
+
+        case AuthProvider.email:
+          isReauthenticated = await reauthenticateWithEmail(
+            user,
+            email: email,
+            password: password,
+          );
+          break;
+
+        default:
+          logger.e('Unknown sign-in provider: $authProvider');
+          return false;
+      }
+
+      /// User not reauthenticated, return
+      if (!isReauthenticated) {
+        return false;
+      }
 
       /// Get user document reference
       final userDoc = firestore.collection('users').doc(user.uid);
@@ -259,6 +312,7 @@ class FirebaseService {
 
       /// Delete `user`
       await user.delete();
+
       return true;
     } catch (e) {
       final error = 'FirebaseService -> deleteUser() -> $e';
@@ -266,6 +320,75 @@ class FirebaseService {
 
       return false;
     }
+  }
+
+  /// Reauthenticate user with `email`
+  Future<bool> reauthenticateWithEmail(
+    User user, {
+    required String? email,
+    required String? password,
+  }) async {
+    if (email == null || password == null) {
+      logger.e('Email and password are required for email/password users');
+      return false;
+    }
+
+    final credential = EmailAuthProvider.credential(
+      email: email,
+      password: password,
+    );
+
+    final reauth = await user.reauthenticateWithCredential(credential);
+
+    return reauth.user != null;
+  }
+
+  /// Reauthenticate user with `Google`
+  Future<bool> reauthenticateWithGoogle(User user) async {
+    await googleSignIn.initialize();
+
+    if (!googleSignIn.supportsAuthenticate()) {
+      return false;
+    }
+
+    final googleUser = await googleSignIn.authenticate();
+    final googleAuth = googleUser.authentication;
+    final idToken = googleAuth.idToken;
+
+    if (idToken == null || idToken.isEmpty) {
+      return false;
+    }
+
+    final credential = GoogleAuthProvider.credential(
+      idToken: idToken,
+    );
+
+    final reauth = await user.reauthenticateWithCredential(credential);
+
+    return reauth.user != null;
+  }
+
+  /// Reauthenticate user with Apple
+  Future<bool> reauthenticateWithApple(User user) async {
+    final appleCredential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+    );
+
+    if (appleCredential.identityToken == null || appleCredential.identityToken!.isEmpty) {
+      return false;
+    }
+
+    final oauthCredential = OAuthProvider('apple.com').credential(
+      idToken: appleCredential.identityToken,
+      accessToken: appleCredential.authorizationCode,
+    );
+
+    final reauth = await user.reauthenticateWithCredential(oauthCredential);
+
+    return reauth.user != null;
   }
 
   /// Paged delete for [Firebase] collection

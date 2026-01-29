@@ -24,13 +24,13 @@ import '../../util/app_version.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
+import '../../util/snackbars.dart';
 import '../../util/sounds.dart';
 import '../../util/theme.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'settings_controller.dart';
 import 'widgets/settings_categories.dart';
-import 'widgets/settings_delete_account_modal.dart';
 import 'widgets/settings_languages.dart';
 import 'widgets/settings_list_tile.dart';
 import 'widgets/settings_locations.dart';
@@ -720,34 +720,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       HapticFeedback.lightImpact(),
                     );
 
-                    /// Show [SettingsDeleteAccountModal]
-                    final value = await showModalBottomSheet<({String email, String password, bool shouldDelete})>(
-                      context: context,
-                      backgroundColor: context.colors.scaffoldBackground,
-                      isScrollControlled: true,
-                      useSafeArea: true,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      builder: (context) => SettingsDeleteAccountModal(
-                        userEmail: settingsController.firebase.userEmail,
-                        key: const ValueKey('delete-account-modal'),
+                    /// Trigger deletion logic
+                    final isDeleted = await settingsController.onDeleteAccountPressed(context);
+
+                    /// Show snackbar with result
+                    showSnackbar(
+                      context,
+                      text: isDeleted ? 'User is deleted' : 'User is not deleted',
+                      icon: getPhosphorIcon(
+                        PhosphorIcons.warningCircle,
+                        isDuotone: useColorfulIcons,
+                        isBold: true,
                       ),
                     );
 
-                    /// `email` and `password` exist
-                    if ((value?.email.isNotEmpty ?? false) && (value?.password.isNotEmpty ?? false) && (value?.shouldDelete ?? false)) {
-                      /// Delete `user`
-                      final isDeletedUser = await settingsController.deleteUser(
-                        email: value!.email,
-                        password: value.password,
-                      );
-
-                      /// User successfully deleted
-                      if (isDeletedUser) {
-                        /// Go to [LoginScreen]
-                        openEntrance(context);
-                      }
+                    /// User is deleted
+                    if (isDeleted) {
+                      /// Go to [EntranceScreen]
+                      openEntrance(context);
                     }
                   },
                   style: FilledButton.styleFrom(
