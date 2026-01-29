@@ -17,6 +17,19 @@ Future<T?> pushScreen<T>(
   ),
 );
 
+Future<T?> popAndPushScreen<T>(
+  Widget screen, {
+  required BuildContext context,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+}) => Navigator.of(context).pushReplacement<T, T>(
+  fadePageTransition(
+    screen,
+    transitionDuration: transitionDuration,
+    reverseTransitionDuration: reverseTransitionDuration,
+  ),
+);
+
 Future<T?> removeAllAndPushScreen<T>(
   Widget screen, {
   required BuildContext context,

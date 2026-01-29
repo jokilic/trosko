@@ -28,15 +28,25 @@ void openEntrance(BuildContext context) => removeAllAndPushScreen(
 );
 
 /// Opens [LoginScreen]
-void openLogin(BuildContext context) => removeAllAndPushScreen(
-  const LoginScreen(
-    key: ValueKey('login'),
-  ),
-  context: context,
-);
+void openLogin(
+  BuildContext context, {
+  bool popScreenBefore = true,
+}) => popScreenBefore
+    ? popAndPushScreen(
+        const LoginScreen(
+          key: ValueKey('login'),
+        ),
+        context: context,
+      )
+    : pushScreen(
+        const LoginScreen(
+          key: ValueKey('login'),
+        ),
+        context: context,
+      );
 
 /// Opens [RegisterScreen]
-void openRegister(BuildContext context) => removeAllAndPushScreen(
+void openRegister(BuildContext context) => popAndPushScreen(
   const RegisterScreen(
     key: ValueKey('register'),
   ),

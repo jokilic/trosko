@@ -132,7 +132,10 @@ class _EntranceScreenState extends State<EntranceScreen> {
                 child: SizedBox(
                   width: double.infinity,
                   child: OutlinedButton.icon(
-                    onPressed: () => openLogin(context),
+                    onPressed: () => openLogin(
+                      context,
+                      popScreenBefore: false,
+                    ),
                     icon: PhosphorIcon(
                       getPhosphorIcon(
                         PhosphorIcons.at,

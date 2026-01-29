@@ -1,3 +1,6 @@
 * Search categories & locations when creating or editing transaction
 * Login using additional credentials
 * Tweak spacing of graph
+* Small translation updates
+* Small navigation updates
+* Small scroll updates

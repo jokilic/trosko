@@ -110,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               leadingWidget: IconButton(
                 onPressed: () {
                   HapticFeedback.lightImpact();
-                  openEntrance(context);
+                  Navigator.of(context).pop();
                 },
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.transparent,
