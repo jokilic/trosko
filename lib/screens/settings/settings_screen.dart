@@ -196,6 +196,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           /// PRIMARY COLORS
           ///
           SettingsPrimaryColors(
+            scrollController: settingsController.primaryColorsScrollController,
             onGenerateKey: settingsController.primaryColorsKeys.putIfAbsent,
             primaryColors: primaryColors,
             activePrimaryColor: settings?.primaryColor,

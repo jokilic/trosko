@@ -13,6 +13,7 @@ import '../../services/notification_service.dart';
 import '../../services/speech_to_text_service.dart';
 import '../../services/work_manager_service.dart';
 import '../../theme/extensions.dart';
+import '../../util/scroll.dart';
 import 'widgets/settings_delete_account_modal.dart';
 
 class SettingsController implements Disposable {
@@ -46,6 +47,8 @@ class SettingsController implements Disposable {
     text: hive.value.username,
   );
 
+  late final primaryColorsScrollController = ScrollController();
+
   final primaryColorsKeys = <Color, GlobalKey>{};
 
   ///
@@ -57,17 +60,15 @@ class SettingsController implements Disposable {
 
     /// Scroll to `primaryColor`
     if (settings.primaryColor != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final key = primaryColorsKeys[settings.primaryColor];
-        final ctx = key?.currentContext;
-
-        if (ctx != null) {
-          Scrollable.ensureVisible(
-            ctx,
-            alignment: 0.5,
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) {
+          final key = primaryColorsKeys[settings.primaryColor];
+          ensureVisibleHorizontally(
+            key: key,
+            controller: primaryColorsScrollController,
           );
-        }
-      });
+        },
+      );
     }
   }
 
@@ -78,6 +79,7 @@ class SettingsController implements Disposable {
   @override
   void onDispose() {
     nameTextEditingController.dispose();
+    primaryColorsScrollController.dispose();
   }
 
   ///

@@ -7,6 +7,7 @@ class SettingsPrimaryColors extends StatelessWidget {
   final List<Color> primaryColors;
   final Color? activePrimaryColor;
   final Function(Color primaryColor) onPressedPrimaryColor;
+  final ScrollController scrollController;
   final GlobalKey Function(
     Color primaryColor,
     GlobalKey Function() key,
@@ -17,6 +18,7 @@ class SettingsPrimaryColors extends StatelessWidget {
     required this.primaryColors,
     required this.activePrimaryColor,
     required this.onPressedPrimaryColor,
+    required this.scrollController,
     required this.onGenerateKey,
   });
 
@@ -25,6 +27,7 @@ class SettingsPrimaryColors extends StatelessWidget {
     child: SizedBox(
       height: 72,
       child: ListView.separated(
+        controller: scrollController,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,

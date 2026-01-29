@@ -227,7 +227,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               if (category != null) {
                                 transactionController
                                   ..categoryChanged(category)
-                                  ..scrollToActiveCategoryAndLocation();
+                                  ..scrollHorizontallyToActive();
                               }
                             },
                             highlightColor: context.colors.buttonBackground,
@@ -273,6 +273,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 ///
                 IntrinsicHeight(
                   child: SingleChildScrollView(
+                    controller: transactionController.categoryScrollController,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
@@ -358,7 +359,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               if (location != null) {
                                 transactionController
                                   ..locationChanged(location)
-                                  ..scrollToActiveCategoryAndLocation();
+                                  ..scrollHorizontallyToActive();
                               }
                             },
                             highlightColor: context.colors.buttonBackground,
@@ -404,6 +405,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 ///
                 IntrinsicHeight(
                   child: SingleChildScrollView(
+                    controller: transactionController.locationScrollController,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),

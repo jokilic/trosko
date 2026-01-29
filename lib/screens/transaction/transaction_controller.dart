@@ -12,6 +12,7 @@ import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../util/scroll.dart';
 
 /// Class to distinguish `no argument passed` from `explicitly passed null`
 class TransactionStateNoChange {
@@ -85,6 +86,9 @@ class TransactionController
     text: passedTransaction?.note ?? passedAITransaction?.note,
   );
 
+  late final categoryScrollController = ScrollController();
+  late final locationScrollController = ScrollController();
+
   final categoryKeys = <String, GlobalKey>{};
   final locationKeys = <String, GlobalKey>{};
 
@@ -135,8 +139,8 @@ class TransactionController
       ),
     );
 
-    /// Scroll to `activeCategory` and `activeLocation`
-    scrollToActiveCategoryAndLocation();
+    /// Scroll to active [Category] and [Location]
+    scrollHorizontallyToActive();
   }
 
   ///
@@ -147,44 +151,38 @@ class TransactionController
   void onDispose() {
     nameTextEditingController.dispose();
     noteTextEditingController.dispose();
+
+    categoryScrollController.dispose();
+    locationScrollController.dispose();
   }
 
   ///
   /// METHODS
   ///
 
-  /// Scroll to `activeCategory` and `activeLocation`
-  void scrollToActiveCategoryAndLocation() {
-    /// Scroll to `activeCategory`
-    if (value.category != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final key = categoryKeys[value.category?.id];
-        final ctx = key?.currentContext;
+  /// Scrolls horizontally to active [Category] and [Location]
+  void scrollHorizontallyToActive() => WidgetsBinding.instance.addPostFrameCallback(
+    (_) {
+      final category = value.category;
+      final location = value.location;
 
-        if (ctx != null) {
-          Scrollable.ensureVisible(
-            ctx,
-            alignment: 0.5,
-          );
-        }
-      });
-    }
+      if (category != null) {
+        final key = categoryKeys[category.id];
+        ensureVisibleHorizontally(
+          key: key,
+          controller: categoryScrollController,
+        );
+      }
 
-    /// Scroll to `activeLocation`
-    if (value.location != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final key = locationKeys[value.location?.id];
-        final ctx = key?.currentContext;
-
-        if (ctx != null) {
-          Scrollable.ensureVisible(
-            ctx,
-            alignment: 0.5,
-          );
-        }
-      });
-    }
-  }
+      if (location != null) {
+        final key = locationKeys[location.id];
+        ensureVisibleHorizontally(
+          key: key,
+          controller: locationScrollController,
+        );
+      }
+    },
+  );
 
   /// Triggered when the user writes in the [TransactionAmountWidget]
   void transactionAmountChanged(int newCents) => updateState(
