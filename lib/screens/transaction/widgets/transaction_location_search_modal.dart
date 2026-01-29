@@ -32,7 +32,8 @@ class TransactionLocationSearchModal extends StatefulWidget {
 class _TransactionLocationSearchModalState extends State<TransactionLocationSearchModal> {
   late final textEditingController = TextEditingController();
   late final FocusNode searchFocusNode = FocusNode();
-  late var currentLocations = widget.locations;
+
+  late var currentLocations = List.from(widget.locations);
 
   @override
   void initState() {
@@ -65,10 +66,7 @@ class _TransactionLocationSearchModalState extends State<TransactionLocationSear
     );
 
     /// Sort `locations`
-    final sortedItems = items
-      ..sort(
-        (a, b) => b.createdAt.compareTo(a.createdAt),
-      );
+    final sortedItems = List<Location>.from(items);
 
     /// Update `state`
     setState(

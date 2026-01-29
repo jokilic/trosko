@@ -25,7 +25,8 @@ class TransactionCategorySearchModal extends StatefulWidget {
 
 class _TransactionCategorySearchModalState extends State<TransactionCategorySearchModal> {
   late final textEditingController = TextEditingController();
-  late var currentCategories = widget.categories;
+
+  late var currentCategories = List.from(widget.categories);
 
   @override
   void initState() {
@@ -50,10 +51,7 @@ class _TransactionCategorySearchModalState extends State<TransactionCategorySear
     );
 
     /// Sort `categories`
-    final sortedItems = items
-      ..sort(
-        (a, b) => b.createdAt.compareTo(a.createdAt),
-      );
+    final sortedItems = List<Category>.from(items);
 
     /// Update `state`
     setState(
