@@ -1,7 +1,7 @@
 name: trosko
 description: 'Budget tracking application in Flutter.'
 publish_to: 'none'
-version: 2.1.0+210
+version: 2.1.1+211
 
 #
 # DEPLOYING APP
