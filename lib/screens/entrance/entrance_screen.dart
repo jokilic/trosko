@@ -101,9 +101,9 @@ class _EntranceScreenState extends State<EntranceScreen> {
             /// APP BAR
             ///
             TroskoAppBar(
-              smallTitle: 'welcomeTitle'.tr(),
-              bigTitle: 'welcomeTitle'.tr(),
-              bigSubtitle: 'entranceChooseYourSignInMethod'.tr(),
+              smallTitle: 'entranceTitle'.tr(),
+              bigTitle: 'entranceTitle'.tr(),
+              bigSubtitle: 'entranceSubtitle'.tr(),
             ),
             const SliverToBoxAdapter(
               child: SizedBox(height: 12),
@@ -121,6 +121,22 @@ class _EntranceScreenState extends State<EntranceScreen> {
             ),
             const SliverToBoxAdapter(
               child: SizedBox(height: 56),
+            ),
+
+            ///
+            /// TITLE & NOTE TITLE
+            ///
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'entranceChooseYourSignInMethod'.tr(),
+                  style: context.textStyles.homeTitle,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 12),
             ),
 
             ///

@@ -127,9 +127,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   size: 28,
                 ),
               ),
-              smallTitle: 'welcomeTitle'.tr(),
-              bigTitle: 'welcomeTitle'.tr(),
-              bigSubtitle: 'welcomeSubtitle'.tr(),
+              smallTitle: 'registerTitle'.tr(),
+              bigTitle: 'registerTitle'.tr(),
+              bigSubtitle: 'registerSubtitle'.tr(),
             ),
             const SliverToBoxAdapter(
               child: SizedBox(height: 12),

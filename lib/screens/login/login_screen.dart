@@ -127,9 +127,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   size: 28,
                 ),
               ),
-              smallTitle: 'welcomeTitle'.tr(),
-              bigTitle: 'welcomeTitle'.tr(),
-              bigSubtitle: 'welcomeSubtitle'.tr(),
+              smallTitle: 'loginTitle'.tr(),
+              bigTitle: 'loginTitle'.tr(),
+              bigSubtitle: 'loginSubtitle'.tr(),
             ),
             const SliverToBoxAdapter(
               child: SizedBox(height: 12),
