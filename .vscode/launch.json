@@ -6,9 +6,6 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
-            "args": [
-                "--enable-flutter-gpu",
-            ],
         },
         {
             "name": "Troško Release",
