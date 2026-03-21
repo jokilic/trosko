@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
+import '../constants/durations.dart';
 import '../screens/voice/voice_controller.dart';
 import '../util/dependencies.dart';
 import 'logger_service.dart';
@@ -93,6 +94,11 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
           result.recognizedWords,
         ),
         localeId: locale,
+        listenFor: TroskoDurations.speechRecognitionListenFor,
+        pauseFor: TroskoDurations.speechRecognitionPauseFor,
+        listenOptions: SpeechListenOptions(
+          listenMode: ListenMode.dictation,
+        ),
       );
 
       updateState(
