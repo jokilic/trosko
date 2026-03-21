@@ -33,18 +33,20 @@ class SettingsLocations extends StatelessWidget {
         buildDefaultDragHandles: false,
         itemCount: locations.length,
         onReorder: (oldIndex, newIndex) {
-          if (newIndex > locations.length) {
-            newIndex = locations.length;
+          var index = newIndex;
+
+          if (index > locations.length) {
+            index = locations.length;
           }
 
           final list = List<Location>.from(locations);
 
-          if (newIndex > oldIndex) {
-            newIndex -= 1;
+          if (index > oldIndex) {
+            index -= 1;
           }
 
           final item = list.removeAt(oldIndex);
-          list.insert(newIndex, item);
+          list.insert(index, item);
 
           onReorderLocations(list);
         },

@@ -27,18 +27,20 @@ class SettingsCategories extends StatelessWidget {
         buildDefaultDragHandles: false,
         itemCount: categories.length,
         onReorder: (oldIndex, newIndex) {
-          if (newIndex > categories.length) {
-            newIndex = categories.length;
+          var index = newIndex;
+
+          if (index > categories.length) {
+            index = categories.length;
           }
 
           final list = List<Category>.from(categories);
 
-          if (newIndex > oldIndex) {
-            newIndex -= 1;
+          if (index > oldIndex) {
+            index -= 1;
           }
 
           final item = list.removeAt(oldIndex);
-          list.insert(newIndex, item);
+          list.insert(index, item);
 
           onReorderCategories(list);
         },

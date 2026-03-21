@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:notification_listener_service/notification_listener_service.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../util/dependencies.dart';
@@ -59,6 +61,7 @@ class WorkManagerService {
     uniqueName,
     taskName,
     frequency: const Duration(minutes: 30),
+    existingWorkPolicy: ExistingPeriodicWorkPolicy.update,
     constraints: Constraints(
       networkType: NetworkType.notRequired,
       requiresBatteryNotLow: false,
@@ -69,7 +72,7 @@ class WorkManagerService {
   );
 
   /// Stops [WorkManager] tasks
-  Future<void> stopTask() async => Workmanager().cancelAll();
+  Future<void> stopTask() async => Workmanager().cancelByUniqueName(uniqueName);
 }
 
 @pragma('vm:entry-point')
@@ -86,12 +89,29 @@ void callbackDispatcher() => Workmanager().executeTask(
       /// Initialize localization
       await initializeLocalization();
 
+      /// Recheck the real Android permission state before trying to revive the service.
+      final notificationPermission = await FlutterForegroundTask.checkNotificationPermission();
+      final listenerGranted = await NotificationListenerService.isPermissionGranted();
+
       /// Restart notification listener foreground service if enabled
       final notification = getItBackground.get<NotificationService>();
 
-      if (notification.value.useNotificationListener) {
-        notification.initializeForegroundTask();
+      final notificationsEnabled = notification.value.useNotificationListener && notificationPermission == NotificationPermission.granted && listenerGranted;
+
+      if (notificationsEnabled) {
+        notification
+          ..updateState(
+            notificationGranted: true,
+            listenerGranted: true,
+          )
+          ..initializeForegroundTask();
+
         await notification.startService();
+      } else {
+        notification.updateState(
+          notificationGranted: notificationPermission == NotificationPermission.granted,
+          listenerGranted: listenerGranted,
+        );
       }
 
       return Future.value(true);

@@ -167,15 +167,18 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     foregroundTaskOptions: ForegroundTaskOptions(
       eventAction: ForegroundTaskEventAction.nothing(),
       autoRunOnBoot: true,
+      autoRunOnMyPackageReplaced: true,
       allowWakeLock: true,
       allowWifiLock: true,
+      allowAutoRestart: true,
+      stopWithTask: false,
     ),
   );
 
   /// Starts [FlutterForegroundTask] service
   Future<ServiceRequestResult> startService() async {
     if (await FlutterForegroundTask.isRunningService) {
-      return const ServiceRequestSuccess();
+      return FlutterForegroundTask.restartService();
     }
 
     return FlutterForegroundTask.startService(
