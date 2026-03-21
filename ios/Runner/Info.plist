@@ -6,27 +6,8 @@
 	<array>
 		<string>com.transistorsoft.fetch</string>
 	</array>
-	<key>GIDClientID</key>
-	<string>64667044702-92dcs45q9c9nddpdmpep8p4t67idd5i1.apps.googleusercontent.com</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.64667044702-92dcs45q9c9nddpdmpep8p4t67idd5i1</string>
-			</array>
-		</dict>
-	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Troško needs access to location to show your current location on the map.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Troško needs access to speech recognition in order to create expenses using your voice.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Troško needs access to microphone in order to create expenses using your voice.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -50,12 +31,52 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.64667044702-92dcs45q9c9nddpdmpep8p4t67idd5i1</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>GIDClientID</key>
+	<string>64667044702-92dcs45q9c9nddpdmpep8p4t67idd5i1.apps.googleusercontent.com</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Troško needs access to location to show your current location on the map.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Troško needs access to microphone in order to create expenses using your voice.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Troško needs access to speech recognition in order to create expenses using your voice.</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneClassName</key>
+					<string>UIWindowScene</string>
+					<key>UISceneConfigurationName</key>
+					<string>flutter</string>
+					<key>UISceneDelegateClassName</key>
+					<string>FlutterSceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
