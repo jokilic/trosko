@@ -258,7 +258,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     passedAITransaction: null,
                     categories: categories,
                     locations: locations,
-                    passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
+                    passedCategory: categories.length == 1
+                        ? categories.first
+                        : activeCategories?.length == 1
+                        ? activeCategories!.first
+                        : null,
                     passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
                     passedNotificationPayload: null,
                     onTransactionUpdated: () => homeController.updateState(
@@ -721,7 +725,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     PhosphorIcon(
                       getPhosphorIcon(
-                        PhosphorIcons.coins,
+                        categories.isNotEmpty ? PhosphorIcons.coins : PhosphorIcons.shapes,
                         isDuotone: useColorfulIcons,
                         isBold: false,
                       ),
@@ -731,13 +735,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'homeNoExpensesTitle'.tr(),
+                      categories.isNotEmpty ? 'homeNoExpensesTitle'.tr() : 'homeNoCategoriesTitle'.tr(),
                       textAlign: TextAlign.center,
                       style: context.textStyles.homeTitle,
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'homeNoExpensesSubtitle'.tr(),
+                      categories.isNotEmpty
+                          ? allTransactions.isNotEmpty
+                                ? 'homeNoExpensesSubtitle'.tr()
+                                : 'homeNoAllExpensesSubtitle'.tr()
+                          : 'homeNoCategoriesSubtitle'.tr(),
                       textAlign: TextAlign.center,
                       style: context.textStyles.homeTitle,
                     ),
