@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 
 import '../../models/category/category.dart';
 import '../../models/location/location.dart';
@@ -24,8 +23,7 @@ class HomeController
             bool expandedCategories,
             bool expandedLocations,
           })
-        >
-    implements Disposable {
+        > {
   ///
   /// CONSTRUCTOR
   ///
@@ -48,12 +46,6 @@ class HomeController
        ));
 
   ///
-  /// VARIABLES
-  ///
-
-  AnimationController? shakeFabController;
-
-  ///
   /// INIT
   ///
 
@@ -61,15 +53,6 @@ class HomeController
     updateState(
       locale: locale,
     );
-  }
-
-  ///
-  /// DISPOSE
-  ///
-
-  @override
-  void onDispose() {
-    shakeFabController?.dispose();
   }
 
   ///
@@ -192,12 +175,6 @@ class HomeController
 
     /// Return proper `transactions`
     return filtered;
-  }
-
-  /// Trigger FAB animation
-  void triggerFabAnimation() {
-    shakeFabController?.reset();
-    shakeFabController?.forward();
   }
 
   /// Updates `state`, depending on passed [List<Month>], [List<Category>], or [List<Location>]

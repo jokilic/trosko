@@ -20,10 +20,12 @@ import '../../util/currency.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
 import '../../util/months.dart';
+import '../../util/snackbars.dart';
 import '../../util/stats.dart';
 import '../../util/string.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_transaction_list_tile.dart';
+import '../category/category_screen.dart';
 import '../search/search_screen.dart';
 import '../settings/settings_screen.dart';
 import '../stats/stats_screen.dart';
@@ -64,9 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    unRegisterIfNotDisposed<HomeController>(
-      afterUnregister: (controller) => controller.onDispose(),
-    );
+    unRegisterIfNotDisposed<HomeController>();
     super.dispose();
   }
 
@@ -134,7 +134,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Animate(
                   autoPlay: false,
-                  onInit: (controller) => homeController.shakeFabController = controller,
                   effects: const [
                     ShakeEffect(
                       curve: Curves.easeIn,
@@ -148,8 +147,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             openContainer();
                           }
                         : () {
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
                             HapticFeedback.lightImpact();
-                            homeController.triggerFabAnimation();
+                            showSnackbar(
+                              context,
+                              text: 'homeAddCategoryBeforeVoice'.tr(),
+                              icon: getPhosphorIcon(
+                                PhosphorIcons.warningCircle,
+                                isDuotone: useColorfulIcons,
+                                isBold: true,
+                              ),
+                            );
                           },
                     backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
                     foregroundColor: categories.isNotEmpty
@@ -186,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
 
           ///
-          /// ADD EXPENSE
+          /// ADD EXPENSE / CATEGORY
           ///
           OpenContainer(
             transitionDuration: TroskoDurations.animationLong,
@@ -207,77 +215,61 @@ class _HomeScreenState extends State<HomeScreen> {
                 splashColor: Colors.transparent,
                 highlightColor: context.colors.buttonBackground,
               ),
-              child: Animate(
-                autoPlay: false,
-                onInit: (controller) => homeController.shakeFabController = controller,
-                effects: const [
-                  ShakeEffect(
-                    curve: Curves.easeIn,
-                    duration: TroskoDurations.animation,
-                  ),
-                ],
-                child: FloatingActionButton.extended(
-                  onPressed: categories.isNotEmpty
-                      ? () {
-                          HapticFeedback.lightImpact();
-                          openContainer();
-                        }
-                      : () {
-                          HapticFeedback.lightImpact();
-                          homeController.triggerFabAnimation();
-                        },
-                  backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                  foregroundColor: categories.isNotEmpty
-                      ? getWhiteOrBlackColor(
-                          backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                          whiteColor: TroskoColors.lightThemeWhiteBackground,
-                          blackColor: TroskoColors.lightThemeBlackText,
-                        )
-                      : context.colors.disabledText,
-                  label: Text(
-                    'homeAddExpense'.tr().toUpperCase(),
-                    style: context.textStyles.homeFloatingActionButton.copyWith(
-                      color: categories.isNotEmpty
-                          ? getWhiteOrBlackColor(
-                              backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                              whiteColor: TroskoColors.lightThemeWhiteBackground,
-                              blackColor: TroskoColors.lightThemeBlackText,
-                            )
-                          : context.colors.disabledText,
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  openContainer();
+                },
+                backgroundColor: context.colors.buttonPrimary,
+                foregroundColor: getWhiteOrBlackColor(
+                  backgroundColor: context.colors.buttonPrimary,
+                  whiteColor: TroskoColors.lightThemeWhiteBackground,
+                  blackColor: TroskoColors.lightThemeBlackText,
+                ),
+                label: Text(
+                  categories.isNotEmpty ? 'homeAddExpense'.tr().toUpperCase() : 'homeAddCategory'.tr().toUpperCase(),
+                  style: context.textStyles.homeFloatingActionButton.copyWith(
+                    color: getWhiteOrBlackColor(
+                      backgroundColor: context.colors.buttonPrimary,
+                      whiteColor: TroskoColors.lightThemeWhiteBackground,
+                      blackColor: TroskoColors.lightThemeBlackText,
                     ),
                   ),
-                  icon: PhosphorIcon(
-                    getPhosphorIcon(
-                      PhosphorIcons.coins,
-                      isDuotone: useColorfulIcons,
-                      isBold: false,
-                    ),
-                    color: categories.isNotEmpty
-                        ? getWhiteOrBlackColor(
-                            backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                            whiteColor: TroskoColors.lightThemeWhiteBackground,
-                            blackColor: TroskoColors.lightThemeBlackText,
-                          )
-                        : context.colors.disabledText,
-                    duotoneSecondaryColor: context.colors.buttonPrimary,
-                    size: 32,
+                ),
+                icon: PhosphorIcon(
+                  getPhosphorIcon(
+                    categories.isNotEmpty ? PhosphorIcons.coins : PhosphorIcons.shapes,
+                    isDuotone: useColorfulIcons,
+                    isBold: false,
                   ),
+                  color: getWhiteOrBlackColor(
+                    backgroundColor: context.colors.buttonPrimary,
+                    whiteColor: TroskoColors.lightThemeWhiteBackground,
+                    blackColor: TroskoColors.lightThemeBlackText,
+                  ),
+                  duotoneSecondaryColor: context.colors.buttonPrimary,
+                  size: 32,
                 ),
               ),
             ),
-            openBuilder: (context, _) => TransactionScreen(
-              passedTransaction: null,
-              passedAITransaction: null,
-              categories: categories,
-              locations: locations,
-              passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
-              passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
-              passedNotificationPayload: null,
-              onTransactionUpdated: () => homeController.updateState(
-                locale: context.locale.languageCode,
-              ),
-              key: const ValueKey(null),
-            ),
+            openBuilder: (context, _) => categories.isNotEmpty
+                ? TransactionScreen(
+                    passedTransaction: null,
+                    passedAITransaction: null,
+                    categories: categories,
+                    locations: locations,
+                    passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
+                    passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
+                    passedNotificationPayload: null,
+                    onTransactionUpdated: () => homeController.updateState(
+                      locale: context.locale.languageCode,
+                    ),
+                    key: const ValueKey(null),
+                  )
+                : const CategoryScreen(
+                    passedCategory: null,
+                    key: ValueKey(null),
+                  ),
           ),
         ],
       ),

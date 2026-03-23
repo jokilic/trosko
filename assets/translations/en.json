@@ -30,6 +30,8 @@
     "locationUpdateButton": "Update location",
     "locationAddButton": "Add location",
     "homeAddExpense": "Add expense",
+    "homeAddCategory": "Add category",
+    "homeAddCategoryBeforeVoice": "Add category before using voice input",
     "homeTodayIs": "Today is {}",
     "homeCategories": "Categories",
     "homeLocations": "Locations",

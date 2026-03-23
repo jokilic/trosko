@@ -30,6 +30,8 @@
     "locationUpdateButton": "Uredi lokaciju",
     "locationAddButton": "Dodaj lokaciju",
     "homeAddExpense": "Dodaj trošak",
+    "homeAddCategory": "Dodaj kategoriju",
+    "homeAddCategoryBeforeVoice": "Dodaj kategoriju prije korištenja glasovnog unosa",
     "homeTodayIs": "Danas je {}",
     "homeCategories": "Kategorije",
     "homeLocations": "Lokacije",
