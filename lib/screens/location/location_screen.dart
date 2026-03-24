@@ -175,6 +175,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 ///
                 /// LOCATION
                 ///
+                // TODO: Update with color, like category. If coordinates exist, make colorful border
                 Column(
                   children: [
                     GestureDetector(
