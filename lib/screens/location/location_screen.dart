@@ -8,6 +8,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../constants/colors.dart';
+import '../../constants/durations.dart';
 import '../../models/location/location.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
@@ -175,7 +176,6 @@ class _LocationScreenState extends State<LocationScreen> {
                 ///
                 /// LOCATION
                 ///
-                // TODO: Update with color, like category. If coordinates exist, make colorful border
                 Column(
                   children: [
                     GestureDetector(
@@ -188,19 +188,29 @@ class _LocationScreenState extends State<LocationScreen> {
                           ///
                           /// MAP
                           ///
-                          Container(
+                          AnimatedContainer(
+                            duration: TroskoDurations.animation,
+                            curve: Curves.easeIn,
                             height: 280,
                             width: 280,
                             margin: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
+                              color: locationColor,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: context.colors.text,
-                                width: 1.5,
+                                color: locationColor ?? context.colors.text,
+                                width: locationColor != null ? 16 : 1.5,
                               ),
                             ),
-                            child: locationCoordinates != null
-                                ? IgnorePointer(
+                            child: Stack(
+                              fit: StackFit.expand,
+                              alignment: Alignment.center,
+                              children: [
+                                ///
+                                /// MAP
+                                ///
+                                if (locationCoordinates != null)
+                                  IgnorePointer(
                                     ignoring: !mapEditMode,
                                     child: LocationMap(
                                       useColorfulIcons: useColorfulIcons,
@@ -211,19 +221,33 @@ class _LocationScreenState extends State<LocationScreen> {
                                       onMapEvent: locationController.onMapEvent,
                                       onMapReady: () => locationController.mapReady = true,
                                     ),
-                                  )
-                                : locationIcon != null
-                                ? PhosphorIcon(
-                                    getPhosphorIcon(
-                                      locationIcon.value,
-                                      isDuotone: useColorfulIcons,
-                                      isBold: false,
+                                  ),
+
+                                ///
+                                /// ICON
+                                ///
+                                if (locationIcon != null && !mapEditMode)
+                                  IgnorePointer(
+                                    ignoring: mapEditMode,
+                                    child: PhosphorIcon(
+                                      getPhosphorIcon(
+                                        locationIcon.value,
+                                        isDuotone: useColorfulIcons,
+                                        isBold: false,
+                                      ),
+                                      color: locationCoordinates == null
+                                          ? getWhiteOrBlackColor(
+                                              backgroundColor: locationColor ?? context.colors.scaffoldBackground,
+                                              whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                              blackColor: TroskoColors.lightThemeBlackText,
+                                            )
+                                          : context.colors.text.withValues(alpha: 0.4),
+                                      duotoneSecondaryColor: context.colors.buttonPrimary,
+                                      size: 104,
                                     ),
-                                    color: context.colors.text,
-                                    duotoneSecondaryColor: context.colors.buttonPrimary,
-                                    size: 104,
-                                  )
-                                : null,
+                                  ),
+                              ],
+                            ),
                           ),
 
                           ///
@@ -231,7 +255,7 @@ class _LocationScreenState extends State<LocationScreen> {
                           ///
                           if (mapEditMode)
                             Positioned(
-                              bottom: 12,
+                              bottom: 24,
                               left: 0,
                               right: 0,
                               child: PhosphorIcon(
