@@ -1280,8 +1280,6 @@ PODS:
     - nanopb (~> 3.30910.0)
   - FirebaseSharedSwift (12.9.0)
   - Flutter (1.0.0)
-  - flutter_foreground_task (0.0.1):
-    - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
   - flutter_native_splash (2.4.3):
@@ -1454,7 +1452,6 @@ DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
-  - flutter_foreground_task (from `.symlinks/plugins/flutter_foreground_task/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - geocoding_ios (from `.symlinks/plugins/geocoding_ios/ios`)
@@ -1509,8 +1506,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
-  flutter_foreground_task:
-    :path: ".symlinks/plugins/flutter_foreground_task/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_native_splash:
@@ -1556,7 +1551,6 @@ SPEC CHECKSUMS:
   FirebaseFirestoreInternal: 02341a9ba87f6309227b04685022a5e16307bbf7
   FirebaseSharedSwift: 9d2fa84a46676302b89dbd5e6e62bce2fe376909
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
-  flutter_foreground_task: a159d2c2173b33699ddb3e6c2a067045d7cebb89
   flutter_local_notifications: 643a3eda1ce1c0599413ca31672536d423dee214
   flutter_native_splash: c32d145d68aeda5502d5f543ee38c192065986cf
   geocoding_ios: 33776c9ebb98d037b5e025bb0e7537f6dd19646e

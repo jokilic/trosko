@@ -36,6 +36,7 @@ class NotificationService extends ValueNotifier<({bool? notificationGranted, boo
   ///
 
   FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
+
   var initialNotificationHandled = false;
   var notificationListenerInitialized = false;
 
