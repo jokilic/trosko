@@ -26,21 +26,21 @@ class Location {
   final String? note;
 
   @HiveField(8)
-  final String? iconName;
+  final String iconName;
 
   @HiveField(9)
-  final Color? color;
+  final Color color;
 
   Location({
     required this.id,
     required this.name,
     required this.createdAt,
+    required this.iconName,
+    required this.color,
     this.longitude,
     this.latitude,
     this.address,
     this.note,
-    this.iconName,
-    this.color,
   });
 
   factory Location.fromFirestore(DocumentSnapshot doc) {
@@ -56,8 +56,8 @@ class Location {
     longitude: map['longitude'] != null ? (map['longitude'] as num).toDouble() : null,
     createdAt: (map['createdAt'] as Timestamp).toDate(),
     note: map['note'] != null ? map['note'] as String : null,
-    iconName: map['iconName'] != null ? map['iconName'] as String : null,
-    color: map['color'] != null ? Color((map['color'] as num).toInt()) : null,
+    iconName: map['iconName'] as String,
+    color: Color((map['color'] as num).toInt()),
   );
 
   Map<String, dynamic> toMap() => <String, dynamic>{
@@ -69,7 +69,7 @@ class Location {
     'createdAt': Timestamp.fromDate(createdAt),
     'note': note,
     'iconName': iconName,
-    'color': color?.toARGB32(),
+    'color': color.toARGB32(),
   };
 
   @override

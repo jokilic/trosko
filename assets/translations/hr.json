@@ -16,7 +16,7 @@
     "locationUpdateSubtitle": "Uredi detalje postojeće lokacije",
     "locationNewSubtitle": "Stvori lokaciju za praćenje troškova",
     "categoryTitle": "Naziv",
-    "categoryColor": "Boja",
+    "categoryLocationColor": "Boja",
     "categoryLocationIcon": "Ikona",
     "locationTitleNote": "Naziv i bilješka",
     "locationTitle": "Naziv",

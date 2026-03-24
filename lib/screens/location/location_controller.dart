@@ -224,8 +224,8 @@ class LocationController
       longitude: address.isNotEmpty ? value.longitude : null,
       note: note.isNotEmpty ? note : null,
       createdAt: passedLocation?.createdAt ?? DateTime.now(),
-      iconName: value.locationIcon?.key,
-      color: value.locationColor,
+      iconName: value.locationIcon!.key,
+      color: value.locationColor!,
     );
 
     /// User modified location
@@ -276,7 +276,7 @@ class LocationController
     Object? latitude = locationStateNoChange,
     Object? longitude = locationStateNoChange,
     bool? mapEditMode,
-    Object? locationIcon = locationStateNoChange,
+    MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>? locationIcon,
     List<MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>>? searchedIcons,
     Color? locationColor,
   }) => value = (
@@ -285,7 +285,7 @@ class LocationController
     latitude: identical(latitude, locationStateNoChange) ? value.latitude : latitude as double?,
     longitude: identical(longitude, locationStateNoChange) ? value.longitude : longitude as double?,
     mapEditMode: mapEditMode ?? value.mapEditMode,
-    locationIcon: identical(locationIcon, locationStateNoChange) ? value.locationIcon : locationIcon as MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>?,
+    locationIcon: locationIcon ?? value.locationIcon,
     searchedIcons: searchedIcons ?? value.searchedIcons,
     locationColor: locationColor ?? value.locationColor,
   );

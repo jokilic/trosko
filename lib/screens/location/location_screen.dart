@@ -7,6 +7,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants/colors.dart';
 import '../../models/location/location.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
@@ -17,6 +18,8 @@ import '../../theme/extensions.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
+import '../../widgets/colors/colors_widget.dart';
+import '../../widgets/colors/custom_color_modal.dart';
 import '../../widgets/icon_list_tile.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
@@ -82,11 +85,11 @@ class _LocationScreenState extends State<LocationScreen> {
     final useColorfulIcons = hiveState.settings?.useColorfulIcons ?? false;
 
     final locationName = state.locationName;
+    final locationColor = state.locationColor;
+    final locationIcon = state.locationIcon;
 
     final locationLatitude = state.latitude;
     final locationLongitude = state.longitude;
-
-    final locationIcon = state.locationIcon;
 
     final searchedIcons = state.searchedIcons;
 
@@ -99,7 +102,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
     final mapEditMode = state.mapEditMode;
 
-    final validated = state.nameValid;
+    final validated = state.nameValid && state.locationColor != null && state.locationIcon != null;
 
     return Scaffold(
       body: CustomScrollView(
@@ -350,6 +353,57 @@ class _LocationScreenState extends State<LocationScreen> {
                     'locationAddressText3'.tr(),
                     style: context.textStyles.homeTransactionNote,
                   ),
+                ),
+                const SizedBox(height: 28),
+
+                ///
+                /// COLOR TITLE
+                ///
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Text(
+                    'categoryLocationColor'.tr(),
+                    style: context.textStyles.homeTitle,
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                ///
+                /// LOCATION COLORS
+                ///
+                ColorsWidget(
+                  useColorfulIcons: useColorfulIcons,
+                  colors: categoryAndLocationColors,
+                  activeColor: locationColor,
+                  onPressedColor: (color) {
+                    HapticFeedback.lightImpact();
+                    locationController.colorChanged(color);
+                  },
+                  onPressedAdd: () async {
+                    unawaited(
+                      HapticFeedback.lightImpact(),
+                    );
+
+                    /// Show [CustomColorModal]
+                    final color = await showModalBottomSheet<Color>(
+                      context: context,
+                      backgroundColor: context.colors.scaffoldBackground,
+                      isScrollControlled: true,
+                      useSafeArea: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      builder: (context) => CustomColorModal(
+                        startingColor: context.colors.buttonPrimary,
+                        key: const ValueKey('location-custom-color-modal'),
+                      ),
+                    );
+
+                    /// `color` exists
+                    if (color != null) {
+                      locationController.colorChanged(color);
+                    }
+                  },
                 ),
                 const SizedBox(height: 28),
 

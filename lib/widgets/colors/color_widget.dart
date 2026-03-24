@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../theme/colors.dart';
-import '../../../theme/extensions.dart';
-import '../../../util/color.dart';
-import '../../../util/icons.dart';
+import '../../theme/colors.dart';
+import '../../theme/extensions.dart';
+import '../../util/color.dart';
+import '../../util/icons.dart';
 
-class CategoryColor extends StatelessWidget {
+class ColorWidget extends StatelessWidget {
   final Function() onPressed;
   final Color color;
   final Color highlightColor;
   final PhosphorIconData Function([PhosphorIconsStyle])? icon;
   final bool useColorfulIcons;
 
-  const CategoryColor({
+  const ColorWidget({
     required this.onPressed,
     required this.color,
     required this.highlightColor,

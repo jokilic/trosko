@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../theme/extensions.dart';
-import 'category_color.dart';
+import '../../theme/extensions.dart';
+import 'color_widget.dart';
 
-class CategoryColors extends StatelessWidget {
+class ColorsWidget extends StatelessWidget {
   final List<Color> colors;
   final Color? activeColor;
   final Function(Color color) onPressedColor;
   final Function() onPressedAdd;
   final bool useColorfulIcons;
 
-  const CategoryColors({
+  const ColorsWidget({
     required this.colors,
     required this.activeColor,
     required this.onPressedColor,
@@ -44,7 +44,7 @@ class CategoryColors extends StatelessWidget {
         /// COLOR
         ///
         if (color != null) {
-          return CategoryColor(
+          return ColorWidget(
             useColorfulIcons: useColorfulIcons,
             onPressed: () => onPressedColor(color),
             color: color.withValues(
@@ -57,9 +57,9 @@ class CategoryColors extends StatelessWidget {
         }
 
         ///
-        /// ADD NEW CATEGORY
+        /// ADD NEW COLOR
         ///
-        return CategoryColor(
+        return ColorWidget(
           useColorfulIcons: useColorfulIcons,
           onPressed: onPressedAdd,
           color: context.colors.buttonBackground,

@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-import '../../../theme/colors.dart';
-import '../../../theme/extensions.dart';
-import '../../../util/color.dart';
+import '../../theme/colors.dart';
+import '../../theme/extensions.dart';
+import '../../util/color.dart';
 
-class CategoryCustomColorModal extends StatefulWidget {
+class CustomColorModal extends StatefulWidget {
   final Color startingColor;
 
-  const CategoryCustomColorModal({
+  const CustomColorModal({
     required this.startingColor,
     required super.key,
   });
 
   @override
-  State<CategoryCustomColorModal> createState() => _CategoryCustomColorModalState();
+  State<CustomColorModal> createState() => _CustomColorModalState();
 }
 
-class _CategoryCustomColorModalState extends State<CategoryCustomColorModal> {
+class _CustomColorModalState extends State<CustomColorModal> {
   late var color = widget.startingColor;
 
   @override

@@ -239,12 +239,12 @@ class LocationAdapter extends TypeAdapter<Location> {
       id: fields[0] as String,
       name: fields[1] as String,
       createdAt: fields[5] as DateTime,
+      iconName: fields[7] as String,
+      color: fields[8] as Color,
       longitude: (fields[4] as num?)?.toDouble(),
       latitude: (fields[3] as num?)?.toDouble(),
       address: fields[2] as String?,
       note: fields[6] as String?,
-      iconName: fields[7] as String?,
-      color: fields[8] as Color?,
     );
   }
 

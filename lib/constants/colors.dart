@@ -12,7 +12,7 @@ const primaryColors = [
   TroskoColors.darkBlue,
 ];
 
-const categoryColors = [
+const categoryAndLocationColors = [
   ...Colors.primaries,
   ...Colors.accents,
 ];

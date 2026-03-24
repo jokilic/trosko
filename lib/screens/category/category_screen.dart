@@ -16,12 +16,12 @@ import '../../theme/extensions.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
+import '../../widgets/colors/colors_widget.dart';
+import '../../widgets/colors/custom_color_modal.dart';
 import '../../widgets/icon_list_tile.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
 import 'category_controller.dart';
-import 'widgets/category_colors.dart';
-import 'widgets/category_custom_color_modal.dart';
 
 class CategoryScreen extends WatchingStatefulWidget {
   final Category? passedCategory;
@@ -229,7 +229,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
                   child: Text(
-                    'categoryColor'.tr(),
+                    'categoryLocationColor'.tr(),
                     style: context.textStyles.homeTitle,
                   ),
                 ),
@@ -238,9 +238,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ///
                 /// CATEGORY COLORS
                 ///
-                CategoryColors(
+                ColorsWidget(
                   useColorfulIcons: useColorfulIcons,
-                  colors: categoryColors,
+                  colors: categoryAndLocationColors,
                   activeColor: categoryColor,
                   onPressedColor: (color) {
                     HapticFeedback.lightImpact();
@@ -251,7 +251,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       HapticFeedback.lightImpact(),
                     );
 
-                    /// Show [CategoryCustomColorModal]
+                    /// Show [CustomColorModal]
                     final color = await showModalBottomSheet<Color>(
                       context: context,
                       backgroundColor: context.colors.scaffoldBackground,
@@ -260,9 +260,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      builder: (context) => CategoryCustomColorModal(
+                      builder: (context) => CustomColorModal(
                         startingColor: context.colors.buttonPrimary,
-                        key: const ValueKey('custom-color-modal'),
+                        key: const ValueKey('category-custom-color-modal'),
                       ),
                     );
 
