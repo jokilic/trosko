@@ -2,8 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
-import 'package:notification_listener_service/notification_listener_service.dart';
+import 'package:flutter_notification_listener/flutter_notification_listener.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../util/dependencies.dart';
@@ -89,27 +88,26 @@ void callbackDispatcher() => Workmanager().executeTask(
       /// Initialize localization
       await initializeLocalization();
 
-      /// Recheck the real Android permission state before trying to revive the service.
-      final notificationPermission = await FlutterForegroundTask.checkNotificationPermission();
-      final listenerGranted = await NotificationListenerService.isPermissionGranted();
-
       /// Restart notification listener foreground service if enabled
       final notification = getItBackground.get<NotificationService>();
 
-      final notificationsEnabled = notification.value.useNotificationListener && notificationPermission == NotificationPermission.granted && listenerGranted;
+      /// Recheck the real Android permission state before trying to revive the service
+      final notificationPermission = await notification.areNotificationsEnabled();
+      final listenerGranted = (await NotificationsListener.hasPermission) ?? false;
+
+      final notificationsEnabled = notification.value.useNotificationListener && notificationPermission && listenerGranted;
 
       if (notificationsEnabled) {
-        notification
-          ..updateState(
-            notificationGranted: true,
-            listenerGranted: true,
-          )
-          ..initializeForegroundTask();
+        notification.updateState(
+          notificationGranted: true,
+          listenerGranted: true,
+        );
 
+        await notification.initializeForegroundTask();
         await notification.startService();
       } else {
         notification.updateState(
-          notificationGranted: notificationPermission == NotificationPermission.granted,
+          notificationGranted: notificationPermission,
           listenerGranted: listenerGranted,
         );
       }

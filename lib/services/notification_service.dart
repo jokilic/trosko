@@ -3,17 +3,18 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_notification_listener/flutter_notification_listener.dart';
 import 'package:get_it/get_it.dart';
-import 'package:notification_listener_service/notification_listener_service.dart';
 
 import '../util/notification_handler.dart';
 import 'hive_service.dart';
 import 'logger_service.dart';
 
-class NotificationService extends ValueNotifier<({bool notificationGranted, bool listenerGranted, bool useNotificationListener})> implements Disposable {
+class NotificationService extends ValueNotifier<({bool? notificationGranted, bool? listenerGranted, bool useNotificationListener})> implements Disposable {
+  static const noChange = Object();
+
   ///
   /// CONSTRUCTOR
   ///
@@ -25,8 +26,8 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     required this.logger,
     required this.hive,
   }) : super((
-         notificationGranted: false,
-         listenerGranted: false,
+         notificationGranted: null,
+         listenerGranted: null,
          useNotificationListener: false,
        ));
 
@@ -36,21 +37,23 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
 
   FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
   var initialNotificationHandled = false;
+  var notificationListenerInitialized = false;
 
   ///
   /// INIT
   ///
 
   Future<void> init() async {
+    await initializeLocalNotifications();
+
     final permissionsGranted = await checkNotificationPermissionAndListener();
 
-    await initializeLocalNotifications();
     unawaited(
       handleNotificationAppLaunch(),
     );
 
     if (permissionsGranted) {
-      initializeForegroundTask();
+      await initializeForegroundTask();
       await startService();
     } else {
       await stopListener();
@@ -73,20 +76,17 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
   /// Checks for notification permission & listener
   Future<bool> checkNotificationPermissionAndListener() async {
     /// Check if notification permission is enabled
-    final notificationPermission = await FlutterForegroundTask.checkNotificationPermission();
+    final notificationPermission = await areNotificationsEnabled();
+    final listenerGranted = (await NotificationsListener.hasPermission) ?? false;
 
-    /// Check if notification listener is enabled
-    final listenerGranted = await NotificationListenerService.isPermissionGranted();
-
-    /// Update state
+    /// Update `state`
     updateState(
-      notificationGranted: notificationPermission == NotificationPermission.granted,
+      notificationGranted: notificationPermission,
       listenerGranted: listenerGranted,
       useNotificationListener: hive.getSettings().useNotificationListener,
     );
 
-    /// Return `true` if all permissions are granted
-    return value.notificationGranted && value.listenerGranted && value.useNotificationListener;
+    return value.notificationGranted == true && value.listenerGranted == true && value.useNotificationListener;
   }
 
   /// Initializes [FlutterLocalNotificationsPlugin]
@@ -119,85 +119,87 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     );
   }
 
-  /// Requests for notification permission & listener
+  /// Requests notification posting permission and notification listener access
   Future<bool> askNotificationPermissionAndListener() async {
     /// Request notification permission
-    final notificationPermission = await FlutterForegroundTask.requestNotificationPermission();
+    final notificationPermission = await requestNotificationPermission();
 
-    /// Android specific notification permission
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      /// Ignore battery optimization
-      if (!await FlutterForegroundTask.isIgnoringBatteryOptimizations) {
-        await FlutterForegroundTask.requestIgnoreBatteryOptimization();
-      }
-
-      /// Schedule exact alarms
-      if (!await FlutterForegroundTask.canScheduleExactAlarms) {
-        await FlutterForegroundTask.openAlarmsAndRemindersSettings();
-      }
-    }
-
-    /// Request notification listener
-    if (!value.listenerGranted) {
-      final listenerGranted = await NotificationListenerService.requestPermission();
+    /// Listener not granted, request listener permission
+    if (value.listenerGranted != true) {
+      await NotificationsListener.openPermissionSettings();
+      final listenerGranted = (await NotificationsListener.hasPermission) ?? false;
       updateState(
         listenerGranted: listenerGranted,
       );
     }
 
-    /// Update state
+    /// Update `state`
     updateState(
-      notificationGranted: notificationPermission == NotificationPermission.granted,
+      notificationGranted: notificationPermission,
     );
 
-    /// Return `true` if all permissions are granted
-    return value.notificationGranted && value.listenerGranted && value.useNotificationListener;
+    return value.notificationGranted == true && value.listenerGranted == true && value.useNotificationListener;
   }
 
-  /// Initializes [FlutterForegroundTask]
-  void initializeForegroundTask() => FlutterForegroundTask.init(
-    androidNotificationOptions: AndroidNotificationOptions(
-      channelId: 'trosko_listener_channel_id',
-      channelName: 'Troško listener',
-      channelDescription: 'Listener shown by the Troško app',
-      channelImportance: NotificationChannelImportance.MAX,
-      priority: NotificationPriority.MAX,
-    ),
-    iosNotificationOptions: const IOSNotificationOptions(),
-    foregroundTaskOptions: ForegroundTaskOptions(
-      eventAction: ForegroundTaskEventAction.nothing(),
-      autoRunOnBoot: true,
-      autoRunOnMyPackageReplaced: true,
-      allowWakeLock: true,
-      allowWifiLock: true,
-      allowAutoRestart: true,
-      stopWithTask: false,
-    ),
-  );
-
-  /// Starts [FlutterForegroundTask] service
-  Future<ServiceRequestResult> startService() async {
-    if (await FlutterForegroundTask.isRunningService) {
-      return FlutterForegroundTask.restartService();
+  /// Keeps the old service wrapper entrypoint so the surrounding logic can stay unchanged
+  Future<void> initializeForegroundTask() async {
+    if (notificationListenerInitialized) {
+      return;
     }
 
-    return FlutterForegroundTask.startService(
-      notificationTitle: 'foregroundTaskNotificationTitle'.tr(),
-      notificationText: 'foregroundTaskNotificationText'.tr(),
-      notificationIcon: const NotificationIcon(
-        metaDataName: 'app_icon',
-      ),
-      callback: startCallback,
-      serviceTypes: [
-        ForegroundServiceTypes.dataSync,
-      ],
+    await NotificationsListener.initialize(
+      callbackHandle: onNotificationEvent,
     );
+    notificationListenerInitialized = true;
+  }
+
+  /// Starts notification listener service
+  Future<bool> startService() async {
+    final isRunning = (await NotificationsListener.isRunning) ?? false;
+
+    if (isRunning) {
+      return true;
+    }
+
+    return (await NotificationsListener.startService(
+          foreground: true,
+          title: 'foregroundTaskNotificationTitle'.tr(),
+          description: 'foregroundTaskNotificationText'.tr(),
+          showWhen: false,
+        )) ??
+        false;
+  }
+
+  Future<bool> areNotificationsEnabled() async {
+    await initializeLocalNotifications();
+
+    final androidImplementation = flutterLocalNotificationsPlugin?.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+
+    if (androidImplementation == null) {
+      return true;
+    }
+
+    return (await androidImplementation.areNotificationsEnabled()) ?? false;
+  }
+
+  Future<bool> requestNotificationPermission() async {
+    await initializeLocalNotifications();
+
+    final androidImplementation = flutterLocalNotificationsPlugin?.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+
+    if (androidImplementation == null) {
+      return true;
+    }
+
+    return (await androidImplementation.requestNotificationsPermission()) ?? false;
   }
 
   /// Stops notification listener
   Future<void> stopListener() async {
-    if (await FlutterForegroundTask.isRunningService) {
-      await FlutterForegroundTask.stopService();
+    final isRunning = (await NotificationsListener.isRunning) ?? false;
+
+    if (isRunning) {
+      await NotificationsListener.stopService();
     }
   }
 
@@ -205,12 +207,11 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
   Future<void> toggleUseNotificationListener() async {
     final newUseNotificationListener = !value.useNotificationListener;
 
-    /// Update state
+    /// Update `state`
     updateState(
       useNotificationListener: newUseNotificationListener,
     );
 
-    /// Store `value` into [Hive]
     await hive.writeSettings(
       hive.getSettings().copyWith(
         useNotificationListener: newUseNotificationListener,
@@ -220,12 +221,12 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
 
   /// Updates `state`
   void updateState({
-    bool? notificationGranted,
-    bool? listenerGranted,
-    bool? useNotificationListener,
+    Object? notificationGranted = noChange,
+    Object? listenerGranted = noChange,
+    Object? useNotificationListener = noChange,
   }) => value = (
-    notificationGranted: notificationGranted ?? value.notificationGranted,
-    listenerGranted: listenerGranted ?? value.listenerGranted,
-    useNotificationListener: useNotificationListener ?? value.useNotificationListener,
+    notificationGranted: identical(notificationGranted, noChange) ? value.notificationGranted : notificationGranted as bool?,
+    listenerGranted: identical(listenerGranted, noChange) ? value.listenerGranted : listenerGranted as bool?,
+    useNotificationListener: identical(useNotificationListener, noChange) ? value.useNotificationListener : useNotificationListener! as bool,
   );
 }

@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:notification_listener_service/notification_event.dart';
-import 'package:notification_listener_service/notification_listener_service.dart';
+import 'package:flutter_notification_listener/flutter_notification_listener.dart';
 
 import '../main.dart';
 import '../models/notification_payload/notification_payload.dart';
@@ -20,6 +18,8 @@ import 'navigation.dart';
 const notificationTriggerPackageNames = [
   'com.revolut.revolut',
 ];
+
+FlutterLocalNotificationsPlugin? backgroundNotificationsPlugin;
 
 /// Triggered when the user taps the notification
 @pragma('vm:entry-point')
@@ -35,7 +35,9 @@ Future<void> onDidReceiveNotificationResponse(NotificationResponse notificationR
 
 /// Triggered when a notification is received while the app is terminated
 @pragma('vm:entry-point')
-Future<void> onDidReceiveBackgroundNotificationResponse(NotificationResponse notificationResponse) async {
+Future<void> onDidReceiveBackgroundNotificationResponse(
+  NotificationResponse notificationResponse,
+) async {
   try {
     await initializeBeforeAppStart();
 
@@ -47,9 +49,84 @@ Future<void> onDidReceiveBackgroundNotificationResponse(NotificationResponse not
   }
 }
 
+/// Triggered by the notification listener package for matching Android notifications
 @pragma('vm:entry-point')
-void startCallback() {
-  FlutterForegroundTask.setTaskHandler(NotificationHandler());
+void onNotificationEvent(NotificationEvent event) {
+  unawaited(
+    handleNotificationEvent(event),
+  );
+}
+
+/// Handles notification event
+Future<void> handleNotificationEvent(NotificationEvent event) async {
+  final shouldShowTroskoNotification = isNotificationFromProperPackageName(
+    packageName: event.packageName,
+  );
+
+  if (!shouldShowTroskoNotification) {
+    return;
+  }
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  /// Keep translations available inside the background callback isolate
+  await initializeLocalization();
+
+  final transactionAmount = getTransactionAmountFromNotification(
+    content: event.text,
+  )?.toStringAsFixed(2);
+
+  if (transactionAmount == null) {
+    return;
+  }
+
+  await initializeBackgroundLocalNotifications();
+
+  final now = DateTime.now();
+  final id = now.millisecondsSinceEpoch % 1000000000;
+  final title = 'expenseNotificationTitle'.tr();
+  final body = 'expenseNotificationText'.tr(
+    args: [
+      '<b>$transactionAmount</b>',
+      '<b>${event.title}</b>',
+    ],
+  );
+  final addExpenseAction = AndroidNotificationAction(
+    'add_expense',
+    'expenseNotificationButton'.tr(),
+    showsUserInterface: true,
+  );
+
+  await backgroundNotificationsPlugin?.show(
+    id: id,
+    title: title,
+    body: body,
+    notificationDetails: NotificationDetails(
+      android: AndroidNotificationDetails(
+        'trosko_notification_channel_id',
+        'Troško notifications',
+        channelDescription: 'Notifications shown by the Troško app',
+        actions: [addExpenseAction],
+        styleInformation: BigTextStyleInformation(
+          body,
+          contentTitle: title,
+          htmlFormatBigText: true,
+          htmlFormatContent: true,
+        ),
+        category: AndroidNotificationCategory.service,
+        importance: Importance.max,
+        priority: Priority.max,
+        ticker: 'ticker',
+      ),
+    ),
+    payload: NotificationPayload(
+      name: event.title,
+      amountCents: formatCurrencyToCents(
+        transactionAmount,
+      ),
+      createdAt: now,
+    ).toJson(),
+  );
 }
 
 Future<bool> initializeNotificationPlugin(FlutterLocalNotificationsPlugin plugin) async {
@@ -62,6 +139,15 @@ Future<bool> initializeNotificationPlugin(FlutterLocalNotificationsPlugin plugin
   );
 
   return initialized ?? false;
+}
+
+Future<void> initializeBackgroundLocalNotifications() async {
+  if (backgroundNotificationsPlugin != null) {
+    return;
+  }
+
+  backgroundNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  await initializeNotificationPlugin(backgroundNotificationsPlugin!);
 }
 
 Future<void> handlePressedNotification({required String? payload}) async {
@@ -122,168 +208,26 @@ Future<BuildContext?> getNavigatorContext() async {
   return null;
 }
 
-class NotificationHandler extends TaskHandler {
-  ///
-  /// VARIABLES
-  ///
-
-  StreamSubscription<ServiceNotificationEvent>? notificationSubscription;
-  FlutterLocalNotificationsPlugin? backgroundNotificationsPlugin;
-
-  ///
-  /// INIT
-  ///
-
-  @override
-  Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
-    await notificationSubscription?.cancel();
-    notificationSubscription = NotificationListenerService.notificationsStream.listen(
-      handleNotification,
-    );
+bool isNotificationFromProperPackageName({required String? packageName}) {
+  if (packageName?.isEmpty ?? true) {
+    return false;
   }
 
-  ///
-  /// DISPOSE
-  ///
+  return notificationTriggerPackageNames.any(packageName!.contains);
+}
 
-  @override
-  Future<void> onDestroy(DateTime timestamp, bool isTimeout) async {
-    await notificationSubscription?.cancel();
-    notificationSubscription = null;
+double? getTransactionAmountFromNotification({required String? content}) {
+  if (content?.isEmpty ?? true) {
+    return null;
   }
 
-  ///
-  /// METHODS
-  ///
+  final match = RegExp(r'(\d+(?:[.,]\d+)+|\d+)').firstMatch(content!);
 
-  /// Initializes [FlutterLocalNotificationsPlugin] if not already initialized
-  Future<void> initializeBackgroundLocalNotifications() async {
-    if (backgroundNotificationsPlugin != null) {
-      return;
-    }
-
-    backgroundNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    await initializeNotificationPlugin(backgroundNotificationsPlugin!);
+  if (match == null) {
+    return null;
   }
 
-  /// Shows `Troško` notification
-  Future<void> handleNotification(ServiceNotificationEvent event) async {
-    /// Run logic only if notification is shown
-    if (event.hasRemoved ?? false) {
-      return;
-    }
+  final raw = match.group(0)!.trim().replaceAll(',', '.');
 
-    /// Run logic only if notification from proper app
-    final shouldShowTroskoNotification = isNotificationFromProperPackageName(
-      packageName: event.packageName,
-    );
-
-    /// Don't show notification if not necessary
-    if (!shouldShowTroskoNotification) {
-      return;
-    }
-
-    /// Initialize Flutter related tasks
-    WidgetsFlutterBinding.ensureInitialized();
-
-    /// Initialize [EasyLocalization]
-    await initializeLocalization();
-
-    /// Try to get `transactionAmount` from the notification
-    final transactionAmount = getTransactionAmountFromNotification(
-      content: event.content,
-    )?.toStringAsFixed(2);
-
-    /// Don't show notification if `transactionAmount` doesn't exist
-    if (transactionAmount == null) {
-      return;
-    }
-
-    /// Initialize `notifications` if not already done
-    await initializeBackgroundLocalNotifications();
-
-    /// Get current [DateTime]
-    final now = DateTime.now();
-
-    /// Generate notification `id`
-    final id = now.millisecondsSinceEpoch % 1000000000;
-
-    /// Generate `title` for the notification
-    final title = 'expenseNotificationTitle'.tr();
-
-    /// Generate `body` for the notification
-    final body = 'expenseNotificationText'.tr(
-      args: [
-        '<b>$transactionAmount</b>',
-        '<b>${event.title}</b>',
-      ],
-    );
-
-    /// Generate `addExpense` for the notification
-    final addExpenseAction = AndroidNotificationAction(
-      'add_expense',
-      'expenseNotificationButton'.tr(),
-      showsUserInterface: true,
-    );
-
-    /// Show `notification`
-    await backgroundNotificationsPlugin?.show(
-      id: id,
-      title: title,
-      body: body,
-      notificationDetails: NotificationDetails(
-        android: AndroidNotificationDetails(
-          'trosko_notification_channel_id',
-          'Troško notifications',
-          channelDescription: 'Notifications shown by the Troško app',
-          actions: [addExpenseAction],
-          styleInformation: BigTextStyleInformation(
-            body,
-            contentTitle: title,
-            htmlFormatBigText: true,
-            htmlFormatContent: true,
-          ),
-          category: AndroidNotificationCategory.service,
-          importance: Importance.max,
-          priority: Priority.max,
-          ticker: 'ticker',
-        ),
-      ),
-      payload: NotificationPayload(
-        name: event.title,
-        amountCents: formatCurrencyToCents(
-          transactionAmount,
-        ),
-        createdAt: now,
-      ).toJson(),
-    );
-  }
-
-  bool isNotificationFromProperPackageName({required String? packageName}) {
-    if (packageName?.isEmpty ?? true) {
-      return false;
-    }
-
-    return notificationTriggerPackageNames.any(packageName!.contains);
-  }
-
-  double? getTransactionAmountFromNotification({required String? content}) {
-    if (content?.isEmpty ?? true) {
-      return null;
-    }
-
-    final match = RegExp(r'(\d+(?:[.,]\d+)+|\d+)').firstMatch(content!);
-
-    if (match == null) {
-      return null;
-    }
-
-    final raw = match.group(0)!.trim().replaceAll(',', '.');
-
-    return double.tryParse(raw);
-  }
-
-  /// Called based on the `eventAction` set in [ForegroundTaskOptions]
-  @override
-  void onRepeatEvent(DateTime timestamp) {}
+  return double.tryParse(raw);
 }
