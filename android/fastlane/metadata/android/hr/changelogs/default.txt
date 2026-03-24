@@ -1,3 +1,4 @@
+* Redesign locations and introduce colors
 * Make voice listener more sturdy
 * Default to using colorful icons
 * Small UI updates

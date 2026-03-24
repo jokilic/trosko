@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 
 @HiveType(typeId: 13)
@@ -27,6 +28,9 @@ class Location {
   @HiveField(8)
   final String? iconName;
 
+  @HiveField(9)
+  final Color? color;
+
   Location({
     required this.id,
     required this.name,
@@ -36,6 +40,7 @@ class Location {
     this.address,
     this.note,
     this.iconName,
+    this.color,
   });
 
   factory Location.fromFirestore(DocumentSnapshot doc) {
@@ -52,6 +57,7 @@ class Location {
     createdAt: (map['createdAt'] as Timestamp).toDate(),
     note: map['note'] != null ? map['note'] as String : null,
     iconName: map['iconName'] != null ? map['iconName'] as String : null,
+    color: map['color'] != null ? Color((map['color'] as num).toInt()) : null,
   );
 
   Map<String, dynamic> toMap() => <String, dynamic>{
@@ -63,10 +69,12 @@ class Location {
     'createdAt': Timestamp.fromDate(createdAt),
     'note': note,
     'iconName': iconName,
+    'color': color?.toARGB32(),
   };
 
   @override
-  String toString() => 'Location(id: $id, name: $name, address: $address, latitude: $latitude, longitude: $longitude, createdAt: $createdAt, note: $note, iconName: $iconName)';
+  String toString() =>
+      'Location(id: $id, name: $name, address: $address, latitude: $latitude, longitude: $longitude, createdAt: $createdAt, note: $note, iconName: $iconName, color: $color)';
 
   @override
   bool operator ==(covariant Location other) {
@@ -81,9 +89,11 @@ class Location {
         other.longitude == longitude &&
         other.createdAt == createdAt &&
         other.note == note &&
-        other.iconName == iconName;
+        other.iconName == iconName &&
+        other.color == color;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ address.hashCode ^ latitude.hashCode ^ longitude.hashCode ^ createdAt.hashCode ^ note.hashCode ^ iconName.hashCode;
+  int get hashCode =>
+      id.hashCode ^ name.hashCode ^ address.hashCode ^ latitude.hashCode ^ longitude.hashCode ^ createdAt.hashCode ^ note.hashCode ^ iconName.hashCode ^ color.hashCode;
 }

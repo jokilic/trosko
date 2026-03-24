@@ -244,13 +244,14 @@ class LocationAdapter extends TypeAdapter<Location> {
       address: fields[2] as String?,
       note: fields[6] as String?,
       iconName: fields[7] as String?,
+      color: fields[8] as Color?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Location obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -266,7 +267,9 @@ class LocationAdapter extends TypeAdapter<Location> {
       ..writeByte(6)
       ..write(obj.note)
       ..writeByte(7)
-      ..write(obj.iconName);
+      ..write(obj.iconName)
+      ..writeByte(8)
+      ..write(obj.color);
   }
 
   @override

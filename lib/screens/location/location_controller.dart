@@ -32,6 +32,7 @@ class LocationController
             bool mapEditMode,
             MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>? locationIcon,
             List<MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>>? searchedIcons,
+            Color? locationColor,
           })
         >
     implements Disposable {
@@ -57,6 +58,7 @@ class LocationController
          mapEditMode: false,
          locationIcon: null,
          searchedIcons: null,
+         locationColor: null,
        ));
 
   ///
@@ -100,6 +102,7 @@ class LocationController
       searchedIcons: getPhosphorIconsFromName(
         iconTextEditingController.text.trim().toLowerCase(),
       ),
+      locationColor: passedLocation?.color,
     );
 
     /// Validation
@@ -142,6 +145,11 @@ class LocationController
   ///
   /// METHODS
   ///
+
+  /// Triggered when the user presses a [Color]
+  void colorChanged(Color newColor) => updateState(
+    locationColor: newColor,
+  );
 
   /// Triggered when the user presses an [Icon]
   void iconChanged(MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])> newIcon) => updateState(
@@ -217,6 +225,7 @@ class LocationController
       note: note.isNotEmpty ? note : null,
       createdAt: passedLocation?.createdAt ?? DateTime.now(),
       iconName: value.locationIcon?.key,
+      color: value.locationColor,
     );
 
     /// User modified location
@@ -269,6 +278,7 @@ class LocationController
     bool? mapEditMode,
     Object? locationIcon = locationStateNoChange,
     List<MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>>? searchedIcons,
+    Color? locationColor,
   }) => value = (
     locationName: locationName ?? value.locationName,
     nameValid: nameValid ?? value.nameValid,
@@ -277,5 +287,6 @@ class LocationController
     mapEditMode: mapEditMode ?? value.mapEditMode,
     locationIcon: identical(locationIcon, locationStateNoChange) ? value.locationIcon : locationIcon as MapEntry<String, PhosphorIconData Function([PhosphorIconsStyle])>?,
     searchedIcons: searchedIcons ?? value.searchedIcons,
+    locationColor: locationColor ?? value.locationColor,
   );
 }
