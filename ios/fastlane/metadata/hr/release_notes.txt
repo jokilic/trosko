@@ -1,6 +1,4 @@
-* Search categories & locations when creating or editing transaction
-* Login using additional credentials
-* Tweak spacing of graph
-* Small translation updates
-* Small navigation updates
-* Small scroll updates
+* Make voice listener more sturdy
+* Default to using colorful icons
+* Small UI updates
+* Update dependencies
