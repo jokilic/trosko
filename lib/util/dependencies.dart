@@ -146,7 +146,7 @@ Future<void> initializeServices() async {
     getIt.registerSingletonAsync(
       () async {
         final notificationValue = getIt.get<NotificationService>().value;
-        final notificationsEnabled = notificationValue.notificationGranted == true && notificationValue.listenerGranted == true && notificationValue.useNotificationListener;
+        final notificationsEnabled = notificationValue.notificationGranted && notificationValue.listenerGranted && notificationValue.useNotificationListener;
 
         final workManager = WorkManagerService(
           logger: getIt.get<LoggerService>(),
@@ -199,8 +199,8 @@ Future<void> initializeForBackgroundTask() async {
 
         notification.updateState(
           useNotificationListener: useNotificationListener,
-          notificationGranted: null,
-          listenerGranted: null,
+          notificationGranted: false,
+          listenerGranted: false,
         );
 
         return notification;

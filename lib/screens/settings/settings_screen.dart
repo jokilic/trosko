@@ -86,7 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final listenerGranted = notificationState.listenerGranted;
     final useNotificationListener = notificationState.useNotificationListener;
 
-    final permissionsGranted = notificationGranted == true && listenerGranted == true && useNotificationListener;
+    final permissionsGranted = notificationGranted && listenerGranted && useNotificationListener;
 
     final categories = hiveState.categories;
     final locations = hiveState.locations;
