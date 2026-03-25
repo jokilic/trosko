@@ -12,7 +12,6 @@ import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
-import '../../services/map_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
@@ -77,7 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final hiveState = watchIt<HiveService>().value;
 
-    final useVectorMaps = hiveState.settings?.useVectorMaps ?? false;
     final useColorfulIcons = hiveState.settings?.useColorfulIcons ?? false;
     final useVoice = hiveState.settings?.useVoice ?? false;
 
@@ -89,8 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
     final name = hiveState.username;
 
     final state = watchIt<HomeController>().value;
-
-    final mapState = watchIt<MapService>().value;
 
     final items = state.datesAndTransactions;
 
@@ -601,8 +597,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(top: 4),
                 child: HomeLocations(
                   useColorfulIcons: useColorfulIcons,
-                  mapStyle: mapState,
-                  useVectorMaps: useVectorMaps,
                   isExpanded: expandedLocations,
                   locations: locations,
                   activeLocations: activeLocations,

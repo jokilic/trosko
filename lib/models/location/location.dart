@@ -25,10 +25,13 @@ class Location {
   @HiveField(7)
   final String? note;
 
-  @HiveField(8)
+  @HiveField(8, defaultValue: 'question mark')
   final String iconName;
 
-  @HiveField(9)
+  @HiveField(
+    9,
+    defaultValue: Colors.grey,
+  )
   final Color color;
 
   Location({

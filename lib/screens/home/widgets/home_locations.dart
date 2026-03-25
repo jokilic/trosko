@@ -1,9 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:vector_map_tiles/vector_map_tiles.dart';
 
 import '../../../constants/durations.dart';
 import '../../../models/location/location.dart';
@@ -17,8 +15,6 @@ class HomeLocations extends StatelessWidget {
   final List<Location>? activeLocations;
   final void Function(List<Location> newOrder) onReorderLocations;
   final void Function(Location location) onPressedLocation;
-  final Style? mapStyle;
-  final bool useVectorMaps;
   final bool useColorfulIcons;
 
   const HomeLocations({
@@ -27,9 +23,7 @@ class HomeLocations extends StatelessWidget {
     required this.activeLocations,
     required this.onReorderLocations,
     required this.onPressedLocation,
-    required this.useVectorMaps,
     required this.useColorfulIcons,
-    this.mapStyle,
   });
 
   @override
@@ -46,16 +40,6 @@ class HomeLocations extends StatelessWidget {
         ///
         if (index < locations.length) {
           final location = locations[index];
-
-          final locationCoordinates = location.latitude != null && location.longitude != null
-              ? LatLng(
-                  location.latitude!,
-                  location.longitude!,
-                )
-              : null;
-
-          final isActive = activeLocations?.contains(location) ?? false;
-
           final icon = getPhosphorIconFromName(location.iconName)?.value;
 
           return Animate(
@@ -69,13 +53,11 @@ class HomeLocations extends StatelessWidget {
             ],
             child: HomeLocation(
               location: location,
-              coordinates: locationCoordinates,
-              mapStyle: mapStyle,
-              isActive: isActive,
-              useMap: locationCoordinates != null,
-              useVectorMaps: useVectorMaps,
               onPressed: () => onPressedLocation(location),
-              color: isActive ? context.colors.buttonPrimary : context.colors.buttonBackground,
+              color: location.color.withValues(
+                alpha: (activeLocations?.isEmpty ?? true) || (activeLocations?.contains(location) ?? false) ? 1 : 0.2,
+              ),
+              highlightColor: location.color.withValues(alpha: 0.2),
               icon: icon != null
                   ? getPhosphorIcon(
                       icon,
@@ -101,11 +83,9 @@ class HomeLocations extends StatelessWidget {
               ),
           ],
           child: HomeLocation(
-            isActive: false,
-            useMap: false,
-            useVectorMaps: useVectorMaps,
             location: null,
             color: context.colors.buttonBackground,
+            highlightColor: context.colors.listTileBackground,
             icon: getPhosphorIcon(
               PhosphorIcons.plus,
               isDuotone: useColorfulIcons,

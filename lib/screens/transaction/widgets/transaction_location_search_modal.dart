@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:vector_map_tiles/vector_map_tiles.dart';
 
 import '../../../models/location/location.dart';
@@ -13,12 +12,14 @@ import 'transaction_location.dart';
 
 class TransactionLocationSearchModal extends StatefulWidget {
   final List<Location> locations;
+  final Location? activeLocation;
   final Style? mapState;
   final bool useColorfulIcons;
   final bool useVectorMaps;
 
   const TransactionLocationSearchModal({
     required this.locations,
+    required this.activeLocation,
     required this.mapState,
     required this.useColorfulIcons,
     required this.useVectorMaps,
@@ -165,15 +166,8 @@ class _TransactionLocationSearchModalState extends State<TransactionLocationSear
                   currentLocations.length,
                   (index) {
                     final location = currentLocations[index];
-
-                    final locationCoordinates = location.latitude != null && location.longitude != null
-                        ? LatLng(
-                            location.latitude!,
-                            location.longitude!,
-                          )
-                        : null;
-
                     final icon = getPhosphorIconFromName(location.iconName)?.value;
+                    final isActive = location == widget.activeLocation;
 
                     return TransactionLocation(
                       key: ValueKey(location.id),
@@ -182,12 +176,12 @@ class _TransactionLocationSearchModalState extends State<TransactionLocationSear
                         Navigator.of(context).pop(location);
                       },
                       location: location,
-                      coordinates: locationCoordinates,
-                      isActive: false,
-                      useMap: locationCoordinates != null,
-                      useVectorMaps: widget.useVectorMaps,
-                      mapStyle: widget.mapState,
-                      color: context.colors.buttonBackground,
+                      color: location.color.withValues(
+                        alpha: isActive ? 1.0 : 0.2,
+                      ),
+                      highlightColor: location.color.withValues(
+                        alpha: isActive ? 1.0 : 0.2,
+                      ),
                       icon: icon != null
                           ? getPhosphorIcon(
                               icon,

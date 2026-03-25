@@ -4,7 +4,6 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:scroll_datetime_picker/scroll_datetime_picker.dart';
 import 'package:watch_it/watch_it.dart';
@@ -348,6 +347,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                 ),
                                 builder: (context) => TransactionLocationSearchModal(
                                   locations: widget.locations,
+                                  activeLocation: activeLocation,
                                   mapState: mapState,
                                   useColorfulIcons: useColorfulIcons,
                                   useVectorMaps: useVectorMaps,
@@ -420,15 +420,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             GlobalKey.new,
                           );
 
-                          final locationCoordinates = location.latitude != null && location.longitude != null
-                              ? LatLng(
-                                  location.latitude!,
-                                  location.longitude!,
-                                )
-                              : null;
-
                           final isActive = activeLocation == location;
-
                           final icon = getPhosphorIconFromName(location.iconName)?.value;
 
                           return TransactionLocation(
@@ -438,12 +430,12 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               transactionController.locationChanged(location);
                             },
                             location: location,
-                            coordinates: locationCoordinates,
-                            isActive: isActive,
-                            useMap: locationCoordinates != null,
-                            useVectorMaps: useVectorMaps,
-                            mapStyle: mapState,
-                            color: isActive ? context.colors.buttonPrimary : context.colors.buttonBackground,
+                            color: location.color.withValues(
+                              alpha: isActive ? 1 : 0.2,
+                            ),
+                            highlightColor: location.color.withValues(
+                              alpha: isActive ? 1 : 0.2,
+                            ),
                             icon: icon != null
                                 ? getPhosphorIcon(
                                     icon,
