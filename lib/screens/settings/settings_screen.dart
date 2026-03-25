@@ -80,7 +80,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     final hiveState = watchIt<HiveService>().value;
     final notificationState = watchIt<NotificationService>().value;
-    final mapState = watchIt<MapService>().value;
 
     final notificationGranted = notificationState.notificationGranted;
     final listenerGranted = notificationState.listenerGranted;
@@ -302,8 +301,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               useColorfulIcons: useColorfulIcons,
               locations: locations,
               onReorderLocations: hive.updateLocationsOrder,
-              useVectorMaps: useVectorMaps,
-              mapStyle: mapState,
             ),
             const SliverToBoxAdapter(
               child: SizedBox(height: 10),

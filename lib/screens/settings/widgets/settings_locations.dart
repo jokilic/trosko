@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:vector_map_tiles/vector_map_tiles.dart';
 
 import '../../../models/location/location.dart';
 import '../../../theme/extensions.dart';
@@ -10,16 +8,12 @@ import 'settings_location.dart';
 class SettingsLocations extends StatelessWidget {
   final List<Location> locations;
   final void Function(List<Location> newOrder) onReorderLocations;
-  final Style? mapStyle;
-  final bool useVectorMaps;
   final bool useColorfulIcons;
 
   const SettingsLocations({
     required this.locations,
     required this.onReorderLocations,
-    required this.useVectorMaps,
     required this.useColorfulIcons,
-    this.mapStyle,
   });
 
   @override
@@ -57,26 +51,14 @@ class SettingsLocations extends StatelessWidget {
         ),
         itemBuilder: (_, index) {
           final location = locations[index];
-
-          final locationCoordinates = location.latitude != null && location.longitude != null
-              ? LatLng(
-                  location.latitude!,
-                  location.longitude!,
-                )
-              : null;
-
           final icon = getPhosphorIconFromName(location.iconName)?.value;
 
           return ReorderableDelayedDragStartListener(
             key: ValueKey(location.id),
             index: index,
             child: SettingsLocation(
-              coordinates: locationCoordinates,
-              useMap: locationCoordinates != null,
-              mapStyle: mapStyle,
-              useVectorMaps: useVectorMaps,
-              color: context.colors.buttonBackground,
-              text: location.name,
+              color: location.color,
+              highlightColor: location.color,
               icon: icon != null
                   ? getPhosphorIcon(
                       icon,
@@ -84,6 +66,7 @@ class SettingsLocations extends StatelessWidget {
                       isBold: false,
                     )
                   : null,
+              text: location.name,
             ),
           );
         },

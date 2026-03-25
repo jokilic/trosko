@@ -227,23 +227,29 @@ class _LocationScreenState extends State<LocationScreen> {
                                 /// ICON
                                 ///
                                 if (locationIcon != null && !mapEditMode)
-                                  IgnorePointer(
-                                    ignoring: mapEditMode,
-                                    child: PhosphorIcon(
-                                      getPhosphorIcon(
-                                        locationIcon.value,
-                                        isDuotone: useColorfulIcons,
-                                        isBold: false,
+                                  Positioned(
+                                    top: locationCoordinates != null ? null : 0,
+                                    bottom: locationCoordinates != null ? 16 : 0,
+                                    left: 0,
+                                    right: 0,
+                                    child: IgnorePointer(
+                                      ignoring: mapEditMode,
+                                      child: PhosphorIcon(
+                                        getPhosphorIcon(
+                                          locationIcon.value,
+                                          isDuotone: useColorfulIcons,
+                                          isBold: false,
+                                        ),
+                                        color: locationCoordinates != null
+                                            ? TroskoColors.lightThemeBlackText
+                                            : getWhiteOrBlackColor(
+                                                backgroundColor: locationColor ?? context.colors.scaffoldBackground,
+                                                whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                                blackColor: TroskoColors.lightThemeBlackText,
+                                              ),
+                                        duotoneSecondaryColor: context.colors.buttonPrimary,
+                                        size: locationCoordinates != null ? 40 : 104,
                                       ),
-                                      color: locationCoordinates == null
-                                          ? getWhiteOrBlackColor(
-                                              backgroundColor: locationColor ?? context.colors.scaffoldBackground,
-                                              whiteColor: TroskoColors.lightThemeWhiteBackground,
-                                              blackColor: TroskoColors.lightThemeBlackText,
-                                            )
-                                          : context.colors.text.withValues(alpha: 0.4),
-                                      duotoneSecondaryColor: context.colors.buttonPrimary,
-                                      size: 104,
                                     ),
                                   ),
                               ],
@@ -255,7 +261,7 @@ class _LocationScreenState extends State<LocationScreen> {
                           ///
                           if (mapEditMode)
                             Positioned(
-                              bottom: 24,
+                              bottom: 32,
                               left: 0,
                               right: 0,
                               child: PhosphorIcon(
@@ -266,7 +272,7 @@ class _LocationScreenState extends State<LocationScreen> {
                                 ),
                                 color: TroskoColors.lightThemeBlackText,
                                 duotoneSecondaryColor: context.colors.buttonPrimary,
-                                size: 20,
+                                size: 40,
                               ),
                             ),
                         ],
