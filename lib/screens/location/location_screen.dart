@@ -181,7 +181,10 @@ class _LocationScreenState extends State<LocationScreen> {
                     GestureDetector(
                       onTap: () {
                         HapticFeedback.lightImpact();
-                        locationController.mapEditModeChanged();
+
+                        if (locationCoordinates != null) {
+                          locationController.mapEditModeChanged();
+                        }
                       },
                       child: Stack(
                         children: [

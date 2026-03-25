@@ -25,13 +25,10 @@ class Location {
   @HiveField(7)
   final String? note;
 
-  @HiveField(8, defaultValue: 'question mark')
+  @HiveField(8)
   final String iconName;
 
-  @HiveField(
-    9,
-    defaultValue: Colors.grey,
-  )
+  @HiveField(9)
   final Color color;
 
   Location({
@@ -59,8 +56,8 @@ class Location {
     longitude: map['longitude'] != null ? (map['longitude'] as num).toDouble() : null,
     createdAt: (map['createdAt'] as Timestamp).toDate(),
     note: map['note'] != null ? map['note'] as String : null,
-    iconName: map['iconName'] as String,
-    color: Color((map['color'] as num).toInt()),
+    iconName: map['iconName'] != null ? map['iconName'] as String : 'map pin',
+    color: map['color'] != null ? Color((map['color'] as num).toInt()) : Colors.grey.shade300,
   );
 
   Map<String, dynamic> toMap() => <String, dynamic>{
