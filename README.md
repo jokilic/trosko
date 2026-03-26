@@ -32,3 +32,10 @@ Expense can also be edited or deleted if necessary.
 Add new category here.\
 You need to choose a color, category name and icon.\
 Category can also be edited or deleted if necessary.
+
+**New location** 📍
+
+Add new location here.\
+You need to choose a color, location name and icon.\
+You can add an address to your location.\
+Location can also be edited or deleted if necessary.
