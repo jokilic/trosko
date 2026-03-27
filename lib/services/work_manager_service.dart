@@ -106,7 +106,9 @@ void callbackDispatcher() => Workmanager().executeTask(
           )
           ..initializeForegroundTask();
 
-        await notification.startService();
+        await notification.ensureServiceRunning(
+          forceRestart: true,
+        );
       } else {
         notification.updateState(
           notificationGranted: notificationPermission == NotificationPermission.granted,

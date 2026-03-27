@@ -129,6 +129,7 @@ class NotificationHandler extends TaskHandler {
 
   StreamSubscription<ServiceNotificationEvent>? notificationSubscription;
   FlutterLocalNotificationsPlugin? backgroundNotificationsPlugin;
+  DateTime? lastSubscriptionAt;
 
   ///
   /// INIT
@@ -136,10 +137,7 @@ class NotificationHandler extends TaskHandler {
 
   @override
   Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
-    await notificationSubscription?.cancel();
-    notificationSubscription = NotificationListenerService.notificationsStream.listen(
-      handleNotification,
-    );
+    await ensureNotificationSubscription();
   }
 
   ///
@@ -150,6 +148,7 @@ class NotificationHandler extends TaskHandler {
   Future<void> onDestroy(DateTime timestamp, bool isTimeout) async {
     await notificationSubscription?.cancel();
     notificationSubscription = null;
+    lastSubscriptionAt = null;
   }
 
   ///
@@ -164,6 +163,23 @@ class NotificationHandler extends TaskHandler {
 
     backgroundNotificationsPlugin = FlutterLocalNotificationsPlugin();
     await initializeNotificationPlugin(backgroundNotificationsPlugin!);
+  }
+
+  /// Recreates the notification stream when Android tears it down underneath us.
+  Future<void> ensureNotificationSubscription() async {
+    await notificationSubscription?.cancel();
+
+    notificationSubscription = NotificationListenerService.notificationsStream.listen(
+      handleNotification,
+      onDone: handleSubscriptionEnded,
+      onError: (_, __) => handleSubscriptionEnded(),
+      cancelOnError: false,
+    );
+    lastSubscriptionAt = DateTime.now();
+  }
+
+  void handleSubscriptionEnded() {
+    notificationSubscription = null;
   }
 
   /// Shows `Troško` notification
@@ -285,5 +301,11 @@ class NotificationHandler extends TaskHandler {
 
   /// Called based on the `eventAction` set in [ForegroundTaskOptions]
   @override
-  void onRepeatEvent(DateTime timestamp) {}
+  Future<void> onRepeatEvent(DateTime timestamp) async {
+    final shouldRefreshSubscription = notificationSubscription == null || lastSubscriptionAt == null || timestamp.difference(lastSubscriptionAt!) >= const Duration(minutes: 15);
+
+    if (shouldRefreshSubscription) {
+      await ensureNotificationSubscription();
+    }
+  }
 }

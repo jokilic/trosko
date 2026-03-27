@@ -166,7 +166,7 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
     ),
     iosNotificationOptions: const IOSNotificationOptions(),
     foregroundTaskOptions: ForegroundTaskOptions(
-      eventAction: ForegroundTaskEventAction.nothing(),
+      eventAction: ForegroundTaskEventAction.repeat(300000),
       autoRunOnBoot: true,
       autoRunOnMyPackageReplaced: true,
       allowWakeLock: true,
@@ -193,6 +193,24 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
         ForegroundServiceTypes.dataSync,
       ],
     );
+  }
+
+  /// Ensures the foreground service gets a fresh isolate/subscription.
+  Future<ServiceRequestResult> ensureServiceRunning({
+    bool forceRestart = false,
+  }) async {
+    final isRunning = await FlutterForegroundTask.isRunningService;
+
+    if (forceRestart && isRunning) {
+      await FlutterForegroundTask.stopService();
+      await Future<void>.delayed(
+        const Duration(milliseconds: 500),
+      );
+
+      return startService();
+    }
+
+    return startService();
   }
 
   /// Stops notification listener
