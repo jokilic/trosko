@@ -165,6 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
           /// ADD EXPENSE / CATEGORY
           ///
           FloatingActionButton.extended(
+            heroTag: const ValueKey('add-expense-category'),
             onPressed: () {
               HapticFeedback.lightImpact();
               showCupertinoSheet(
