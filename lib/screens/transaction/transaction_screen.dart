@@ -152,8 +152,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       HapticFeedback.lightImpact(),
                     );
 
-                    /// Proper transaction exists, delete it
-                    if (widget.passedTransaction != null) {}
+                    /// Delete passed transaction
                     await transactionController.deleteTransaction();
 
                     /// Trigger callback from parent

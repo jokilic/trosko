@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -381,30 +382,33 @@ class _VoiceScreenState extends State<VoiceScreen> {
 
                   return VoiceAITransactionListTile(
                     useColorfulIcons: useColorfulIcons,
-                    onLongPressed: () => TransactionScreen(
-                      passedTransaction: null,
-                      passedAITransaction: result,
-                      categories: categories,
-                      locations: locations,
-                      passedCategory: null,
-                      passedLocation: null,
-                      passedNotificationPayload: null,
-                      onTransactionUpdated: () {
-                        voiceController.removeTransaction(
-                          transaction: result,
-                        );
+                    onLongPressed: () => showCupertinoSheet(
+                      context: context,
+                      builder: (context) => TransactionScreen(
+                        passedTransaction: null,
+                        passedAITransaction: result,
+                        categories: categories,
+                        locations: locations,
+                        passedCategory: null,
+                        passedLocation: null,
+                        passedNotificationPayload: null,
+                        onTransactionUpdated: () {
+                          voiceController.removeTransaction(
+                            transaction: result,
+                          );
 
-                        /// Update `state` in [HomeScreen]
-                        homeController?.updateState(
-                          locale: context.locale.languageCode,
-                        );
+                          /// Update `state` in [HomeScreen]
+                          homeController?.updateState(
+                            locale: context.locale.languageCode,
+                          );
 
-                        /// Dismiss screen if no more results
-                        if (aiResults.length == 1) {
-                          Navigator.of(context).pop();
-                        }
-                      },
-                      key: ValueKey(result.id),
+                          /// Dismiss screen if no more results
+                          if (aiResults.length == 1) {
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        key: ValueKey(result.id),
+                      ),
                     ),
                     onDeletePressed: () {
                       HapticFeedback.lightImpact();

@@ -1,4 +1,4 @@
-import 'package:animations/animations.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -28,81 +28,76 @@ class HomeCategory extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => OpenContainer(
-    transitionDuration: TroskoDurations.animationLong,
-    transitionType: ContainerTransitionType.fadeThrough,
-    middleColor: context.colors.scaffoldBackground,
-    openElevation: 0,
-    openColor: context.colors.scaffoldBackground,
-    openShape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16),
-    ),
-    closedElevation: 0,
-    closedColor: context.colors.scaffoldBackground,
-    closedShape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16),
-    ),
-    closedBuilder: (context, openContainer) => SizedBox(
-      width: 80,
-      child: Column(
-        children: [
-          AnimatedContainer(
-            duration: TroskoDurations.animation,
-            curve: Curves.easeIn,
-            decoration: BoxDecoration(
+  Widget build(BuildContext context) => SizedBox(
+    width: 80,
+    child: Column(
+      children: [
+        AnimatedContainer(
+          duration: TroskoDurations.animation,
+          curve: Curves.easeIn,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+            border: Border.all(
               color: color,
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: color,
-                width: 1.5,
-              ),
+              width: 1.5,
             ),
-            child: IconButton(
-              onPressed: () {
-                if (onPressed != null) {
-                  onPressed!();
-                } else {
-                  HapticFeedback.lightImpact();
-                  openContainer();
-                }
-              },
-              onLongPress: onPressed != null ? openContainer : null,
-              style: IconButton.styleFrom(
-                padding: const EdgeInsets.all(12),
-                highlightColor: highlightColor,
-                alignment: Alignment.center,
-              ),
-              icon: icon != null
-                  ? PhosphorIcon(
-                      icon!,
-                      color: getWhiteOrBlackColor(
-                        backgroundColor: color,
-                        whiteColor: TroskoColors.lightThemeWhiteBackground,
-                        blackColor: TroskoColors.lightThemeBlackText,
-                      ),
-                      duotoneSecondaryColor: context.colors.buttonPrimary,
-                      size: 36,
-                    )
-                  : const SizedBox(
-                      height: 36,
-                      width: 36,
+          ),
+          child: IconButton(
+            onPressed: () {
+              if (onPressed != null) {
+                onPressed!();
+              } else {
+                HapticFeedback.lightImpact();
+                showCupertinoSheet(
+                  context: context,
+                  builder: (context) => CategoryScreen(
+                    passedCategory: category,
+                    key: ValueKey(category?.id),
+                  ),
+                );
+              }
+            },
+            onLongPress: onPressed != null
+                ? () => showCupertinoSheet(
+                    context: context,
+                    builder: (context) => CategoryScreen(
+                      passedCategory: category,
+                      key: ValueKey(category?.id),
                     ),
+                  )
+                : null,
+            style: IconButton.styleFrom(
+              padding: const EdgeInsets.all(12),
+              highlightColor: highlightColor,
+              alignment: Alignment.center,
             ),
+            icon: icon != null
+                ? PhosphorIcon(
+                    icon!,
+                    color: getWhiteOrBlackColor(
+                      backgroundColor: color,
+                      whiteColor: TroskoColors.lightThemeWhiteBackground,
+                      blackColor: TroskoColors.lightThemeBlackText,
+                    ),
+                    duotoneSecondaryColor: context.colors.buttonPrimary,
+                    size: 36,
+                  )
+                : const SizedBox(
+                    height: 36,
+                    width: 36,
+                  ),
           ),
-          const SizedBox(height: 6),
-          Text(
-            text,
-            style: context.textStyles.homeCategoryTitle,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    ),
-    openBuilder: (context, _) => CategoryScreen(
-      passedCategory: category,
-      key: ValueKey(category?.id),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          text,
+          style: context.textStyles.homeCategoryTitle,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+      ],
     ),
   );
 }

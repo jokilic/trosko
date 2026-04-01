@@ -1,8 +1,7 @@
-import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
@@ -109,81 +108,54 @@ class _HomeScreenState extends State<HomeScreen> {
           /// VOICE
           ///
           if (useVoice) ...[
-            OpenContainer(
-              transitionDuration: TroskoDurations.animationLong,
-              transitionType: ContainerTransitionType.fadeThrough,
-              middleColor: context.colors.scaffoldBackground,
-              openElevation: 0,
-              openColor: context.colors.scaffoldBackground,
-              openShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              closedElevation: 0,
-              closedColor: context.colors.scaffoldBackground,
-              closedShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              closedBuilder: (context, openContainer) => Theme(
-                data: Theme.of(context).copyWith(
-                  splashColor: Colors.transparent,
-                  highlightColor: context.colors.buttonBackground,
+            FloatingActionButton(
+              heroTag: const ValueKey('voice'),
+              onPressed: categories.isNotEmpty
+                  ? () {
+                      HapticFeedback.lightImpact();
+                      showCupertinoSheet(
+                        context: context,
+                        builder: (context) => const VoiceScreen(
+                          key: ValueKey('voice'),
+                        ),
+                      );
+                    }
+                  : () {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      HapticFeedback.lightImpact();
+                      showSnackbar(
+                        context,
+                        text: 'homeAddCategoryBeforeVoice'.tr(),
+                        icon: getPhosphorIcon(
+                          PhosphorIcons.warningCircle,
+                          isDuotone: useColorfulIcons,
+                          isBold: true,
+                        ),
+                      );
+                    },
+              backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+              foregroundColor: categories.isNotEmpty
+                  ? getWhiteOrBlackColor(
+                      backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                      whiteColor: TroskoColors.lightThemeWhiteBackground,
+                      blackColor: TroskoColors.lightThemeBlackText,
+                    )
+                  : context.colors.disabledText,
+              child: PhosphorIcon(
+                getPhosphorIcon(
+                  PhosphorIcons.microphone,
+                  isDuotone: useColorfulIcons,
+                  isBold: false,
                 ),
-                child: Animate(
-                  autoPlay: false,
-                  effects: const [
-                    ShakeEffect(
-                      curve: Curves.easeIn,
-                      duration: TroskoDurations.animation,
-                    ),
-                  ],
-                  child: FloatingActionButton(
-                    onPressed: categories.isNotEmpty
-                        ? () {
-                            HapticFeedback.lightImpact();
-                            openContainer();
-                          }
-                        : () {
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                            HapticFeedback.lightImpact();
-                            showSnackbar(
-                              context,
-                              text: 'homeAddCategoryBeforeVoice'.tr(),
-                              icon: getPhosphorIcon(
-                                PhosphorIcons.warningCircle,
-                                isDuotone: useColorfulIcons,
-                                isBold: true,
-                              ),
-                            );
-                          },
-                    backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                    foregroundColor: categories.isNotEmpty
-                        ? getWhiteOrBlackColor(
-                            backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                            whiteColor: TroskoColors.lightThemeWhiteBackground,
-                            blackColor: TroskoColors.lightThemeBlackText,
-                          )
-                        : context.colors.disabledText,
-                    child: PhosphorIcon(
-                      getPhosphorIcon(
-                        PhosphorIcons.microphone,
-                        isDuotone: useColorfulIcons,
-                        isBold: false,
-                      ),
-                      color: categories.isNotEmpty
-                          ? getWhiteOrBlackColor(
-                              backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
-                              whiteColor: TroskoColors.lightThemeWhiteBackground,
-                              blackColor: TroskoColors.lightThemeBlackText,
-                            )
-                          : context.colors.disabledText,
-                      duotoneSecondaryColor: context.colors.buttonPrimary,
-                      size: 32,
-                    ),
-                  ),
-                ),
-              ),
-              openBuilder: (context, _) => const VoiceScreen(
-                key: ValueKey('voice'),
+                color: categories.isNotEmpty
+                    ? getWhiteOrBlackColor(
+                        backgroundColor: categories.isNotEmpty ? context.colors.buttonPrimary : context.colors.disabledBackground,
+                        whiteColor: TroskoColors.lightThemeWhiteBackground,
+                        blackColor: TroskoColors.lightThemeBlackText,
+                      )
+                    : context.colors.disabledText,
+                duotoneSecondaryColor: context.colors.buttonPrimary,
+                size: 32,
               ),
             ),
             const SizedBox(height: 16),
@@ -192,84 +164,65 @@ class _HomeScreenState extends State<HomeScreen> {
           ///
           /// ADD EXPENSE / CATEGORY
           ///
-          OpenContainer(
-            transitionDuration: TroskoDurations.animationLong,
-            transitionType: ContainerTransitionType.fadeThrough,
-            middleColor: context.colors.scaffoldBackground,
-            openElevation: 0,
-            openColor: context.colors.scaffoldBackground,
-            openShape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+          FloatingActionButton.extended(
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              showCupertinoSheet(
+                context: context,
+                builder: (context) => categories.isNotEmpty
+                    ? TransactionScreen(
+                        passedTransaction: null,
+                        passedAITransaction: null,
+                        categories: categories,
+                        locations: locations,
+                        passedCategory: categories.length == 1
+                            ? categories.first
+                            : activeCategories?.length == 1
+                            ? activeCategories!.first
+                            : null,
+                        passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
+                        passedNotificationPayload: null,
+                        onTransactionUpdated: () => homeController.updateState(
+                          locale: context.locale.languageCode,
+                        ),
+                        key: const ValueKey(null),
+                      )
+                    : const CategoryScreen(
+                        passedCategory: null,
+                        key: ValueKey(null),
+                      ),
+              );
+            },
+            backgroundColor: context.colors.buttonPrimary,
+            foregroundColor: getWhiteOrBlackColor(
+              backgroundColor: context.colors.buttonPrimary,
+              whiteColor: TroskoColors.lightThemeWhiteBackground,
+              blackColor: TroskoColors.lightThemeBlackText,
             ),
-            closedElevation: 0,
-            closedColor: context.colors.scaffoldBackground,
-            closedShape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            closedBuilder: (context, openContainer) => Theme(
-              data: Theme.of(context).copyWith(
-                splashColor: Colors.transparent,
-                highlightColor: context.colors.buttonBackground,
-              ),
-              child: FloatingActionButton.extended(
-                onPressed: () {
-                  HapticFeedback.lightImpact();
-                  openContainer();
-                },
-                backgroundColor: context.colors.buttonPrimary,
-                foregroundColor: getWhiteOrBlackColor(
+            label: Text(
+              categories.isNotEmpty ? 'homeAddExpense'.tr().toUpperCase() : 'homeAddCategory'.tr().toUpperCase(),
+              style: context.textStyles.homeFloatingActionButton.copyWith(
+                color: getWhiteOrBlackColor(
                   backgroundColor: context.colors.buttonPrimary,
                   whiteColor: TroskoColors.lightThemeWhiteBackground,
                   blackColor: TroskoColors.lightThemeBlackText,
                 ),
-                label: Text(
-                  categories.isNotEmpty ? 'homeAddExpense'.tr().toUpperCase() : 'homeAddCategory'.tr().toUpperCase(),
-                  style: context.textStyles.homeFloatingActionButton.copyWith(
-                    color: getWhiteOrBlackColor(
-                      backgroundColor: context.colors.buttonPrimary,
-                      whiteColor: TroskoColors.lightThemeWhiteBackground,
-                      blackColor: TroskoColors.lightThemeBlackText,
-                    ),
-                  ),
-                ),
-                icon: PhosphorIcon(
-                  getPhosphorIcon(
-                    categories.isNotEmpty ? PhosphorIcons.coins : PhosphorIcons.shapes,
-                    isDuotone: useColorfulIcons,
-                    isBold: false,
-                  ),
-                  color: getWhiteOrBlackColor(
-                    backgroundColor: context.colors.buttonPrimary,
-                    whiteColor: TroskoColors.lightThemeWhiteBackground,
-                    blackColor: TroskoColors.lightThemeBlackText,
-                  ),
-                  duotoneSecondaryColor: context.colors.buttonPrimary,
-                  size: 32,
-                ),
               ),
             ),
-            openBuilder: (context, _) => categories.isNotEmpty
-                ? TransactionScreen(
-                    passedTransaction: null,
-                    passedAITransaction: null,
-                    categories: categories,
-                    locations: locations,
-                    passedCategory: categories.length == 1
-                        ? categories.first
-                        : activeCategories?.length == 1
-                        ? activeCategories!.first
-                        : null,
-                    passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
-                    passedNotificationPayload: null,
-                    onTransactionUpdated: () => homeController.updateState(
-                      locale: context.locale.languageCode,
-                    ),
-                    key: const ValueKey(null),
-                  )
-                : const CategoryScreen(
-                    passedCategory: null,
-                    key: ValueKey(null),
-                  ),
+            icon: PhosphorIcon(
+              getPhosphorIcon(
+                categories.isNotEmpty ? PhosphorIcons.coins : PhosphorIcons.shapes,
+                isDuotone: useColorfulIcons,
+                isBold: false,
+              ),
+              color: getWhiteOrBlackColor(
+                backgroundColor: context.colors.buttonPrimary,
+                whiteColor: TroskoColors.lightThemeWhiteBackground,
+                blackColor: TroskoColors.lightThemeBlackText,
+              ),
+              duotoneSecondaryColor: context.colors.buttonPrimary,
+              size: 32,
+            ),
           ),
         ],
       ),
@@ -285,93 +238,67 @@ class _HomeScreenState extends State<HomeScreen> {
               ///
               /// SETTINGS
               ///
-              OpenContainer(
-                transitionDuration: TroskoDurations.animationLong,
-                transitionType: ContainerTransitionType.fadeThrough,
-                middleColor: context.colors.scaffoldBackground,
-                openElevation: 0,
-                openColor: context.colors.scaffoldBackground,
-                openShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                closedElevation: 0,
-                closedColor: context.colors.scaffoldBackground,
-                closedShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                closedBuilder: (context, openContainer) => IconButton(
-                  onPressed: () {
-                    HapticFeedback.lightImpact();
-                    openContainer();
-                  },
-                  style: IconButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    highlightColor: context.colors.buttonBackground,
-                  ),
-                  icon: PhosphorIcon(
-                    getPhosphorIcon(
-                      PhosphorIcons.gearSix,
-                      isDuotone: useColorfulIcons,
-                      isBold: true,
+              IconButton(
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  showCupertinoSheet(
+                    context: context,
+                    builder: (context) => SettingsScreen(
+                      onStateUpdateTriggered: () => homeController.updateState(
+                        locale: context.locale.languageCode,
+                      ),
+                      key: const ValueKey('settings'),
                     ),
-                    color: context.colors.text,
-                    duotoneSecondaryColor: context.colors.buttonPrimary,
-                    size: 28,
-                  ),
+                  );
+                },
+                style: IconButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  highlightColor: context.colors.buttonBackground,
                 ),
-                openBuilder: (context, _) => SettingsScreen(
-                  onStateUpdateTriggered: () => homeController.updateState(
-                    locale: context.locale.languageCode,
+                icon: PhosphorIcon(
+                  getPhosphorIcon(
+                    PhosphorIcons.gearSix,
+                    isDuotone: useColorfulIcons,
+                    isBold: true,
                   ),
-                  key: const ValueKey('settings'),
+                  color: context.colors.text,
+                  duotoneSecondaryColor: context.colors.buttonPrimary,
+                  size: 28,
                 ),
               ),
 
               ///
               /// SEARCH
               ///
-              OpenContainer(
-                transitionDuration: TroskoDurations.animationLong,
-                transitionType: ContainerTransitionType.fadeThrough,
-                middleColor: context.colors.scaffoldBackground,
-                openElevation: 0,
-                openColor: context.colors.scaffoldBackground,
-                openShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                closedElevation: 0,
-                closedColor: context.colors.scaffoldBackground,
-                closedShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                closedBuilder: (context, openContainer) => IconButton(
-                  onPressed: () {
-                    HapticFeedback.lightImpact();
-                    openContainer();
-                  },
-                  style: IconButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    highlightColor: context.colors.buttonBackground,
-                  ),
-                  icon: PhosphorIcon(
-                    getPhosphorIcon(
-                      PhosphorIcons.magnifyingGlass,
-                      isDuotone: useColorfulIcons,
-                      isBold: true,
+              IconButton(
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  showCupertinoSheet(
+                    context: context,
+                    builder: (context) => SearchScreen(
+                      categories: categories,
+                      locations: locations,
+                      onTransactionUpdated: () => homeController.updateState(
+                        locale: context.locale.languageCode,
+                      ),
+                      locale: context.locale.languageCode,
+                      key: const ValueKey('search'),
                     ),
-                    color: context.colors.text,
-                    duotoneSecondaryColor: context.colors.buttonPrimary,
-                    size: 28,
-                  ),
+                  );
+                },
+                style: IconButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  highlightColor: context.colors.buttonBackground,
                 ),
-                openBuilder: (context, _) => SearchScreen(
-                  categories: categories,
-                  locations: locations,
-                  onTransactionUpdated: () => homeController.updateState(
-                    locale: context.locale.languageCode,
+                icon: PhosphorIcon(
+                  getPhosphorIcon(
+                    PhosphorIcons.magnifyingGlass,
+                    isDuotone: useColorfulIcons,
+                    isBold: true,
                   ),
-                  locale: context.locale.languageCode,
-                  key: const ValueKey('search'),
+                  color: context.colors.text,
+                  duotoneSecondaryColor: context.colors.buttonPrimary,
+                  size: 28,
                 ),
               ),
             ],
@@ -416,18 +343,21 @@ class _HomeScreenState extends State<HomeScreen> {
               if (month != null) {
                 final transactions = month.isAll ? allTransactions : homeController.getAllTransactionsFromMonth(month);
 
-                return StatsScreen(
-                  month: month,
-                  transactions: transactions,
-                  categories: getSortedCategories(
-                    categories: categories,
+                showCupertinoSheet(
+                  context: context,
+                  builder: (context) => StatsScreen(
+                    month: month,
                     transactions: transactions,
+                    categories: getSortedCategories(
+                      categories: categories,
+                      transactions: transactions,
+                    ),
+                    locations: getSortedLocations(
+                      locations: locations,
+                      transactions: transactions,
+                    ),
+                    key: ValueKey(month),
                   ),
-                  locations: getSortedLocations(
-                    locations: locations,
-                    transactions: transactions,
-                  ),
-                  key: ValueKey(month),
                 );
               }
             },
@@ -681,18 +611,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     return TroskoTransactionListTile(
                       useColorfulIcons: useColorfulIcons,
-                      onLongPressed: () => TransactionScreen(
-                        passedTransaction: item,
-                        passedAITransaction: null,
-                        categories: categories,
-                        locations: locations,
-                        passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
-                        passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
-                        passedNotificationPayload: null,
-                        onTransactionUpdated: () => homeController.updateState(
-                          locale: context.locale.languageCode,
+                      onLongPressed: () => showCupertinoSheet(
+                        context: context,
+                        builder: (context) => TransactionScreen(
+                          passedTransaction: item,
+                          passedAITransaction: null,
+                          categories: categories,
+                          locations: locations,
+                          passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
+                          passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
+                          passedNotificationPayload: null,
+                          onTransactionUpdated: () => homeController.updateState(
+                            locale: context.locale.languageCode,
+                          ),
+                          key: ValueKey(item.id),
                         ),
-                        key: ValueKey(item.id),
                       ),
                       onDeletePressed: () {
                         HapticFeedback.lightImpact();

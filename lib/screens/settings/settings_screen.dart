@@ -494,7 +494,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
 
           ///
-          /// MAPS TEXT
+          /// VOICE TEXT
           ///
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 28),

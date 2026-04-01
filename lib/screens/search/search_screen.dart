@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide SearchController;
 import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -194,21 +195,24 @@ class _SearchScreenState extends State<SearchScreen> {
 
                   return TroskoTransactionListTile(
                     useColorfulIcons: useColorfulIcons,
-                    onLongPressed: () => TransactionScreen(
-                      passedTransaction: item,
-                      passedAITransaction: null,
-                      categories: widget.categories,
-                      locations: widget.locations,
-                      passedCategory: null,
-                      passedLocation: null,
-                      passedNotificationPayload: null,
-                      onTransactionUpdated: () {
-                        searchController.updateState(
-                          locale: context.locale.languageCode,
-                        );
-                        widget.onTransactionUpdated();
-                      },
-                      key: ValueKey(item.id),
+                    onLongPressed: () => showCupertinoSheet(
+                      context: context,
+                      builder: (context) => TransactionScreen(
+                        passedTransaction: item,
+                        passedAITransaction: null,
+                        categories: widget.categories,
+                        locations: widget.locations,
+                        passedCategory: null,
+                        passedLocation: null,
+                        passedNotificationPayload: null,
+                        onTransactionUpdated: () {
+                          searchController.updateState(
+                            locale: context.locale.languageCode,
+                          );
+                          widget.onTransactionUpdated();
+                        },
+                        key: ValueKey(item.id),
+                      ),
                     ),
                     onDeletePressed: () {
                       HapticFeedback.lightImpact();

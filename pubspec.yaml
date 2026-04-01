@@ -28,7 +28,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  animations: 2.1.2
   calendar_date_picker2: 2.0.1
   cloud_firestore: 6.2.0
   diacritic: 0.1.6

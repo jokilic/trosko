@@ -1,8 +1,6 @@
-import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants/durations.dart';
 import '../../../models/month/month.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/extensions.dart';
@@ -36,53 +34,37 @@ class HomeMonthChips extends StatelessWidget {
             ///
             /// ALL
             ///
-            return OpenContainer(
-              transitionDuration: TroskoDurations.animationLong,
-              transitionType: ContainerTransitionType.fadeThrough,
-              middleColor: context.colors.scaffoldBackground,
-              openElevation: 0,
-              openColor: context.colors.scaffoldBackground,
-              openShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+            return Theme(
+              data: Theme.of(context).copyWith(
+                splashColor: Colors.transparent,
+                highlightColor: (activeMonths?.isEmpty ?? true) ? context.colors.buttonBackground : context.colors.listTileBackground,
               ),
-              closedElevation: 0,
-              closedColor: context.colors.scaffoldBackground,
-              closedShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              closedBuilder: (context, openContainer) => Theme(
-                data: Theme.of(context).copyWith(
-                  splashColor: Colors.transparent,
-                  highlightColor: (activeMonths?.isEmpty ?? true) ? context.colors.buttonBackground : context.colors.listTileBackground,
-                ),
-                child: InkWell(
-                  onLongPress: openContainer,
-                  borderRadius: BorderRadius.circular(8),
-                  child: FilterChip(
-                    label: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        minWidth: 40,
-                      ),
-                      child: Text(
-                        'monthAll'.tr(),
-                        style: context.textStyles.homeMonthChip.copyWith(
-                          color: (activeMonths?.isEmpty ?? true)
-                              ? getWhiteOrBlackColor(
-                                  backgroundColor: context.colors.buttonPrimary,
-                                  whiteColor: TroskoColors.lightThemeWhiteBackground,
-                                  blackColor: TroskoColors.lightThemeBlackText,
-                                )
-                              : null,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+              child: InkWell(
+                onLongPress: () => onLongPressed != null ? onLongPressed!(Month.all()) : null,
+                borderRadius: BorderRadius.circular(8),
+                child: FilterChip(
+                  label: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      minWidth: 40,
                     ),
-                    selected: activeMonths?.isEmpty ?? true,
-                    onSelected: (_) => onChipPressed(Month.all()),
+                    child: Text(
+                      'monthAll'.tr(),
+                      style: context.textStyles.homeMonthChip.copyWith(
+                        color: (activeMonths?.isEmpty ?? true)
+                            ? getWhiteOrBlackColor(
+                                backgroundColor: context.colors.buttonPrimary,
+                                whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                blackColor: TroskoColors.lightThemeBlackText,
+                              )
+                            : null,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
+                  selected: activeMonths?.isEmpty ?? true,
+                  onSelected: (_) => onChipPressed(Month.all()),
                 ),
               ),
-              openBuilder: (context, _) => onLongPressed != null ? onLongPressed!(Month.all()) : null,
             );
           }
 
@@ -92,52 +74,37 @@ class HomeMonthChips extends StatelessWidget {
           final month = months.elementAtOrNull(index - 1);
 
           if (month != null) {
-            return OpenContainer(
-              transitionDuration: TroskoDurations.animationLong,
-              middleColor: context.colors.scaffoldBackground,
-              openElevation: 0,
-              openColor: context.colors.scaffoldBackground,
-              openShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+            return Theme(
+              data: Theme.of(context).copyWith(
+                splashColor: Colors.transparent,
+                highlightColor: activeMonths?.contains(month) ?? false ? context.colors.buttonBackground : context.colors.listTileBackground,
               ),
-              closedElevation: 0,
-              closedColor: context.colors.scaffoldBackground,
-              closedShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              closedBuilder: (context, openContainer) => Theme(
-                data: Theme.of(context).copyWith(
-                  splashColor: Colors.transparent,
-                  highlightColor: activeMonths?.contains(month) ?? false ? context.colors.buttonBackground : context.colors.listTileBackground,
-                ),
-                child: InkWell(
-                  onLongPress: openContainer,
-                  borderRadius: BorderRadius.circular(8),
-                  child: FilterChip(
-                    label: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        minWidth: 40,
-                      ),
-                      child: Text(
-                        capitalize(month.label),
-                        style: context.textStyles.homeMonthChip.copyWith(
-                          color: activeMonths?.contains(month) ?? false
-                              ? getWhiteOrBlackColor(
-                                  backgroundColor: context.colors.buttonPrimary,
-                                  whiteColor: TroskoColors.lightThemeWhiteBackground,
-                                  blackColor: TroskoColors.lightThemeBlackText,
-                                )
-                              : null,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+              child: InkWell(
+                onLongPress: () => onLongPressed != null ? onLongPressed!(month) : null,
+                borderRadius: BorderRadius.circular(8),
+                child: FilterChip(
+                  label: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      minWidth: 40,
                     ),
-                    selected: activeMonths?.contains(month) ?? false,
-                    onSelected: (_) => onChipPressed(month),
+                    child: Text(
+                      capitalize(month.label),
+                      style: context.textStyles.homeMonthChip.copyWith(
+                        color: activeMonths?.contains(month) ?? false
+                            ? getWhiteOrBlackColor(
+                                backgroundColor: context.colors.buttonPrimary,
+                                whiteColor: TroskoColors.lightThemeWhiteBackground,
+                                blackColor: TroskoColors.lightThemeBlackText,
+                              )
+                            : null,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
+                  selected: activeMonths?.contains(month) ?? false,
+                  onSelected: (_) => onChipPressed(month),
                 ),
               ),
-              openBuilder: (context, _) => onLongPressed != null ? onLongPressed!(month) : null,
             );
           }
 
