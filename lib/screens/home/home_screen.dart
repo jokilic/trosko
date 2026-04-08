@@ -551,7 +551,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ///
           if (items.isNotEmpty)
             SliverPadding(
-              padding: const EdgeInsets.only(top: 2),
+              padding: EdgeInsets.only(
+                top: 2,
+                bottom: MediaQuery.paddingOf(context).bottom,
+              ),
               sliver: SliverList.builder(
                 itemCount: items.length,
                 itemBuilder: (_, index) {

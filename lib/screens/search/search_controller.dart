@@ -55,7 +55,13 @@ class SearchController extends ValueNotifier<({List<dynamic> datesAndTransaction
 
   @override
   void onDispose() {
-    searchTextEditingController.dispose();
+    searchTextEditingController
+      ..removeListener(
+        () => updateState(
+          locale: locale,
+        ),
+      )
+      ..dispose();
   }
 
   ///
