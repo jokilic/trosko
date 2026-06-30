@@ -28,9 +28,11 @@ import 'location_controller.dart';
 import 'widgets/location_map.dart';
 
 class LocationScreen extends WatchingStatefulWidget {
+  final ScrollController scrollController;
   final Location? passedLocation;
 
   const LocationScreen({
+    required this.scrollController,
     required this.passedLocation,
     required super.key,
   });
@@ -107,6 +109,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
     return Scaffold(
       body: CustomScrollView(
+        controller: widget.scrollController,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),
         slivers: [

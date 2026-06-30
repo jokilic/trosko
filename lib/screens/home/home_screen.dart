@@ -115,8 +115,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       HapticFeedback.lightImpact();
                       showCupertinoSheet(
                         context: context,
-                        builder: (context) => const VoiceScreen(
-                          key: ValueKey('voice'),
+                        scrollableBuilder: (context, scrollController) => VoiceScreen(
+                          scrollController: scrollController,
+                          key: const ValueKey('voice'),
                         ),
                       );
                     }
@@ -170,8 +171,9 @@ class _HomeScreenState extends State<HomeScreen> {
               HapticFeedback.lightImpact();
               showCupertinoSheet(
                 context: context,
-                builder: (context) => categories.isNotEmpty
+                scrollableBuilder: (context, scrollController) => categories.isNotEmpty
                     ? TransactionScreen(
+                        scrollController: scrollController,
                         passedTransaction: null,
                         passedAITransaction: null,
                         categories: categories,
@@ -188,9 +190,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         key: const ValueKey(null),
                       )
-                    : const CategoryScreen(
+                    : CategoryScreen(
+                        scrollController: scrollController,
                         passedCategory: null,
-                        key: ValueKey(null),
+                        key: const ValueKey(null),
                       ),
               );
             },
@@ -244,7 +247,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   HapticFeedback.lightImpact();
                   showCupertinoSheet(
                     context: context,
-                    builder: (context) => SettingsScreen(
+                    scrollableBuilder: (context, scrollController) => SettingsScreen(
+                      scrollController: scrollController,
                       onStateUpdateTriggered: () => homeController.updateState(
                         locale: context.locale.languageCode,
                       ),
@@ -276,7 +280,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   HapticFeedback.lightImpact();
                   showCupertinoSheet(
                     context: context,
-                    builder: (context) => SearchScreen(
+                    scrollableBuilder: (context, scrollController) => SearchScreen(
+                      scrollController: scrollController,
                       categories: categories,
                       locations: locations,
                       onTransactionUpdated: () => homeController.updateState(
@@ -346,7 +351,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 showCupertinoSheet(
                   context: context,
-                  builder: (context) => StatsScreen(
+                  scrollableBuilder: (context, scrollController) => StatsScreen(
+                    scrollController: scrollController,
                     month: month,
                     transactions: transactions,
                     categories: getSortedCategories(
@@ -617,7 +623,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       useColorfulIcons: useColorfulIcons,
                       onLongPressed: () => showCupertinoSheet(
                         context: context,
-                        builder: (context) => TransactionScreen(
+                        scrollableBuilder: (context, scrollController) => TransactionScreen(
+                          scrollController: scrollController,
                           passedTransaction: item,
                           passedAITransaction: null,
                           categories: categories,

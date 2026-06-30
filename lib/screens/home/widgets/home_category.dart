@@ -51,7 +51,8 @@ class HomeCategory extends StatelessWidget {
                 HapticFeedback.lightImpact();
                 showCupertinoSheet(
                   context: context,
-                  builder: (context) => CategoryScreen(
+                  scrollableBuilder: (context, scrollController) => CategoryScreen(
+                    scrollController: scrollController,
                     passedCategory: category,
                     key: ValueKey(category?.id),
                   ),
@@ -61,7 +62,8 @@ class HomeCategory extends StatelessWidget {
             onLongPress: onPressed != null
                 ? () => showCupertinoSheet(
                     context: context,
-                    builder: (context) => CategoryScreen(
+                    scrollableBuilder: (context, scrollController) => CategoryScreen(
+                      scrollController: scrollController,
                       passedCategory: category,
                       key: ValueKey(category?.id),
                     ),

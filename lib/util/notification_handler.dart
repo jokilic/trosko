@@ -91,6 +91,7 @@ Future<void> handlePressedNotification({required String? payload}) async {
     /// Navigate to [TransactionScreen]
     openTransaction(
       context,
+      scrollController: ScrollController(),
       passedTransaction: null,
       passedAITransaction: null,
       categories: categories,
@@ -185,7 +186,7 @@ class NotificationHandler extends TaskHandler {
   /// Shows `Troško` notification
   Future<void> handleNotification(ServiceNotificationEvent event) async {
     /// Run logic only if notification is shown
-    if (event.hasRemoved ?? false) {
+    if (event.hasRemoved) {
       return;
     }
 

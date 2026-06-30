@@ -37,9 +37,11 @@ import 'widgets/settings_primary_colors.dart';
 import 'widgets/settings_themes.dart';
 
 class SettingsScreen extends WatchingStatefulWidget {
+  final ScrollController scrollController;
   final Function() onStateUpdateTriggered;
 
   const SettingsScreen({
+    required this.scrollController,
     required this.onStateUpdateTriggered,
     required super.key,
   });
@@ -107,6 +109,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
       body: CustomScrollView(
+        controller: widget.scrollController,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),
         slivers: [

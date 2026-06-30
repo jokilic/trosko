@@ -32,6 +32,7 @@ import 'widgets/transaction_location.dart';
 import 'widgets/transaction_location_search_modal.dart';
 
 class TransactionScreen extends WatchingStatefulWidget {
+  final ScrollController scrollController;
   final Transaction? passedTransaction;
   final AITransaction? passedAITransaction;
   final List<Category> categories;
@@ -42,6 +43,7 @@ class TransactionScreen extends WatchingStatefulWidget {
   final Function() onTransactionUpdated;
 
   const TransactionScreen({
+    required this.scrollController,
     required this.passedTransaction,
     required this.passedAITransaction,
     required this.categories,
@@ -117,6 +119,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
     return Scaffold(
       body: CustomScrollView(
+        controller: widget.scrollController,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),
         slivers: [

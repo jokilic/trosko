@@ -53,7 +53,8 @@ class HomeLocation extends StatelessWidget {
                 HapticFeedback.lightImpact();
                 showCupertinoSheet(
                   context: context,
-                  builder: (context) => LocationScreen(
+                  scrollableBuilder: (context, scrollController) => LocationScreen(
+                    scrollController: scrollController,
                     passedLocation: location,
                     key: ValueKey(location?.id),
                   ),
@@ -63,7 +64,8 @@ class HomeLocation extends StatelessWidget {
             onLongPress: onPressed != null
                 ? () => showCupertinoSheet(
                     context: context,
-                    builder: (context) => LocationScreen(
+                    scrollableBuilder: (context, scrollController) => LocationScreen(
+                      scrollController: scrollController,
                       passedLocation: location,
                       key: ValueKey(location?.id),
                     ),

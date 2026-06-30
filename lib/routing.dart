@@ -64,12 +64,14 @@ void openHome(BuildContext context) => removeAllAndPushScreen(
 /// Opens [SearchScreen]
 void openSearch(
   BuildContext context, {
+  required ScrollController scrollController,
   required List<Category> categories,
   required List<Location> locations,
   required Function() onTransactionUpdated,
   required String locale,
 }) => pushScreen(
   SearchScreen(
+    scrollController: scrollController,
     categories: categories,
     locations: locations,
     onTransactionUpdated: onTransactionUpdated,
@@ -82,9 +84,11 @@ void openSearch(
 /// Opens [SettingsScreen]
 void openSettings(
   BuildContext context, {
+  required ScrollController scrollController,
   required Function() onStateUpdateTriggered,
 }) => pushScreen(
   SettingsScreen(
+    scrollController: scrollController,
     onStateUpdateTriggered: onStateUpdateTriggered,
     key: const ValueKey('settings'),
   ),
@@ -94,6 +98,7 @@ void openSettings(
 /// Opens [TransactionScreen]
 void openTransaction(
   BuildContext context, {
+  required ScrollController scrollController,
   required Transaction? passedTransaction,
   required AITransaction? passedAITransaction,
   required List<Category> categories,
@@ -104,6 +109,7 @@ void openTransaction(
   required Function() onTransactionUpdated,
 }) => pushScreen(
   TransactionScreen(
+    scrollController: scrollController,
     passedTransaction: passedTransaction,
     passedAITransaction: passedAITransaction,
     categories: categories,
@@ -120,9 +126,11 @@ void openTransaction(
 /// Opens [CategoryScreen]
 void openCategory(
   BuildContext context, {
+  required ScrollController scrollController,
   required Category? passedCategory,
 }) => pushScreen(
   CategoryScreen(
+    scrollController: scrollController,
     passedCategory: passedCategory,
     key: ValueKey(passedCategory?.id),
   ),
@@ -132,9 +140,11 @@ void openCategory(
 /// Opens [LocationScreen]
 void openLocation(
   BuildContext context, {
+  required ScrollController scrollController,
   required Location? passedLocation,
 }) => pushScreen(
   LocationScreen(
+    scrollController: scrollController,
     passedLocation: passedLocation,
     key: ValueKey(passedLocation?.id),
   ),
@@ -144,12 +154,14 @@ void openLocation(
 /// Opens [StatsScreen]
 void openStats(
   BuildContext context, {
+  required ScrollController scrollController,
   required Month month,
   required List<Transaction> transactions,
   required List<Category> sortedCategories,
   required List<Location> sortedLocations,
 }) => pushScreen(
   StatsScreen(
+    scrollController: scrollController,
     month: month,
     transactions: transactions,
     categories: sortedCategories,
@@ -160,9 +172,13 @@ void openStats(
 );
 
 /// Opens [VoiceScreen]
-void openVoice(BuildContext context) => pushScreen(
-  const VoiceScreen(
-    key: ValueKey('voice'),
+void openVoice(
+  BuildContext context, {
+  required ScrollController scrollController,
+}) => pushScreen(
+  VoiceScreen(
+    scrollController: scrollController,
+    key: const ValueKey('voice'),
   ),
   context: context,
 );

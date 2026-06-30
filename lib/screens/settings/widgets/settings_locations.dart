@@ -26,7 +26,7 @@ class SettingsLocations extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         buildDefaultDragHandles: false,
         itemCount: locations.length,
-        onReorder: (oldIndex, newIndex) {
+        onReorderItem: (oldIndex, newIndex) {
           var index = newIndex;
 
           if (index > locations.length) {

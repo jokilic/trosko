@@ -26,7 +26,10 @@ import 'widgets/voice_ai_transaction_list_tile.dart';
 import 'widgets/voice_list_tile.dart';
 
 class VoiceScreen extends WatchingStatefulWidget {
+  final ScrollController scrollController;
+
   const VoiceScreen({
+    required this.scrollController,
     required super.key,
   });
 
@@ -126,6 +129,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
 
     return Scaffold(
       body: CustomScrollView(
+        controller: widget.scrollController,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -384,7 +388,8 @@ class _VoiceScreenState extends State<VoiceScreen> {
                     useColorfulIcons: useColorfulIcons,
                     onLongPressed: () => showCupertinoSheet(
                       context: context,
-                      builder: (context) => TransactionScreen(
+                      scrollableBuilder: (context, scrollController) => TransactionScreen(
+                        scrollController: scrollController,
                         passedTransaction: null,
                         passedAITransaction: result,
                         categories: categories,

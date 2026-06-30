@@ -24,9 +24,11 @@ import '../../widgets/trosko_text_field.dart';
 import 'category_controller.dart';
 
 class CategoryScreen extends WatchingStatefulWidget {
+  final ScrollController scrollController;
   final Category? passedCategory;
 
   const CategoryScreen({
+    required this.scrollController,
     required this.passedCategory,
     required super.key,
   });
@@ -82,6 +84,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
     return Scaffold(
       body: CustomScrollView(
+        controller: widget.scrollController,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),
         slivers: [

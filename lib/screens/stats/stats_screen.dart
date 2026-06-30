@@ -25,12 +25,14 @@ import 'widgets/stats_location_list_tile.dart';
 import 'widgets/stats_locations_graph.dart';
 
 class StatsScreen extends WatchingStatefulWidget {
+  final ScrollController scrollController;
   final Month month;
   final List<Transaction> transactions;
   final List<Category> categories;
   final List<Location> locations;
 
   const StatsScreen({
+    required this.scrollController,
     required this.month,
     required this.transactions,
     required this.categories,
@@ -90,6 +92,7 @@ class _StatsScreenState extends State<StatsScreen> {
 
     return Scaffold(
       body: CustomScrollView(
+        controller: widget.scrollController,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),
         slivers: [

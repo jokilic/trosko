@@ -26,7 +26,7 @@ class SettingsCategories extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         buildDefaultDragHandles: false,
         itemCount: categories.length,
-        onReorder: (oldIndex, newIndex) {
+        onReorderItem: (oldIndex, newIndex) {
           var index = newIndex;
 
           if (index > categories.length) {

@@ -23,12 +23,14 @@ import '../transaction/transaction_screen.dart';
 import 'search_controller.dart';
 
 class SearchScreen extends WatchingStatefulWidget {
+  final ScrollController scrollController;
   final List<Category> categories;
   final List<Location> locations;
   final Function() onTransactionUpdated;
   final String locale;
 
   const SearchScreen({
+    required this.scrollController,
     required this.categories,
     required this.locations,
     required this.onTransactionUpdated,
@@ -75,6 +77,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       body: CustomScrollView(
+        controller: widget.scrollController,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -197,7 +200,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     useColorfulIcons: useColorfulIcons,
                     onLongPressed: () => showCupertinoSheet(
                       context: context,
-                      builder: (context) => TransactionScreen(
+                      scrollableBuilder: (context, scrollController) => TransactionScreen(
+                        scrollController: scrollController,
                         passedTransaction: item,
                         passedAITransaction: null,
                         categories: widget.categories,
