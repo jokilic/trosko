@@ -93,11 +93,11 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
         onResult: (result) => onResult(
           result.recognizedWords,
         ),
-        localeId: locale,
-        listenFor: TroskoDurations.speechRecognitionListenFor,
-        pauseFor: TroskoDurations.speechRecognitionPauseFor,
         listenOptions: SpeechListenOptions(
           listenMode: ListenMode.dictation,
+          localeId: locale,
+          listenFor: TroskoDurations.speechRecognitionListenFor,
+          pauseFor: TroskoDurations.speechRecognitionPauseFor,
         ),
       );
 
