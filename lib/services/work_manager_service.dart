@@ -26,7 +26,6 @@ class WorkManagerService {
 
   static const uniqueName = 'trosko_background_task';
   static const taskName = 'trosko_periodic_task';
-  static const fetchIntervalMinutes = 30;
 
   ///
   /// INIT
@@ -47,7 +46,7 @@ class WorkManagerService {
   Future<void> initializeBackgroundFetch() async {
     await BackgroundFetch.configure(
       BackgroundFetchConfig(
-        minimumFetchInterval: fetchIntervalMinutes,
+        minimumFetchInterval: 30,
         stopOnTerminate: false,
         startOnBoot: true,
         enableHeadless: true,
@@ -57,8 +56,8 @@ class WorkManagerService {
         requiresDeviceIdle: false,
         requiresStorageNotLow: false,
       ),
-      (taskId) async => handleBackgroundFetch(taskId),
-      (taskId) async => BackgroundFetch.finish(taskId),
+      handleBackgroundFetch,
+      BackgroundFetch.finish,
     );
 
     await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
@@ -83,7 +82,7 @@ class WorkManagerService {
 }
 
 @pragma('vm:entry-point')
-void backgroundFetchHeadlessTask(HeadlessEvent task) async {
+Future<void> backgroundFetchHeadlessTask(HeadlessEvent task) async {
   final taskId = task.taskId;
 
   if (task.timeout) {
@@ -107,7 +106,7 @@ Future<void> handleBackgroundFetch(String taskId) async {
     /// Initialize localization
     await initializeLocalization();
 
-    /// Recheck the real Android permission state before trying to revive the service.
+    /// Recheck the real Android permission state before trying to revive the service
     final notificationPermission = await FlutterForegroundTask.checkNotificationPermission();
     final listenerGranted = await NotificationListenerService.isPermissionGranted();
 
