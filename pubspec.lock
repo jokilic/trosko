@@ -753,10 +753,10 @@ packages:
     dependency: transitive
     description:
       name: idb_shim
-      sha256: a3b70c0c49c90dfbb3ffcaf6a1e376a83d542dc59124e6f29b1e84487c481c30
+      sha256: dcf59807be0cdf39f305c997b7b29cb06fdef26311559934c82cbc3e8c241f1c
       url: "https://pub.dev"
     source: hosted
-    version: "2.9.6"
+    version: "2.9.6+1"
   image:
     dependency: transitive
     description:
@@ -1048,10 +1048,11 @@ packages:
   phosphor_flutter:
     dependency: "direct main"
     description:
-      name: phosphor_flutter
-      sha256: "8a14f238f28a0b54842c5a4dc20676598dd4811fcba284ed828bd5a262c11fde"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: "514f0a883571c4453dbd6ee3041d1dcba4fb8fc7"
+      resolved-ref: "514f0a883571c4453dbd6ee3041d1dcba4fb8fc7"
+      url: "https://github.com/phosphor-icons/flutter.git"
+    source: git
     version: "2.1.0"
   platform:
     dependency: transitive
