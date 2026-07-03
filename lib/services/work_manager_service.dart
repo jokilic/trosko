@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:background_fetch/background_fetch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
-import 'package:workmanager/workmanager.dart';
 
 import '../util/dependencies.dart';
 import '../util/localization.dart';
@@ -26,13 +26,14 @@ class WorkManagerService {
 
   static const uniqueName = 'trosko_background_task';
   static const taskName = 'trosko_periodic_task';
+  static const fetchIntervalMinutes = 30;
 
   ///
   /// INIT
   ///
 
   Future<void> init() async {
-    await initializeWorkManager();
+    await initializeBackgroundFetch();
     await toggleTask(
       notificationsEnabled: notificationsEnabled,
     );
@@ -42,8 +43,26 @@ class WorkManagerService {
   /// METHODS
   ///
 
-  /// Initializes [WorkManager]
-  Future<void> initializeWorkManager() async => Workmanager().initialize(callbackDispatcher);
+  /// Initializes [BackgroundFetch]
+  Future<void> initializeBackgroundFetch() async {
+    await BackgroundFetch.configure(
+      BackgroundFetchConfig(
+        minimumFetchInterval: fetchIntervalMinutes,
+        stopOnTerminate: false,
+        startOnBoot: true,
+        enableHeadless: true,
+        requiredNetworkType: NetworkType.NONE,
+        requiresBatteryNotLow: false,
+        requiresCharging: false,
+        requiresDeviceIdle: false,
+        requiresStorageNotLow: false,
+      ),
+      (taskId) async => handleBackgroundFetch(taskId),
+      (taskId) async => BackgroundFetch.finish(taskId),
+    );
+
+    await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
+  }
 
   /// Toggle task, depending on notifications being active
   Future<void> toggleTask({
@@ -56,69 +75,65 @@ class WorkManagerService {
     }
   }
 
-  /// Registers [WorkManager] periodic task
-  Future<void> startTask() async => Workmanager().registerPeriodicTask(
-    uniqueName,
-    taskName,
-    frequency: const Duration(minutes: 30),
-    existingWorkPolicy: ExistingPeriodicWorkPolicy.update,
-    constraints: Constraints(
-      networkType: NetworkType.notRequired,
-      requiresBatteryNotLow: false,
-      requiresCharging: false,
-      requiresDeviceIdle: false,
-      requiresStorageNotLow: false,
-    ),
-  );
+  /// Starts [BackgroundFetch] periodic events
+  Future<void> startTask() async => BackgroundFetch.start();
 
-  /// Stops [WorkManager] tasks
-  Future<void> stopTask() async => Workmanager().cancelByUniqueName(uniqueName);
+  /// Stops [BackgroundFetch] tasks
+  Future<void> stopTask() async => BackgroundFetch.stop();
 }
 
 @pragma('vm:entry-point')
-void callbackDispatcher() => Workmanager().executeTask(
-  (_, __) async {
-    try {
-      /// Initialize Flutter related tasks
-      WidgetsFlutterBinding.ensureInitialized();
-      DartPluginRegistrant.ensureInitialized();
+void backgroundFetchHeadlessTask(HeadlessEvent task) async {
+  final taskId = task.taskId;
 
-      /// Initialize only what's needed for background task
-      await initializeForBackgroundTask();
+  if (task.timeout) {
+    await BackgroundFetch.finish(taskId);
+    return;
+  }
 
-      /// Initialize localization
-      await initializeLocalization();
+  await handleBackgroundFetch(taskId);
+}
 
-      /// Recheck the real Android permission state before trying to revive the service.
-      final notificationPermission = await FlutterForegroundTask.checkNotificationPermission();
-      final listenerGranted = await NotificationListenerService.isPermissionGranted();
+@pragma('vm:entry-point')
+Future<void> handleBackgroundFetch(String taskId) async {
+  try {
+    /// Initialize Flutter related tasks
+    WidgetsFlutterBinding.ensureInitialized();
+    DartPluginRegistrant.ensureInitialized();
 
-      /// Restart notification listener foreground service if enabled
-      final notification = getItBackground.get<NotificationService>();
+    /// Initialize only what's needed for background task
+    await initializeForBackgroundTask();
 
-      final notificationsEnabled = notification.value.useNotificationListener && notificationPermission == NotificationPermission.granted && listenerGranted;
+    /// Initialize localization
+    await initializeLocalization();
 
-      if (notificationsEnabled) {
-        notification
-          ..updateState(
-            notificationGranted: true,
-            listenerGranted: true,
-          )
-          ..initializeForegroundTask();
+    /// Recheck the real Android permission state before trying to revive the service.
+    final notificationPermission = await FlutterForegroundTask.checkNotificationPermission();
+    final listenerGranted = await NotificationListenerService.isPermissionGranted();
 
-        await notification.ensureServiceRunning(
-          forceRestart: true,
-        );
-      } else {
-        notification.updateState(
-          notificationGranted: notificationPermission == NotificationPermission.granted,
-          listenerGranted: listenerGranted,
-        );
-      }
+    /// Restart notification listener foreground service if enabled
+    final notification = getItBackground.get<NotificationService>();
 
-      return Future.value(true);
-    } catch (e) {
-      return Future.value(false);
+    final notificationsEnabled = notification.value.useNotificationListener && notificationPermission == NotificationPermission.granted && listenerGranted;
+
+    if (notificationsEnabled) {
+      notification
+        ..updateState(
+          notificationGranted: true,
+          listenerGranted: true,
+        )
+        ..initializeForegroundTask();
+
+      await notification.ensureServiceRunning(
+        forceRestart: true,
+      );
+    } else {
+      notification.updateState(
+        notificationGranted: notificationPermission == NotificationPermission.granted,
+        listenerGranted: listenerGranted,
+      );
     }
-  },
-);
+  } finally {
+    await BackgroundFetch.finish(taskId);
+  }
+}

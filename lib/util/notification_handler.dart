@@ -92,6 +92,7 @@ Future<void> handlePressedNotification({required String? payload}) async {
     openTransaction(
       context,
       scrollController: ScrollController(),
+      isCopyingTransaction: false,
       passedTransaction: null,
       passedAITransaction: null,
       categories: categories,

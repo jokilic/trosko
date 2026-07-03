@@ -107,10 +107,12 @@ void openTransaction(
   required Location? passedLocation,
   required NotificationPayload? passedNotificationPayload,
   required Function() onTransactionUpdated,
+  required bool isCopyingTransaction,
 }) => pushScreen(
   TransactionScreen(
     scrollController: scrollController,
     passedTransaction: passedTransaction,
+    isCopyingTransaction: isCopyingTransaction,
     passedAITransaction: passedAITransaction,
     categories: categories,
     locations: locations,
@@ -118,7 +120,7 @@ void openTransaction(
     passedLocation: passedLocation,
     passedNotificationPayload: passedNotificationPayload,
     onTransactionUpdated: onTransactionUpdated,
-    key: ValueKey(passedTransaction?.id),
+    key: ValueKey(isCopyingTransaction ? '${passedTransaction?.id}-copy' : passedTransaction?.id),
   ),
   context: context,
 );

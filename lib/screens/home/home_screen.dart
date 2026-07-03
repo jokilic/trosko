@@ -175,6 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? TransactionScreen(
                         scrollController: scrollController,
                         passedTransaction: null,
+                        isCopyingTransaction: false,
                         passedAITransaction: null,
                         categories: categories,
                         locations: locations,
@@ -626,6 +627,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollableBuilder: (context, scrollController) => TransactionScreen(
                           scrollController: scrollController,
                           passedTransaction: item,
+                          isCopyingTransaction: false,
                           passedAITransaction: null,
                           categories: categories,
                           locations: locations,
@@ -643,6 +645,27 @@ class _HomeScreenState extends State<HomeScreen> {
                         homeController.deleteTransaction(
                           transaction: item,
                           locale: context.locale.languageCode,
+                        );
+                      },
+                      onCopyPressed: () {
+                        HapticFeedback.lightImpact();
+                        showCupertinoSheet(
+                          context: context,
+                          scrollableBuilder: (context, scrollController) => TransactionScreen(
+                            scrollController: scrollController,
+                            passedTransaction: item,
+                            isCopyingTransaction: true,
+                            passedAITransaction: null,
+                            categories: categories,
+                            locations: locations,
+                            passedCategory: activeCategories?.length == 1 ? activeCategories!.first : null,
+                            passedLocation: activeLocations?.length == 1 ? activeLocations!.first : null,
+                            passedNotificationPayload: null,
+                            onTransactionUpdated: () => homeController.updateState(
+                              locale: context.locale.languageCode,
+                            ),
+                            key: ValueKey('${item.id}-copy'),
+                          ),
                         );
                       },
                       transaction: item,

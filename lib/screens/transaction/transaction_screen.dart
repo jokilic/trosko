@@ -34,6 +34,7 @@ import 'widgets/transaction_location_search_modal.dart';
 class TransactionScreen extends WatchingStatefulWidget {
   final ScrollController scrollController;
   final Transaction? passedTransaction;
+  final bool isCopyingTransaction;
   final AITransaction? passedAITransaction;
   final List<Category> categories;
   final Category? passedCategory;
@@ -45,6 +46,7 @@ class TransactionScreen extends WatchingStatefulWidget {
   const TransactionScreen({
     required this.scrollController,
     required this.passedTransaction,
+    required this.isCopyingTransaction,
     required this.passedAITransaction,
     required this.categories,
     required this.passedCategory,
@@ -70,6 +72,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         hive: getIt.get<HiveService>(),
         firebase: getIt.get<FirebaseService>(),
         passedTransaction: widget.passedTransaction,
+        isCopyingTransaction: widget.isCopyingTransaction,
         passedAITransaction: widget.passedAITransaction,
         categories: widget.categories,
         locations: widget.locations,
@@ -77,7 +80,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         passedLocation: widget.passedLocation,
         passedNotificationPayload: widget.passedNotificationPayload,
       ),
-      instanceName: widget.passedTransaction?.id ?? widget.passedAITransaction?.id,
+      instanceName: widget.isCopyingTransaction ? '${widget.passedTransaction?.id}-copy' : widget.passedTransaction?.id ?? widget.passedAITransaction?.id,
       afterRegister: (controller) => controller.init(),
     );
   }
@@ -85,7 +88,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
   @override
   void dispose() {
     unRegisterIfNotDisposed<TransactionController>(
-      instanceName: widget.passedTransaction?.id ?? widget.passedAITransaction?.id,
+      instanceName: widget.isCopyingTransaction ? '${widget.passedTransaction?.id}-copy' : widget.passedTransaction?.id ?? widget.passedAITransaction?.id,
     );
     super.dispose();
   }
@@ -93,11 +96,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
   @override
   Widget build(BuildContext context) {
     final transactionController = getIt.get<TransactionController>(
-      instanceName: widget.passedTransaction?.id ?? widget.passedAITransaction?.id,
+      instanceName: widget.isCopyingTransaction ? '${widget.passedTransaction?.id}-copy' : widget.passedTransaction?.id ?? widget.passedAITransaction?.id,
     );
 
     final state = watchIt<TransactionController>(
-      instanceName: widget.passedTransaction?.id ?? widget.passedAITransaction?.id,
+      instanceName: widget.isCopyingTransaction ? '${widget.passedTransaction?.id}-copy' : widget.passedTransaction?.id ?? widget.passedAITransaction?.id,
     ).value;
 
     final hiveState = watchIt<HiveService>().value;
@@ -148,7 +151,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
               ),
             ),
             actionWidgets: [
-              if (widget.passedTransaction != null || widget.passedAITransaction != null)
+              if ((widget.passedTransaction != null && !widget.isCopyingTransaction) || widget.passedAITransaction != null)
                 IconButton(
                   onPressed: () async {
                     unawaited(
@@ -180,9 +183,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   ),
                 ),
             ],
-            smallTitle: widget.passedTransaction != null ? 'transactionUpdateTitle'.tr() : 'transactionNewTitle'.tr(),
-            bigTitle: widget.passedTransaction != null ? 'transactionUpdateTitle'.tr() : 'transactionNewTitle'.tr(),
-            bigSubtitle: widget.passedTransaction != null ? 'transactionUpdateSubtitle'.tr() : 'transactionNewSubtitle'.tr(),
+            smallTitle: widget.passedTransaction != null && !widget.isCopyingTransaction ? 'transactionUpdateTitle'.tr() : 'transactionNewTitle'.tr(),
+            bigTitle: widget.passedTransaction != null && !widget.isCopyingTransaction ? 'transactionUpdateTitle'.tr() : 'transactionNewTitle'.tr(),
+            bigSubtitle: widget.passedTransaction != null && !widget.isCopyingTransaction ? 'transactionUpdateSubtitle'.tr() : 'transactionNewSubtitle'.tr(),
           ),
 
           ///
@@ -730,7 +733,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
               disabledForegroundColor: context.colors.disabledText,
             ),
             child: Text(
-              widget.passedTransaction != null ? 'transactionUpdateButton'.tr().toUpperCase() : 'transactionAddButton'.tr().toUpperCase(),
+              widget.passedTransaction != null && !widget.isCopyingTransaction ? 'transactionUpdateButton'.tr().toUpperCase() : 'transactionAddButton'.tr().toUpperCase(),
             ),
           ),
         ),

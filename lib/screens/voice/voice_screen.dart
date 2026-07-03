@@ -391,6 +391,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
                       scrollableBuilder: (context, scrollController) => TransactionScreen(
                         scrollController: scrollController,
                         passedTransaction: null,
+                        isCopyingTransaction: false,
                         passedAITransaction: result,
                         categories: categories,
                         locations: locations,

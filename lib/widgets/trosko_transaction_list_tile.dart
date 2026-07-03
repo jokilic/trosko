@@ -18,6 +18,7 @@ import '../util/icons.dart';
 class TroskoTransactionListTile extends StatefulWidget {
   final Function() onLongPressed;
   final Function() onDeletePressed;
+  final Function() onCopyPressed;
   final Transaction transaction;
   final Category? category;
   final Location? location;
@@ -26,6 +27,7 @@ class TroskoTransactionListTile extends StatefulWidget {
   const TroskoTransactionListTile({
     required this.onLongPressed,
     required this.onDeletePressed,
+    required this.onCopyPressed,
     required this.transaction,
     required this.category,
     required this.location,
@@ -85,6 +87,28 @@ class _TroskoTransactionListTileState extends State<TroskoTransactionListTile> {
                 icon: PhosphorIcon(
                   getPhosphorIcon(
                     PhosphorIcons.trash,
+                    isDuotone: widget.useColorfulIcons,
+                    isBold: true,
+                  ),
+                  color: context.colors.listTileBackground,
+                  duotoneSecondaryColor: context.colors.buttonPrimary,
+                  size: 28,
+                ),
+              ),
+            ],
+            trailingActions: [
+              SwipeAction(
+                onTap: (handler) async {
+                  unawaited(
+                    handler(false),
+                  );
+                  await widget.onCopyPressed();
+                },
+                color: context.colors.buttonPrimary,
+                backgroundRadius: 16,
+                icon: PhosphorIcon(
+                  getPhosphorIcon(
+                    PhosphorIcons.copy,
                     isDuotone: widget.useColorfulIcons,
                     isBold: true,
                   ),

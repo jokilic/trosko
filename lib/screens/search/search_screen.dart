@@ -203,6 +203,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       scrollableBuilder: (context, scrollController) => TransactionScreen(
                         scrollController: scrollController,
                         passedTransaction: item,
+                        isCopyingTransaction: false,
                         passedAITransaction: null,
                         categories: widget.categories,
                         locations: widget.locations,
@@ -225,6 +226,30 @@ class _SearchScreenState extends State<SearchScreen> {
                         locale: context.locale.languageCode,
                       );
                       widget.onTransactionUpdated();
+                    },
+                    onCopyPressed: () {
+                      HapticFeedback.lightImpact();
+                      showCupertinoSheet(
+                        context: context,
+                        scrollableBuilder: (context, scrollController) => TransactionScreen(
+                          scrollController: scrollController,
+                          passedTransaction: item,
+                          isCopyingTransaction: true,
+                          passedAITransaction: null,
+                          categories: widget.categories,
+                          locations: widget.locations,
+                          passedCategory: null,
+                          passedLocation: null,
+                          passedNotificationPayload: null,
+                          onTransactionUpdated: () {
+                            searchController.updateState(
+                              locale: context.locale.languageCode,
+                            );
+                            widget.onTransactionUpdated();
+                          },
+                          key: ValueKey('${item.id}-copy'),
+                        ),
+                      );
                     },
                     transaction: item,
                     category: category,

@@ -45,6 +45,7 @@ class TransactionController
   final HiveService hive;
   final FirebaseService firebase;
   final Transaction? passedTransaction;
+  final bool isCopyingTransaction;
   final AITransaction? passedAITransaction;
   final List<Category> categories;
   final List<Location> locations;
@@ -57,6 +58,7 @@ class TransactionController
     required this.hive,
     required this.firebase,
     required this.passedTransaction,
+    required this.isCopyingTransaction,
     required this.passedAITransaction,
     required this.categories,
     required this.locations,
@@ -117,7 +119,8 @@ class TransactionController
 
     final location = locationFromPassedTransaction ?? passedLocation;
 
-    final transactionDateTime = passedTransaction?.createdAt ?? passedAITransaction?.createdAt ?? passedNotificationPayload?.createdAt ?? now;
+    /// Copied transactions keep all values except the timestamp, which defaults to `DateTime.now()`
+    final transactionDateTime = isCopyingTransaction ? now : passedTransaction?.createdAt ?? passedAITransaction?.createdAt ?? passedNotificationPayload?.createdAt ?? now;
 
     updateState(
       category: category,
@@ -221,7 +224,7 @@ class TransactionController
 
     /// Create [Transaction]
     final newTransaction = Transaction(
-      id: passedTransaction?.id ?? passedAITransaction?.id ?? const Uuid().v1(),
+      id: isCopyingTransaction ? const Uuid().v1() : passedTransaction?.id ?? passedAITransaction?.id ?? const Uuid().v1(),
       name: name,
       amountCents: value.amountCents!,
       categoryId: value.category!.id,
@@ -231,7 +234,7 @@ class TransactionController
     );
 
     /// User modified transaction
-    if (passedTransaction != null) {
+    if (passedTransaction != null && !isCopyingTransaction) {
       await hive.updateTransaction(
         newTransaction: newTransaction,
       );
