@@ -42,6 +42,7 @@ class TransactionScreen extends WatchingStatefulWidget {
   final Location? passedLocation;
   final NotificationPayload? passedNotificationPayload;
   final Function() onTransactionUpdated;
+  final bool hideBackButton;
 
   const TransactionScreen({
     required this.scrollController,
@@ -54,6 +55,7 @@ class TransactionScreen extends WatchingStatefulWidget {
     required this.passedLocation,
     required this.passedNotificationPayload,
     required this.onTransactionUpdated,
+    required this.hideBackButton,
     required super.key,
   });
 
@@ -130,26 +132,28 @@ class _TransactionScreenState extends State<TransactionScreen> {
           /// APP BAR
           ///
           TroskoAppBar(
-            leadingWidget: IconButton(
-              onPressed: () {
-                HapticFeedback.lightImpact();
-                Navigator.of(context).pop();
-              },
-              style: IconButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                highlightColor: context.colors.buttonBackground,
-              ),
-              icon: PhosphorIcon(
-                getPhosphorIcon(
-                  PhosphorIcons.arrowLeft,
-                  isDuotone: useColorfulIcons,
-                  isBold: true,
-                ),
-                color: context.colors.text,
-                duotoneSecondaryColor: context.colors.buttonPrimary,
-                size: 28,
-              ),
-            ),
+            leadingWidget: widget.hideBackButton
+                ? null
+                : IconButton(
+                    onPressed: () {
+                      HapticFeedback.lightImpact();
+                      Navigator.of(context).pop();
+                    },
+                    style: IconButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      highlightColor: context.colors.buttonBackground,
+                    ),
+                    icon: PhosphorIcon(
+                      getPhosphorIcon(
+                        PhosphorIcons.arrowLeft,
+                        isDuotone: useColorfulIcons,
+                        isBold: true,
+                      ),
+                      color: context.colors.text,
+                      duotoneSecondaryColor: context.colors.buttonPrimary,
+                      size: 28,
+                    ),
+                  ),
             actionWidgets: [
               if ((widget.passedTransaction != null && !widget.isCopyingTransaction) || widget.passedAITransaction != null)
                 IconButton(

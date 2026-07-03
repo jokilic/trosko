@@ -189,6 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTransactionUpdated: () => homeController.updateState(
                           locale: context.locale.languageCode,
                         ),
+                        hideBackButton: false,
                         key: const ValueKey(null),
                       )
                     : CategoryScreen(
@@ -637,6 +638,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           onTransactionUpdated: () => homeController.updateState(
                             locale: context.locale.languageCode,
                           ),
+                          hideBackButton: false,
                           key: ValueKey(item.id),
                         ),
                       ),
@@ -664,6 +666,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTransactionUpdated: () => homeController.updateState(
                               locale: context.locale.languageCode,
                             ),
+                            hideBackButton: false,
                             key: ValueKey('${item.id}-copy'),
                           ),
                         );

@@ -216,6 +216,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           );
                           widget.onTransactionUpdated();
                         },
+                        hideBackButton: false,
                         key: ValueKey(item.id),
                       ),
                     ),
@@ -247,6 +248,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             );
                             widget.onTransactionUpdated();
                           },
+                          hideBackButton: false,
                           key: ValueKey('${item.id}-copy'),
                         ),
                       );

@@ -413,6 +413,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
                             Navigator.of(context).pop();
                           }
                         },
+                        hideBackButton: false,
                         key: ValueKey(result.id),
                       ),
                     ),

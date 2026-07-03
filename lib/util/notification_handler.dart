@@ -101,6 +101,7 @@ Future<void> handlePressedNotification({required String? payload}) async {
       passedLocation: null,
       passedNotificationPayload: payload != null ? NotificationPayload.fromJson(payload) : null,
       onTransactionUpdated: SystemNavigator.pop,
+      hideBackButton: true,
     );
   } catch (e) {
     return;

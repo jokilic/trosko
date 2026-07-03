@@ -108,6 +108,7 @@ void openTransaction(
   required NotificationPayload? passedNotificationPayload,
   required Function() onTransactionUpdated,
   required bool isCopyingTransaction,
+  required bool hideBackButton,
 }) => pushScreen(
   TransactionScreen(
     scrollController: scrollController,
@@ -120,6 +121,7 @@ void openTransaction(
     passedLocation: passedLocation,
     passedNotificationPayload: passedNotificationPayload,
     onTransactionUpdated: onTransactionUpdated,
+    hideBackButton: hideBackButton,
     key: ValueKey(isCopyingTransaction ? '${passedTransaction?.id}-copy' : passedTransaction?.id),
   ),
   context: context,

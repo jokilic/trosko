@@ -1,2 +1,3 @@
 * Implement copying transactions
+* Don't show back icon if opening from notification
 * Update dependencies
