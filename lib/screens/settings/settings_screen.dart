@@ -11,13 +11,13 @@ import '../../constants/colors.dart';
 import '../../constants/icons.dart';
 import '../../models/trosko_theme_tag/trosko_theme_tag.dart';
 import '../../routing.dart';
+import '../../services/background_fetch_service.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/map_service.dart';
 import '../../services/notification_service.dart';
 import '../../services/speech_to_text_service.dart';
-import '../../services/work_manager_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/app_version.dart';
@@ -61,7 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         hive: getIt.get<HiveService>(),
         firebase: getIt.get<FirebaseService>(),
         notification: getIt.get<NotificationService>(),
-        workManager: getIt.get<WorkManagerService>(),
+        backgroundFetch: getIt.get<BackgroundFetchService>(),
         map: getIt.get<MapService>(),
         speechToText: getIt.get<SpeechToTextService>(),
       ),

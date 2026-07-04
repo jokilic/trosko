@@ -11,11 +11,11 @@ import '../util/localization.dart';
 import 'logger_service.dart';
 import 'notification_service.dart';
 
-class WorkManagerService {
+class BackgroundFetchService {
   final LoggerService logger;
   final bool notificationsEnabled;
 
-  WorkManagerService({
+  BackgroundFetchService({
     required this.logger,
     required this.notificationsEnabled,
   });

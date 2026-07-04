@@ -6,13 +6,13 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../services/ai_service.dart';
+import '../services/background_fetch_service.dart';
 import '../services/firebase_service.dart';
 import '../services/hive_service.dart';
 import '../services/logger_service.dart';
 import '../services/map_service.dart';
 import '../services/notification_service.dart';
 import '../services/speech_to_text_service.dart';
-import '../services/work_manager_service.dart';
 
 final getIt = GetIt.instance;
 final getItBackground = GetIt.asNewInstance();
@@ -142,20 +142,20 @@ Future<void> initializeServices() async {
     );
   }
 
-  if (!getIt.isRegistered<WorkManagerService>()) {
+  if (!getIt.isRegistered<BackgroundFetchService>()) {
     getIt.registerSingletonAsync(
       () async {
         final notificationValue = getIt.get<NotificationService>().value;
         final notificationsEnabled = notificationValue.notificationGranted && notificationValue.listenerGranted && notificationValue.useNotificationListener;
 
-        final workManager = WorkManagerService(
+        final backgroundFetch = BackgroundFetchService(
           logger: getIt.get<LoggerService>(),
           notificationsEnabled: notificationsEnabled,
         );
         if (defaultTargetPlatform == TargetPlatform.android) {
-          await workManager.init();
+          await backgroundFetch.init();
         }
-        return workManager;
+        return backgroundFetch;
       },
       dependsOn: [LoggerService, NotificationService],
     );

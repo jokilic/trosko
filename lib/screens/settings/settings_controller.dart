@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../models/trosko_theme_tag/trosko_theme_tag.dart';
+import '../../services/background_fetch_service.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/map_service.dart';
 import '../../services/notification_service.dart';
 import '../../services/speech_to_text_service.dart';
-import '../../services/work_manager_service.dart';
 import '../../theme/extensions.dart';
 import '../../util/scroll.dart';
 import 'widgets/settings_delete_account_modal.dart';
@@ -25,7 +25,7 @@ class SettingsController implements Disposable {
   final HiveService hive;
   final FirebaseService firebase;
   final NotificationService notification;
-  final WorkManagerService workManager;
+  final BackgroundFetchService backgroundFetch;
   final MapService map;
   final SpeechToTextService speechToText;
 
@@ -34,7 +34,7 @@ class SettingsController implements Disposable {
     required this.hive,
     required this.firebase,
     required this.notification,
-    required this.workManager,
+    required this.backgroundFetch,
     required this.map,
     required this.speechToText,
   });
@@ -102,7 +102,7 @@ class SettingsController implements Disposable {
       await notification.stopListener();
     }
 
-    await workManager.toggleTask(
+    await backgroundFetch.toggleTask(
       notificationsEnabled: permissionsGranted,
     );
   }
