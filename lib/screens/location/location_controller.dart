@@ -44,12 +44,14 @@ class LocationController
   final HiveService hive;
   final FirebaseService firebase;
   final Location? passedLocation;
+  final Geocoding geocoding;
 
   LocationController({
     required this.logger,
     required this.hive,
     required this.firebase,
     required this.passedLocation,
+    required this.geocoding,
   }) : super((
          locationName: null,
          nameValid: false,
@@ -89,7 +91,7 @@ class LocationController
   /// INIT
   ///
 
-  Future<void> init({required String locale}) async {
+  Future<void> init() async {
     updateState(
       locationName: passedLocation?.name,
       nameValid: passedLocation?.name.isNotEmpty ?? false,
@@ -125,8 +127,6 @@ class LocationController
         ),
       ),
     );
-
-    await setLocaleIdentifier(locale);
   }
 
   ///
@@ -180,7 +180,7 @@ class LocationController
 
     try {
       /// Search for location using `trimmedAddress`
-      final locations = await locationFromAddress(trimmedAddress);
+      final locations = await geocoding.locationFromAddress(trimmedAddress);
 
       /// Location found
       if (locations.firstOrNull != null) {
