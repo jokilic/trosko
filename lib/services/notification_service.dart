@@ -52,7 +52,9 @@ class NotificationService extends ValueNotifier<({bool notificationGranted, bool
 
     if (permissionsGranted) {
       initializeForegroundTask();
-      await startService();
+      await ensureServiceRunning(
+        forceRestart: true,
+      );
     } else {
       await stopListener();
     }

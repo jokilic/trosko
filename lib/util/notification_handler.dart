@@ -132,7 +132,6 @@ class NotificationHandler extends TaskHandler {
 
   StreamSubscription<ServiceNotificationEvent>? notificationSubscription;
   FlutterLocalNotificationsPlugin? backgroundNotificationsPlugin;
-  DateTime? lastSubscriptionAt;
 
   ///
   /// INIT
@@ -140,7 +139,11 @@ class NotificationHandler extends TaskHandler {
 
   @override
   Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
-    await ensureNotificationSubscription();
+    try {
+      await ensureNotificationSubscription();
+    } catch (_) {
+      handleSubscriptionEnded();
+    }
   }
 
   ///
@@ -151,7 +154,6 @@ class NotificationHandler extends TaskHandler {
   Future<void> onDestroy(DateTime timestamp, bool isTimeout) async {
     await notificationSubscription?.cancel();
     notificationSubscription = null;
-    lastSubscriptionAt = null;
   }
 
   ///
@@ -175,10 +177,24 @@ class NotificationHandler extends TaskHandler {
     notificationSubscription = NotificationListenerService.notificationsStream.listen(
       handleNotification,
       onDone: handleSubscriptionEnded,
-      onError: (_, __) => handleSubscriptionEnded(),
+      onError: (_, __) {
+        handleSubscriptionEnded();
+        refreshNotificationSubscriptionAfterDelay();
+      },
       cancelOnError: false,
     );
-    lastSubscriptionAt = DateTime.now();
+  }
+
+  Future<void> refreshNotificationSubscriptionAfterDelay() async {
+    await Future<void>.delayed(
+      const Duration(seconds: 2),
+    );
+
+    try {
+      await ensureNotificationSubscription();
+    } catch (e) {
+      handleSubscriptionEnded();
+    }
   }
 
   void handleSubscriptionEnded() {
@@ -187,6 +203,12 @@ class NotificationHandler extends TaskHandler {
 
   /// Shows `Troško` notification
   Future<void> handleNotification(ServiceNotificationEvent event) async {
+    try {
+      await processNotification(event);
+    } catch (_) {}
+  }
+
+  Future<void> processNotification(ServiceNotificationEvent event) async {
     /// Run logic only if notification is shown
     if (event.hasRemoved) {
       return;
@@ -305,10 +327,10 @@ class NotificationHandler extends TaskHandler {
   /// Called based on the `eventAction` set in [ForegroundTaskOptions]
   @override
   Future<void> onRepeatEvent(DateTime timestamp) async {
-    final shouldRefreshSubscription = notificationSubscription == null || lastSubscriptionAt == null || timestamp.difference(lastSubscriptionAt!) >= const Duration(minutes: 15);
-
-    if (shouldRefreshSubscription) {
+    try {
       await ensureNotificationSubscription();
+    } catch (e) {
+      handleSubscriptionEnded();
     }
   }
 }
