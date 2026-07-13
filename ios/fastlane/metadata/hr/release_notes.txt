@@ -1,3 +1,3 @@
-* Make app start faster
-* New theme
-* More sturdy notification listener
+* Implement copying transactions
+* Don't show back icon if opening from notification
+* Update dependencies
