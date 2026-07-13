@@ -13,5 +13,8 @@ ThemeData? getTroskoTheme({
   TroskoThemeId.dark => TroskoTheme.dark(
     primaryColor: primaryColor,
   ),
+  TroskoThemeId.green => TroskoTheme.green(
+    primaryColor: primaryColor,
+  ),
   _ => null,
 };

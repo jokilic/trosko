@@ -24,6 +24,17 @@ abstract class TroskoColors {
   static const darkThemeDisabledBackground = Color(0xFF2D2F34);
 
   ///
+  /// GREEN THEME
+  ///
+
+  static const greenThemeBlackText = Colors.white;
+  static const greenThemeWhiteBackground = Color(0xFF2a4040);
+  static const greenThemeButtonBackground = Color(0xFF2a4040);
+  static const greenThemeWhiteScaffold = Color(0xFF233636);
+  static const greenThemeDisabledText = Color(0xFFE4E6ED);
+  static const greenThemeDisabledBackground = Color(0xFF0d1f1f);
+
+  ///
   /// DELETE
   ///
 

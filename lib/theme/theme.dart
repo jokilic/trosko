@@ -239,4 +239,121 @@ class TroskoTheme {
       primaryColor: primaryColor,
     ),
   );
+
+  ///
+  /// GREEN
+  ///
+
+  static ThemeData green({
+    required Color? primaryColor,
+  }) {
+    final defaultTheme = ThemeData.light(
+      useMaterial3: true,
+    );
+
+    final greenAppColors = getGreenAppColors(
+      primaryColor: primaryColor,
+    );
+
+    final greenTextTheme = getGreenTextTheme(
+      primaryColor: primaryColor,
+    );
+
+    return defaultTheme.copyWith(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryColor ?? greenAppColors.buttonPrimary,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: primaryColor ?? greenAppColors.buttonPrimary,
+        foregroundColor: greenAppColors.text,
+        elevation: 1,
+        disabledElevation: 1,
+        highlightElevation: 2,
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(
+            primaryColor ?? greenAppColors.buttonPrimary,
+          ),
+          foregroundColor: WidgetStateProperty.all(
+            greenAppColors.buttonBackground,
+          ),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 16,
+            ),
+          ),
+          textStyle: WidgetStateProperty.all(
+            greenTextTheme.button,
+          ),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        side: BorderSide.none,
+        backgroundColor: greenAppColors.buttonBackground,
+        selectedColor: primaryColor ?? greenAppColors.buttonPrimary,
+        showCheckmark: false,
+        labelPadding: const EdgeInsets.symmetric(horizontal: 8),
+        elevation: 1,
+        pressElevation: 2,
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: greenAppColors.text,
+          highlightColor: Colors.transparent,
+          iconSize: 28,
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(16),
+          elevation: 1,
+        ),
+      ),
+      splashColor: Colors.transparent,
+      highlightColor: greenAppColors.buttonBackground,
+      scaffoldBackgroundColor: greenAppColors.scaffoldBackground,
+      canvasColor: Colors.transparent,
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: primaryColor ?? greenAppColors.buttonPrimary,
+        cursorColor: primaryColor ?? greenAppColors.buttonPrimary,
+        selectionHandleColor: primaryColor ?? greenAppColors.buttonPrimary,
+      ),
+      extensions: [
+        greenAppColors,
+        greenTextTheme,
+        const TroskoThemeTag(
+          TroskoThemeId.green,
+        ),
+      ],
+    );
+  }
+
+  static TroskoColorsExtension getGreenAppColors({
+    required Color? primaryColor,
+  }) => TroskoColorsExtension(
+    text: TroskoColors.greenThemeBlackText,
+    buttonPrimary: primaryColor ?? TroskoColors.green,
+    delete: TroskoColors.redDelete,
+    listTileBackground: TroskoColors.greenThemeWhiteBackground,
+    buttonBackground: TroskoColors.greenThemeButtonBackground,
+    scaffoldBackground: TroskoColors.greenThemeWhiteScaffold,
+    disabledText: TroskoColors.greenThemeDisabledText,
+    disabledBackground: TroskoColors.greenThemeDisabledBackground,
+  );
+
+  static TroskoTextThemesExtension getGreenTextTheme({
+    required Color? primaryColor,
+  }) => getTextThemesExtension(
+    colorsExtension: getGreenAppColors(
+      primaryColor: primaryColor,
+    ),
+  );
 }
