@@ -26,8 +26,11 @@ Future<void> main() async {
   /// Initialize Flutter related tasks
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// Initialize everything before starting app
+  /// Register services that must be initialized before UI
   await initializeBeforeAppStart();
+
+  /// Register services that don't have to be initialized before UI
+  registerDeferredServices();
 
   /// Get `settings` value from [Hive]
   final settings = getIt.get<HiveService>().getSettings();
@@ -42,6 +45,13 @@ Future<void> main() async {
       child: TroskoApp(
         isLoggedIn: settings.isLoggedIn && FirebaseAuth.instance.currentUser != null,
       ),
+    ),
+  );
+
+  /// Initialize non-critical services after showing UI
+  WidgetsBinding.instance.addPostFrameCallback(
+    (_) => unawaited(
+      initializeDeferredServices(),
     ),
   );
 }
@@ -67,8 +77,8 @@ Future<void> initializeBeforeAppStart() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  /// Initialize services
-  await initializeServices();
+  /// Initialize services after showing UI
+  await initializeCriticalServices();
 }
 
 class TroskoApp extends StatelessWidget {

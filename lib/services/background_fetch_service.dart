@@ -11,11 +11,9 @@ import 'notification_service.dart';
 
 class BackgroundFetchService {
   final LoggerService logger;
-  final bool notificationsEnabled;
 
   BackgroundFetchService({
     required this.logger,
-    required this.notificationsEnabled,
   });
 
   ///
@@ -29,7 +27,7 @@ class BackgroundFetchService {
   /// INIT
   ///
 
-  Future<void> init() async {
+  Future<void> init({required bool notificationsEnabled}) async {
     await initializeBackgroundFetch();
     await toggleTask(
       notificationsEnabled: notificationsEnabled,

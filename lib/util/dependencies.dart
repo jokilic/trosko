@@ -49,7 +49,8 @@ void unRegisterIfNotDisposed<T extends Object>({
   }
 }
 
-Future<void> initializeServices() async {
+/// Initializes services required before showing UI
+Future<void> initializeCriticalServices() async {
   if (!getIt.isRegistered<LoggerService>()) {
     getIt.registerSingletonAsync(
       () async => LoggerService(),
@@ -81,88 +82,93 @@ Future<void> initializeServices() async {
     );
   }
 
-  if (!getIt.isRegistered<MapService>()) {
-    getIt.registerSingletonAsync(
-      () async {
-        final useVectorMaps = getIt.get<HiveService>().value.settings?.useVectorMaps;
+  /// Wait for startup-critical initialization to finish
+  await getIt.allReady();
+}
 
-        final map = MapService(
-          logger: getIt.get<LoggerService>(),
-        );
-        if (useVectorMaps ?? false) {
-          await map.init();
-        }
-        return map;
-      },
-      dependsOn: [LoggerService, HiveService],
+/// Register non-critical services so they are available to screens immediately
+void registerDeferredServices() {
+  final logger = getIt.get<LoggerService>();
+  final hive = getIt.get<HiveService>();
+
+  if (!getIt.isRegistered<MapService>()) {
+    getIt.registerSingleton(
+      MapService(logger: logger),
     );
   }
 
   if (!getIt.isRegistered<SpeechToTextService>()) {
-    getIt.registerSingletonAsync(
-      () async {
-        final useVoice = getIt.get<HiveService>().value.settings?.useVoice;
-
-        final speechToText = SpeechToTextService(
-          logger: getIt.get<LoggerService>(),
-        );
-        if (useVoice ?? false) {
-          await speechToText.init();
-        }
-        return speechToText;
-      },
-      dependsOn: [LoggerService, HiveService],
+    getIt.registerSingleton(
+      SpeechToTextService(logger: logger),
     );
   }
 
   if (!getIt.isRegistered<AIService>()) {
-    getIt.registerSingletonAsync(
-      () async => AIService(
-        logger: getIt.get<LoggerService>(),
-        hive: getIt.get<HiveService>(),
+    getIt.registerSingleton(
+      AIService(
+        logger: logger,
+        hive: hive,
         ai: FirebaseAI.googleAI(),
-      )..init(),
-      dependsOn: [LoggerService, HiveService],
+      ),
     );
   }
 
   if (!getIt.isRegistered<NotificationService>()) {
-    getIt.registerSingletonAsync(
-      () async {
-        final notification = NotificationService(
-          logger: getIt.get<LoggerService>(),
-          hive: getIt.get<HiveService>(),
-        );
-        if (defaultTargetPlatform == TargetPlatform.android) {
-          await notification.init();
-        }
-        return notification;
-      },
-      dependsOn: [LoggerService, HiveService],
+    getIt.registerSingleton(
+      NotificationService(
+        logger: logger,
+        hive: hive,
+      ),
     );
   }
 
   if (!getIt.isRegistered<BackgroundFetchService>()) {
-    getIt.registerSingletonAsync(
-      () async {
-        final notificationValue = getIt.get<NotificationService>().value;
-        final notificationsEnabled = notificationValue.notificationGranted && notificationValue.listenerGranted && notificationValue.useNotificationListener;
-
-        final backgroundFetch = BackgroundFetchService(
-          logger: getIt.get<LoggerService>(),
-          notificationsEnabled: notificationsEnabled,
-        );
-        if (defaultTargetPlatform == TargetPlatform.android) {
-          await backgroundFetch.init();
-        }
-        return backgroundFetch;
-      },
-      dependsOn: [LoggerService, NotificationService],
+    getIt.registerSingleton(
+      BackgroundFetchService(logger: logger),
     );
   }
+}
 
-  /// Wait for initialization to finish
-  await getIt.allReady();
+/// Initializes services after showing UI
+Future<void> initializeDeferredServices() async {
+  final logger = getIt.get<LoggerService>();
+
+  try {
+    final hiveSettings = getIt.get<HiveService>().getSettings();
+    final futures = <Future<void>>[];
+
+    if (hiveSettings.useVectorMaps) {
+      futures.add(
+        getIt.get<MapService>().init(),
+      );
+    }
+
+    if (hiveSettings.useVoice) {
+      futures.add(
+        getIt.get<SpeechToTextService>().init(),
+      );
+    }
+
+    getIt.get<AIService>().init();
+
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      final notification = getIt.get<NotificationService>();
+      await notification.init();
+
+      final notificationValue = notification.value;
+      final notificationsEnabled = notificationValue.notificationGranted && notificationValue.listenerGranted && notificationValue.useNotificationListener;
+
+      futures.add(
+        getIt.get<BackgroundFetchService>().init(
+          notificationsEnabled: notificationsEnabled,
+        ),
+      );
+    }
+
+    await Future.wait(futures);
+  } catch (e) {
+    logger.e('initializeDeferredServices() -> $e');
+  }
 }
 
 /// Initializes only the services needed for background task
