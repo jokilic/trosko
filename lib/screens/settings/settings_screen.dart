@@ -14,7 +14,6 @@ import '../../routing.dart';
 import '../../services/background_fetch_service.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../services/map_service.dart';
 import '../../services/notification_service.dart';
 import '../../services/speech_to_text_service.dart';
@@ -24,7 +23,6 @@ import '../../util/app_version.dart';
 import '../../util/color.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
-import '../../util/sounds.dart';
 import '../../util/theme.dart';
 import '../../widgets/trosko_app_bar.dart';
 import '../../widgets/trosko_text_field.dart';
@@ -57,7 +55,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     registerIfNotInitialized<SettingsController>(
       () => SettingsController(
-        logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
         firebase: getIt.get<FirebaseService>(),
         notification: getIt.get<NotificationService>(),
@@ -783,23 +780,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onLongPress: playWelcomeToTrosko,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: context.colors.text,
-                        width: 2,
-                      ),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: context.colors.text,
+                      width: 2,
                     ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        TroskoIcons.iconDark,
-                        color: context.colors.text,
-                        height: 56,
-                        width: 56,
-                      ),
+                  ),
+                  child: ClipOval(
+                    child: Image.asset(
+                      TroskoIcons.iconDark,
+                      color: context.colors.text,
+                      height: 56,
+                      width: 56,
                     ),
                   ),
                 ),

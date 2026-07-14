@@ -15,7 +15,6 @@ import '../../models/transaction/ai_transaction.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../services/map_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
@@ -70,7 +69,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
     registerIfNotInitialized<TransactionController>(
       () => TransactionController(
-        logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
         firebase: getIt.get<FirebaseService>(),
         passedTransaction: widget.passedTransaction,

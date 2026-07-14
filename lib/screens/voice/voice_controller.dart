@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -6,7 +7,7 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../models/transaction/ai_transaction.dart';
 import '../../services/ai_service.dart';
-import '../../services/logger_service.dart';
+
 import '../../services/speech_to_text_service.dart';
 
 /// Class to distinguish `no argument passed` from `explicitly passed null`
@@ -21,12 +22,10 @@ class VoiceController extends ValueNotifier<({String? userWords, List<AITransact
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final SpeechToTextService speechToText;
   final AIService ai;
 
   VoiceController({
-    required this.logger,
     required this.speechToText,
     required this.ai,
   }) : super((userWords: null, aiResults: null, aiError: null));
@@ -123,7 +122,7 @@ class VoiceController extends ValueNotifier<({String? userWords, List<AITransact
 
       return <AITransaction>[];
     } catch (e) {
-      logger.e('VoiceController -> parseAIResultToTransactions() -> $e');
+      log('VoiceController -> parseAIResultToTransactions() -> $e');
       return null;
     }
   }

@@ -12,7 +12,6 @@ import '../../constants/icons.dart';
 import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../theme/extensions.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
@@ -67,7 +66,6 @@ class _EntranceScreenState extends State<EntranceScreen> {
 
     registerIfNotInitialized<EntranceController>(
       () => EntranceController(
-        logger: getIt.get<LoggerService>(),
         firebase: getIt.get<FirebaseService>(),
         hive: getIt.get<HiveService>(),
       ),

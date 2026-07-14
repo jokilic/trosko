@@ -11,7 +11,6 @@ import '../../models/location/location.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../theme/extensions.dart';
 import '../../util/currency.dart';
 import '../../util/dependencies.dart';
@@ -49,7 +48,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
     registerIfNotInitialized<SearchController>(
       () => SearchController(
-        logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
         firebase: getIt.get<FirebaseService>(),
         locale: widget.locale,

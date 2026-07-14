@@ -11,7 +11,6 @@ import '../../models/transaction/ai_transaction.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../util/scroll.dart';
 
 /// Class to distinguish `no argument passed` from `explicitly passed null`
@@ -41,7 +40,6 @@ class TransactionController
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final HiveService hive;
   final FirebaseService firebase;
   final Transaction? passedTransaction;
@@ -54,7 +52,6 @@ class TransactionController
   final NotificationPayload? passedNotificationPayload;
 
   TransactionController({
-    required this.logger,
     required this.hive,
     required this.firebase,
     required this.passedTransaction,

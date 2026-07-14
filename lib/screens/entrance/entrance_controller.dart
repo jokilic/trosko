@@ -1,22 +1,21 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 
 class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appleIsLoading})> {
   ///
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final FirebaseService firebase;
   final HiveService hive;
 
   EntranceController({
-    required this.logger,
     required this.firebase,
     required this.hive,
   }) : super((
@@ -62,7 +61,7 @@ class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appl
       }
       /// Not successful login
       else {
-        logger.e('EntranceController -> googleSignInPressed() -> user == null');
+        log('EntranceController -> googleSignInPressed() -> user == null');
         updateState(
           googleIsLoading: false,
         );
@@ -70,7 +69,7 @@ class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appl
 
       return loginResult;
     } catch (e) {
-      logger.e('EntranceController -> googleSignInPressed() -> $e');
+      log('EntranceController -> googleSignInPressed() -> $e');
       updateState(
         googleIsLoading: false,
       );
@@ -112,7 +111,7 @@ class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appl
       }
       /// Not successful login
       else {
-        logger.e('EntranceController -> appleSignInPressed() -> user == null');
+        log('EntranceController -> appleSignInPressed() -> user == null');
         updateState(
           appleIsLoading: false,
         );
@@ -120,7 +119,7 @@ class EntranceController extends ValueNotifier<({bool googleIsLoading, bool appl
 
       return loginResult;
     } catch (e) {
-      logger.e('EntranceController -> appleSignInPressed() -> $e');
+      log('EntranceController -> appleSignInPressed() -> $e');
       updateState(
         appleIsLoading: false,
       );

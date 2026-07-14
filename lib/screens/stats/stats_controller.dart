@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../models/category/category.dart';
 import '../../models/location/location.dart';
 import '../../models/transaction/transaction.dart';
-import '../../services/logger_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
@@ -21,13 +20,11 @@ class StatsController extends ValueNotifier<({StatsSection section, int touchedC
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final List<Transaction> transactions;
   final List<Category> categories;
   final List<Location> locations;
 
   StatsController({
-    required this.logger,
     required this.transactions,
     required this.categories,
     required this.locations,

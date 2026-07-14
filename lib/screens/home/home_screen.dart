@@ -10,7 +10,6 @@ import '../../models/day_header/day_header.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
@@ -50,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     registerIfNotInitialized<HomeController>(
       () => HomeController(
-        logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
         firebase: getIt.get<FirebaseService>(),
       ),

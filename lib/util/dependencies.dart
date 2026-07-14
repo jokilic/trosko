@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +11,6 @@ import '../services/ai_service.dart';
 import '../services/background_fetch_service.dart';
 import '../services/firebase_service.dart';
 import '../services/hive_service.dart';
-import '../services/logger_service.dart';
 import '../services/map_service.dart';
 import '../services/notification_service.dart';
 import '../services/speech_to_text_service.dart';
@@ -51,34 +52,23 @@ void unRegisterIfNotDisposed<T extends Object>({
 
 /// Initializes services required before showing UI
 Future<void> initializeCriticalServices() async {
-  if (!getIt.isRegistered<LoggerService>()) {
-    getIt.registerSingletonAsync(
-      () async => LoggerService(),
-    );
-  }
-
   if (!getIt.isRegistered<HiveService>()) {
     getIt.registerSingletonAsync(
       () async {
-        final hive = HiveService(
-          logger: getIt.get<LoggerService>(),
-        );
+        final hive = HiveService();
         await hive.init();
         return hive;
       },
-      dependsOn: [LoggerService],
     );
   }
 
   if (!getIt.isRegistered<FirebaseService>()) {
     getIt.registerSingletonAsync(
       () async => FirebaseService(
-        logger: getIt.get<LoggerService>(),
         auth: FirebaseAuth.instance,
         firestore: FirebaseFirestore.instance,
         googleSignIn: GoogleSignIn.instance,
       ),
-      dependsOn: [LoggerService],
     );
   }
 
@@ -88,25 +78,23 @@ Future<void> initializeCriticalServices() async {
 
 /// Register non-critical services so they are available to screens immediately
 void registerDeferredServices() {
-  final logger = getIt.get<LoggerService>();
   final hive = getIt.get<HiveService>();
 
   if (!getIt.isRegistered<MapService>()) {
     getIt.registerSingleton(
-      MapService(logger: logger),
+      MapService(),
     );
   }
 
   if (!getIt.isRegistered<SpeechToTextService>()) {
     getIt.registerSingleton(
-      SpeechToTextService(logger: logger),
+      SpeechToTextService(),
     );
   }
 
   if (!getIt.isRegistered<AIService>()) {
     getIt.registerSingleton(
       AIService(
-        logger: logger,
         hive: hive,
         ai: FirebaseAI.googleAI(),
       ),
@@ -116,7 +104,6 @@ void registerDeferredServices() {
   if (!getIt.isRegistered<NotificationService>()) {
     getIt.registerSingleton(
       NotificationService(
-        logger: logger,
         hive: hive,
       ),
     );
@@ -124,15 +111,13 @@ void registerDeferredServices() {
 
   if (!getIt.isRegistered<BackgroundFetchService>()) {
     getIt.registerSingleton(
-      BackgroundFetchService(logger: logger),
+      BackgroundFetchService(),
     );
   }
 }
 
 /// Initializes services after showing UI
 Future<void> initializeDeferredServices() async {
-  final logger = getIt.get<LoggerService>();
-
   try {
     final hiveSettings = getIt.get<HiveService>().getSettings();
     final futures = <Future<void>>[];
@@ -167,28 +152,19 @@ Future<void> initializeDeferredServices() async {
 
     await Future.wait(futures);
   } catch (e) {
-    logger.e('initializeDeferredServices() -> $e');
+    log('initializeDeferredServices() -> $e');
   }
 }
 
 /// Initializes only the services needed for background task
 Future<void> initializeForBackgroundTask() async {
-  if (!getItBackground.isRegistered<LoggerService>()) {
-    getItBackground.registerSingletonAsync<LoggerService>(
-      () async => LoggerService(),
-    );
-  }
-
   if (!getItBackground.isRegistered<HiveService>()) {
     getItBackground.registerSingletonAsync<HiveService>(
       () async {
-        final hive = HiveService(
-          logger: getItBackground.get<LoggerService>(),
-        );
+        final hive = HiveService();
         await hive.init();
         return hive;
       },
-      dependsOn: [LoggerService],
     );
   }
 
@@ -196,7 +172,6 @@ Future<void> initializeForBackgroundTask() async {
     getItBackground.registerSingletonAsync<NotificationService>(
       () async {
         final notification = NotificationService(
-          logger: getItBackground.get<LoggerService>(),
           hive: getItBackground.get<HiveService>(),
         );
 
@@ -211,7 +186,7 @@ Future<void> initializeForBackgroundTask() async {
 
         return notification;
       },
-      dependsOn: [LoggerService, HiveService],
+      dependsOn: [HiveService],
     );
   }
 

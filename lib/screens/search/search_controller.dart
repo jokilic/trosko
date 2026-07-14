@@ -6,7 +6,6 @@ import 'package:get_it/get_it.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../util/currency.dart';
 import '../../util/group_transactions.dart';
 import '../../util/search.dart';
@@ -16,13 +15,11 @@ class SearchController extends ValueNotifier<({List<dynamic> datesAndTransaction
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final HiveService hive;
   final FirebaseService firebase;
   final String locale;
 
   SearchController({
-    required this.logger,
     required this.hive,
     required this.firebase,
     required this.locale,

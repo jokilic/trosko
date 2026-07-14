@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart' hide Transaction;
 import 'package:easy_localization/easy_localization.dart';
@@ -9,7 +10,6 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../models/category/category.dart';
 import '../models/location/location.dart';
 import '../models/transaction/transaction.dart';
-import 'logger_service.dart';
 
 enum AuthProvider {
   email,
@@ -22,13 +22,11 @@ class FirebaseService {
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
   final GoogleSignIn googleSignIn;
 
   FirebaseService({
-    required this.logger,
     required this.auth,
     required this.firestore,
     required this.googleSignIn,
@@ -92,11 +90,11 @@ class FirebaseService {
         _ => e.code,
       };
 
-      logger.e(error);
+      log(error);
       return (user: null, error: error);
     } catch (e) {
       final error = 'Login error $e';
-      logger.e(error);
+      log(error);
       return (user: null, error: error);
     }
   }
@@ -136,7 +134,7 @@ class FirebaseService {
         GoogleSignInExceptionCode.userMismatch => 'errorGoogleUserMismatch'.tr(),
       };
 
-      logger.e('GoogleSignInException ${e.code}: ${e.description}');
+      log('GoogleSignInException ${e.code}: ${e.description}');
       return (user: null, error: error);
     } on FirebaseAuthException catch (e) {
       final error = switch (e.code) {
@@ -148,11 +146,11 @@ class FirebaseService {
         _ => e.code,
       };
 
-      logger.e(error);
+      log(error);
       return (user: null, error: error);
     } catch (e) {
       final error = 'Google sign-in error $e';
-      logger.e(error);
+      log(error);
       return (user: null, error: error);
     }
   }
@@ -192,7 +190,7 @@ class FirebaseService {
         AuthorizationErrorCode.matchedExcludedCredential => 'errorAppleMatchedExcludedCredential'.tr(),
       };
 
-      logger.e('AppleSignInException ${e.code}: ${e.message}');
+      log('AppleSignInException ${e.code}: ${e.message}');
       return (user: null, error: error);
     } on FirebaseAuthException catch (e) {
       final error = switch (e.code) {
@@ -204,11 +202,11 @@ class FirebaseService {
         _ => e.code,
       };
 
-      logger.e(error);
+      log(error);
       return (user: null, error: error);
     } catch (e) {
       final error = 'Apple sign-in error $e';
-      logger.e(error);
+      log(error);
       return (user: null, error: error);
     }
   }
@@ -235,11 +233,11 @@ class FirebaseService {
         _ => e.code,
       };
 
-      logger.e(error);
+      log(error);
       return (user: null, error: error);
     } catch (e) {
       final error = 'Register error $e';
-      logger.e(error);
+      log(error);
       return (user: null, error: error);
     }
   }
@@ -280,7 +278,7 @@ class FirebaseService {
           break;
 
         default:
-          logger.e('Unknown sign-in provider: $authProvider');
+          log('Unknown sign-in provider: $authProvider');
           return false;
       }
 
@@ -316,7 +314,7 @@ class FirebaseService {
       return true;
     } catch (e) {
       final error = 'FirebaseService -> deleteUser() -> $e';
-      logger.e(error);
+      log(error);
 
       return false;
     }
@@ -329,7 +327,7 @@ class FirebaseService {
     required String? password,
   }) async {
     if (email == null || password == null) {
-      logger.e('Email and password are required for email/password users');
+      log('Email and password are required for email/password users');
       return false;
     }
 
@@ -430,7 +428,7 @@ class FirebaseService {
 
       return docSnapshot.data()?['username'] ?? user.displayName;
     } catch (e) {
-      logger.e('FirebaseService -> getUsername() -> $e');
+      log('FirebaseService -> getUsername() -> $e');
       return null;
     }
   }
@@ -452,7 +450,7 @@ class FirebaseService {
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> writeUsername() -> $e');
+      log('FirebaseService -> writeUsername() -> $e');
       return false;
     }
   }
@@ -478,7 +476,7 @@ class FirebaseService {
 
       return snapshot.docs.map(Transaction.fromFirestore).toList();
     } catch (e) {
-      logger.e('FirebaseService -> getTransactions() -> $e');
+      log('FirebaseService -> getTransactions() -> $e');
       return null;
     }
   }
@@ -498,7 +496,7 @@ class FirebaseService {
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> writeTransaction() -> $e');
+      log('FirebaseService -> writeTransaction() -> $e');
       return false;
     }
   }
@@ -518,7 +516,7 @@ class FirebaseService {
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> updateTransaction() -> $e');
+      log('FirebaseService -> updateTransaction() -> $e');
       return false;
     }
   }
@@ -538,7 +536,7 @@ class FirebaseService {
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> deleteTransaction() -> $e');
+      log('FirebaseService -> deleteTransaction() -> $e');
       return false;
     }
   }
@@ -564,7 +562,7 @@ class FirebaseService {
 
       return snapshot.docs.map(Category.fromFirestore).toList();
     } catch (e) {
-      logger.e('FirebaseService -> getCategories() -> $e');
+      log('FirebaseService -> getCategories() -> $e');
       return null;
     }
   }
@@ -584,7 +582,7 @@ class FirebaseService {
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> writeCategory() -> $e');
+      log('FirebaseService -> writeCategory() -> $e');
       return false;
     }
   }
@@ -604,7 +602,7 @@ class FirebaseService {
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> updateCategory() -> $e');
+      log('FirebaseService -> updateCategory() -> $e');
       return false;
     }
   }
@@ -620,7 +618,7 @@ class FirebaseService {
     try {
       await FirebaseFirestore.instance.collection('users').doc(uid).collection('categories').doc(category.id).delete();
     } catch (e) {
-      logger.e('FirebaseService -> deleteCategory() -> $e');
+      log('FirebaseService -> deleteCategory() -> $e');
     }
   }
 
@@ -645,7 +643,7 @@ class FirebaseService {
 
       return snapshot.docs.map(Location.fromFirestore).toList();
     } catch (e) {
-      logger.e('FirebaseService -> getLocations() -> $e');
+      log('FirebaseService -> getLocations() -> $e');
       return null;
     }
   }
@@ -665,7 +663,7 @@ class FirebaseService {
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> writeLocation() -> $e');
+      log('FirebaseService -> writeLocation() -> $e');
       return false;
     }
   }
@@ -685,7 +683,7 @@ class FirebaseService {
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> updateLocation() -> $e');
+      log('FirebaseService -> updateLocation() -> $e');
       return false;
     }
   }
@@ -705,7 +703,7 @@ class FirebaseService {
 
       return true;
     } catch (e) {
-      logger.e('FirebaseService -> deleteLocation() -> $e');
+      log('FirebaseService -> deleteLocation() -> $e');
       return false;
     }
   }

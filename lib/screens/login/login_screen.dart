@@ -13,7 +13,6 @@ import '../../constants/icons.dart';
 import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
 import '../../util/color.dart';
@@ -72,7 +71,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     registerIfNotInitialized<LoginController>(
       () => LoginController(
-        logger: getIt.get<LoggerService>(),
         firebase: getIt.get<FirebaseService>(),
         hive: getIt.get<HiveService>(),
       ),

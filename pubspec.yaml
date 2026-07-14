@@ -51,9 +51,7 @@ dependencies:
   hive_ce: 2.19.3
   hive_ce_flutter: 2.3.4
   intl: 0.20.3
-  just_audio: 0.10.6
   latlong2: 0.10.1
-  logger: 2.7.0
   notification_listener_service: 1.0.0
   package_info_plus: 10.2.0
   scroll_datetime_picker: 0.2.2

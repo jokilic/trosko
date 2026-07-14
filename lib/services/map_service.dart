@@ -1,10 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:vector_map_tiles/vector_map_tiles.dart';
 import 'package:vector_tile_renderer/vector_tile_renderer.dart';
-
-import 'logger_service.dart';
 
 const openStreetMapVectorUri = 'https://tiles.openfreemap.org/styles/bright';
 const openStreetMapUri = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -14,11 +13,7 @@ class MapService extends ValueNotifier<Style?> {
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
-
-  MapService({
-    required this.logger,
-  }) : super(null);
+  MapService() : super(null);
 
   ///
   /// INIT
@@ -47,7 +42,7 @@ class MapService extends ValueNotifier<Style?> {
 
       value = style;
     } catch (e) {
-      logger.e('MapsService -> loadVectorMapsStyle() -> $e');
+      log('MapsService -> loadVectorMapsStyle() -> $e');
     }
   }
 }

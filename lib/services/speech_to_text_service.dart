@@ -1,21 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../constants/durations.dart';
 import '../screens/voice/voice_controller.dart';
 import '../util/dependencies.dart';
-import 'logger_service.dart';
 
 class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bool available, bool isListening})> {
   ///
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
-
-  SpeechToTextService({
-    required this.logger,
-  }) : super((speechToText: null, available: false, isListening: false));
+  SpeechToTextService() : super((speechToText: null, available: false, isListening: false));
 
   ///
   /// INIT
@@ -65,7 +62,7 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
             isListening: false,
           );
 
-          logger.e('SpeechToTextService -> onError() -> $error');
+          log('SpeechToTextService -> onError() -> $error');
         },
       );
 
@@ -74,7 +71,7 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
         available: available,
       );
     } catch (e) {
-      logger.e('SpeechToTextService -> loadSpeechToText() -> $e');
+      log('SpeechToTextService -> loadSpeechToText() -> $e');
     }
   }
 
@@ -84,7 +81,7 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
     required String locale,
   }) async {
     if (value.speechToText == null) {
-      logger.e('SpeechToTextService -> startListening() -> speechToText == null');
+      log('SpeechToTextService -> startListening() -> speechToText == null');
       return;
     }
 
@@ -105,14 +102,14 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
         isListening: true,
       );
     } catch (e) {
-      logger.e('SpeechToTextService -> startListening() -> $e');
+      log('SpeechToTextService -> startListening() -> $e');
     }
   }
 
   /// Manually stop the speech recognition session
   Future<void> stopListening() async {
     if (value.speechToText == null) {
-      logger.e('SpeechToTextService -> stopListening() -> speechToText == null');
+      log('SpeechToTextService -> stopListening() -> speechToText == null');
       return;
     }
 
@@ -123,7 +120,7 @@ class SpeechToTextService extends ValueNotifier<({SpeechToText? speechToText, bo
         isListening: false,
       );
     } catch (e) {
-      logger.e('SpeechToTextService -> stopListening() -> $e');
+      log('SpeechToTextService -> stopListening() -> $e');
     }
   }
 

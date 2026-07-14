@@ -11,7 +11,6 @@ import '../../models/location/location.dart';
 import '../../models/month/month.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../theme/extensions.dart';
 import '../../util/dependencies.dart';
 import '../../util/icons.dart';
@@ -51,7 +50,6 @@ class _StatsScreenState extends State<StatsScreen> {
 
     registerIfNotInitialized<StatsController>(
       () => StatsController(
-        logger: getIt.get<LoggerService>(),
         transactions: widget.transactions,
         categories: widget.categories,
         locations: widget.locations,

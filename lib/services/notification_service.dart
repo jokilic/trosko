@@ -11,18 +11,15 @@ import 'package:notification_listener_service/notification_listener_service.dart
 
 import '../util/notification_handler.dart';
 import 'hive_service.dart';
-import 'logger_service.dart';
 
 class NotificationService extends ValueNotifier<({bool notificationGranted, bool listenerGranted, bool useNotificationListener})> implements Disposable {
   ///
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final HiveService hive;
 
   NotificationService({
-    required this.logger,
     required this.hive,
   }) : super((
          notificationGranted: false,

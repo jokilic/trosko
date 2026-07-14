@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,7 +7,6 @@ import 'package:get_it/get_it.dart';
 
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../util/email.dart';
 
 class RegisterController extends ValueNotifier<({bool emailValid, bool passwordValid, bool isLoading})> implements Disposable {
@@ -13,12 +14,10 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final FirebaseService firebase;
   final HiveService hive;
 
   RegisterController({
-    required this.logger,
     required this.firebase,
     required this.hive,
   }) : super((
@@ -111,7 +110,7 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
       }
       /// Not successful register
       else {
-        logger.e('RegisterController -> registerPressed() -> user == null');
+        log('RegisterController -> registerPressed() -> user == null');
         updateState(
           isLoading: false,
         );
@@ -119,7 +118,7 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
 
       return registerResult;
     } catch (e) {
-      logger.e('RegisterController -> registerPressed() -> $e');
+      log('RegisterController -> registerPressed() -> $e');
       updateState(
         isLoading: false,
       );

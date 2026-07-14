@@ -11,7 +11,6 @@ import 'package:watch_it/watch_it.dart';
 import '../../constants/durations.dart';
 import '../../services/ai_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../services/speech_to_text_service.dart';
 import '../../theme/colors.dart';
 import '../../theme/extensions.dart';
@@ -46,7 +45,6 @@ class _VoiceScreenState extends State<VoiceScreen> {
 
     registerIfNotInitialized<VoiceController>(
       () => VoiceController(
-        logger: getIt.get<LoggerService>(),
         speechToText: getIt.get<SpeechToTextService>(),
         ai: getIt.get<AIService>(),
       ),

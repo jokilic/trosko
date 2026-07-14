@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,7 +7,6 @@ import 'package:get_it/get_it.dart';
 
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../util/email.dart';
 
 class LoginController extends ValueNotifier<({bool emailValid, bool passwordValid, bool isLoading})> implements Disposable {
@@ -13,12 +14,10 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final FirebaseService firebase;
   final HiveService hive;
 
   LoginController({
-    required this.logger,
     required this.firebase,
     required this.hive,
   }) : super((
@@ -97,7 +96,7 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
       }
       /// Not successful login
       else {
-        logger.e('LoginController -> loginPressed() -> user == null');
+        log('LoginController -> loginPressed() -> user == null');
         updateState(
           isLoading: false,
         );
@@ -105,7 +104,7 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
 
       return loginResult;
     } catch (e) {
-      logger.e('LoginController -> loginPressed() -> $e');
+      log('LoginController -> loginPressed() -> $e');
       updateState(
         isLoading: false,
       );

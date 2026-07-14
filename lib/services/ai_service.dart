@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/material.dart';
@@ -6,19 +7,16 @@ import 'package:uuid/uuid.dart';
 
 import '../models/transaction/ai_transaction.dart';
 import 'hive_service.dart';
-import 'logger_service.dart';
 
 class AIService extends ValueNotifier<({GenerativeModel? generativeModel, GenerativeModel? alternativeGenerativeModel, bool isGenerating})> {
   ///
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final HiveService hive;
   final FirebaseAI ai;
 
   AIService({
-    required this.logger,
     required this.hive,
     required this.ai,
   }) : super((generativeModel: null, alternativeGenerativeModel: null, isGenerating: false));
@@ -108,7 +106,7 @@ Example of your response:
         alternativeGenerativeModel: alternativeModel,
       );
     } catch (e) {
-      logger.e('AIService -> initializeGemini() -> $e');
+      log('AIService -> initializeGemini() -> $e');
     }
   }
 
@@ -166,7 +164,7 @@ Example of your response:
         return (aiResult: response.text, error: null);
       } catch (e) {
         final error = 'generativeModel -> ${e.toString().contains('quota') ? 'quota exceeded, try again later' : e.toString()}';
-        logger.e(error);
+        log(error);
         errors.add(error);
       }
     } else {
@@ -185,7 +183,7 @@ Example of your response:
         return (aiResult: response.text, error: null);
       } catch (e) {
         final error = 'alternativeGenerativeModel -> ${e.toString().contains('quota') ? 'quota exceeded, try again later' : e.toString()}';
-        logger.e(error);
+        log(error);
         errors.add(error);
       }
     } else {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -11,7 +12,6 @@ import 'package:uuid/uuid.dart';
 import '../../models/location/location.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../util/icons.dart';
 
 /// Class to distinguish `no argument passed` from `explicitly passed null`
@@ -40,14 +40,12 @@ class LocationController
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final HiveService hive;
   final FirebaseService firebase;
   final Location? passedLocation;
   final Geocoding geocoding;
 
   LocationController({
-    required this.logger,
     required this.hive,
     required this.firebase,
     required this.passedLocation,
@@ -204,7 +202,7 @@ class LocationController
         }
       }
     } catch (e) {
-      logger.e('LocationController -> onAddressSubmitted() -> $e');
+      log('LocationController -> onAddressSubmitted() -> $e');
     }
   }
 

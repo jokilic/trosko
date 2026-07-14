@@ -8,7 +8,6 @@ import '../../models/month/month.dart';
 import '../../models/transaction/transaction.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../util/date_time.dart';
 import '../../util/group_transactions.dart';
 
@@ -28,12 +27,10 @@ class HomeController
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final HiveService hive;
   final FirebaseService firebase;
 
   HomeController({
-    required this.logger,
     required this.hive,
     required this.firebase,
   }) : super((

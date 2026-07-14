@@ -8,7 +8,6 @@ import 'package:uuid/uuid.dart';
 import '../../models/category/category.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
 import '../../util/icons.dart';
 
 class CategoryController
@@ -27,13 +26,11 @@ class CategoryController
   /// CONSTRUCTOR
   ///
 
-  final LoggerService logger;
   final HiveService hive;
   final FirebaseService firebase;
   final Category? passedCategory;
 
   CategoryController({
-    required this.logger,
     required this.hive,
     required this.firebase,
     required this.passedCategory,

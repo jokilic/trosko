@@ -6,16 +6,9 @@ import 'package:flutter/material.dart';
 
 import '../util/dependencies.dart';
 import '../util/localization.dart';
-import 'logger_service.dart';
 import 'notification_service.dart';
 
 class BackgroundFetchService {
-  final LoggerService logger;
-
-  BackgroundFetchService({
-    required this.logger,
-  });
-
   ///
   /// VARIABLES
   ///
