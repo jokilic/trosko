@@ -1,3 +1,4 @@
 * Make app start faster
 * New theme
+* Update money icon
 * More sturdy notification listener

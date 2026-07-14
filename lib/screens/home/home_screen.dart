@@ -215,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             icon: PhosphorIcon(
               getPhosphorIcon(
-                categories.isNotEmpty ? PhosphorIcons.coins : PhosphorIcons.shapes,
+                categories.isNotEmpty ? PhosphorIcons.money : PhosphorIcons.shapes,
                 isDuotone: useColorfulIcons,
                 isBold: false,
               ),
@@ -687,7 +687,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     PhosphorIcon(
                       getPhosphorIcon(
-                        categories.isNotEmpty ? PhosphorIcons.coins : PhosphorIcons.shapes,
+                        categories.isNotEmpty ? PhosphorIcons.money : PhosphorIcons.shapes,
                         isDuotone: useColorfulIcons,
                         isBold: false,
                       ),
