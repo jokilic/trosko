@@ -247,7 +247,8 @@ class NotificationHandler extends TaskHandler {
     final now = DateTime.now();
 
     /// Generate notification `id`
-    final id = now.millisecondsSinceEpoch % 1000000000;
+    final sourceTimestamp = event.timestamp > 0 ? event.timestamp : now.millisecondsSinceEpoch;
+    final id = sourceTimestamp % 1000000000;
 
     /// Generate `title` for the notification
     final title = 'expenseNotificationTitle'.tr();
