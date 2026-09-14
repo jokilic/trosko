@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:latlong2/latlong.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:watch_it/watch_it.dart';
@@ -51,11 +50,6 @@ class _LocationScreenState extends State<LocationScreen> {
         hive: getIt.get<HiveService>(),
         firebase: getIt.get<FirebaseService>(),
         passedLocation: widget.passedLocation,
-        geocoding: geocoding.Geocoding(
-          locale: Locale(
-            context.locale.languageCode,
-          ),
-        ),
       ),
       instanceName: widget.passedLocation?.id,
       afterRegister: (controller) => WidgetsBinding.instance.addPostFrameCallback(
@@ -365,7 +359,10 @@ class _LocationScreenState extends State<LocationScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
-                    onSubmitted: locationController.onAddressSubmitted,
+                    onSubmitted: (address) => locationController.onAddressSubmitted(
+                      address,
+                      locale: context.locale,
+                    ),
                     controller: locationController.addressTextEditingController,
                     labelText: 'locationAddress'.tr(),
                     keyboardType: TextInputType.streetAddress,

@@ -43,13 +43,11 @@ class LocationController
   final HiveService hive;
   final FirebaseService firebase;
   final Location? passedLocation;
-  final Geocoding geocoding;
 
   LocationController({
     required this.hive,
     required this.firebase,
     required this.passedLocation,
-    required this.geocoding,
   }) : super((
          locationName: null,
          nameValid: false,
@@ -170,7 +168,10 @@ class LocationController
   );
 
   /// Triggered when the user submits the value in the `Address` [TextField]
-  Future<void> onAddressSubmitted(String address) async {
+  Future<void> onAddressSubmitted(
+    String address, {
+    required Locale locale,
+  }) async {
     final trimmedAddress = address.trim();
 
     /// Empty address, update `state` to empty
@@ -183,6 +184,11 @@ class LocationController
     }
 
     try {
+      /// Create `geocoding` instance with the current `locale`
+      final geocoding = Geocoding(
+        locale: locale,
+      );
+
       /// Search for location using `trimmedAddress`
       final locations = await geocoding.locationFromAddress(trimmedAddress);
 
