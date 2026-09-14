@@ -5,6 +5,12 @@ analyzer:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
     - "**/l10n/**"
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 
 formatter:
   page_width: 180
