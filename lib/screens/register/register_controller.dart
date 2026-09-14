@@ -34,6 +34,10 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
   late final passwordTextEditingController = TextEditingController();
   late final nameTextEditingController = TextEditingController();
 
+  final emailFocusNode = FocusNode();
+  final passwordFocusNode = FocusNode();
+  final nameFocusNode = FocusNode();
+
   ///
   /// INIT
   ///
@@ -59,6 +63,10 @@ class RegisterController extends ValueNotifier<({bool emailValid, bool passwordV
     emailTextEditingController.dispose();
     passwordTextEditingController.dispose();
     nameTextEditingController.dispose();
+
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    nameFocusNode.dispose();
   }
 
   ///

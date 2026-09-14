@@ -67,8 +67,6 @@ types:
         index: 0
       dark:
         index: 1
-      green:
-        index: 6
   Location:
     typeId: 5
     nextIndex: 9

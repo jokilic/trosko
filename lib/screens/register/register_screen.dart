@@ -156,6 +156,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: TroskoTextField(
                   autocorrect: false,
                   controller: registerController.emailTextEditingController,
+                  focusNode: registerController.emailFocusNode,
+                  onSubmitted: (_) => registerController.passwordFocusNode.requestFocus(),
                   labelText: 'email'.tr(),
                   autofillHints: const [AutofillHints.email],
                   keyboardType: TextInputType.emailAddress,
@@ -179,6 +181,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   autocorrect: false,
                   obscureText: true,
                   controller: registerController.passwordTextEditingController,
+                  focusNode: registerController.passwordFocusNode,
+                  onSubmitted: (_) => registerController.nameFocusNode.requestFocus(),
                   labelText: 'password'.tr(),
                   autofillHints: const [AutofillHints.password],
                   keyboardType: TextInputType.visiblePassword,
@@ -200,6 +204,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               sliver: SliverToBoxAdapter(
                 child: TroskoTextField(
                   controller: registerController.nameTextEditingController,
+                  focusNode: registerController.nameFocusNode,
                   labelText: 'name'.tr(),
                   autofillHints: const [AutofillHints.name],
                   keyboardType: TextInputType.name,
