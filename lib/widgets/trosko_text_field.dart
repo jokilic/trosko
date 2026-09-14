@@ -6,7 +6,7 @@ class TroskoTextField extends StatelessWidget {
   final bool autocorrect;
   final bool autofocus;
   final TextEditingController controller;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final String labelText;
   final TextInputType keyboardType;
   final int? minLines;
@@ -15,7 +15,7 @@ class TroskoTextField extends StatelessWidget {
   final TextCapitalization textCapitalization;
   final TextInputAction textInputAction;
   final bool obscureText;
-  final Function(String value) onSubmitted;
+  final Function(String value)? onSubmitted;
   final Iterable<String>? autofillHints;
 
   const TroskoTextField({
@@ -25,8 +25,8 @@ class TroskoTextField extends StatelessWidget {
     required this.textAlign,
     required this.textCapitalization,
     required this.textInputAction,
-    required this.focusNode,
-    required this.onSubmitted,
+    this.focusNode,
+    this.onSubmitted,
     this.autocorrect = true,
     this.autofocus = false,
     this.minLines = 1,

@@ -317,6 +317,8 @@ class _LocationScreenState extends State<LocationScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     controller: locationController.nameTextEditingController,
+                    focusNode: locationController.nameFocusNode,
+                    onSubmitted: (_) => locationController.noteFocusNode.requestFocus(),
                     labelText: 'locationTitle'.tr(),
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
@@ -333,6 +335,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     controller: locationController.noteTextEditingController,
+                    focusNode: locationController.noteFocusNode,
                     labelText: 'locationNote'.tr(),
                     keyboardType: TextInputType.multiline,
                     minLines: null,

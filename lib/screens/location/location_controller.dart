@@ -85,6 +85,9 @@ class LocationController
 
   late final mapController = MapController();
 
+  final nameFocusNode = FocusNode();
+  final noteFocusNode = FocusNode();
+
   ///
   /// INIT
   ///
@@ -138,6 +141,9 @@ class LocationController
     noteTextEditingController.dispose();
     iconTextEditingController.dispose();
     mapController.dispose();
+
+    nameFocusNode.dispose();
+    noteFocusNode.dispose();
   }
 
   ///
