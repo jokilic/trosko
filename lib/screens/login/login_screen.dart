@@ -156,6 +156,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: TroskoTextField(
                   autocorrect: false,
                   controller: loginController.emailTextEditingController,
+                  focusNode: loginController.emailFocusNode,
+                  onSubmitted: (_) => loginController.passwordFocusNode.requestFocus(),
                   labelText: 'email'.tr(),
                   autofillHints: const [AutofillHints.email],
                   keyboardType: TextInputType.emailAddress,
@@ -179,6 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   autocorrect: false,
                   obscureText: true,
                   controller: loginController.passwordTextEditingController,
+                  focusNode: loginController.passwordFocusNode,
                   labelText: 'password'.tr(),
                   onSubmitted: (_) {
                     if (!validated || isLoading) {

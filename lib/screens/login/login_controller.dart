@@ -33,6 +33,9 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
   late final emailTextEditingController = TextEditingController();
   late final passwordTextEditingController = TextEditingController();
 
+  final emailFocusNode = FocusNode();
+  final passwordFocusNode = FocusNode();
+
   ///
   /// INIT
   ///
@@ -57,6 +60,9 @@ class LoginController extends ValueNotifier<({bool emailValid, bool passwordVali
   void onDispose() {
     emailTextEditingController.dispose();
     passwordTextEditingController.dispose();
+
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
   }
 
   ///

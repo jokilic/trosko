@@ -33,6 +33,10 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
   late final emailTextEditingController = TextEditingController();
   late final passwordTextEditingController = TextEditingController();
 
+  final deleteWordFocusNode = FocusNode();
+  final emailFocusNode = FocusNode();
+  final passwordFocusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -49,6 +53,10 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
 
     emailTextEditingController.dispose();
     passwordTextEditingController.dispose();
+
+    deleteWordFocusNode.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
 
     super.dispose();
   }
@@ -118,6 +126,8 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TroskoTextField(
                 controller: emailTextEditingController,
+                focusNode: emailFocusNode,
+                onSubmitted: (_) => passwordFocusNode.requestFocus(),
                 labelText: 'email'.tr(),
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.left,
@@ -135,6 +145,8 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
               child: TroskoTextField(
                 obscureText: true,
                 controller: passwordTextEditingController,
+                focusNode: passwordFocusNode,
+                onSubmitted: (_) => passwordFocusNode.unfocus(),
                 labelText: 'password'.tr(),
                 keyboardType: TextInputType.visiblePassword,
                 textAlign: TextAlign.left,
@@ -177,6 +189,8 @@ class _SettingsDeleteAccountModalState extends State<SettingsDeleteAccountModal>
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TroskoTextField(
                 controller: deleteWordTextEditingController,
+                focusNode: deleteWordFocusNode,
+                onSubmitted: (_) => deleteWordFocusNode.unfocus(),
                 labelText: 'settingsDeleteAccountDeleteWordModalWord'.tr(),
                 keyboardType: TextInputType.text,
                 textAlign: TextAlign.left,
