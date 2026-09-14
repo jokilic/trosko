@@ -1,5 +1,6 @@
 import java.util.Properties
 import java.io.FileInputStream
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.application")
@@ -28,10 +29,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_21.toString()
-    }
-
     defaultConfig {
         applicationId = "com.josipkilic.trosko"
         minSdk = flutter.minSdkVersion
@@ -54,6 +51,13 @@ android {
         release {
             signingConfig = signingConfigs.getByName("release")
         }
+    }
+}
+
+kotlin {
+    // Keep Kotlin bytecode aligned with the Java compilation target
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_21)
     }
 }
 
