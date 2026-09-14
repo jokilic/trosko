@@ -85,6 +85,9 @@ class TransactionController
     text: passedTransaction?.note ?? passedAITransaction?.note,
   );
 
+  final nameFocusNode = FocusNode();
+  final noteFocusNode = FocusNode();
+
   late final categoryScrollController = ScrollController();
   late final locationScrollController = ScrollController();
 
@@ -151,6 +154,9 @@ class TransactionController
   void onDispose() {
     nameTextEditingController.dispose();
     noteTextEditingController.dispose();
+
+    nameFocusNode.dispose();
+    noteFocusNode.dispose();
 
     categoryScrollController.dispose();
     locationScrollController.dispose();

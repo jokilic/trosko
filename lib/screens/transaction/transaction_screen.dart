@@ -477,6 +477,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     controller: transactionController.nameTextEditingController,
+                    focusNode: transactionController.nameFocusNode,
+                    onSubmitted: (_) => transactionController.noteFocusNode.requestFocus(),
                     labelText: 'transactionTitle'.tr(),
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.left,
@@ -493,6 +495,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: TroskoTextField(
                     controller: transactionController.noteTextEditingController,
+                    focusNode: transactionController.noteFocusNode,
+                    onSubmitted: (_) => transactionController.noteFocusNode.unfocus(),
                     labelText: 'transactionNote'.tr(),
                     keyboardType: TextInputType.multiline,
                     minLines: null,
